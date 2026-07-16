@@ -64,6 +64,7 @@ export function MovieSearchInput({
   return (
     <div ref={containerRef} className="relative w-full">
       <form
+        className="flex flex-col gap-3"
         onSubmit={(event) => {
           event.preventDefault();
           handleSubmit();
@@ -122,6 +123,16 @@ export function MovieSearchInput({
             }
           }}
         />
+        <button
+          type="submit"
+          disabled={disabled || value.trim().length === 0}
+          className={cn(
+            "h-11 w-full border border-white/20 bg-white text-sm font-medium text-black transition-all duration-300",
+            "hover:bg-white/90 disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/10 disabled:text-white/30",
+          )}
+        >
+          Проверить ответ
+        </button>
       </form>
 
       {showDropdown && suggestions.length > 0 && (

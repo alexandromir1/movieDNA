@@ -1,0 +1,166 @@
+{
+  "id": "level-joker",
+  "movieId": "movie-joker",
+  "difficulty": "medium",
+  "image": "/images/joker.jpeg",
+  "width": 1264,
+  "height": 842,
+  "acceptedAnswers": [
+    "Джокер",
+    "Joker"
+  ],
+  "revealRegions": [
+    {
+      "id": "gun",
+      "name": "gun",
+      "polygon": [
+        [
+          949,
+          524
+        ],
+        [
+          729,
+          618
+        ],
+        [
+          771,
+          672
+        ],
+        [
+          603,
+          709
+        ],
+        [
+          607,
+          760
+        ],
+        [
+          724,
+          753
+        ],
+        [
+          776,
+          742
+        ],
+        [
+          816,
+          767
+        ],
+        [
+          864,
+          763
+        ],
+        [
+          985,
+          787
+        ],
+        [
+          1212,
+          708
+        ],
+        [
+          1203,
+          542
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "mirror",
+      "name": "mirror",
+      "polygon": [
+        [
+          983,
+          52
+        ],
+        [
+          996,
+          427
+        ],
+        [
+          1241,
+          429
+        ],
+        [
+          1230,
+          20
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "tv",
+      "name": "tv",
+      "polygon": [
+        [
+          553,
+          293
+        ],
+        [
+          549,
+          582
+        ],
+        [
+          850,
+          569
+        ],
+        [
+          951,
+          529
+        ],
+        [
+          992,
+          531
+        ],
+        [
+          992,
+          266
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "clothes",
+      "name": "clothes",
+      "polygon": [
+        [
+          268,
+          180
+        ],
+        [
+          438,
+          191
+        ],
+        [
+          452,
+          607
+        ],
+        [
+          194,
+          596
+        ],
+        [
+          196,
+          238
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

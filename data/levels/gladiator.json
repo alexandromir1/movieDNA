@@ -1,0 +1,178 @@
+{
+  "id": "level-gladiator",
+  "movieId": "movie-gladiator",
+  "difficulty": "medium",
+  "image": "/images/gladiator.jpeg",
+  "width": 1264,
+  "height": 842,
+  "acceptedAnswers": [
+    "Гладиатор",
+    "Gladiator"
+  ],
+  "revealRegions": [
+    {
+      "id": "earth",
+      "name": "earth",
+      "polygon": [
+        [
+          799,
+          558
+        ],
+        [
+          1028,
+          585
+        ],
+        [
+          1046,
+          785
+        ],
+        [
+          594,
+          799
+        ],
+        [
+          601,
+          637
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "eagle",
+      "name": "eagle",
+      "polygon": [
+        [
+          736,
+          36
+        ],
+        [
+          962,
+          47
+        ],
+        [
+          953,
+          214
+        ],
+        [
+          738,
+          200
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "wood-figure",
+      "name": "wood figure",
+      "polygon": [
+        [
+          466,
+          391
+        ],
+        [
+          447,
+          430
+        ],
+        [
+          430,
+          448
+        ],
+        [
+          436,
+          549
+        ],
+        [
+          425,
+          663
+        ],
+        [
+          474,
+          675
+        ],
+        [
+          506,
+          668
+        ],
+        [
+          564,
+          657
+        ],
+        [
+          565,
+          535
+        ],
+        [
+          553,
+          517
+        ],
+        [
+          547,
+          488
+        ],
+        [
+          528,
+          484
+        ],
+        [
+          517,
+          499
+        ],
+        [
+          520,
+          517
+        ],
+        [
+          511,
+          513
+        ],
+        [
+          490,
+          445
+        ],
+        [
+          484,
+          403
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "coliseum",
+      "name": "coliseum",
+      "polygon": [
+        [
+          967,
+          9
+        ],
+        [
+          963,
+          220
+        ],
+        [
+          1260,
+          247
+        ],
+        [
+          1259,
+          14
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

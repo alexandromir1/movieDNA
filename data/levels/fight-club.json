@@ -1,0 +1,222 @@
+{
+  "id": "level-fight-club",
+  "movieId": "movie-fight-club",
+  "difficulty": "medium",
+  "image": "/images/fight-club.jpeg",
+  "width": 1408,
+  "height": 768,
+  "acceptedAnswers": [
+    "Бойцовский клуб",
+    "Fight Club"
+  ],
+  "revealRegions": [
+    {
+      "id": "catalogue",
+      "name": "catalogue",
+      "polygon": [
+        [
+          84,
+          297
+        ],
+        [
+          241,
+          293
+        ],
+        [
+          291,
+          301
+        ],
+        [
+          473,
+          311
+        ],
+        [
+          495,
+          473
+        ],
+        [
+          459,
+          483
+        ],
+        [
+          359,
+          568
+        ],
+        [
+          297,
+          574
+        ],
+        [
+          225,
+          568
+        ],
+        [
+          60,
+          570
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "jacket",
+      "name": "jacket",
+      "polygon": [
+        [
+          682,
+          291
+        ],
+        [
+          654,
+          397
+        ],
+        [
+          670,
+          495
+        ],
+        [
+          700,
+          487
+        ],
+        [
+          694,
+          469
+        ],
+        [
+          736,
+          475
+        ],
+        [
+          810,
+          467
+        ],
+        [
+          806,
+          483
+        ],
+        [
+          836,
+          493
+        ],
+        [
+          850,
+          413
+        ],
+        [
+          828,
+          291
+        ],
+        [
+          774,
+          259
+        ],
+        [
+          758,
+          245
+        ],
+        [
+          728,
+          267
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "office",
+      "name": "office",
+      "polygon": [
+        [
+          1067,
+          425
+        ],
+        [
+          1143,
+          405
+        ],
+        [
+          1225,
+          423
+        ],
+        [
+          1270,
+          437
+        ],
+        [
+          1276,
+          594
+        ],
+        [
+          1376,
+          610
+        ],
+        [
+          1386,
+          698
+        ],
+        [
+          1352,
+          736
+        ],
+        [
+          1227,
+          720
+        ],
+        [
+          1051,
+          680
+        ],
+        [
+          973,
+          658
+        ],
+        [
+          987,
+          538
+        ],
+        [
+          1049,
+          538
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "house",
+      "name": "house",
+      "polygon": [
+        [
+          634,
+          265
+        ],
+        [
+          636,
+          437
+        ],
+        [
+          501,
+          443
+        ],
+        [
+          495,
+          249
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

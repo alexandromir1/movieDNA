@@ -1,18 +1,14 @@
-import { normalizeTitle } from "@/lib/game/title-match";
-
 /**
- * Точное совпадение с полным официальным названием (после нормализации).
- * Сокращения и опечатки не принимаются.
+ * @deprecated Проверка ответа перенесена в Engine (src/engine/guess).
+ * Временный shim обратной совместимости; будет удалён на этапе очистки.
+ * Новый код должен использовать ChallengeSession.submitGuess() или GuessValidator.
  */
+
+import { GuessValidator } from "@/engine/guess";
+
 export function isAcceptedAnswer(
   guess: string,
   acceptedAnswers: string[],
 ): boolean {
-  const normalizedGuess = normalizeTitle(guess);
-  if (!normalizedGuess) return false;
-
-  return acceptedAnswers.some((answer) => {
-    const normalizedAnswer = normalizeTitle(answer);
-    return Boolean(normalizedAnswer) && normalizedGuess === normalizedAnswer;
-  });
+  return new GuessValidator(acceptedAnswers).validate(guess).success;
 }

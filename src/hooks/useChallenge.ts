@@ -1,25 +1,24 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { REVEAL_REGION_COUNT } from "@/config/economy";
+import { ChallengeSession, calculateMovieScore } from "@/engine";
 import { getUtcDateString } from "@/lib/game/daily";
-import { isAcceptedAnswer } from "@/lib/game/answer-match";
 import { recordChallengeResult } from "@/lib/game/player-stats";
-import { calculateMovieScore } from "@/lib/game/score";
 import {
-  createInitialSession,
+  hasCompletedChallengeBefore,
   loadGameSession,
   saveGameSession,
 } from "@/lib/game/session-storage";
-import { countWrongGuesses, getElapsedSeconds } from "@/lib/game/share-result";
+import { countWrongGuesses } from "@/lib/game/share-result";
 
 import type {
-  GameSession,
-  Level,
-  Movie,
+  ChallengeSessionSnapshot,
+  ChallengeState,
   MovieScoreBreakdown,
-} from "@/types/content";
+} from "@/engine";
+import type { GameGuess, GameSession, Level, Movie } from "@/types/content";
 
 interface ChallengeBundle {
   challenge: { id: string; date: string };
@@ -28,7 +27,7 @@ interface ChallengeBundle {
 }
 
 interface UseChallengeReturn {
-  session: GameSession;
+  session: ChallengeSessionSnapshot;
   potentialScore: number;
   scoreBreakdown: MovieScoreBreakdown | null;
   /** Сколько area-регионов + full показывать в маске */
@@ -42,37 +41,113 @@ interface UseChallengeReturn {
   startChallenge: () => void;
 }
 
-function ensureStarted(session: GameSession): GameSession {
-  if (session.state !== "NOT_STARTED") return session;
-
-  return {
-    ...session,
-    state: "IN_PROGRESS",
-    startedAt: session.startedAt ?? new Date().toISOString(),
-  };
+function toRevealDefinitions(level: Level) {
+  return level.revealRegions.map((region) => ({
+    id: region.id,
+    displayOrder: region.displayOrder,
+    kind: region.kind,
+  }));
 }
 
-function isTerminal(state: GameSession["state"]): boolean {
-  return state === "COMPLETED" || state === "LOST";
+function mapLegacyState(state: GameSession["state"]): ChallengeState {
+  if (state === "COMPLETED" || state === "LOST") return state;
+  if (state === "NOT_STARTED") return "NOT_STARTED";
+  return "WAITING_FOR_GUESS";
+}
+
+function mapEngineState(state: ChallengeState): GameSession["state"] {
+  if (state === "COMPLETED" || state === "LOST") return state;
+  if (state === "NOT_STARTED") return "NOT_STARTED";
+  return "IN_PROGRESS";
+}
+
+function getElapsedSeconds(
+  snapshot: ChallengeSessionSnapshot,
+  now = Date.now(),
+): number {
+  if (!snapshot.startedAt) return 0;
+  const end = snapshot.completedAt
+    ? new Date(snapshot.completedAt).getTime()
+    : now;
+  return Math.max(
+    0,
+    Math.floor((end - new Date(snapshot.startedAt).getTime()) / 1000),
+  );
 }
 
 export function useChallenge(bundle: ChallengeBundle): UseChallengeReturn {
   const { challenge, level, movie } = bundle;
   const playDate = getUtcDateString();
 
-  const [session, setSession] = useState<GameSession>(() => {
+  const engineRef = useRef<ChallengeSession | null>(null);
+  const initialGuessesRef = useRef<GameGuess[] | null>(null);
+
+  if (!engineRef.current) {
     const saved = loadGameSession(challenge.id);
-    if (saved) return saved;
-    return createInitialSession(challenge.id, playDate);
-  });
+
+    engineRef.current = new ChallengeSession({
+      challengeId: challenge.id,
+      isFirstPlay: saved
+        ? (saved.isFirstPlay ?? true)
+        : !hasCompletedChallengeBefore(challenge.id),
+      regions: toRevealDefinitions(level),
+      acceptedAnswers: [
+        ...level.acceptedAnswers,
+        movie.title,
+        movie.titleOriginal ?? "",
+      ].filter(Boolean),
+      initialState: saved
+        ? {
+            state: mapLegacyState(saved.state),
+            openedRegionCount: saved.openedRegionCount,
+            attemptCount: saved.guesses.length,
+            startedAt: saved.startedAt,
+            completedAt: saved.completedAt,
+            movieScore: saved.movieScore,
+          }
+        : undefined,
+    });
+    initialGuessesRef.current = saved?.guesses ?? [];
+  }
+
+  const [session, setSession] = useState<ChallengeSessionSnapshot>(() =>
+    engineRef.current!.getState(),
+  );
+  // Guess ещё не мигрирован: React временно хранит только историю попыток.
+  const [guesses, setGuesses] = useState<GameGuess[]>(
+    () => initialGuessesRef.current ?? [],
+  );
+
+  function getEngine(): ChallengeSession {
+    return engineRef.current!;
+  }
+
+  /** Публикует новый read-only Snapshot Engine для React render. */
+  function publishSnapshot(): ChallengeSessionSnapshot {
+    const next = getEngine().getState();
+    setSession(next);
+    return next;
+  }
 
   useEffect(() => {
-    saveGameSession(session);
-  }, [session]);
+    // Временный legacy Storage shim. Он не является Source of Truth:
+    // сохраняется проекция Engine Snapshot + ещё не мигрированные guesses.
+    saveGameSession({
+      challengeId: session.challengeId,
+      date: playDate,
+      state: mapEngineState(session.state),
+      openedRegionCount: session.openedRegionCount,
+      guesses,
+      startedAt: session.startedAt,
+      completedAt: session.completedAt,
+      movieScore: session.movieScore,
+      isFirstPlay: session.isFirstPlay,
+    });
+  }, [guesses, playDate, session]);
 
-  const wrongGuessCount = countWrongGuesses(session.guesses);
+  const wrongGuessCount = countWrongGuesses(guesses);
   const elapsedSeconds = getElapsedSeconds(session);
-  const isFinished = isTerminal(session.state);
+  const isFinished = session.isFinished;
 
   const potentialScore = calculateMovieScore({
     openedRegionCount: session.openedRegionCount,
@@ -95,155 +170,104 @@ export function useChallenge(bundle: ChallengeBundle): UseChallengeReturn {
     ? REVEAL_REGION_COUNT
     : session.openedRegionCount;
 
-  const openNextReveal = useCallback(() => {
-    setSession((prev) => {
-      if (isTerminal(prev.state)) return prev;
-      if (prev.openedRegionCount >= REVEAL_REGION_COUNT) return prev;
+  function openNextReveal(): void {
+    const engine = getEngine();
+    if (engine.getState().isFinished) return;
+    if (engine.getState().state === "NOT_STARTED") engine.start();
+    engine.openNextReveal();
+    publishSnapshot();
+  }
 
-      const next = ensureStarted(prev);
-      return {
-        ...next,
-        openedRegionCount: next.openedRegionCount + 1,
-      };
-    });
-  }, []);
+  function startChallenge(): void {
+    const engine = getEngine();
+    if (engine.getState().state !== "NOT_STARTED") return;
 
-  const startChallenge = useCallback(() => {
-    setSession((prev) => {
-      if (prev.state !== "NOT_STARTED") return prev;
-      return {
-        ...ensureStarted(prev),
-        openedRegionCount: 1,
-      };
-    });
-  }, []);
+    engine.start();
+    // Как и раньше: старт сразу открывает первую Reveal Region.
+    engine.openNextReveal();
+    publishSnapshot();
+  }
 
-  const submitGuess = useCallback(
-    (guess: string) => {
-      const trimmed = guess.trim();
-      let isCorrect = false;
-      let isLost = false;
+  function submitGuess(guess: string): {
+    isCorrect: boolean;
+    isLost: boolean;
+  } {
+    const engine = getEngine();
+    const trimmed = guess.trim();
 
-      setSession((prev) => {
-        if (isTerminal(prev.state)) return prev;
+    if (engine.getState().isFinished) {
+      return { isCorrect: false, isLost: engine.getState().state === "LOST" };
+    }
 
-        let next = ensureStarted(prev);
+    if (engine.getState().state === "NOT_STARTED") engine.start();
 
-        // Пустой ввод = открыть следующую подсказку (не засчитывается как последняя попытка)
-        if (!trimmed) {
-          if (next.openedRegionCount >= REVEAL_REGION_COUNT) return next;
-          return {
-            ...next,
-            openedRegionCount: next.openedRegionCount + 1,
-          };
-        }
+    // Пустой ввод = открыть следующую подсказку, но не попытка.
+    if (!trimmed) {
+      engine.openNextReveal();
+      publishSnapshot();
+      return { isCorrect: false, isLost: false };
+    }
 
-        // Только полные официальные названия (RU / EN). Сокращения не принимаются.
-        const answers = [
-          ...level.acceptedAnswers,
-          movie.title,
-          movie.titleOriginal ?? "",
-        ].filter(Boolean);
+    // Проверка ответа — только через Engine (GuessValidator внутри сессии).
+    const { success: isCorrect } = engine.submitGuess(trimmed);
+    const guessRecord: GameGuess = {
+      value: trimmed,
+      isCorrect,
+      createdAt: new Date().toISOString(),
+    };
+    const nextGuesses = [...guesses, guessRecord];
+    const wrongs = countWrongGuesses(nextGuesses);
 
-        isCorrect = isAcceptedAnswer(trimmed, answers);
+    setGuesses(nextGuesses);
 
-        const guessRecord = {
-          value: trimmed,
-          isCorrect,
-          createdAt: new Date().toISOString(),
-        };
-
-        if (isCorrect) {
-          const completedAt = new Date().toISOString();
-          const openedForScore = next.openedRegionCount;
-          const wrongs = countWrongGuesses([...next.guesses, guessRecord]);
-          const elapsed = Math.max(
-            0,
-            Math.floor(
-              (new Date(completedAt).getTime() -
-                new Date(next.startedAt ?? completedAt).getTime()) /
-                1000,
-            ),
-          );
-
-          const breakdown = calculateMovieScore({
-            openedRegionCount: openedForScore,
-            wrongGuessCount: wrongs,
-            elapsedSeconds: elapsed,
-            isFirstPlay: next.isFirstPlay,
-          });
-
-          recordChallengeResult({
-            challengeId: challenge.id,
-            date: playDate,
-            won: true,
-            movieScore: breakdown.total,
-            openedRegionCount: openedForScore,
-            wrongGuessCount: wrongs,
-            elapsedSeconds: elapsed,
-          });
-
-          return {
-            ...next,
-            state: "COMPLETED",
-            guesses: [...next.guesses, guessRecord],
-            completedAt,
-            movieScore: breakdown.total,
-            openedRegionCount: openedForScore,
-          };
-        }
-
-        // Уже открыто полное изображение — это была последняя попытка
-        if (next.openedRegionCount >= REVEAL_REGION_COUNT) {
-          isLost = true;
-          const completedAt = new Date().toISOString();
-          const wrongs = countWrongGuesses([...next.guesses, guessRecord]);
-          const elapsed = Math.max(
-            0,
-            Math.floor(
-              (new Date(completedAt).getTime() -
-                new Date(next.startedAt ?? completedAt).getTime()) /
-                1000,
-            ),
-          );
-
-          recordChallengeResult({
-            challengeId: challenge.id,
-            date: playDate,
-            won: false,
-            movieScore: 0,
-            openedRegionCount: next.openedRegionCount,
-            wrongGuessCount: wrongs,
-            elapsedSeconds: elapsed,
-          });
-
-          return {
-            ...next,
-            state: "LOST",
-            guesses: [...next.guesses, guessRecord],
-            completedAt,
-            movieScore: 0,
-          };
-        }
-
-        // Неверно → открыть следующую область (5-я = полное изображение)
-        return {
-          ...next,
-          guesses: [...next.guesses, guessRecord],
-          openedRegionCount: next.openedRegionCount + 1,
-        };
+    if (isCorrect) {
+      const current = engine.getState();
+      const elapsed = getElapsedSeconds(current);
+      const breakdown = calculateMovieScore({
+        openedRegionCount: current.openedRegionCount,
+        wrongGuessCount: wrongs,
+        elapsedSeconds: elapsed,
+        isFirstPlay: current.isFirstPlay,
       });
 
-      return { isCorrect, isLost };
-    },
-    [
-      challenge.id,
-      level.acceptedAnswers,
-      movie.title,
-      movie.titleOriginal,
-      playDate,
-    ],
-  );
+      engine.complete(breakdown.total);
+      const completed = publishSnapshot();
+
+      recordChallengeResult({
+        challengeId: challenge.id,
+        date: playDate,
+        won: true,
+        movieScore: breakdown.total,
+        openedRegionCount: completed.openedRegionCount,
+        wrongGuessCount: wrongs,
+        elapsedSeconds: getElapsedSeconds(completed),
+      });
+
+      return { isCorrect: true, isLost: false };
+    }
+
+    if (engine.isRevealComplete()) {
+      engine.lose();
+      const lost = publishSnapshot();
+
+      recordChallengeResult({
+        challengeId: challenge.id,
+        date: playDate,
+        won: false,
+        movieScore: 0,
+        openedRegionCount: lost.openedRegionCount,
+        wrongGuessCount: wrongs,
+        elapsedSeconds: getElapsedSeconds(lost),
+      });
+
+      return { isCorrect: false, isLost: true };
+    }
+
+    // Неверно → следующая область.
+    engine.openNextReveal();
+    publishSnapshot();
+    return { isCorrect: false, isLost: false };
+  }
 
   return {
     session,

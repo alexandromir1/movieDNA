@@ -1,0 +1,166 @@
+{
+  "id": "level-green-mile",
+  "movieId": "movie-green-mile",
+  "difficulty": "medium",
+  "image": "/images/green-mile.png",
+  "width": 1264,
+  "height": 842,
+  "acceptedAnswers": [
+    "Зелёная миля",
+    "The Green Mile"
+  ],
+  "revealRegions": [
+    {
+      "id": "coffe",
+      "name": "coffe",
+      "polygon": [
+        [
+          369,
+          630
+        ],
+        [
+          609,
+          664
+        ],
+        [
+          610,
+          803
+        ],
+        [
+          387,
+          823
+        ],
+        [
+          149,
+          781
+        ],
+        [
+          148,
+          686
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "sponge",
+      "name": "sponge",
+      "polygon": [
+        [
+          857,
+          571
+        ],
+        [
+          785,
+          556
+        ],
+        [
+          763,
+          558
+        ],
+        [
+          695,
+          587
+        ],
+        [
+          702,
+          632
+        ],
+        [
+          717,
+          652
+        ],
+        [
+          826,
+          668
+        ],
+        [
+          875,
+          652
+        ],
+        [
+          882,
+          609
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "mosue",
+      "name": "mosue",
+      "polygon": [
+        [
+          106,
+          520
+        ],
+        [
+          108,
+          601
+        ],
+        [
+          317,
+          605
+        ],
+        [
+          333,
+          520
+        ],
+        [
+          248,
+          474
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "chair",
+      "name": "chair",
+      "polygon": [
+        [
+          951,
+          103
+        ],
+        [
+          1187,
+          34
+        ],
+        [
+          1179,
+          612
+        ],
+        [
+          1055,
+          659
+        ],
+        [
+          812,
+          589
+        ],
+        [
+          792,
+          322
+        ],
+        [
+          929,
+          321
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

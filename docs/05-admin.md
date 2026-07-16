@@ -39,33 +39,37 @@ MovieDNA является контентно-ориентированным пр
 
 # Challenge Lifecycle
 
-Каждый Challenge проходит одинаковый жизненный цикл.
+Каждый Challenge проходит ручной жизненный цикл подготовки.
 
 ```text
-Draft
+draft
 ↓
 
-Editing
+ready
 ↓
 
-Testing
-↓
-
-Ready
-↓
-
-Scheduled
-↓
-
-Published
-↓
-
-Archived
+scheduled
 ```
 
-Других состояний не существует.
+Ручные статусы:
 
-Это позволяет поддерживать единый рабочий процесс.
+| Status | Значение |
+|--------|----------|
+| draft | Черновик, в работе |
+| ready | Полностью готов, ещё не в расписании |
+| scheduled | Запланирован; дата публикации задана |
+
+Поле `date` = publishAt (UTC YYYY-MM-DD).
+
+Вычисляемые состояния (не хранятся в JSON):
+
+| Bucket | Правило |
+|--------|---------|
+| Upcoming | scheduled + date > today |
+| Today's Challenge | scheduled + date == today |
+| Archive | scheduled + date < today |
+
+Дата публикации — единственный источник правды для показа Daily Challenge и архива.
 
 ---
 

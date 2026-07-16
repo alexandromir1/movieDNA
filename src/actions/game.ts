@@ -1,6 +1,7 @@
 "use server";
 
 import {
+  getArchiveChallenges,
   getChallengeBundleByDate,
   getTodayChallengeBundle,
 } from "@/lib/content/catalog";
@@ -13,10 +14,12 @@ export async function getPuzzleByDate(date: string) {
   return getChallengeBundleByDate(date);
 }
 
+/** Список архива для игрока — без названий фильмов (анти-спойлер). */
 export async function getArchiveList(): Promise<
-  Array<{ date: string; status: string }>
+  Array<{ date: string; challengeId: string }>
 > {
-  const today = getTodayChallengeBundle();
-  if (!today) return [];
-  return [{ date: today.challenge.date, status: "unplayed" }];
+  return getArchiveChallenges().map((challenge) => ({
+    date: challenge.date,
+    challengeId: challenge.id,
+  }));
 }

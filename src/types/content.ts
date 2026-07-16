@@ -29,12 +29,18 @@ export interface Level {
   acceptedAnswers: string[];
 }
 
-export type ChallengeStatus = "draft" | "testing" | "ready" | "scheduled" | "published" | "archived";
+export type ChallengeStatus = "draft" | "ready" | "scheduled";
+
+/**
+ * Вычисляемое состояние расписания.
+ * Не хранится в JSON — только status + date (publishAt).
+ */
+export type ChallengeScheduleBucket = "upcoming" | "today" | "archive";
 
 export interface Challenge {
   id: string;
   levelId: string;
-  /** UTC date YYYY-MM-DD */
+  /** UTC date YYYY-MM-DD — дата публикации (publishAt) */
   date: string;
   status: ChallengeStatus;
 }
@@ -65,13 +71,8 @@ export interface GameSession {
   isFirstPlay: boolean;
 }
 
-export interface MovieScoreBreakdown {
-  revealScore: number;
-  timeBonus: number;
-  guessBonus: number;
-  firstPlayBonus: number;
-  total: number;
-  openedRegionCount: number;
-  wrongGuessCount: number;
-  elapsedSeconds: number;
-}
+/**
+ * Score-тип теперь принадлежит Engine (src/engine/score).
+ * Реэкспортируется здесь для обратной совместимости существующих импортов.
+ */
+export type { MovieScoreBreakdown } from "@/engine/score";

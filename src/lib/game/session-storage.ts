@@ -53,7 +53,7 @@ export function hasCompletedChallengeBefore(challengeId: string): boolean {
     const raw = localStorage.getItem(sessionKey(challengeId));
     if (!raw) return false;
     const session = JSON.parse(raw) as GameSession;
-    return session.state === "COMPLETED" && session.movieScore !== null;
+    return session.state === "COMPLETED" || session.state === "LOST";
   } catch {
     return false;
   }
