@@ -36,7 +36,7 @@ export default function RootLayout({
       lang="ru"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-[#111] font-sans text-white">
+      <body className="flex min-h-full flex-col bg-[#0e0e10] font-sans text-white">
         <PersistenceGuard>
           <Header />
           <main className="flex-1">{children}</main>

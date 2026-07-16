@@ -27,8 +27,8 @@ interface ArchiveSidebarProps {
 const STATUS_MARK: Record<ChallengePlayStatus, string> = {
   won: "✓",
   lost: "✕",
-  available: "•",
-  in_progress: "◦",
+  available: "○",
+  in_progress: "◐",
 };
 
 function hrefForItem(item: ChallengeNavItem): string {
@@ -62,8 +62,8 @@ export function ArchiveSidebar({ items, activeDate }: ArchiveSidebarProps) {
 
   if (items.length === 0) {
     return (
-      <aside className="w-full shrink-0 lg:w-32">
-        <p className="text-[10px] uppercase tracking-[0.2em] text-white/30">
+      <aside className="w-full shrink-0 lg:w-36">
+        <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-white/30">
           Архив
         </p>
         <p className="mt-3 text-xs text-white/30">Пока пусто</p>
@@ -72,11 +72,11 @@ export function ArchiveSidebar({ items, activeDate }: ArchiveSidebarProps) {
   }
 
   return (
-    <aside className="w-full shrink-0 lg:w-32">
-      <p className="mb-2 text-[10px] uppercase tracking-[0.2em] text-white/30">
+    <aside className="w-full shrink-0 lg:w-36">
+      <p className="mb-2.5 text-[10px] font-medium uppercase tracking-[0.2em] text-white/30">
         Challenge
       </p>
-      <ul className="flex gap-1.5 overflow-x-auto pb-1 lg:flex-col lg:gap-0 lg:overflow-visible lg:pb-0">
+      <ul className="flex gap-1.5 overflow-x-auto pb-1 lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0">
         {items.map((item) => {
           const status = statuses[item.challengeId] ?? "available";
           const finished = status === "won" || status === "lost";
@@ -88,10 +88,10 @@ export function ArchiveSidebar({ items, activeDate }: ArchiveSidebarProps) {
           const mark = STATUS_MARK[status];
 
           const className = cn(
-            "flex min-w-[6.25rem] items-center justify-between gap-2 border px-2 py-1.5 text-left text-xs transition-colors lg:min-w-0 lg:border-0 lg:border-l-2 lg:px-2 lg:py-1.5",
+            "flex min-w-[6.25rem] items-center justify-between gap-2 rounded-[10px] border px-2.5 py-1.5 text-left text-xs transition-all duration-200 lg:min-w-0",
             isActive
-              ? "border-white/30 bg-white/10 text-white lg:border-l-white"
-              : "border-white/10 text-white/55 hover:border-white/20 hover:bg-white/5 hover:text-white/80 lg:border-l-transparent",
+              ? "border-[var(--accent)]/35 bg-[var(--accent)]/[0.08] text-white"
+              : "border-transparent text-white/55 hover:border-white/[0.1] hover:bg-white/[0.04] hover:text-white/80",
             finished && !isActive && "opacity-45",
           );
 

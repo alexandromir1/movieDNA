@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ProgressiveRevealImage } from "@/components/ProgressiveRevealImage";
 import { MovieSearchInput } from "@/components/game/MovieSearchInput";
 import { Button } from "@/components/ui/Button";
-import { REVEAL_REGION_COUNT } from "@/config/economy";
+import { REVEAL_REGION_COUNT, MAX_MOVIE_SCORE } from "@/config/economy";
 import { FEEDBACK_MESSAGE_MS, WRONG_GUESS_FEEDBACK_MS } from "@/config/game";
 import { useChallenge } from "@/hooks/useChallenge";
 import { GAME_ROUTES } from "@/lib/game/constants";
@@ -38,6 +38,104 @@ function triggerWrongGuessVibration() {
   }
 }
 
+/** Детерминированные конфетти: без Math.random в render */
+const CONFETTI_PIECES = Array.from({ length: 32 }, (_, index) => ({
+  left: (index * 37 + 11) % 100,
+  delay: ((index * 13) % 10) / 10,
+  duration: 2.2 + ((index * 7) % 12) / 10,
+  color:
+    index % 4 === 0
+      ? "#F4C53F"
+      : index % 4 === 1
+        ? "#ffffff"
+        : index % 4 === 2
+          ? "#6ee7b7"
+          : "#f4c53f99",
+  rotate: (index * 53) % 360,
+}));
+
+function ConfettiOverlay() {
+  return (
+    <div
+      className="pointer-events-none absolute inset-x-0 top-0 z-10 h-full overflow-hidden"
+      aria-hidden="true"
+    >
+      {CONFETTI_PIECES.map((piece, index) => (
+        <span
+          key={index}
+          className="confetti-piece"
+          style={
+            {
+              left: `${piece.left}%`,
+              backgroundColor: piece.color,
+              transform: `rotate(${piece.rotate}deg)`,
+              "--confetti-delay": `${piece.delay}s`,
+              "--confetti-duration": `${piece.duration}s`,
+            } as React.CSSProperties
+          }
+        />
+      ))}
+    </div>
+  );
+}
+
+function TrophyIcon() {
+  return (
+    <svg
+      width="64"
+      height="64"
+      viewBox="0 0 64 64"
+      fill="none"
+      aria-hidden="true"
+      className="result-icon-pop mx-auto"
+    >
+      <circle cx="32" cy="32" r="32" fill="#F4C53F" fillOpacity="0.12" />
+      <path
+        d="M22 16h20v6a10 10 0 0 1-20 0v-6z"
+        fill="#F4C53F"
+      />
+      <path
+        d="M22 18h-5a1 1 0 0 0-1 1c0 5 2.8 8.4 7 9.4M42 18h5a1 1 0 0 1 1 1c0 5-2.8 8.4-7 9.4"
+        stroke="#F4C53F"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        fill="none"
+      />
+      <path d="M30 32h4v6h-4z" fill="#F4C53F" />
+      <path d="M25 40h14a1 1 0 0 1 1 1v4H24v-4a1 1 0 0 1 1-1z" fill="#F4C53F" />
+    </svg>
+  );
+}
+
+function LoseIcon() {
+  return (
+    <svg
+      width="64"
+      height="64"
+      viewBox="0 0 64 64"
+      fill="none"
+      aria-hidden="true"
+      className="result-icon-pop mx-auto"
+    >
+      <circle cx="32" cy="32" r="32" fill="#FB7185" fillOpacity="0.1" />
+      <circle
+        cx="32"
+        cy="32"
+        r="20"
+        stroke="#FB7185"
+        strokeOpacity="0.7"
+        strokeWidth="2.5"
+      />
+      <path
+        d="M25 25l14 14M39 25L25 39"
+        stroke="#FB7185"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 /**
  * Кадр Challenge в фиксированном «окне» viewport:
  * не раздувает страницу, кнопки остаются на экране без скролла.
@@ -56,18 +154,19 @@ function ChallengeImageFrame({
   children: React.ReactNode;
 }) {
   const aspect = width / Math.max(height, 1);
-  const maxH = compact ? "min(32vh, 300px)" : "min(44vh, 440px)";
+  const maxH = compact ? "min(34vh, 330px)" : "min(52vh, 530px)";
 
   return (
     <div
       className={cn(
-        "mx-auto overflow-hidden border border-white/10 bg-black",
+        "relative mx-auto overflow-hidden rounded-[12px] border border-white/[0.09] bg-black",
+        "shadow-[0_8px_40px_rgb(0_0_0/0.4)] transition-all duration-500",
         className,
       )}
       style={{
         aspectRatio: String(aspect),
         maxHeight: maxH,
-        width: `min(100%, 40rem, calc(${maxH} * ${aspect}))`,
+        width: `min(100%, 48rem, calc(${maxH} * ${aspect}))`,
       }}
     >
       {children}
@@ -97,6 +196,7 @@ export function ChallengeBoard({
   const [feedback, setFeedback] = useState<string | null>(null);
   const [shareFeedback, setShareFeedback] = useState<string | null>(null);
   const [isWrongGuess, setIsWrongGuess] = useState(false);
+  const [imageExpanded, setImageExpanded] = useState(false);
   const wrongGuessTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -128,7 +228,7 @@ export function ChallengeBoard({
   const isLastAttempt =
     !isFinished && session.openedRegionCount >= REVEAL_REGION_COUNT;
 
-  const imageCompact = isFinished;
+  const imageCompact = isFinished && !imageExpanded;
 
   function showTemporaryFeedback(message: string) {
     setFeedback(message);
@@ -209,7 +309,6 @@ export function ChallengeBoard({
       height={level.height}
       compact={imageCompact}
       className={cn(
-        "transition-colors duration-500",
         isWrongGuess && "wrong-guess-flash",
         session.state === "COMPLETED" && "result-win-frame",
         session.state === "LOST" && "result-lose-frame",
@@ -217,9 +316,7 @@ export function ChallengeBoard({
     >
       <ProgressiveRevealImage
         imageSrc={level.image}
-        revealLevel={
-          session.state === "NOT_STARTED" ? -1 : revealLevel
-        }
+        revealLevel={session.state === "NOT_STARTED" ? -1 : revealLevel}
         regions={viewerRegions}
         width={level.width}
         height={level.height}
@@ -228,14 +325,36 @@ export function ChallengeBoard({
     </ChallengeImageFrame>
   );
 
+  const progressSegments = (
+    <div className="flex gap-1.5">
+      {Array.from({ length: REVEAL_REGION_COUNT }, (_, index) => (
+        <span
+          key={index}
+          className={cn(
+            "h-1.5 w-9 rounded-full transition-colors duration-500",
+            index < session.openedRegionCount
+              ? isWrongGuess
+                ? "bg-rose-300/70"
+                : session.state === "COMPLETED"
+                  ? "bg-[var(--accent)]"
+                  : session.state === "LOST"
+                    ? "bg-rose-300/50"
+                    : "bg-[var(--accent)]"
+              : "bg-white/[0.12]",
+          )}
+        />
+      ))}
+    </div>
+  );
+
   if (session.state === "NOT_STARTED") {
     return (
-      <div className="mx-auto flex w-full max-w-3xl flex-col items-center">
-        <p className="mb-3 text-xs uppercase tracking-[0.25em] text-white/40">
+      <div className="fade-up mx-auto flex w-full max-w-3xl flex-col items-center">
+        <p className="mb-4 text-xs font-medium uppercase tracking-[0.25em] text-white/40">
           Игра дня
         </p>
-        <div className="mb-4 w-full">{image}</div>
-        <p className="mb-4 max-w-md text-center text-sm text-white/50">
+        <div className="mb-5 w-full">{image}</div>
+        <p className="mb-6 max-w-md text-center text-sm leading-relaxed text-white/50">
           Угадайте фильм по визуальной ДНК. Каждая открытая область снижает
           количество очков.
         </p>
@@ -248,13 +367,19 @@ export function ChallengeBoard({
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col items-center">
-      <div className="mb-2 flex w-full items-center justify-between text-[11px] uppercase tracking-widest text-white/40 transition-colors duration-500">
+      <div className="mb-3 flex w-full items-center justify-between text-[11px] font-medium uppercase tracking-widest text-white/40">
         <span>MovieDNA</span>
         <span>
           Подсказка {Math.min(session.openedRegionCount, REVEAL_REGION_COUNT)}/
           {REVEAL_REGION_COUNT}
         </span>
-        <span>
+        <span
+          className={cn(
+            session.state !== "LOST" &&
+              session.state !== "COMPLETED" &&
+              "text-[var(--accent)]/80",
+          )}
+        >
           {session.state === "COMPLETED"
             ? `Очки ${session.movieScore}`
             : session.state === "LOST"
@@ -263,111 +388,130 @@ export function ChallengeBoard({
         </span>
       </div>
 
-      <div className="mb-3 w-full">{image}</div>
+      <div className="mb-4 w-full">{image}</div>
 
-      <div className="mb-3 flex gap-1.5">
-        {Array.from({ length: REVEAL_REGION_COUNT }, (_, index) => (
-          <span
-            key={index}
-            className={cn(
-              "h-1 w-7 transition-colors duration-500",
-              index < session.openedRegionCount
-                ? isWrongGuess
-                  ? "bg-rose-300/70"
-                  : session.state === "COMPLETED"
-                    ? "bg-emerald-300"
-                    : session.state === "LOST"
-                      ? "bg-white/50"
-                      : "bg-white"
-                : "bg-white/15",
-            )}
-          />
-        ))}
-      </div>
+      <div className="mb-5">{progressSegments}</div>
 
       {session.state === "COMPLETED" && scoreBreakdown ? (
-        <div className="result-win w-full max-w-md text-center">
-          <p className="mb-1 text-xs font-medium tracking-[0.2em] text-emerald-300/90 uppercase">
+        <div className="result-win relative w-full max-w-md text-center">
+          <ConfettiOverlay />
+
+          <TrophyIcon />
+
+          <p className="mt-4 text-sm font-semibold uppercase tracking-[0.25em] text-[var(--accent)]">
             Отлично!
           </p>
-          <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+          <h2 className="mt-2 text-3xl font-semibold tracking-tight text-white">
             {movie.title}
           </h2>
-          <p className="mt-1 text-xs text-white/45">
+          <p className="mt-1 text-sm text-white/45">
             {movie.titleOriginal ? `${movie.titleOriginal} · ` : ""}
             {movie.year}
           </p>
 
-          <p className="mt-4 text-4xl font-semibold tabular-nums text-white">
+          <p className="mt-6 text-5xl font-bold tabular-nums text-white">
             {scoreBreakdown.total}
           </p>
-          <p className="mt-0.5 text-[10px] uppercase tracking-[0.25em] text-white/40">
+          <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.3em] text-white/40">
             Movie Score
           </p>
 
-          <p className="mt-3 text-xs text-white/40">
+          {/* Псевдо-процентиль от Movie Score, пока нет реальных данных игроков */}
+          <div className="mt-6 rounded-[12px] border border-white/[0.09] bg-white/[0.03] px-5 py-4 text-left">
+            <div className="flex items-baseline justify-between">
+              <p className="text-sm text-white/70">
+                Вы лучше, чем{" "}
+                <span className="font-semibold text-[var(--accent)]">
+                  {Math.min(
+                    99,
+                    Math.max(
+                      5,
+                      Math.round(
+                        (scoreBreakdown.total / MAX_MOVIE_SCORE) * 100,
+                      ),
+                    ),
+                  )}
+                  %
+                </span>{" "}
+                игроков
+              </p>
+            </div>
+            <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/[0.08]">
+              <div
+                className="percentile-fill h-full rounded-full bg-[var(--accent)]"
+                style={{
+                  width: `${Math.min(99, Math.max(5, Math.round((scoreBreakdown.total / MAX_MOVIE_SCORE) * 100)))}%`,
+                }}
+              />
+            </div>
+          </div>
+
+          <p className="mt-4 text-xs text-white/40">
             Подсказки {scoreBreakdown.openedRegionCount}/{REVEAL_REGION_COUNT}
             {" · "}
             {formatElapsed(scoreBreakdown.elapsedSeconds)}
-            {" · "}+{scoreBreakdown.timeBonus + scoreBreakdown.guessBonus + scoreBreakdown.firstPlayBonus}{" "}
-            бонусы
+            {" · "}бонусы +
+            {scoreBreakdown.timeBonus +
+              scoreBreakdown.guessBonus +
+              scoreBreakdown.firstPlayBonus}
           </p>
 
-          <div className="mt-5 flex w-full flex-col gap-2">
+          <div className="mt-6 flex w-full flex-col gap-2.5">
             <Button
+              variant="accent"
               size="lg"
               className="w-full"
               onClick={() => void handleShare()}
             >
-              Поделиться
+              Поделиться результатом
             </Button>
             {shareFeedback && (
               <p className="text-xs text-white/40">{shareFeedback}</p>
             )}
             <Link
               href={GAME_ROUTES.archive}
-              className="inline-flex h-11 w-full items-center justify-center border border-white/20 bg-transparent text-sm font-medium text-white transition-colors hover:border-white/40"
+              className="inline-flex h-12 w-full items-center justify-center rounded-[10px] border border-white/[0.12] bg-white/[0.04] text-sm font-medium text-white transition-all duration-200 hover:border-white/25 hover:bg-white/[0.07] active:scale-[0.98]"
             >
-              Пройти предыдущие Challenge
-            </Link>
-            <Link
-              href={GAME_ROUTES.stats}
-              className="text-xs text-white/35 underline-offset-4 hover:text-white/70 hover:underline"
-            >
-              Статистика
+              Перейти в архив
             </Link>
           </div>
         </div>
       ) : session.state === "LOST" ? (
         <div className="result-lose w-full max-w-md text-center">
-          <p className="mb-1 text-[10px] uppercase tracking-[0.25em] text-white/35">
-            Ответ
+          <LoseIcon />
+
+          <p className="mt-4 text-sm font-semibold uppercase tracking-[0.25em] text-rose-300/90">
+            Не получилось
           </p>
-          <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          <p className="mt-3 text-[11px] uppercase tracking-[0.25em] text-white/35">
+            Правильный ответ
+          </p>
+          <h2 className="mt-1 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
             {movie.title}
           </h2>
           {movie.titleOriginal && (
-            <p className="mt-1 text-sm text-white/50">{movie.titleOriginal}</p>
+            <p className="mt-1.5 text-sm text-white/50">
+              {movie.titleOriginal}
+            </p>
           )}
           <p className="mt-0.5 text-xs text-white/35">{movie.year}</p>
 
-          <p className="mt-4 text-sm text-white/45">
-            В этот раз не вышло. Рассмотри кадр — и наверстай другие дни в
-            архиве.
-          </p>
-
-          <div className="mt-5 flex w-full flex-col gap-2">
+          <div className="mt-6 flex w-full flex-col gap-2.5">
+            {!imageExpanded && (
+              <Button
+                variant="secondary"
+                size="lg"
+                className="w-full"
+                onClick={() => setImageExpanded(true)}
+              >
+                Посмотреть изображение полностью
+              </Button>
+            )}
             <Link
               href={GAME_ROUTES.archive}
-              className="inline-flex h-11 w-full items-center justify-center bg-white text-sm font-medium text-black transition-colors hover:bg-white/90"
+              className="inline-flex h-12 w-full items-center justify-center rounded-[10px] bg-white text-sm font-medium text-black transition-all duration-200 hover:bg-white/90 active:scale-[0.98]"
             >
-              Попробовать предыдущие Challenge
-            </Link>
-            <Link
-              href={GAME_ROUTES.stats}
-              className="text-xs text-white/35 underline-offset-4 hover:text-white/70 hover:underline"
-            >
-              Статистика
+              Перейти в архив
             </Link>
           </div>
         </div>
@@ -390,7 +534,7 @@ export function ChallengeBoard({
             </p>
           )}
 
-          <div className="mt-3 flex flex-col gap-2">
+          <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
             <Button
               size="lg"
               className="w-full"
@@ -402,6 +546,7 @@ export function ChallengeBoard({
 
             <Button
               variant="secondary"
+              size="lg"
               className="w-full"
               disabled={!canOpenMore || isWrongGuess}
               onClick={() => {
@@ -418,18 +563,20 @@ export function ChallengeBoard({
                 ? "Открыть всё изображение"
                 : "Открыть следующую подсказку"}
             </Button>
+          </div>
 
-            {canSurrender && (
-              <button
-                type="button"
-                disabled={isWrongGuess}
-                onClick={surrender}
-                className="h-9 w-full text-sm text-white/35 transition-colors hover:text-rose-200/80 disabled:opacity-40"
-              >
-                Сдаться
-              </button>
-            )}
+          {canSurrender && (
+            <button
+              type="button"
+              disabled={isWrongGuess}
+              onClick={surrender}
+              className="mt-2.5 h-10 w-full rounded-[10px] text-sm text-white/35 transition-colors duration-200 hover:bg-rose-400/[0.06] hover:text-rose-200/80 disabled:opacity-40"
+            >
+              Сдаться
+            </button>
+          )}
 
+          <div className="mt-3 flex flex-col items-center gap-1.5">
             {feedback && !isWrongGuess && (
               <p className="text-center text-sm text-white/45">{feedback}</p>
             )}

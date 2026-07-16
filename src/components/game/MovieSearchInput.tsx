@@ -136,11 +136,11 @@ export function MovieSearchInput({
           disabled={disabled}
           placeholder={placeholder}
           className={cn(
-            "w-full border-0 border-b bg-transparent py-2.5 text-center text-base outline-none transition-all duration-500",
+            "w-full rounded-[10px] border bg-white/[0.03] px-4 py-3 text-center text-base outline-none transition-all duration-300",
             "disabled:cursor-not-allowed disabled:opacity-40",
             isError
               ? "border-rose-400/50 text-rose-200/90 placeholder:text-rose-200/35"
-              : "border-white/20 text-white placeholder:text-white/30 focus:border-white/60",
+              : "border-white/[0.12] text-white placeholder:text-white/30 focus:border-white/35 focus:bg-white/[0.05]",
           )}
           onChange={(event) => {
             skipOpenRef.current = false;
@@ -195,8 +195,8 @@ export function MovieSearchInput({
             type="submit"
             disabled={disabled || value.trim().length === 0}
             className={cn(
-              "h-11 w-full border border-white/20 bg-white text-sm font-medium text-black transition-all duration-300",
-              "hover:bg-white/90 disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/10 disabled:text-white/30",
+              "h-11 w-full rounded-[10px] bg-white text-sm font-medium text-black transition-all duration-200",
+              "hover:bg-white/90 active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/30",
             )}
           >
             Проверить ответ
@@ -208,7 +208,7 @@ export function MovieSearchInput({
         <ul
           id={listboxId}
           role="listbox"
-          className="absolute left-0 right-0 top-full z-20 mt-1 max-h-48 overflow-y-auto overscroll-contain border border-white/10 bg-[#1a1a1a] shadow-xl"
+          className="absolute left-0 right-0 top-full z-20 mt-2 max-h-48 overflow-y-auto overscroll-contain rounded-[12px] border border-white/[0.1] bg-[#1a1a1e] shadow-[0_16px_48px_rgb(0_0_0/0.5)]"
         >
           {suggestions.map((movie, index) => (
             <li

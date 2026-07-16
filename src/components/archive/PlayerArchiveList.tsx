@@ -52,7 +52,7 @@ export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
   }
 
   return (
-    <ul className="divide-y divide-white/10 border border-white/10">
+    <ul className="divide-y divide-white/[0.07] overflow-hidden rounded-[12px] border border-white/[0.09] bg-white/[0.02]">
       {items.map((item) => {
         const status = statuses[item.challengeId] ?? "available";
         const finished = status === "won" || status === "lost";
@@ -69,7 +69,7 @@ export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
             ) : (
               <Link
                 href={`/game/${item.date}`}
-                className="flex items-center justify-between gap-3 px-4 py-3 text-sm transition-colors hover:bg-white/5"
+                className="flex items-center justify-between gap-3 px-4 py-3 text-sm transition-colors duration-200 hover:bg-white/[0.05]"
               >
                 <p className="font-mono text-sm text-white/80">{item.date}</p>
                 <span className="text-xs text-white/35">
