@@ -56,7 +56,7 @@ function ChallengeImageFrame({
   children: React.ReactNode;
 }) {
   const aspect = width / Math.max(height, 1);
-  const maxH = compact ? "min(26vh, 220px)" : "min(36vh, 320px)";
+  const maxH = compact ? "min(32vh, 300px)" : "min(44vh, 440px)";
 
   return (
     <div
@@ -67,7 +67,7 @@ function ChallengeImageFrame({
       style={{
         aspectRatio: String(aspect),
         maxHeight: maxH,
-        width: `min(100%, 36rem, calc(${maxH} * ${aspect}))`,
+        width: `min(100%, 40rem, calc(${maxH} * ${aspect}))`,
       }}
     >
       {children}
@@ -230,7 +230,7 @@ export function ChallengeBoard({
 
   if (session.state === "NOT_STARTED") {
     return (
-      <div className="mx-auto flex w-full max-w-2xl flex-col items-center">
+      <div className="mx-auto flex w-full max-w-3xl flex-col items-center">
         <p className="mb-3 text-xs uppercase tracking-[0.25em] text-white/40">
           Игра дня
         </p>
@@ -247,7 +247,7 @@ export function ChallengeBoard({
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col items-center">
+    <div className="mx-auto flex w-full max-w-3xl flex-col items-center">
       <div className="mb-2 flex w-full items-center justify-between text-[11px] uppercase tracking-widest text-white/40 transition-colors duration-500">
         <span>MovieDNA</span>
         <span>

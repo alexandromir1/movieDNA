@@ -62,7 +62,7 @@ export function ArchiveSidebar({ items, activeDate }: ArchiveSidebarProps) {
 
   if (items.length === 0) {
     return (
-      <aside className="w-full shrink-0 lg:w-44">
+      <aside className="w-full shrink-0 lg:w-32">
         <p className="text-[10px] uppercase tracking-[0.2em] text-white/30">
           Архив
         </p>
@@ -72,11 +72,11 @@ export function ArchiveSidebar({ items, activeDate }: ArchiveSidebarProps) {
   }
 
   return (
-    <aside className="w-full shrink-0 lg:w-44">
-      <p className="mb-3 text-[10px] uppercase tracking-[0.2em] text-white/30">
+    <aside className="w-full shrink-0 lg:w-32">
+      <p className="mb-2 text-[10px] uppercase tracking-[0.2em] text-white/30">
         Challenge
       </p>
-      <ul className="flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:gap-0 lg:overflow-visible lg:pb-0">
+      <ul className="flex gap-1.5 overflow-x-auto pb-1 lg:flex-col lg:gap-0 lg:overflow-visible lg:pb-0">
         {items.map((item) => {
           const status = statuses[item.challengeId] ?? "available";
           const finished = status === "won" || status === "lost";
@@ -88,7 +88,7 @@ export function ArchiveSidebar({ items, activeDate }: ArchiveSidebarProps) {
           const mark = STATUS_MARK[status];
 
           const className = cn(
-            "flex min-w-[7.5rem] items-center justify-between gap-3 border px-3 py-2 text-left text-sm transition-colors lg:min-w-0 lg:border-0 lg:border-l-2 lg:px-3 lg:py-2",
+            "flex min-w-[6.25rem] items-center justify-between gap-2 border px-2 py-1.5 text-left text-xs transition-colors lg:min-w-0 lg:border-0 lg:border-l-2 lg:px-2 lg:py-1.5",
             isActive
               ? "border-white/30 bg-white/10 text-white lg:border-l-white"
               : "border-white/10 text-white/55 hover:border-white/20 hover:bg-white/5 hover:text-white/80 lg:border-l-transparent",

@@ -14,7 +14,7 @@ export async function ChallengeShell({
   const items = await getChallengeNavItems();
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-5 px-4 py-4 lg:flex-row lg:items-start lg:gap-8 lg:px-6 lg:py-6">
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-5 px-4 py-4 lg:flex-row lg:items-start lg:gap-5 lg:px-6 lg:py-6">
       <div className="min-w-0 flex-1">{children}</div>
       <ArchiveSidebar items={items} activeDate={activeDate} />
     </div>
