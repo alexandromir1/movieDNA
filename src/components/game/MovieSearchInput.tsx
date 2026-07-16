@@ -30,6 +30,8 @@ export function MovieSearchInput({
   const listboxId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  /** Не открывать список сразу после выбора пункта (focus/blur гонки на mobile) */
+  const skipOpenRef = useRef(false);
 
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -41,28 +43,71 @@ export function MovieSearchInput({
   }, [value, suggestions.length]);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+    if (disabled || isError) {
+      setIsOpen(false);
+    }
+  }, [disabled, isError]);
+
+  useEffect(() => {
+    if (!value.trim()) {
+      setIsOpen(false);
+    }
+  }, [value]);
+
+  useEffect(() => {
+    function handlePointerDownOutside(event: PointerEvent) {
+      const target = event.target as Node | null;
+      if (!target || !containerRef.current) return;
+      if (!containerRef.current.contains(target)) {
         setIsOpen(false);
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    // pointerdown ловит и мышь, и touch — надёжнее mousedown на мобилках
+    document.addEventListener("pointerdown", handlePointerDownOutside, true);
+    return () => {
+      document.removeEventListener(
+        "pointerdown",
+        handlePointerDownOutside,
+        true,
+      );
+    };
   }, []);
 
+  function openIfAllowed() {
+    if (skipOpenRef.current) return;
+    if (disabled || isError) return;
+    if (!value.trim()) return;
+    setIsOpen(true);
+  }
+
   function selectSuggestion(title: string) {
+    skipOpenRef.current = true;
     onChange(title);
     setIsOpen(false);
-    inputRef.current?.focus();
+    // blur снимает клавиатуру на mobile и не даёт onFocus снова открыть список
+    inputRef.current?.blur();
+    window.setTimeout(() => {
+      skipOpenRef.current = false;
+    }, 300);
   }
 
   function handleSubmit() {
-    onSubmit(value);
     setIsOpen(false);
+    skipOpenRef.current = true;
+    inputRef.current?.blur();
+    onSubmit(value);
+    window.setTimeout(() => {
+      skipOpenRef.current = false;
+    }, 300);
   }
 
-  const showDropdown = isOpen && value.trim().length > 0 && !disabled && !isError;
+  const showDropdown =
+    isOpen &&
+    value.trim().length > 0 &&
+    !disabled &&
+    !isError &&
+    (suggestions.length > 0 || isLoading);
 
   return (
     <div ref={containerRef} className="relative w-full">
@@ -77,13 +122,16 @@ export function MovieSearchInput({
           ref={inputRef}
           type="text"
           role="combobox"
-          aria-expanded={showDropdown && suggestions.length > 0}
+          aria-expanded={Boolean(showDropdown && suggestions.length > 0)}
           aria-controls={listboxId}
           aria-autocomplete="list"
           aria-busy={isLoading}
           aria-invalid={isError}
           autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
           spellCheck={false}
+          enterKeyHint="done"
           value={value}
           disabled={disabled}
           placeholder={placeholder}
@@ -95,12 +143,26 @@ export function MovieSearchInput({
               : "border-white/20 text-white placeholder:text-white/30 focus:border-white/60",
           )}
           onChange={(event) => {
+            skipOpenRef.current = false;
             onChange(event.target.value);
-            setIsOpen(true);
+            if (event.target.value.trim()) {
+              setIsOpen(true);
+            } else {
+              setIsOpen(false);
+            }
           }}
-          onFocus={() => setIsOpen(true)}
+          onFocus={() => openIfAllowed()}
+          onBlur={() => {
+            // Даём время pointer/click по option; иначе список исчезнет до выбора
+            window.setTimeout(() => {
+              if (skipOpenRef.current) return;
+              const active = document.activeElement;
+              if (active && containerRef.current?.contains(active)) return;
+              setIsOpen(false);
+            }, 180);
+          }}
           onKeyDown={(event) => {
-            if (!showDropdown || suggestions.length === 0) {
+            if (!isOpen || suggestions.length === 0) {
               if (event.key === "Enter") {
                 event.preventDefault();
                 handleSubmit();
@@ -113,10 +175,12 @@ export function MovieSearchInput({
               setActiveIndex((index) => (index + 1) % suggestions.length);
             } else if (event.key === "ArrowUp") {
               event.preventDefault();
-              setActiveIndex((index) => (index <= 0 ? suggestions.length - 1 : index - 1));
+              setActiveIndex((index) =>
+                index <= 0 ? suggestions.length - 1 : index - 1,
+              );
             } else if (event.key === "Enter") {
               event.preventDefault();
-              if (activeIndex >= 0) {
+              if (activeIndex >= 0 && suggestions[activeIndex]) {
                 selectSuggestion(suggestions[activeIndex].title);
               } else {
                 handleSubmit();
@@ -144,7 +208,7 @@ export function MovieSearchInput({
         <ul
           id={listboxId}
           role="listbox"
-          className="absolute left-0 right-0 top-full z-20 mt-1 max-h-56 overflow-y-auto border border-white/10 bg-[#1a1a1a] shadow-xl"
+          className="absolute left-0 right-0 top-full z-20 mt-1 max-h-48 overflow-y-auto overscroll-contain border border-white/10 bg-[#1a1a1a] shadow-xl"
         >
           {suggestions.map((movie, index) => (
             <li
@@ -152,12 +216,15 @@ export function MovieSearchInput({
               role="option"
               aria-selected={index === activeIndex}
               className={cn(
-                "cursor-pointer px-4 py-2.5 text-sm text-white/80 transition-colors",
+                "cursor-pointer px-4 py-3 text-sm text-white/80 transition-colors active:bg-white/15",
                 index === activeIndex && "bg-white/10 text-white",
               )}
               onMouseEnter={() => setActiveIndex(index)}
-              onMouseDown={(event) => event.preventDefault()}
-              onClick={() => selectSuggestion(movie.title)}
+              onPointerDown={(event) => {
+                // Не даём input потерять фокус до выбора — иначе click теряется на iOS
+                event.preventDefault();
+                selectSuggestion(movie.title);
+              }}
             >
               {formatMovieLabel(movie)}
             </li>
