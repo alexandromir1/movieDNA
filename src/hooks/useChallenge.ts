@@ -33,11 +33,15 @@ interface UseChallengeReturn {
   /** Сколько area-регионов + full показывать в маске */
   visibleRegionCount: number;
   isFinished: boolean;
+  /** Все Reveal Regions открыты — можно сдаться */
+  canSurrender: boolean;
   openNextReveal: () => void;
   submitGuess: (guess: string) => {
     isCorrect: boolean;
     isLost: boolean;
   };
+  /** Сдаться после полного reveal → LOST + экран результата */
+  surrender: () => void;
   startChallenge: () => void;
 }
 
@@ -77,7 +81,8 @@ function getElapsedSeconds(
 
 export function useChallenge(bundle: ChallengeBundle): UseChallengeReturn {
   const { challenge, level, movie } = bundle;
-  const playDate = getUtcDateString();
+  /** Дата Challenge (не «сегодня») — нужна для архива и статистики */
+  const playDate = challenge.date || getUtcDateString();
 
   const engineRef = useRef<ChallengeSession | null>(null);
   const initialGuessesRef = useRef<GameGuess[] | null>(null);
@@ -269,14 +274,35 @@ export function useChallenge(bundle: ChallengeBundle): UseChallengeReturn {
     return { isCorrect: false, isLost: false };
   }
 
+  function surrender(): void {
+    const engine = getEngine();
+    if (engine.getState().isFinished) return;
+    if (!engine.isRevealComplete()) return;
+
+    engine.lose();
+    const lost = publishSnapshot();
+
+    recordChallengeResult({
+      challengeId: challenge.id,
+      date: playDate,
+      won: false,
+      movieScore: 0,
+      openedRegionCount: lost.openedRegionCount,
+      wrongGuessCount: countWrongGuesses(guesses),
+      elapsedSeconds: getElapsedSeconds(lost),
+    });
+  }
+
   return {
     session,
     potentialScore,
     scoreBreakdown,
     visibleRegionCount,
     isFinished,
+    canSurrender: !isFinished && session.isRevealComplete,
     openNextReveal,
     submitGuess,
+    surrender,
     startChallenge,
   };
 }

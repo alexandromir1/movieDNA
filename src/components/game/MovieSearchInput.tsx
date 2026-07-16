@@ -14,6 +14,8 @@ interface MovieSearchInputProps {
   placeholder?: string;
   /** Подсветка ошибки ввода */
   isError?: boolean;
+  /** Скрыть встроенную кнопку — родитель рисует CTA сам */
+  hideSubmitButton?: boolean;
 }
 
 export function MovieSearchInput({
@@ -23,6 +25,7 @@ export function MovieSearchInput({
   disabled,
   placeholder = "Введите название фильма...",
   isError = false,
+  hideSubmitButton = false,
 }: MovieSearchInputProps) {
   const listboxId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -85,7 +88,7 @@ export function MovieSearchInput({
           disabled={disabled}
           placeholder={placeholder}
           className={cn(
-            "w-full border-0 border-b bg-transparent py-3 text-center text-base outline-none transition-all duration-500",
+            "w-full border-0 border-b bg-transparent py-2.5 text-center text-base outline-none transition-all duration-500",
             "disabled:cursor-not-allowed disabled:opacity-40",
             isError
               ? "border-rose-400/50 text-rose-200/90 placeholder:text-rose-200/35"
@@ -123,16 +126,18 @@ export function MovieSearchInput({
             }
           }}
         />
-        <button
-          type="submit"
-          disabled={disabled || value.trim().length === 0}
-          className={cn(
-            "h-11 w-full border border-white/20 bg-white text-sm font-medium text-black transition-all duration-300",
-            "hover:bg-white/90 disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/10 disabled:text-white/30",
-          )}
-        >
-          Проверить ответ
-        </button>
+        {!hideSubmitButton && (
+          <button
+            type="submit"
+            disabled={disabled || value.trim().length === 0}
+            className={cn(
+              "h-11 w-full border border-white/20 bg-white text-sm font-medium text-black transition-all duration-300",
+              "hover:bg-white/90 disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/10 disabled:text-white/30",
+            )}
+          >
+            Проверить ответ
+          </button>
+        )}
       </form>
 
       {showDropdown && suggestions.length > 0 && (

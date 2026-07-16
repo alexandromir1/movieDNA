@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { loadPlayerStats } from "@/lib/game/player-stats";
-import { loadGameSession } from "@/lib/game/session-storage";
-
-export type ArchivePlayStatus = "available" | "in_progress" | "won" | "lost";
+import {
+  resolveChallengePlayStatus,
+  type ChallengePlayStatus,
+} from "@/lib/game/play-status";
 
 export interface ArchiveListItem {
   date: string;
@@ -17,45 +17,23 @@ interface PlayerArchiveListProps {
   items: ArchiveListItem[];
 }
 
-const STATUS_LABEL: Record<ArchivePlayStatus, string> = {
+const STATUS_LABEL: Record<ChallengePlayStatus, string> = {
   available: "Играть",
   in_progress: "Продолжить",
   won: "Пройдено",
   lost: "Пройдено",
 };
 
-function resolveStatus(item: ArchiveListItem): ArchivePlayStatus {
-  const stats = loadPlayerStats();
-  const record = stats.completedChallenges.find(
-    (entry) =>
-      entry.challengeId === item.challengeId || entry.date === item.date,
-  );
-  if (record) return record.won ? "won" : "lost";
-
-  const session = loadGameSession(item.challengeId);
-  if (!session) return "available";
-  if (session.state === "COMPLETED") return "won";
-  if (session.state === "LOST") return "lost";
-  if (
-    session.startedAt ||
-    session.openedRegionCount > 0 ||
-    session.guesses.length > 0
-  ) {
-    return "in_progress";
-  }
-  return "available";
-}
-
 export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
-  const [statuses, setStatuses] = useState<Record<string, ArchivePlayStatus>>(
+  const [statuses, setStatuses] = useState<Record<string, ChallengePlayStatus>>(
     {},
   );
 
   useEffect(() => {
     const refresh = () => {
-      const updated: Record<string, ArchivePlayStatus> = {};
+      const updated: Record<string, ChallengePlayStatus> = {};
       for (const item of items) {
-        updated[item.challengeId] = resolveStatus(item);
+        updated[item.challengeId] = resolveChallengePlayStatus(item);
       }
       setStatuses(updated);
     };

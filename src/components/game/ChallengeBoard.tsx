@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { REVEAL_REGION_COUNT } from "@/config/economy";
 import { FEEDBACK_MESSAGE_MS, WRONG_GUESS_FEEDBACK_MS } from "@/config/game";
 import { useChallenge } from "@/hooks/useChallenge";
+import { GAME_ROUTES } from "@/lib/game/constants";
 import { shareChallengeResult } from "@/lib/game/share-result";
 import { cn } from "@/lib/utils/cn";
 
@@ -29,20 +30,66 @@ function formatElapsed(seconds: number): string {
 }
 
 function triggerWrongGuessVibration() {
-  if (typeof navigator !== "undefined" && typeof navigator.vibrate === "function") {
+  if (
+    typeof navigator !== "undefined" &&
+    typeof navigator.vibrate === "function"
+  ) {
     navigator.vibrate(20);
   }
 }
 
-export function ChallengeBoard({ challenge, level, movie }: ChallengeBoardProps) {
+/**
+ * Кадр Challenge в фиксированном «окне» viewport:
+ * не раздувает страницу, кнопки остаются на экране без скролла.
+ */
+function ChallengeImageFrame({
+  width,
+  height,
+  compact = false,
+  className,
+  children,
+}: {
+  width: number;
+  height: number;
+  compact?: boolean;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  const aspect = width / Math.max(height, 1);
+  const maxH = compact ? "min(26vh, 220px)" : "min(36vh, 320px)";
+
+  return (
+    <div
+      className={cn(
+        "mx-auto overflow-hidden border border-white/10 bg-black",
+        className,
+      )}
+      style={{
+        aspectRatio: String(aspect),
+        maxHeight: maxH,
+        width: `min(100%, 36rem, calc(${maxH} * ${aspect}))`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+export function ChallengeBoard({
+  challenge,
+  level,
+  movie,
+}: ChallengeBoardProps) {
   const {
     session,
     potentialScore,
     scoreBreakdown,
     visibleRegionCount,
     isFinished,
+    canSurrender,
     openNextReveal,
     submitGuess,
+    surrender,
     startChallenge,
   } = useChallenge({ challenge, level, movie });
 
@@ -81,12 +128,17 @@ export function ChallengeBoard({ challenge, level, movie }: ChallengeBoardProps)
   const isLastAttempt =
     !isFinished && session.openedRegionCount >= REVEAL_REGION_COUNT;
 
+  const imageCompact = isFinished;
+
   function showTemporaryFeedback(message: string) {
     setFeedback(message);
     window.setTimeout(() => setFeedback(null), FEEDBACK_MESSAGE_MS);
   }
 
-  function playWrongGuessFeedback(submittedValue: string, followUpMessage: string | null) {
+  function playWrongGuessFeedback(
+    submittedValue: string,
+    followUpMessage: string | null,
+  ) {
     setIsWrongGuess(true);
     setGuess(submittedValue);
     triggerWrongGuessVibration();
@@ -102,6 +154,35 @@ export function ChallengeBoard({ challenge, level, movie }: ChallengeBoardProps)
         showTemporaryFeedback(followUpMessage);
       }
     }, WRONG_GUESS_FEEDBACK_MS);
+  }
+
+  function handleGuessSubmit(value: string) {
+    const openedBefore = session.openedRegionCount;
+    const submitted = value.trim();
+    const result = submitGuess(value);
+
+    if (!submitted) {
+      setGuess("");
+      showTemporaryFeedback(
+        openedBefore + 1 >= REVEAL_REGION_COUNT
+          ? "Открыто полное изображение — последняя попытка"
+          : "Открыта следующая область",
+      );
+      return;
+    }
+
+    if (result.isCorrect || result.isLost) {
+      setGuess("");
+      setFeedback(null);
+      return;
+    }
+
+    const followUp =
+      openedBefore + 1 >= REVEAL_REGION_COUNT
+        ? "Открыто полное изображение — последняя попытка"
+        : "Неверно — открыта следующая область";
+
+    playWrongGuessFeedback(submitted, followUp);
   }
 
   async function handleShare() {
@@ -122,22 +203,39 @@ export function ChallengeBoard({ challenge, level, movie }: ChallengeBoardProps)
     window.setTimeout(() => setShareFeedback(null), 2000);
   }
 
+  const image = (
+    <ChallengeImageFrame
+      width={level.width}
+      height={level.height}
+      compact={imageCompact}
+      className={cn(
+        "transition-colors duration-500",
+        isWrongGuess && "wrong-guess-flash",
+        session.state === "COMPLETED" && "result-win-frame",
+        session.state === "LOST" && "result-lose-frame",
+      )}
+    >
+      <ProgressiveRevealImage
+        imageSrc={level.image}
+        revealLevel={
+          session.state === "NOT_STARTED" ? -1 : revealLevel
+        }
+        regions={viewerRegions}
+        width={level.width}
+        height={level.height}
+        className="h-full max-h-full w-full"
+      />
+    </ChallengeImageFrame>
+  );
+
   if (session.state === "NOT_STARTED") {
     return (
-      <div className="mx-auto flex w-full max-w-3xl flex-col items-center px-4">
-        <p className="mb-4 text-xs uppercase tracking-[0.25em] text-white/40">
+      <div className="mx-auto flex w-full max-w-2xl flex-col items-center">
+        <p className="mb-3 text-xs uppercase tracking-[0.25em] text-white/40">
           Игра дня
         </p>
-        <div className="mb-6 w-full overflow-hidden border border-white/10 bg-black">
-          <ProgressiveRevealImage
-            imageSrc={level.image}
-            revealLevel={-1}
-            regions={viewerRegions}
-            width={level.width}
-            height={level.height}
-          />
-        </div>
-        <p className="mb-6 max-w-md text-center text-sm text-white/50">
+        <div className="mb-4 w-full">{image}</div>
+        <p className="mb-4 max-w-md text-center text-sm text-white/50">
           Угадайте фильм по визуальной ДНК. Каждая открытая область снижает
           количество очков.
         </p>
@@ -149,8 +247,8 @@ export function ChallengeBoard({ challenge, level, movie }: ChallengeBoardProps)
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col items-center px-4">
-      <div className="mb-4 flex w-full items-center justify-between text-xs uppercase tracking-widest text-white/40 transition-colors duration-500">
+    <div className="mx-auto flex w-full max-w-2xl flex-col items-center">
+      <div className="mb-2 flex w-full items-center justify-between text-[11px] uppercase tracking-widest text-white/40 transition-colors duration-500">
         <span>MovieDNA</span>
         <span>
           Подсказка {Math.min(session.openedRegionCount, REVEAL_REGION_COUNT)}/
@@ -165,31 +263,22 @@ export function ChallengeBoard({ challenge, level, movie }: ChallengeBoardProps)
         </span>
       </div>
 
-      <div
-        className={cn(
-          "mb-6 w-full overflow-hidden border border-white/10 bg-black transition-colors duration-500",
-          isWrongGuess && "wrong-guess-flash",
-        )}
-      >
-        <ProgressiveRevealImage
-          imageSrc={level.image}
-          revealLevel={revealLevel}
-          regions={viewerRegions}
-          width={level.width}
-          height={level.height}
-        />
-      </div>
+      <div className="mb-3 w-full">{image}</div>
 
-      <div className="mb-6 flex gap-2">
+      <div className="mb-3 flex gap-1.5">
         {Array.from({ length: REVEAL_REGION_COUNT }, (_, index) => (
           <span
             key={index}
             className={cn(
-              "h-1.5 w-8 transition-colors duration-500",
+              "h-1 w-7 transition-colors duration-500",
               index < session.openedRegionCount
                 ? isWrongGuess
                   ? "bg-rose-300/70"
-                  : "bg-white"
+                  : session.state === "COMPLETED"
+                    ? "bg-emerald-300"
+                    : session.state === "LOST"
+                      ? "bg-white/50"
+                      : "bg-white"
                 : "bg-white/15",
             )}
           />
@@ -197,70 +286,90 @@ export function ChallengeBoard({ challenge, level, movie }: ChallengeBoardProps)
       </div>
 
       {session.state === "COMPLETED" && scoreBreakdown ? (
-        <div className="w-full max-w-md text-center">
-          <p className="mb-2 text-xs uppercase tracking-widest text-white/40">
-            Победа
+        <div className="result-win w-full max-w-md text-center">
+          <p className="mb-1 text-xs font-medium tracking-[0.2em] text-emerald-300/90 uppercase">
+            Отлично!
           </p>
-          <h2 className="text-2xl font-medium text-white">
+          <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
             {movie.title}
-            <span className="ml-2 text-white/40">({movie.year})</span>
           </h2>
+          <p className="mt-1 text-xs text-white/45">
+            {movie.titleOriginal ? `${movie.titleOriginal} · ` : ""}
+            {movie.year}
+          </p>
 
-          <p className="mt-6 text-4xl font-semibold text-white">
+          <p className="mt-4 text-4xl font-semibold tabular-nums text-white">
             {scoreBreakdown.total}
           </p>
-          <p className="mt-1 text-xs uppercase tracking-widest text-white/40">
-            Очки
+          <p className="mt-0.5 text-[10px] uppercase tracking-[0.25em] text-white/40">
+            Movie Score
           </p>
 
-          <ul className="mt-6 space-y-1 text-sm text-white/50">
-            <li>За подсказки: {scoreBreakdown.revealScore}</li>
-            <li>Бонус за время: +{scoreBreakdown.timeBonus}</li>
-            <li>Бонус за точность: +{scoreBreakdown.guessBonus}</li>
-            <li>Бонус первого прохождения: +{scoreBreakdown.firstPlayBonus}</li>
-            <li>
-              Открыто областей: {scoreBreakdown.openedRegionCount}/
-              {REVEAL_REGION_COUNT}
-            </li>
-            <li>Время: {formatElapsed(scoreBreakdown.elapsedSeconds)}</li>
-          </ul>
+          <p className="mt-3 text-xs text-white/40">
+            Подсказки {scoreBreakdown.openedRegionCount}/{REVEAL_REGION_COUNT}
+            {" · "}
+            {formatElapsed(scoreBreakdown.elapsedSeconds)}
+            {" · "}+{scoreBreakdown.timeBonus + scoreBreakdown.guessBonus + scoreBreakdown.firstPlayBonus}{" "}
+            бонусы
+          </p>
 
-          <div className="mt-8 flex flex-col items-center gap-3">
-            <Button variant="secondary" onClick={handleShare}>
+          <div className="mt-5 flex w-full flex-col gap-2">
+            <Button
+              size="lg"
+              className="w-full"
+              onClick={() => void handleShare()}
+            >
               Поделиться
             </Button>
             {shareFeedback && (
               <p className="text-xs text-white/40">{shareFeedback}</p>
             )}
             <Link
-              href="/stats"
-              className="text-sm text-white/50 underline-offset-4 hover:text-white hover:underline"
+              href={GAME_ROUTES.archive}
+              className="inline-flex h-11 w-full items-center justify-center border border-white/20 bg-transparent text-sm font-medium text-white transition-colors hover:border-white/40"
+            >
+              Пройти предыдущие Challenge
+            </Link>
+            <Link
+              href={GAME_ROUTES.stats}
+              className="text-xs text-white/35 underline-offset-4 hover:text-white/70 hover:underline"
             >
               Статистика
             </Link>
           </div>
         </div>
       ) : session.state === "LOST" ? (
-        <div className="w-full max-w-md text-center">
-          <p className="mb-2 text-xs uppercase tracking-widest text-white/40">
-            Игра окончена
+        <div className="result-lose w-full max-w-md text-center">
+          <p className="mb-1 text-[10px] uppercase tracking-[0.25em] text-white/35">
+            Ответ
           </p>
-          <p className="mb-4 text-lg text-white/70">
-            Увы, попробуйте в следующий раз
-          </p>
-          <h2 className="text-2xl font-medium text-white">
+          <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
             {movie.title}
-            <span className="ml-2 text-white/40">({movie.year})</span>
           </h2>
           {movie.titleOriginal && (
-            <p className="mt-2 text-sm text-white/40">{movie.titleOriginal}</p>
+            <p className="mt-1 text-sm text-white/50">{movie.titleOriginal}</p>
           )}
-          <Link
-            href="/stats"
-            className="mt-8 inline-block text-sm text-white/50 underline-offset-4 hover:text-white hover:underline"
-          >
-            Статистика
-          </Link>
+          <p className="mt-0.5 text-xs text-white/35">{movie.year}</p>
+
+          <p className="mt-4 text-sm text-white/45">
+            В этот раз не вышло. Рассмотри кадр — и наверстай другие дни в
+            архиве.
+          </p>
+
+          <div className="mt-5 flex w-full flex-col gap-2">
+            <Link
+              href={GAME_ROUTES.archive}
+              className="inline-flex h-11 w-full items-center justify-center bg-white text-sm font-medium text-black transition-colors hover:bg-white/90"
+            >
+              Попробовать предыдущие Challenge
+            </Link>
+            <Link
+              href={GAME_ROUTES.stats}
+              className="text-xs text-white/35 underline-offset-4 hover:text-white/70 hover:underline"
+            >
+              Статистика
+            </Link>
+          </div>
         </div>
       ) : (
         <div className="w-full max-w-md">
@@ -270,52 +379,30 @@ export function ChallengeBoard({ challenge, level, movie }: ChallengeBoardProps)
               onChange={setGuess}
               disabled={isWrongGuess}
               isError={isWrongGuess}
-              onSubmit={(value) => {
-                const openedBefore = session.openedRegionCount;
-                const submitted = value.trim();
-                const result = submitGuess(value);
-
-                if (!submitted) {
-                  setGuess("");
-                  showTemporaryFeedback(
-                    openedBefore + 1 >= REVEAL_REGION_COUNT
-                      ? "Открыто полное изображение — последняя попытка"
-                      : "Открыта следующая область",
-                  );
-                  return;
-                }
-
-                if (result.isCorrect) {
-                  setGuess("");
-                  setFeedback(null);
-                  return;
-                }
-
-                if (result.isLost) {
-                  setGuess("");
-                  setFeedback(null);
-                  return;
-                }
-
-                const followUp =
-                  openedBefore + 1 >= REVEAL_REGION_COUNT
-                    ? "Открыто полное изображение — последняя попытка"
-                    : "Неверно — открыта следующая область";
-
-                playWrongGuessFeedback(submitted, followUp);
-              }}
+              hideSubmitButton
+              onSubmit={handleGuessSubmit}
             />
           </div>
 
           {isWrongGuess && (
-            <p className="wrong-guess-message mt-3 text-center text-sm text-rose-300/80">
+            <p className="wrong-guess-message mt-2 text-center text-sm text-rose-300/80">
               Неверно
             </p>
           )}
 
-          <div className="mt-4 flex flex-col items-center gap-3">
+          <div className="mt-3 flex flex-col gap-2">
+            <Button
+              size="lg"
+              className="w-full"
+              disabled={isWrongGuess || guess.trim().length === 0}
+              onClick={() => handleGuessSubmit(guess)}
+            >
+              Проверить ответ
+            </Button>
+
             <Button
               variant="secondary"
+              className="w-full"
               disabled={!canOpenMore || isWrongGuess}
               onClick={() => {
                 const nextCount = session.openedRegionCount + 1;
@@ -331,13 +418,25 @@ export function ChallengeBoard({ challenge, level, movie }: ChallengeBoardProps)
                 ? "Открыть всё изображение"
                 : "Открыть следующую подсказку"}
             </Button>
-            {feedback && !isWrongGuess && (
-              <p className="text-sm text-white/45">{feedback}</p>
+
+            {canSurrender && (
+              <button
+                type="button"
+                disabled={isWrongGuess}
+                onClick={surrender}
+                className="h-9 w-full text-sm text-white/35 transition-colors hover:text-rose-200/80 disabled:opacity-40"
+              >
+                Сдаться
+              </button>
             )}
-            <p className="text-center text-xs text-white/25">
+
+            {feedback && !isWrongGuess && (
+              <p className="text-center text-sm text-white/45">{feedback}</p>
+            )}
+            <p className="text-center text-[11px] text-white/25">
               {isLastAttempt
-                ? "Последняя попытка. Неверный ответ завершит игру."
-                : "Неверный ответ автоматически открывает следующую область"}
+                ? "Последняя попытка. Можно угадать или сдаться."
+                : "Сначала проверь ответ — подсказка открывается только если нужно"}
             </p>
           </div>
         </div>

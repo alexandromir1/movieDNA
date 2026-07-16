@@ -2,6 +2,7 @@
 
 import { useId, useRef } from "react";
 
+import { cn } from "@/lib/utils/cn";
 import type {
   ImageCoordinate,
   RevealRegion,
@@ -19,6 +20,7 @@ interface ProgressiveRevealImageProps {
   closeHint?: boolean;
   onCursorMove?: (coordinate: ImageCoordinate | null) => void;
   onCoordinateClick?: (coordinate: ImageCoordinate) => void;
+  className?: string;
 }
 
 function AnimatedRegion({ children }: { children: React.ReactNode }) {
@@ -77,6 +79,7 @@ export function ProgressiveRevealImage({
   closeHint = false,
   onCursorMove,
   onCoordinateClick,
+  className,
 }: ProgressiveRevealImageProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const maskId = `reveal-mask-${useId().replaceAll(":", "")}`;
@@ -89,9 +92,11 @@ export function ProgressiveRevealImage({
       viewBox={`0 0 ${width} ${height}`}
       role="img"
       aria-label={`Кадр фильма, уровень открытия ${level} из ${maxLevel}`}
-      className={`block h-auto w-full bg-black ${
-        developerMode ? "cursor-crosshair" : ""
-      }`}
+      className={cn(
+        "block bg-black",
+        developerMode && "cursor-crosshair",
+        className ?? "h-auto w-full",
+      )}
       preserveAspectRatio="xMidYMid meet"
       onPointerMove={(event) => {
         if (!developerMode) return;

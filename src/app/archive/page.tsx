@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
-import { getArchiveList } from "@/actions/game";
+import { getArchiveList, getChallengeNavItems } from "@/actions/game";
+import { ArchiveSidebar } from "@/components/archive/ArchiveSidebar";
 import { PlayerArchiveList } from "@/components/archive/PlayerArchiveList";
 import { Container } from "@/components/layout/Container";
 
@@ -9,18 +10,27 @@ export const metadata: Metadata = {
 };
 
 export default async function ArchivePage() {
-  const items = await getArchiveList();
+  const [items, navItems] = await Promise.all([
+    getArchiveList(),
+    getChallengeNavItems(),
+  ]);
 
   return (
-    <Container>
-      <h1 className="mb-2 text-2xl font-bold">Архив</h1>
-      <p className="mb-6 max-w-xl text-sm text-white/40">
-        Прошедшие Daily Challenge без спойлеров. Если ты недавно в игре — можно
-        наверстать старые дни. Каждую игру можно пройти один раз: после
-        завершения она закрывается.
-      </p>
+    <Container className="max-w-6xl">
+      <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
+        <div className="min-w-0 flex-1">
+          <h1 className="mb-2 text-2xl font-bold">Архив</h1>
+          <p className="mb-6 max-w-xl text-sm text-white/40">
+            Прошедшие Daily Challenge без спойлеров. Если ты недавно в игре —
+            можно наверстать старые дни. Каждую игру можно пройти один раз: после
+            завершения она закрывается.
+          </p>
 
-      <PlayerArchiveList items={items} />
+          <PlayerArchiveList items={items} />
+        </div>
+
+        <ArchiveSidebar items={navItems} />
+      </div>
     </Container>
   );
 }
