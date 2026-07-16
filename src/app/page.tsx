@@ -12,7 +12,7 @@ export default function HomePage() {
       </h1>
       <p className="mb-10 max-w-sm text-sm text-white/40">{siteConfig.description}</p>
       <Link href={GAME_ROUTES.today}>
-        <Button size="lg">Today&apos;s Challenge</Button>
+        <Button size="lg">Начать ежедневную игру</Button>
       </Link>
     </div>
   );

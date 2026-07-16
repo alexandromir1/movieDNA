@@ -18,7 +18,19 @@ function bigrams(text: string): Set<string> {
 function diceSimilarity(a: string, b: string): number {
   if (!a || !b) return 0;
   if (a === b) return 1;
-  if (a.includes(b) || b.includes(a)) return 0.85;
+
+  const shorter = a.length <= b.length ? a : b;
+  const longer = a.length <= b.length ? b : a;
+  // Avoid "м" matching "терминатор" via includes()
+  if (
+    shorter.length >= 3 &&
+    longer.includes(shorter) &&
+    shorter.length / longer.length >= 0.45
+  ) {
+    return 0.85;
+  }
+
+  if (a.length < 2 || b.length < 2) return 0;
 
   const aGrams = bigrams(a);
   const bGrams = bigrams(b);
@@ -31,23 +43,32 @@ function diceSimilarity(a: string, b: string): number {
   return (2 * intersection) / (aGrams.size + bGrams.size);
 }
 
+function scoreTitle(query: string, title: string): number {
+  if (!title) return 0;
+  if (title === query) return 3;
+
+  const words = title.split(" ");
+  const prefix =
+    title.startsWith(query) || words.some((word) => word.startsWith(query));
+  const contains = query.length >= 4 && title.includes(query);
+
+  // Short queries: prefix only (avoids noise in a large catalog)
+  if (query.length < 4) {
+    return prefix ? 1 + query.length / Math.max(title.length, 1) : 0;
+  }
+
+  if (prefix) return 1.5 + diceSimilarity(query, title) * 0.3;
+  if (contains) return 1.1 + diceSimilarity(query, title) * 0.2;
+
+  const dice = diceSimilarity(query, title);
+  // Pure fuzzy only for strong typo-like matches
+  return dice >= 0.72 ? dice : 0;
+}
+
 function scoreMovie(query: string, movie: MovieSuggestion): number {
   const ru = normalizeTitle(movie.title);
   const en = movie.titleOriginal ? normalizeTitle(movie.titleOriginal) : "";
-
-  const scores = [ru, en]
-    .filter(Boolean)
-    .map((title) => {
-      let score = diceSimilarity(query, title);
-
-      if (title.startsWith(query)) score += 0.6;
-      if (title.includes(query)) score += 0.3;
-      if (title === query) score += 1;
-
-      return score;
-    });
-
-  return Math.max(...scores, 0);
+  return Math.max(scoreTitle(query, ru), scoreTitle(query, en), 0);
 }
 
 /** Локальный fallback-поиск (без Supabase), с базовой нечёткой логикой */
@@ -61,7 +82,7 @@ export function searchMoviesLocal(
 
   return catalog
     .map((movie) => ({ movie, score: scoreMovie(normalizedQuery, movie) }))
-    .filter(({ score }) => score >= 0.35)
+    .filter(({ score }) => score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
     .map(({ movie }) => movie);

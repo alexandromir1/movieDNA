@@ -16,13 +16,13 @@ export function Header() {
 
         <nav className="flex items-center gap-5 text-xs uppercase tracking-widest text-white/40">
           <Link href={GAME_ROUTES.today} className="transition-colors hover:text-white/80">
-            Challenge
+            Игра
           </Link>
           <Link href={GAME_ROUTES.archive} className="transition-colors hover:text-white/80">
-            Archive
+            Архив
           </Link>
           <Link href={GAME_ROUTES.stats} className="transition-colors hover:text-white/80">
-            Stats
+            Статистика
           </Link>
         </nav>
       </div>

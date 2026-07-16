@@ -1,3 +1,5 @@
+import { PERSISTENCE_ENABLED } from "@/config/game";
+
 import type { GameSession } from "@/types/content";
 
 const SESSION_PREFIX = "moviedna-session";
@@ -24,6 +26,7 @@ export function createInitialSession(
 }
 
 export function loadGameSession(challengeId: string): GameSession | null {
+  if (!PERSISTENCE_ENABLED) return null;
   if (typeof window === "undefined") return null;
 
   try {
@@ -36,12 +39,14 @@ export function loadGameSession(challengeId: string): GameSession | null {
 }
 
 export function saveGameSession(session: GameSession): void {
+  if (!PERSISTENCE_ENABLED) return;
   if (typeof window === "undefined") return;
   localStorage.setItem(sessionKey(session.challengeId), JSON.stringify(session));
 }
 
 /** Была ли уже завершена игра по этому challenge (для First Play Bonus) */
 export function hasCompletedChallengeBefore(challengeId: string): boolean {
+  if (!PERSISTENCE_ENABLED) return false;
   if (typeof window === "undefined") return false;
 
   try {
@@ -52,4 +57,23 @@ export function hasCompletedChallengeBefore(challengeId: string): boolean {
   } catch {
     return false;
   }
+}
+
+/** Сбрасывает сохранённые сессии (для тестового режима) */
+export function clearStoredSessions(): void {
+  if (typeof window === "undefined") return;
+
+  const keysToRemove: string[] = [];
+  for (let index = 0; index < localStorage.length; index++) {
+    const key = localStorage.key(index);
+    if (!key) continue;
+    if (
+      key.startsWith(SESSION_PREFIX) ||
+      key.startsWith("kinoshka-game:")
+    ) {
+      keysToRemove.push(key);
+    }
+  }
+
+  keysToRemove.forEach((key) => localStorage.removeItem(key));
 }

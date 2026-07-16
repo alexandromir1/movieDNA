@@ -12,6 +12,8 @@ interface MovieSearchInputProps {
   onSubmit: (value: string) => void;
   disabled?: boolean;
   placeholder?: string;
+  /** Подсветка ошибки ввода */
+  isError?: boolean;
 }
 
 export function MovieSearchInput({
@@ -20,6 +22,7 @@ export function MovieSearchInput({
   onSubmit,
   disabled,
   placeholder = "Введите название фильма...",
+  isError = false,
 }: MovieSearchInputProps) {
   const listboxId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -53,11 +56,10 @@ export function MovieSearchInput({
 
   function handleSubmit() {
     onSubmit(value);
-    onChange("");
     setIsOpen(false);
   }
 
-  const showDropdown = isOpen && value.trim().length > 0 && !disabled;
+  const showDropdown = isOpen && value.trim().length > 0 && !disabled && !isError;
 
   return (
     <div ref={containerRef} className="relative w-full">
@@ -75,15 +77,18 @@ export function MovieSearchInput({
           aria-controls={listboxId}
           aria-autocomplete="list"
           aria-busy={isLoading}
+          aria-invalid={isError}
           autoComplete="off"
           spellCheck={false}
           value={value}
           disabled={disabled}
           placeholder={placeholder}
           className={cn(
-            "w-full border-0 border-b border-white/20 bg-transparent py-3 text-center text-base text-white",
-            "placeholder:text-white/30 outline-none transition-colors",
-            "focus:border-white/60 disabled:cursor-not-allowed disabled:opacity-40",
+            "w-full border-0 border-b bg-transparent py-3 text-center text-base outline-none transition-all duration-500",
+            "disabled:cursor-not-allowed disabled:opacity-40",
+            isError
+              ? "border-rose-400/50 text-rose-200/90 placeholder:text-rose-200/35"
+              : "border-white/20 text-white placeholder:text-white/30 focus:border-white/60",
           )}
           onChange={(event) => {
             onChange(event.target.value);

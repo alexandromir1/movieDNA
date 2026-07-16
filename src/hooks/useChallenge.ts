@@ -138,11 +138,11 @@ export function useChallenge(bundle: ChallengeBundle): UseChallengeReturn {
           };
         }
 
+        // Только полные официальные названия (RU / EN). Сокращения не принимаются.
         const answers = [
           ...level.acceptedAnswers,
           movie.title,
           movie.titleOriginal ?? "",
-          ...movie.aliases,
         ].filter(Boolean);
 
         isCorrect = isAcceptedAnswer(trimmed, answers);
@@ -239,7 +239,6 @@ export function useChallenge(bundle: ChallengeBundle): UseChallengeReturn {
     [
       challenge.id,
       level.acceptedAnswers,
-      movie.aliases,
       movie.title,
       movie.titleOriginal,
       playDate,

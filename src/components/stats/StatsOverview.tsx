@@ -36,12 +36,12 @@ export function StatsOverview() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <StatCard label="Процент побед" value={`${stats.winRate}%`} />
-        <StatCard label="Средний Movie Score" value={stats.averageMovieScore} />
+        <StatCard label="Средние очки" value={stats.averageMovieScore} />
         <StatCard
-          label="Среднее Reveal"
+          label="Среднее число подсказок"
           value={stats.averageOpenedRegions}
         />
-        <StatCard label="Лучший Score" value={stats.bestMovieScore} />
+        <StatCard label="Лучший результат" value={stats.bestMovieScore} />
       </div>
     </div>
   );

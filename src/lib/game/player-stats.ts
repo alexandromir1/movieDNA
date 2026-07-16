@@ -1,3 +1,5 @@
+import { PERSISTENCE_ENABLED } from "@/config/game";
+
 export interface CompletedChallengeRecord {
   challengeId: string;
   date: string;
@@ -21,6 +23,7 @@ export interface PlayerProfileStats {
 }
 
 const STATS_KEY = "moviedna-stats";
+const LEGACY_STATS_KEYS = ["kinoshka-stats"];
 
 export function createEmptyPlayerStats(): PlayerProfileStats {
   return {
@@ -37,6 +40,7 @@ export function createEmptyPlayerStats(): PlayerProfileStats {
 }
 
 export function loadPlayerStats(): PlayerProfileStats {
+  if (!PERSISTENCE_ENABLED) return createEmptyPlayerStats();
   if (typeof window === "undefined") return createEmptyPlayerStats();
 
   try {
@@ -51,8 +55,16 @@ export function loadPlayerStats(): PlayerProfileStats {
 }
 
 export function savePlayerStats(stats: PlayerProfileStats): void {
+  if (!PERSISTENCE_ENABLED) return;
   if (typeof window === "undefined") return;
   localStorage.setItem(STATS_KEY, JSON.stringify(stats));
+  window.dispatchEvent(new Event("moviedna:stats-updated"));
+}
+
+export function clearStoredStats(): void {
+  if (typeof window === "undefined") return;
+  localStorage.removeItem(STATS_KEY);
+  LEGACY_STATS_KEYS.forEach((key) => localStorage.removeItem(key));
   window.dispatchEvent(new Event("moviedna:stats-updated"));
 }
 
@@ -138,6 +150,10 @@ export function derivePlayerStats(
 export function recordChallengeResult(
   record: CompletedChallengeRecord,
 ): PlayerProfileStats {
+  if (!PERSISTENCE_ENABLED) {
+    return createEmptyPlayerStats();
+  }
+
   const stats = loadPlayerStats();
 
   if (
