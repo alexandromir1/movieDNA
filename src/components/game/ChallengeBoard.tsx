@@ -1,21 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { ProgressiveRevealImage } from "@/components/ProgressiveRevealImage";
 import { MovieSearchInput } from "@/components/game/MovieSearchInput";
-import { ComeBackTomorrow } from "@/components/game/ComeBackTomorrow";
-import {
-  WhatsNextBlock,
-  type NextChallengeLink,
-} from "@/components/game/WhatsNextBlock";
+import { ChallengeResultCard } from "@/components/game/ChallengeResultCard";
+import type { NextChallengeLink } from "@/components/game/WhatsNextBlock";
 import { Button } from "@/components/ui/Button";
 import { REVEAL_REGION_COUNT } from "@/config/economy";
 import { FEEDBACK_MESSAGE_MS, WRONG_GUESS_FEEDBACK_MS } from "@/config/game";
 import { useChallenge } from "@/hooks/useChallenge";
-import { GAME_ROUTES } from "@/lib/game/constants";
-import { getUtcDateString } from "@/lib/game/daily";
+import { addUtcDays, getUtcDateString } from "@/lib/game/daily";
 import { shareChallengeResult } from "@/lib/game/share-result";
 import { cn } from "@/lib/utils/cn";
 
@@ -30,13 +25,6 @@ interface ChallengeBoardProps {
   archivePool?: NextChallengeLink[];
 }
 
-function formatElapsed(seconds: number): string {
-  const mins = Math.floor(seconds / 60);
-  const secs = seconds % 60;
-  if (mins === 0) return `${secs} с`;
-  return `${mins} м ${secs} с`;
-}
-
 function triggerWrongGuessVibration() {
   if (
     typeof navigator !== "undefined" &&
@@ -44,104 +32,6 @@ function triggerWrongGuessVibration() {
   ) {
     navigator.vibrate(20);
   }
-}
-
-/** Детерминированные конфетти: без Math.random в render */
-const CONFETTI_PIECES = Array.from({ length: 32 }, (_, index) => ({
-  left: (index * 37 + 11) % 100,
-  delay: ((index * 13) % 10) / 10,
-  duration: 2.2 + ((index * 7) % 12) / 10,
-  color:
-    index % 4 === 0
-      ? "#F4C53F"
-      : index % 4 === 1
-        ? "#ffffff"
-        : index % 4 === 2
-          ? "#6ee7b7"
-          : "#f4c53f99",
-  rotate: (index * 53) % 360,
-}));
-
-function ConfettiOverlay() {
-  return (
-    <div
-      className="pointer-events-none absolute inset-x-0 top-0 z-10 h-full overflow-hidden"
-      aria-hidden="true"
-    >
-      {CONFETTI_PIECES.map((piece, index) => (
-        <span
-          key={index}
-          className="confetti-piece"
-          style={
-            {
-              left: `${piece.left}%`,
-              backgroundColor: piece.color,
-              transform: `rotate(${piece.rotate}deg)`,
-              "--confetti-delay": `${piece.delay}s`,
-              "--confetti-duration": `${piece.duration}s`,
-            } as React.CSSProperties
-          }
-        />
-      ))}
-    </div>
-  );
-}
-
-function TrophyIcon() {
-  return (
-    <svg
-      width="64"
-      height="64"
-      viewBox="0 0 64 64"
-      fill="none"
-      aria-hidden="true"
-      className="result-icon-pop mx-auto"
-    >
-      <circle cx="32" cy="32" r="32" fill="#F4C53F" fillOpacity="0.12" />
-      <path
-        d="M22 16h20v6a10 10 0 0 1-20 0v-6z"
-        fill="#F4C53F"
-      />
-      <path
-        d="M22 18h-5a1 1 0 0 0-1 1c0 5 2.8 8.4 7 9.4M42 18h5a1 1 0 0 1 1 1c0 5-2.8 8.4-7 9.4"
-        stroke="#F4C53F"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <path d="M30 32h4v6h-4z" fill="#F4C53F" />
-      <path d="M25 40h14a1 1 0 0 1 1 1v4H24v-4a1 1 0 0 1 1-1z" fill="#F4C53F" />
-    </svg>
-  );
-}
-
-function LoseIcon() {
-  return (
-    <svg
-      width="64"
-      height="64"
-      viewBox="0 0 64 64"
-      fill="none"
-      aria-hidden="true"
-      className="result-icon-pop mx-auto"
-    >
-      <circle cx="32" cy="32" r="32" fill="#FB7185" fillOpacity="0.1" />
-      <circle
-        cx="32"
-        cy="32"
-        r="20"
-        stroke="#FB7185"
-        strokeOpacity="0.7"
-        strokeWidth="2.5"
-      />
-      <path
-        d="M25 25l14 14M39 25L25 39"
-        stroke="#FB7185"
-        strokeWidth="3"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
 }
 
 /**
@@ -188,7 +78,6 @@ export function ChallengeBoard({
   challenge,
   level,
   movie,
-  relatedChallenges = [],
   archivePool = [],
 }: ChallengeBoardProps) {
   const {
@@ -258,19 +147,14 @@ export function ChallengeBoard({
 
   const imageCompact = isFinished && !imageExpanded;
   const isArchiveChallenge = challenge.date < getUtcDateString();
+  const isDaily = !isArchiveChallenge;
 
-  const whatsNext = isFinished ? (
-    <WhatsNextBlock
-      related={relatedChallenges}
-      archivePool={archivePool}
-      currentChallengeId={challenge.id}
-    />
-  ) : null;
-
-  const comeBackTomorrow =
-    isFinished && !isArchiveChallenge ? (
-      <ComeBackTomorrow showStreak={session.state === "COMPLETED"} />
-    ) : null;
+  const yesterdayHref = useMemo(() => {
+    const yesterday = addUtcDays(getUtcDateString(), -1);
+    if (challenge.date === yesterday) return null;
+    const match = archivePool.find((item) => item.date === yesterday);
+    return match ? `/game/${match.date}` : null;
+  }, [archivePool, challenge.date]);
 
   function showTemporaryFeedback(message: string) {
     setFeedback(message);
@@ -333,6 +217,7 @@ export function ChallengeBoard({
       movieTitle: movie.title,
       movieScore: scoreBreakdown.total,
       openedRegionCount: session.openedRegionCount,
+      elapsedSeconds: scoreBreakdown.elapsedSeconds,
       won: true,
     });
     setShareFeedback(
@@ -432,13 +317,8 @@ export function ChallengeBoard({
 
       <div className="mb-2 w-full sm:mb-4">{image}</div>
 
-      {session.state === "COMPLETED" && (winBeat === "title" || winBeat === "result") && (
-        <div
-          className={cn(
-            "win-title-reveal mb-4 w-full max-w-md text-center",
-            winBeat === "result" && "opacity-90",
-          )}
-        >
+      {session.state === "COMPLETED" && winBeat === "title" && (
+        <div className="win-title-reveal mb-4 w-full max-w-md text-center">
           <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-[var(--accent)]">
             Это
           </p>
@@ -452,98 +332,20 @@ export function ChallengeBoard({
         </div>
       )}
 
-      {session.state === "COMPLETED" &&
-      winBeat === "result" &&
-      scoreBreakdown ? (
-        <div className="result-win relative w-full max-w-md text-center">
-          <ConfettiOverlay />
-
-          <TrophyIcon />
-
-          <p className="mt-4 text-sm font-semibold uppercase tracking-[0.25em] text-[var(--accent)]">
-            Отлично!
-          </p>
-
-          <p className="mt-6 text-5xl font-bold tabular-nums text-white">
-            {scoreBreakdown.total}
-          </p>
-          <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.3em] text-white/40">
-            Movie Score
-          </p>
-
-          <p className="mt-4 text-xs text-white/40">
-            Подсказки {scoreBreakdown.openedRegionCount}/{REVEAL_REGION_COUNT}
-            {" · "}
-            {formatElapsed(scoreBreakdown.elapsedSeconds)}
-            {" · "}бонусы +
-            {scoreBreakdown.timeBonus +
-              scoreBreakdown.guessBonus +
-              scoreBreakdown.firstPlayBonus}
-          </p>
-
-          <div className="mt-6 flex w-full flex-col gap-2.5">
-            <Link
-              href={GAME_ROUTES.archive}
-              className="inline-flex h-12 w-full items-center justify-center rounded-[10px] bg-[var(--accent)] text-sm font-medium text-black transition-all duration-200 hover:brightness-105 active:scale-[0.98]"
-            >
-              Перейти в архив
-            </Link>
-            <Button
-              variant="secondary"
-              size="lg"
-              className="w-full"
-              onClick={() => void handleShare()}
-            >
-              Поделиться результатом
-            </Button>
-            {shareFeedback && (
-              <p className="text-xs text-white/40">{shareFeedback}</p>
-            )}
-          </div>
-          {comeBackTomorrow}
-          {whatsNext}
-        </div>
-      ) : session.state === "LOST" ? (
-        <div className="result-lose w-full max-w-md text-center">
-          <LoseIcon />
-
-          <p className="mt-4 text-sm font-semibold uppercase tracking-[0.25em] text-rose-300/90">
-            Не получилось
-          </p>
-          <p className="mt-3 text-[11px] uppercase tracking-[0.25em] text-white/35">
-            Правильный ответ
-          </p>
-          <h2 className="mt-1 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            {movie.title}
-          </h2>
-          {movie.titleOriginal && (
-            <p className="mt-1.5 text-sm text-white/50">
-              {movie.titleOriginal}
-            </p>
-          )}
-          <p className="mt-0.5 text-xs text-white/35">{movie.year}</p>
-
-          <div className="mt-6 flex w-full flex-col gap-2.5">
-            {!imageExpanded && (
-              <Button
-                variant="secondary"
-                size="lg"
-                className="w-full"
-                onClick={() => setImageExpanded(true)}
-              >
-                Посмотреть изображение полностью
-              </Button>
-            )}
-            <Link
-              href={GAME_ROUTES.archive}
-              className="inline-flex h-12 w-full items-center justify-center rounded-[10px] bg-white text-sm font-medium text-black transition-all duration-200 hover:bg-white/90 active:scale-[0.98]"
-            >
-              Перейти в архив
-            </Link>
-          </div>
-          {comeBackTomorrow}
-          {whatsNext}
-        </div>
+      {(session.state === "COMPLETED" && winBeat === "result") ||
+      session.state === "LOST" ? (
+        <ChallengeResultCard
+          movie={movie}
+          won={session.state === "COMPLETED"}
+          isDaily={isDaily}
+          scoreBreakdown={scoreBreakdown}
+          openedRegionCount={session.openedRegionCount}
+          yesterdayHref={yesterdayHref}
+          imageExpanded={imageExpanded}
+          onExpandImage={() => setImageExpanded(true)}
+          onShare={() => void handleShare()}
+          shareFeedback={shareFeedback}
+        />
       ) : (
         <div className="w-full max-w-md">
           <div className={cn(isWrongGuess && "wrong-guess-shake")}>
