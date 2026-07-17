@@ -1,4 +1,5 @@
 import { GuessValidator } from "@/engine/guess";
+import { emitEngineEvent } from "@/engine/events";
 import { RevealManager } from "@/engine/reveal";
 
 import { assertTransition } from "./state";
@@ -33,6 +34,8 @@ export class ChallengeSession {
   private readonly isFirstPlay: boolean;
   private readonly reveal = new RevealManager();
   private readonly guessValidator = new GuessValidator();
+  /** Нужен только чтобы различить failed vs give_up без изменения public API lose(). */
+  private lastActionWasWrongGuess = false;
 
   constructor(config: ChallengeSessionConfig) {
     this.challengeId = config.challengeId;
@@ -79,6 +82,11 @@ export class ChallengeSession {
     assertTransition(this.state, "WAITING_FOR_GUESS");
     this.state = "WAITING_FOR_GUESS";
     this.startedAt = new Date().toISOString();
+    this.lastActionWasWrongGuess = false;
+
+    emitEngineEvent("challenge_started", {
+      challengeId: this.challengeId,
+    });
   }
 
   /**
@@ -91,10 +99,29 @@ export class ChallengeSession {
     const result = this.guessValidator.validate(guess);
 
     this.attemptCount += 1;
+    this.lastActionWasWrongGuess = !result.success;
+
+    emitEngineEvent("guess_submitted", {
+      challengeId: this.challengeId,
+      guessLength: guess.trim().length,
+      attemptCount: this.attemptCount,
+    });
 
     if (!result.success) {
       assertTransition(this.state, "REVEALING");
       this.state = "REVEALING";
+
+      emitEngineEvent("guess_wrong", {
+        challengeId: this.challengeId,
+        openedRegionCount: this.reveal.getSnapshot().openedCount,
+        attemptCount: this.attemptCount,
+      });
+    } else {
+      emitEngineEvent("guess_correct", {
+        challengeId: this.challengeId,
+        openedRegionCount: this.reveal.getSnapshot().openedCount,
+        attemptCount: this.attemptCount,
+      });
     }
 
     return result;
@@ -120,6 +147,14 @@ export class ChallengeSession {
     }
 
     const opened = this.reveal.openNext();
+    if (opened) {
+      emitEngineEvent("reveal_opened", {
+        challengeId: this.challengeId,
+        regionIndex: opened.displayOrder,
+        regionId: opened.id,
+      });
+    }
+    this.lastActionWasWrongGuess = false;
 
     assertTransition(this.state, "WAITING_FOR_GUESS");
     this.state = "WAITING_FOR_GUESS";
@@ -148,6 +183,12 @@ export class ChallengeSession {
     this.state = "COMPLETED";
     this.completedAt = new Date().toISOString();
     this.movieScore = movieScore;
+
+    emitEngineEvent("challenge_completed", {
+      challengeId: this.challengeId,
+      movieScore,
+      openedRegionCount: this.reveal.getSnapshot().openedCount,
+    });
   }
 
   /** WAITING_FOR_GUESS | REVEALING → LOST */
@@ -156,6 +197,15 @@ export class ChallengeSession {
     this.state = "LOST";
     this.completedAt = new Date().toISOString();
     this.movieScore = 0;
+
+    emitEngineEvent(
+      this.lastActionWasWrongGuess ? "challenge_failed" : "challenge_give_up",
+      {
+        challengeId: this.challengeId,
+        openedRegionCount: this.reveal.getSnapshot().openedCount,
+      },
+    );
+    this.lastActionWasWrongGuess = false;
   }
 
   /** Снимок текущего состояния (read-only для UI). */

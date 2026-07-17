@@ -9,13 +9,15 @@ import {
   GAProvider,
   getGaMeasurementId,
 } from "@/analytics";
+import { engineEvents } from "@/engine/events";
 
 /**
  * Bootstrap аналитики на клиенте.
  *
  * - регистрирует GAProvider, если есть NEXT_PUBLIC_GA_MEASUREMENT_ID;
  * - грузит официальный gtag.js;
- * - шлёт только `page_view` (остальные события — отдельные PR).
+ * - шлёт `page_view`;
+ * - подписывает Analytics на Engine Events.
  *
  * Без Measurement ID компонент ничего не ломает и не грузит скрипты.
  */
@@ -37,6 +39,37 @@ export function AnalyticsBootstrap() {
       title: typeof document !== "undefined" ? document.title : undefined,
     });
   }, [pathname]);
+
+  useEffect(() => {
+    return engineEvents.subscribe((event) => {
+      switch (event.name) {
+        case "challenge_started":
+          analytics.track("challenge_started", event.payload);
+          break;
+        case "challenge_completed":
+          analytics.track("challenge_completed", event.payload);
+          break;
+        case "challenge_failed":
+          analytics.track("challenge_failed", event.payload);
+          break;
+        case "challenge_give_up":
+          analytics.track("challenge_give_up", event.payload);
+          break;
+        case "reveal_opened":
+          analytics.track("reveal_opened", event.payload);
+          break;
+        case "guess_submitted":
+          analytics.track("guess_submitted", event.payload);
+          break;
+        case "guess_correct":
+          analytics.track("guess_correct", event.payload);
+          break;
+        case "guess_wrong":
+          analytics.track("guess_wrong", event.payload);
+          break;
+      }
+    });
+  }, []);
 
   if (!measurementId) {
     return null;

@@ -54,21 +54,25 @@ export interface AnalyticsEventMap {
   reveal_opened: {
     challengeId: string;
     regionIndex: number;
+    regionId?: string;
   };
 
   guess_submitted: {
     challengeId: string;
     guessLength?: number;
+    attemptCount?: number;
   };
 
   guess_correct: {
     challengeId: string;
     openedRegionCount?: number;
+    attemptCount?: number;
   };
 
   guess_wrong: {
     challengeId: string;
     openedRegionCount?: number;
+    attemptCount?: number;
   };
 
   archive_opened: Record<string, never>;

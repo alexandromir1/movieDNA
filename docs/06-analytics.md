@@ -19,10 +19,13 @@
 # Архитектура
 
 ```
-UI / hooks
+Challenge Engine
     │
     ▼
-analytics.track(event, payload)     ← единственный публичный API
+Engine Events
+    │
+    ▼
+analytics.track(event, payload)     ← единственный Analytics API
     │
     ▼
 Analytics (fan-out)
@@ -30,6 +33,8 @@ Analytics (fan-out)
     ├── ClarityProvider     (позже)
     └── SupabaseProvider    (позже)
 ```
+
+События игрового процесса постепенно должны рождаться в Engine, а не в React-компонентах. UI может временно отправлять только события, которые не принадлежат Engine (например, открытие архива или share).
 
 Файлы:
 
@@ -41,6 +46,7 @@ Analytics (fan-out)
 | `src/analytics/providers/types.ts` | Контракт `AnalyticsProvider` |
 | `src/analytics/index.ts` | Публичные экспорты |
 | `src/components/analytics/AnalyticsBootstrap.tsx` | Загрузка gtag + `page_view` |
+| `src/engine/events/*` | Минимальная внутренняя прослойка Engine Events |
 
 ---
 
@@ -94,7 +100,7 @@ interface AnalyticsProvider {
 | Событие | Назначение | Payload (основное) |
 |---------|------------|--------------------|
 | `page_view` | Просмотр маршрута | `path`, `title?` |
-| `challenge_started` | Игрок нажал «Начать» | `challengeId`, `date?` |
+| `challenge_started` | Engine перевёл Challenge в начатое состояние | `challengeId`, `date?` |
 | `challenge_completed` | Победа | `challengeId`, `movieScore` |
 | `challenge_failed` | Поражение (неверный ответ на полном reveal) | `challengeId` |
 | `challenge_give_up` | Нажатие «Сдаться» | `challengeId` |
@@ -152,33 +158,29 @@ NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 
 ---
 
-# Что делает этот PR / что нет
+# Текущее состояние интеграции
 
-**Делает:**
+**Уже сделано:**
 
 - модуль Analytics + типы событий;
 - GAProvider;
-- автоматический только `page_view` при смене маршрута.
+- автоматический `page_view` при смене маршрута;
+- минимальная прослойка `src/engine/events`;
+- Engine публикует `challenge_*`, `reveal_opened`, `guess_*`;
+- `AnalyticsBootstrap` подписывает Analytics на Engine Events.
 
-**Не делает:**
+**Пока не сделано:**
 
-- вызовы `challenge_*` / `guess_*` / `reveal_*` из игрового UI;
 - Clarity / Supabase;
-- изменение Engine или геймплея.
-
-Инструментирование игровых событий — следующий PR (после подтверждения).
+- события UI-уровня `archive_opened` и `challenge_shared`.
 
 ---
 
 # Следующий шаг (отдельный PR)
 
-Подключить `analytics.track` в presentation layer в точках:
+Подключить временные UI-события, которые не принадлежат Engine:
 
-- старт Challenge;
-- открытие Reveal;
-- submit / correct / wrong guess;
-- complete / fail / give up;
-- archive open;
-- share.
+- `archive_opened`;
+- `challenge_shared`.
 
-Без изменения игровой логики — только вызовы рядом с уже существующими UI-handlers.
+Следующие провайдеры (`ClarityProvider`, `SupabaseProvider`) должны подключаться без изменения Engine Events и публичного API `analytics.track`.
