@@ -1,0 +1,2540 @@
+[
+  {
+    "slug": "inception",
+    "title": "Начало",
+    "titleOriginal": "Inception",
+    "year": 2010
+  },
+  {
+    "slug": "interstellar",
+    "title": "Интерстеллар",
+    "titleOriginal": "Interstellar",
+    "year": 2014
+  },
+  {
+    "slug": "avatar",
+    "title": "Аватар",
+    "titleOriginal": "Avatar",
+    "year": 2009
+  },
+  {
+    "slug": "avatar-the-way-of-water",
+    "title": "Аватар: Путь воды",
+    "titleOriginal": "Avatar: The Way of Water",
+    "year": 2022
+  },
+  {
+    "slug": "dune",
+    "title": "Дюна",
+    "titleOriginal": "Dune",
+    "year": 2021
+  },
+  {
+    "slug": "dune-part-two",
+    "title": "Дюна: Часть вторая",
+    "titleOriginal": "Dune: Part Two",
+    "year": 2024
+  },
+  {
+    "slug": "blade-runner",
+    "title": "Бегущий по лезвию",
+    "titleOriginal": "Blade Runner",
+    "year": 1982
+  },
+  {
+    "slug": "blade-runner-2049",
+    "title": "Бегущий по лезвию 2049",
+    "titleOriginal": "Blade Runner 2049",
+    "year": 2017
+  },
+  {
+    "slug": "the-fifth-element",
+    "title": "Пятый элемент",
+    "titleOriginal": "The Fifth Element",
+    "year": 1997
+  },
+  {
+    "slug": "independence-day",
+    "title": "День независимости",
+    "titleOriginal": "Independence Day",
+    "year": 1996
+  },
+  {
+    "slug": "men-in-black",
+    "title": "Люди в чёрном",
+    "titleOriginal": "Men in Black",
+    "year": 1997
+  },
+  {
+    "slug": "arrival",
+    "title": "Прибытие",
+    "titleOriginal": "Arrival",
+    "year": 2016
+  },
+  {
+    "slug": "gravity",
+    "title": "Гравитация",
+    "titleOriginal": "Gravity",
+    "year": 2013
+  },
+  {
+    "slug": "the-martian",
+    "title": "Марсианин",
+    "titleOriginal": "The Martian",
+    "year": 2015
+  },
+  {
+    "slug": "district-9",
+    "title": "Район №9",
+    "titleOriginal": "District 9",
+    "year": 2009
+  },
+  {
+    "slug": "edge-of-tomorrow",
+    "title": "Грань будущего",
+    "titleOriginal": "Edge of Tomorrow",
+    "year": 2014
+  },
+  {
+    "slug": "pacific-rim",
+    "title": "Тихоокеанский рубеж",
+    "titleOriginal": "Pacific Rim",
+    "year": 2013
+  },
+  {
+    "slug": "ready-player-one",
+    "title": "Первому игроку приготовиться",
+    "titleOriginal": "Ready Player One",
+    "year": 2018
+  },
+  {
+    "slug": "minority-report",
+    "title": "Особое мнение",
+    "titleOriginal": "Minority Report",
+    "year": 2002
+  },
+  {
+    "slug": "i-robot",
+    "title": "Я, робот",
+    "titleOriginal": "I, Robot",
+    "year": 2004
+  },
+  {
+    "slug": "ex-machina",
+    "title": "Из машины",
+    "titleOriginal": "Ex Machina",
+    "year": 2014
+  },
+  {
+    "slug": "war-of-the-worlds",
+    "title": "Война миров",
+    "titleOriginal": "War of the Worlds",
+    "year": 2005
+  },
+  {
+    "slug": "close-encounters-of-the-third-kind",
+    "title": "Близкие контакты третьей степени",
+    "titleOriginal": "Close Encounters of the Third Kind",
+    "year": 1977
+  },
+  {
+    "slug": "et-the-extra-terrestrial",
+    "title": "Инопланетянин",
+    "titleOriginal": "E.T. the Extra-Terrestrial",
+    "year": 1982
+  },
+  {
+    "slug": "ghostbusters",
+    "title": "Охотники за привидениями",
+    "titleOriginal": "Ghostbusters",
+    "year": 1984
+  },
+  {
+    "slug": "ghostbusters-ii",
+    "title": "Охотники за привидениями 2",
+    "titleOriginal": "Ghostbusters II",
+    "year": 1989
+  },
+  {
+    "slug": "robocop",
+    "title": "Робокоп",
+    "titleOriginal": "RoboCop",
+    "year": 1987
+  },
+  {
+    "slug": "total-recall",
+    "title": "Вспомнить всё",
+    "titleOriginal": "Total Recall",
+    "year": 1990
+  },
+  {
+    "slug": "starship-troopers",
+    "title": "Звёздный десант",
+    "titleOriginal": "Starship Troopers",
+    "year": 1997
+  },
+  {
+    "slug": "planet-of-the-apes",
+    "title": "Планета обезьян",
+    "titleOriginal": "Planet of the Apes",
+    "year": 2001
+  },
+  {
+    "slug": "rise-of-the-planet-of-the-apes",
+    "title": "Восстание планеты обезьян",
+    "titleOriginal": "Rise of the Planet of the Apes",
+    "year": 2011
+  },
+  {
+    "slug": "mad-max-fury-road",
+    "title": "Безумный Макс: Дорога ярости",
+    "titleOriginal": "Mad Max: Fury Road",
+    "year": 2015
+  },
+  {
+    "slug": "mad-max-2",
+    "title": "Безумный Макс 2",
+    "titleOriginal": "Mad Max 2",
+    "year": 1981
+  },
+  {
+    "slug": "star-wars-a-new-hope",
+    "title": "Звёздные войны: Новая надежда",
+    "titleOriginal": "Star Wars: A New Hope",
+    "year": 1977
+  },
+  {
+    "slug": "star-wars-the-empire-strikes-back",
+    "title": "Звёздные войны: Империя наносит ответный удар",
+    "titleOriginal": "Star Wars: The Empire Strikes Back",
+    "year": 1980
+  },
+  {
+    "slug": "star-wars-return-of-the-jedi",
+    "title": "Звёздные войны: Возвращение джедая",
+    "titleOriginal": "Star Wars: Return of the Jedi",
+    "year": 1983
+  },
+  {
+    "slug": "star-wars-the-phantom-menace",
+    "title": "Звёздные войны: Скрытая угроза",
+    "titleOriginal": "Star Wars: The Phantom Menace",
+    "year": 1999
+  },
+  {
+    "slug": "star-wars-the-force-awakens",
+    "title": "Звёздные войны: Пробуждение силы",
+    "titleOriginal": "Star Wars: The Force Awakens",
+    "year": 2015
+  },
+  {
+    "slug": "star-wars-rogue-one",
+    "title": "Изгой-один. Звёздные войны",
+    "titleOriginal": "Rogue One: A Star Wars Story",
+    "year": 2016
+  },
+  {
+    "slug": "star-wars-the-last-jedi",
+    "title": "Звёздные войны: Последние джедаи",
+    "titleOriginal": "Star Wars: The Last Jedi",
+    "year": 2017
+  },
+  {
+    "slug": "lord-of-the-rings-fellowship",
+    "title": "Властелин колец: Братство кольца",
+    "titleOriginal": "The Lord of the Rings: The Fellowship of the Ring",
+    "year": 2001
+  },
+  {
+    "slug": "lord-of-the-rings-two-towers",
+    "title": "Властелин колец: Две крепости",
+    "titleOriginal": "The Lord of the Rings: The Two Towers",
+    "year": 2002
+  },
+  {
+    "slug": "lord-of-the-rings-return-of-the-king",
+    "title": "Властелин колец: Возвращение короля",
+    "titleOriginal": "The Lord of the Rings: The Return of the King",
+    "year": 2003
+  },
+  {
+    "slug": "the-hobbit-an-unexpected-journey",
+    "title": "Хоббит: Нежданное путешествие",
+    "titleOriginal": "The Hobbit: An Unexpected Journey",
+    "year": 2012
+  },
+  {
+    "slug": "the-hobbit-the-battle-of-the-five-armies",
+    "title": "Хоббит: Битва пяти воинств",
+    "titleOriginal": "The Hobbit: The Battle of the Five Armies",
+    "year": 2014
+  },
+  {
+    "slug": "harry-potter-philosophers-stone",
+    "title": "Гарри Поттер и философский камень",
+    "titleOriginal": "Harry Potter and the Philosopher's Stone",
+    "year": 2001
+  },
+  {
+    "slug": "harry-potter-chamber-of-secrets",
+    "title": "Гарри Поттер и Тайная комната",
+    "titleOriginal": "Harry Potter and the Chamber of Secrets",
+    "year": 2002
+  },
+  {
+    "slug": "harry-potter-prisoner-of-azkaban",
+    "title": "Гарри Поттер и узник Азкабана",
+    "titleOriginal": "Harry Potter and the Prisoner of Azkaban",
+    "year": 2004
+  },
+  {
+    "slug": "harry-potter-goblet-of-fire",
+    "title": "Гарри Поттер и Кубок огня",
+    "titleOriginal": "Harry Potter and the Goblet of Fire",
+    "year": 2005
+  },
+  {
+    "slug": "harry-potter-deathly-hallows-part-2",
+    "title": "Гарри Поттер и Дары Смерти: Часть II",
+    "titleOriginal": "Harry Potter and the Deathly Hallows – Part 2",
+    "year": 2011
+  },
+  {
+    "slug": "back-to-the-future",
+    "title": "Назад в будущее",
+    "titleOriginal": "Back to the Future",
+    "year": 1985
+  },
+  {
+    "slug": "back-to-the-future-part-ii",
+    "title": "Назад в будущее 2",
+    "titleOriginal": "Back to the Future Part II",
+    "year": 1989
+  },
+  {
+    "slug": "back-to-the-future-part-iii",
+    "title": "Назад в будущее 3",
+    "titleOriginal": "Back to the Future Part III",
+    "year": 1990
+  },
+  {
+    "slug": "jurassic-park",
+    "title": "Парк Юрского периода",
+    "titleOriginal": "Jurassic Park",
+    "year": 1993
+  },
+  {
+    "slug": "the-lost-world-jurassic-park",
+    "title": "Парк Юрского периода: Затерянный мир",
+    "titleOriginal": "The Lost World: Jurassic Park",
+    "year": 1997
+  },
+  {
+    "slug": "jurassic-world",
+    "title": "Мир Юрского периода",
+    "titleOriginal": "Jurassic World",
+    "year": 2015
+  },
+  {
+    "slug": "jurassic-world-fallen-kingdom",
+    "title": "Мир Юрского периода: Господство",
+    "titleOriginal": "Jurassic World: Fallen Kingdom",
+    "year": 2018
+  },
+  {
+    "slug": "raiders-of-the-lost-ark",
+    "title": "В поисках утраченного ковчега",
+    "titleOriginal": "Raiders of the Lost Ark",
+    "year": 1981
+  },
+  {
+    "slug": "indiana-jones-and-the-temple-of-doom",
+    "title": "Индиана Джонс и храм судьбы",
+    "titleOriginal": "Indiana Jones and the Temple of Doom",
+    "year": 1984
+  },
+  {
+    "slug": "indiana-jones-and-the-last-crusade",
+    "title": "Индиана Джонс и последний крестовый поход",
+    "titleOriginal": "Indiana Jones and the Last Crusade",
+    "year": 1989
+  },
+  {
+    "slug": "indiana-jones-and-the-kingdom-of-the-crystal-skull",
+    "title": "Индиана Джонс и Королевство хрустального черепа",
+    "titleOriginal": "Indiana Jones and the Kingdom of the Crystal Skull",
+    "year": 2008
+  },
+  {
+    "slug": "alien",
+    "title": "Чужой",
+    "titleOriginal": "Alien",
+    "year": 1979
+  },
+  {
+    "slug": "aliens",
+    "title": "Чужие",
+    "titleOriginal": "Aliens",
+    "year": 1986
+  },
+  {
+    "slug": "prometheus",
+    "title": "Прометей",
+    "titleOriginal": "Prometheus",
+    "year": 2012
+  },
+  {
+    "slug": "predator",
+    "title": "Хищник",
+    "titleOriginal": "Predator",
+    "year": 1987
+  },
+  {
+    "slug": "predator-2",
+    "title": "Хищник 2",
+    "titleOriginal": "Predator 2",
+    "year": 1990
+  },
+  {
+    "slug": "the-terminator",
+    "title": "Терминатор",
+    "titleOriginal": "The Terminator",
+    "year": 1984
+  },
+  {
+    "slug": "iron-man",
+    "title": "Железный человек",
+    "titleOriginal": "Iron Man",
+    "year": 2008
+  },
+  {
+    "slug": "the-avengers",
+    "title": "Мстители",
+    "titleOriginal": "The Avengers",
+    "year": 2012
+  },
+  {
+    "slug": "avengers-age-of-ultron",
+    "title": "Мстители: Эра Альтрона",
+    "titleOriginal": "Avengers: Age of Ultron",
+    "year": 2015
+  },
+  {
+    "slug": "avengers-infinity-war",
+    "title": "Мстители: Война бесконечности",
+    "titleOriginal": "Avengers: Infinity War",
+    "year": 2018
+  },
+  {
+    "slug": "avengers-endgame",
+    "title": "Мстители: Финал",
+    "titleOriginal": "Avengers: Endgame",
+    "year": 2019
+  },
+  {
+    "slug": "captain-america-the-winter-soldier",
+    "title": "Первый мститель: Другая война",
+    "titleOriginal": "Captain America: The Winter Soldier",
+    "year": 2014
+  },
+  {
+    "slug": "captain-america-civil-war",
+    "title": "Первый мститель: Противостояние",
+    "titleOriginal": "Captain America: Civil War",
+    "year": 2016
+  },
+  {
+    "slug": "thor-ragnarok",
+    "title": "Тор: Рагнарёк",
+    "titleOriginal": "Thor: Ragnarok",
+    "year": 2017
+  },
+  {
+    "slug": "guardians-of-the-galaxy",
+    "title": "Стражи Галактики",
+    "titleOriginal": "Guardians of the Galaxy",
+    "year": 2014
+  },
+  {
+    "slug": "guardians-of-the-galaxy-vol-2",
+    "title": "Стражи Галактики. Часть 2",
+    "titleOriginal": "Guardians of the Galaxy Vol. 2",
+    "year": 2017
+  },
+  {
+    "slug": "black-panther",
+    "title": "Чёрная Пантера",
+    "titleOriginal": "Black Panther",
+    "year": 2018
+  },
+  {
+    "slug": "spider-man-homecoming",
+    "title": "Человек-паук: Возвращение домой",
+    "titleOriginal": "Spider-Man: Homecoming",
+    "year": 2017
+  },
+  {
+    "slug": "spider-man-no-way-home",
+    "title": "Человек-паук: Нет пути домой",
+    "titleOriginal": "Spider-Man: No Way Home",
+    "year": 2021
+  },
+  {
+    "slug": "doctor-strange",
+    "title": "Доктор Стрэндж",
+    "titleOriginal": "Doctor Strange",
+    "year": 2016
+  },
+  {
+    "slug": "ant-man",
+    "title": "Человек-муравей",
+    "titleOriginal": "Ant-Man",
+    "year": 2015
+  },
+  {
+    "slug": "captain-marvel",
+    "title": "Капитан Марвел",
+    "titleOriginal": "Captain Marvel",
+    "year": 2019
+  },
+  {
+    "slug": "deadpool",
+    "title": "Дэдпул",
+    "titleOriginal": "Deadpool",
+    "year": 2016
+  },
+  {
+    "slug": "deadpool-2",
+    "title": "Дэдпул 2",
+    "titleOriginal": "Deadpool 2",
+    "year": 2018
+  },
+  {
+    "slug": "logan",
+    "title": "Логан",
+    "titleOriginal": "Logan",
+    "year": 2017
+  },
+  {
+    "slug": "x-men",
+    "title": "Люди Икс",
+    "titleOriginal": "X-Men",
+    "year": 2000
+  },
+  {
+    "slug": "x-men-days-of-future-past",
+    "title": "Люди Икс: Дни минувшего будущего",
+    "titleOriginal": "X-Men: Days of Future Past",
+    "year": 2014
+  },
+  {
+    "slug": "batman-begins",
+    "title": "Бэтмен: Начало",
+    "titleOriginal": "Batman Begins",
+    "year": 2005
+  },
+  {
+    "slug": "the-dark-knight",
+    "title": "Тёмный рыцарь",
+    "titleOriginal": "The Dark Knight",
+    "year": 2008
+  },
+  {
+    "slug": "the-dark-knight-rises",
+    "title": "Тёмный рыцарь: Возрождение легенды",
+    "titleOriginal": "The Dark Knight Rises",
+    "year": 2012
+  },
+  {
+    "slug": "batman",
+    "title": "Бэтмен",
+    "titleOriginal": "Batman",
+    "year": 1989
+  },
+  {
+    "slug": "superman",
+    "title": "Супермен",
+    "titleOriginal": "Superman",
+    "year": 1978
+  },
+  {
+    "slug": "man-of-steel",
+    "title": "Человек из стали",
+    "titleOriginal": "Man of Steel",
+    "year": 2013
+  },
+  {
+    "slug": "wonder-woman",
+    "title": "Чудо-женщина",
+    "titleOriginal": "Wonder Woman",
+    "year": 2017
+  },
+  {
+    "slug": "aquaman",
+    "title": "Аквамен",
+    "titleOriginal": "Aquaman",
+    "year": 2018
+  },
+  {
+    "slug": "justice-league",
+    "title": "Лига справедливости",
+    "titleOriginal": "Justice League",
+    "year": 2017
+  },
+  {
+    "slug": "dr-no",
+    "title": "Доктор Ноу",
+    "titleOriginal": "Dr. No",
+    "year": 1962
+  },
+  {
+    "slug": "goldfinger",
+    "title": "Голдфингер",
+    "titleOriginal": "Goldfinger",
+    "year": 1964
+  },
+  {
+    "slug": "from-russia-with-love",
+    "title": "Из России с любовью",
+    "titleOriginal": "From Russia with Love",
+    "year": 1963
+  },
+  {
+    "slug": "goldeneye",
+    "title": "Золотой глаз",
+    "titleOriginal": "GoldenEye",
+    "year": 1995
+  },
+  {
+    "slug": "casino-royale",
+    "title": "Казино Рояль",
+    "titleOriginal": "Casino Royale",
+    "year": 2006
+  },
+  {
+    "slug": "skyfall",
+    "title": "007: Координаты «Скайфолл»",
+    "titleOriginal": "Skyfall",
+    "year": 2012
+  },
+  {
+    "slug": "spectre",
+    "title": "007: Спектр",
+    "titleOriginal": "Spectre",
+    "year": 2015
+  },
+  {
+    "slug": "no-time-to-die",
+    "title": "Не время умирать",
+    "titleOriginal": "No Time to Die",
+    "year": 2021
+  },
+  {
+    "slug": "die-hard",
+    "title": "Крепкий орешек",
+    "titleOriginal": "Die Hard",
+    "year": 1988
+  },
+  {
+    "slug": "die-hard-2",
+    "title": "Крепкий орешек 2",
+    "titleOriginal": "Die Hard 2",
+    "year": 1990
+  },
+  {
+    "slug": "die-hard-with-a-vengeance",
+    "title": "Крепкий орешек 3: Возмездие",
+    "titleOriginal": "Die Hard with a Vengeance",
+    "year": 1995
+  },
+  {
+    "slug": "lethal-weapon",
+    "title": "Смертельное оружие",
+    "titleOriginal": "Lethal Weapon",
+    "year": 1987
+  },
+  {
+    "slug": "speed",
+    "title": "Скорость",
+    "titleOriginal": "Speed",
+    "year": 1994
+  },
+  {
+    "slug": "the-rock",
+    "title": "Скала",
+    "titleOriginal": "The Rock",
+    "year": 1996
+  },
+  {
+    "slug": "top-gun",
+    "title": "Лучший стрелок",
+    "titleOriginal": "Top Gun",
+    "year": 1986
+  },
+  {
+    "slug": "top-gun-maverick",
+    "title": "Топ Ган: Мэверик",
+    "titleOriginal": "Top Gun: Maverick",
+    "year": 2022
+  },
+  {
+    "slug": "mission-impossible",
+    "title": "Миссия невыполнима",
+    "titleOriginal": "Mission: Impossible",
+    "year": 1996
+  },
+  {
+    "slug": "mission-impossible-ghost-protocol",
+    "title": "Миссия невыполнима: Протокол Фантом",
+    "titleOriginal": "Mission: Impossible – Ghost Protocol",
+    "year": 2011
+  },
+  {
+    "slug": "mission-impossible-fallout",
+    "title": "Миссия невыполнима: Последствия",
+    "titleOriginal": "Mission: Impossible – Fallout",
+    "year": 2018
+  },
+  {
+    "slug": "john-wick",
+    "title": "Джон Уик",
+    "titleOriginal": "John Wick",
+    "year": 2014
+  },
+  {
+    "slug": "john-wick-chapter-2",
+    "title": "Джон Уик 2",
+    "titleOriginal": "John Wick: Chapter 2",
+    "year": 2017
+  },
+  {
+    "slug": "taken",
+    "title": "Заложница",
+    "titleOriginal": "Taken",
+    "year": 2008
+  },
+  {
+    "slug": "the-bourne-identity",
+    "title": "Идентификация Борна",
+    "titleOriginal": "The Bourne Identity",
+    "year": 2002
+  },
+  {
+    "slug": "the-bourne-supremacy",
+    "title": "Превосходство Борна",
+    "titleOriginal": "The Bourne Supremacy",
+    "year": 2004
+  },
+  {
+    "slug": "the-bourne-ultimatum",
+    "title": "Ультиматум Борна",
+    "titleOriginal": "The Bourne Ultimatum",
+    "year": 2007
+  },
+  {
+    "slug": "rambo-first-blood",
+    "title": "Первая кровь",
+    "titleOriginal": "First Blood",
+    "year": 1982
+  },
+  {
+    "slug": "rambo-first-blood-part-ii",
+    "title": "Рэмбо 2: Первая кровь 2",
+    "titleOriginal": "Rambo: First Blood Part II",
+    "year": 1985
+  },
+  {
+    "slug": "commando",
+    "title": "Коммандо",
+    "titleOriginal": "Commando",
+    "year": 1985
+  },
+  {
+    "slug": "face-off",
+    "title": "Без лица",
+    "titleOriginal": "Face/Off",
+    "year": 1997
+  },
+  {
+    "slug": "heat",
+    "title": "Схватка",
+    "titleOriginal": "Heat",
+    "year": 1995
+  },
+  {
+    "slug": "collateral",
+    "title": "Такси",
+    "titleOriginal": "Collateral",
+    "year": 2004
+  },
+  {
+    "slug": "point-break",
+    "title": "На гребне волны",
+    "titleOriginal": "Point Break",
+    "year": 1991
+  },
+  {
+    "slug": "fast-and-furious",
+    "title": "Форсаж",
+    "titleOriginal": "The Fast and the Furious",
+    "year": 2001
+  },
+  {
+    "slug": "fast-five",
+    "title": "Форсаж 5",
+    "titleOriginal": "Fast Five",
+    "year": 2011
+  },
+  {
+    "slug": "furious-7",
+    "title": "Форсаж 7",
+    "titleOriginal": "Furious 7",
+    "year": 2015
+  },
+  {
+    "slug": "the-expendables",
+    "title": "Неудержимые",
+    "titleOriginal": "The Expendables",
+    "year": 2010
+  },
+  {
+    "slug": "kingsman-the-secret-service",
+    "title": "Kingsman: Секретная служба",
+    "titleOriginal": "Kingsman: The Secret Service",
+    "year": 2014
+  },
+  {
+    "slug": "pulp-fiction",
+    "title": "Криминальное чтиво",
+    "titleOriginal": "Pulp Fiction",
+    "year": 1994
+  },
+  {
+    "slug": "goodfellas",
+    "title": "Славные парни",
+    "titleOriginal": "Goodfellas",
+    "year": 1990
+  },
+  {
+    "slug": "casino",
+    "title": "Казино",
+    "titleOriginal": "Casino",
+    "year": 1995
+  },
+  {
+    "slug": "scarface",
+    "title": "Лицо со шрамом",
+    "titleOriginal": "Scarface",
+    "year": 1983
+  },
+  {
+    "slug": "the-departed",
+    "title": "Отступники",
+    "titleOriginal": "The Departed",
+    "year": 2006
+  },
+  {
+    "slug": "the-silence-of-the-lambs",
+    "title": "Молчание ягнят",
+    "titleOriginal": "The Silence of the Lambs",
+    "year": 1991
+  },
+  {
+    "slug": "no-country-for-old-men",
+    "title": "Старикам тут не место",
+    "titleOriginal": "No Country for Old Men",
+    "year": 2007
+  },
+  {
+    "slug": "gone-girl",
+    "title": "Исчезнувшая",
+    "titleOriginal": "Gone Girl",
+    "year": 2014
+  },
+  {
+    "slug": "zodiac",
+    "title": "Зодиак",
+    "titleOriginal": "Zodiac",
+    "year": 2007
+  },
+  {
+    "slug": "memento",
+    "title": "Помни",
+    "titleOriginal": "Memento",
+    "year": 2000
+  },
+  {
+    "slug": "the-usual-suspects",
+    "title": "Обычные подозреваемые",
+    "titleOriginal": "The Usual Suspects",
+    "year": 1995
+  },
+  {
+    "slug": "reservoir-dogs",
+    "title": "Бешеные псы",
+    "titleOriginal": "Reservoir Dogs",
+    "year": 1992
+  },
+  {
+    "slug": "la-confidential",
+    "title": "Секреты Лос-Анджелеса",
+    "titleOriginal": "L.A. Confidential",
+    "year": 1997
+  },
+  {
+    "slug": "american-gangster",
+    "title": "Американский гангстер",
+    "titleOriginal": "American Gangster",
+    "year": 2007
+  },
+  {
+    "slug": "the-untouchables",
+    "title": "Неприкасаемые",
+    "titleOriginal": "The Untouchables",
+    "year": 1987
+  },
+  {
+    "slug": "the-godfather",
+    "title": "Крестный отец",
+    "titleOriginal": "The Godfather",
+    "year": 1972
+  },
+  {
+    "slug": "the-godfather-part-ii",
+    "title": "Крестный отец 2",
+    "titleOriginal": "The Godfather Part II",
+    "year": 1974
+  },
+  {
+    "slug": "once-upon-a-time-in-america",
+    "title": "Однажды в Америке",
+    "titleOriginal": "Once Upon a Time in America",
+    "year": 1984
+  },
+  {
+    "slug": "bonnie-and-clyde",
+    "title": "Бонни и Клайд",
+    "titleOriginal": "Bonnie and Clyde",
+    "year": 1967
+  },
+  {
+    "slug": "the-french-connection",
+    "title": "Французский связной",
+    "titleOriginal": "The French Connection",
+    "year": 1971
+  },
+  {
+    "slug": "taxi-driver",
+    "title": "Таксист",
+    "titleOriginal": "Taxi Driver",
+    "year": 1976
+  },
+  {
+    "slug": "lock-stock-and-two-smoking-barrels",
+    "title": "Карты, деньги, два ствола",
+    "titleOriginal": "Lock, Stock and Two Smoking Barrels",
+    "year": 1998
+  },
+  {
+    "slug": "snatch",
+    "title": "Большой куш",
+    "titleOriginal": "Snatch",
+    "year": 2000
+  },
+  {
+    "slug": "oceans-eleven",
+    "title": "Одиннадцать друзей Оушена",
+    "titleOriginal": "Ocean's Eleven",
+    "year": 2001
+  },
+  {
+    "slug": "the-sting",
+    "title": "Афера",
+    "titleOriginal": "The Sting",
+    "year": 1973
+  },
+  {
+    "slug": "psycho",
+    "title": "Психо",
+    "titleOriginal": "Psycho",
+    "year": 1960
+  },
+  {
+    "slug": "the-exorcist",
+    "title": "Изгоняющий дьявола",
+    "titleOriginal": "The Exorcist",
+    "year": 1973
+  },
+  {
+    "slug": "halloween",
+    "title": "Хэллоуин",
+    "titleOriginal": "Halloween",
+    "year": 1978
+  },
+  {
+    "slug": "a-nightmare-on-elm-street",
+    "title": "Кошмар на улице Вязов",
+    "titleOriginal": "A Nightmare on Elm Street",
+    "year": 1984
+  },
+  {
+    "slug": "friday-the-13th",
+    "title": "Пятница, 13-е",
+    "titleOriginal": "Friday the 13th",
+    "year": 1980
+  },
+  {
+    "slug": "scream",
+    "title": "Крик",
+    "titleOriginal": "Scream",
+    "year": 1996
+  },
+  {
+    "slug": "saw",
+    "title": "Пила",
+    "titleOriginal": "Saw",
+    "year": 2004
+  },
+  {
+    "slug": "the-ring",
+    "title": "Звонок",
+    "titleOriginal": "The Ring",
+    "year": 2002
+  },
+  {
+    "slug": "it",
+    "title": "Оно",
+    "titleOriginal": "It",
+    "year": 2017
+  },
+  {
+    "slug": "the-conjuring",
+    "title": "Заклятие",
+    "titleOriginal": "The Conjuring",
+    "year": 2013
+  },
+  {
+    "slug": "insidious",
+    "title": "Астрал",
+    "titleOriginal": "Insidious",
+    "year": 2010
+  },
+  {
+    "slug": "paranormal-activity",
+    "title": "Паранормальное явление",
+    "titleOriginal": "Paranormal Activity",
+    "year": 2007
+  },
+  {
+    "slug": "the-texas-chainsaw-massacre",
+    "title": "Техасская резня бензопилой",
+    "titleOriginal": "The Texas Chain Saw Massacre",
+    "year": 1974
+  },
+  {
+    "slug": "poltergeist",
+    "title": "Полтергейст",
+    "titleOriginal": "Poltergeist",
+    "year": 1982
+  },
+  {
+    "slug": "the-blair-witch-project",
+    "title": "Ведьма из Блэр",
+    "titleOriginal": "The Blair Witch Project",
+    "year": 1999
+  },
+  {
+    "slug": "get-out",
+    "title": "Прочь",
+    "titleOriginal": "Get Out",
+    "year": 2017
+  },
+  {
+    "slug": "us",
+    "title": "Мы",
+    "titleOriginal": "Us",
+    "year": 2019
+  },
+  {
+    "slug": "a-quiet-place",
+    "title": "Тихое место",
+    "titleOriginal": "A Quiet Place",
+    "year": 2018
+  },
+  {
+    "slug": "beetlejuice",
+    "title": "Битлджус",
+    "titleOriginal": "Beetlejuice",
+    "year": 1988
+  },
+  {
+    "slug": "gremlins",
+    "title": "Гремлины",
+    "titleOriginal": "Gremlins",
+    "year": 1984
+  },
+  {
+    "slug": "the-thing",
+    "title": "Нечто",
+    "titleOriginal": "The Thing",
+    "year": 1982
+  },
+  {
+    "slug": "carrie",
+    "title": "Кэрри",
+    "titleOriginal": "Carrie",
+    "year": 1976
+  },
+  {
+    "slug": "childs-play",
+    "title": "Детские игры",
+    "titleOriginal": "Child's Play",
+    "year": 1988
+  },
+  {
+    "slug": "home-alone",
+    "title": "Один дома",
+    "titleOriginal": "Home Alone",
+    "year": 1990
+  },
+  {
+    "slug": "home-alone-2",
+    "title": "Один дома 2: Затерянный в Нью-Йорке",
+    "titleOriginal": "Home Alone 2: Lost in New York",
+    "year": 1992
+  },
+  {
+    "slug": "dumb-and-dumber",
+    "title": "Тупой и ещё тупее",
+    "titleOriginal": "Dumb and Dumber",
+    "year": 1994
+  },
+  {
+    "slug": "ace-ventura-pet-detective",
+    "title": "Эйс Вентура: Розыск домашних животных",
+    "titleOriginal": "Ace Ventura: Pet Detective",
+    "year": 1994
+  },
+  {
+    "slug": "the-mask",
+    "title": "Маска",
+    "titleOriginal": "The Mask",
+    "year": 1994
+  },
+  {
+    "slug": "bruce-almighty",
+    "title": "Брюс Всемогущий",
+    "titleOriginal": "Bruce Almighty",
+    "year": 2003
+  },
+  {
+    "slug": "superbad",
+    "title": "Суперплохие",
+    "titleOriginal": "Superbad",
+    "year": 2007
+  },
+  {
+    "slug": "american-pie",
+    "title": "Американский пирог",
+    "titleOriginal": "American Pie",
+    "year": 1999
+  },
+  {
+    "slug": "wedding-crashers",
+    "title": "Крутые перцы",
+    "titleOriginal": "Wedding Crashers",
+    "year": 2005
+  },
+  {
+    "slug": "anchorman",
+    "title": "Ночной дозор",
+    "titleOriginal": "Anchorman: The Legend of Ron Burgundy",
+    "year": 2004
+  },
+  {
+    "slug": "step-brothers",
+    "title": "Сводные братья",
+    "titleOriginal": "Step Brothers",
+    "year": 2008
+  },
+  {
+    "slug": "dodgeball",
+    "title": "Мячом по яйцам",
+    "titleOriginal": "Dodgeball: A True Underdog Story",
+    "year": 2004
+  },
+  {
+    "slug": "zoolander",
+    "title": "Образцовый самец",
+    "titleOriginal": "Zoolander",
+    "year": 2001
+  },
+  {
+    "slug": "tropic-thunder",
+    "title": "Гром в тропиках",
+    "titleOriginal": "Tropic Thunder",
+    "year": 2008
+  },
+  {
+    "slug": "bridesmaids",
+    "title": "Девичник в Вегасе",
+    "titleOriginal": "Bridesmaids",
+    "year": 2011
+  },
+  {
+    "slug": "groundhog-day",
+    "title": "День сурка",
+    "titleOriginal": "Groundhog Day",
+    "year": 1993
+  },
+  {
+    "slug": "big",
+    "title": "Большой",
+    "titleOriginal": "Big",
+    "year": 1988
+  },
+  {
+    "slug": "mrs-doubtfire",
+    "title": "Миссис Даутфайр",
+    "titleOriginal": "Mrs. Doubtfire",
+    "year": 1993
+  },
+  {
+    "slug": "jumanji",
+    "title": "Джуманджи",
+    "titleOriginal": "Jumanji",
+    "year": 1995
+  },
+  {
+    "slug": "jumanji-welcome-to-the-jungle",
+    "title": "Джуманджи: Зов джунглей",
+    "titleOriginal": "Jumanji: Welcome to the Jungle",
+    "year": 2017
+  },
+  {
+    "slug": "night-at-the-museum",
+    "title": "Ночь в музее",
+    "titleOriginal": "Night at the Museum",
+    "year": 2006
+  },
+  {
+    "slug": "meet-the-parents",
+    "title": "Знакомство с родителями",
+    "titleOriginal": "Meet the Parents",
+    "year": 2000
+  },
+  {
+    "slug": "monty-python-and-the-holy-grail",
+    "title": "Монти Пайтон и Священный Грааль",
+    "titleOriginal": "Monty Python and the Holy Grail",
+    "year": 1975
+  },
+  {
+    "slug": "airplane",
+    "title": "Аэроплан!",
+    "titleOriginal": "Airplane!",
+    "year": 1980
+  },
+  {
+    "slug": "hot-fuzz",
+    "title": "Зубастики",
+    "titleOriginal": "Hot Fuzz",
+    "year": 2007
+  },
+  {
+    "slug": "shaun-of-the-dead",
+    "title": "Зомби по имени Шон",
+    "titleOriginal": "Shaun of the Dead",
+    "year": 2004
+  },
+  {
+    "slug": "borat",
+    "title": "Борат",
+    "titleOriginal": "Borat",
+    "year": 2006
+  },
+  {
+    "slug": "ted",
+    "title": "Тед",
+    "titleOriginal": "Ted",
+    "year": 2012
+  },
+  {
+    "slug": "pitch-perfect",
+    "title": "Идеальный голос",
+    "titleOriginal": "Pitch Perfect",
+    "year": 2012
+  },
+  {
+    "slug": "mean-girls",
+    "title": "Дрянные девчонки",
+    "titleOriginal": "Mean Girls",
+    "year": 2004
+  },
+  {
+    "slug": "legally-blonde",
+    "title": "Блондинка в законе",
+    "titleOriginal": "Legally Blonde",
+    "year": 2001
+  },
+  {
+    "slug": "the-princess-bride",
+    "title": "Принцесса-невеста",
+    "titleOriginal": "The Princess Bride",
+    "year": 1987
+  },
+  {
+    "slug": "school-of-rock",
+    "title": "Школа рока",
+    "titleOriginal": "School of Rock",
+    "year": 2003
+  },
+  {
+    "slug": "elf",
+    "title": "Эльф",
+    "titleOriginal": "Elf",
+    "year": 2003
+  },
+  {
+    "slug": "how-the-grinch-stole-christmas",
+    "title": "Гринч — похититель Рождества",
+    "titleOriginal": "How the Grinch Stole Christmas",
+    "year": 2000
+  },
+  {
+    "slug": "toy-story",
+    "title": "История игрушек",
+    "titleOriginal": "Toy Story",
+    "year": 1995
+  },
+  {
+    "slug": "toy-story-2",
+    "title": "История игрушек 2",
+    "titleOriginal": "Toy Story 2",
+    "year": 1999
+  },
+  {
+    "slug": "toy-story-3",
+    "title": "История игрушек 3",
+    "titleOriginal": "Toy Story 3",
+    "year": 2010
+  },
+  {
+    "slug": "toy-story-4",
+    "title": "История игрушек 4",
+    "titleOriginal": "Toy Story 4",
+    "year": 2019
+  },
+  {
+    "slug": "finding-nemo",
+    "title": "В поисках Немо",
+    "titleOriginal": "Finding Nemo",
+    "year": 2003
+  },
+  {
+    "slug": "finding-dory",
+    "title": "В поисках Дори",
+    "titleOriginal": "Finding Dory",
+    "year": 2016
+  },
+  {
+    "slug": "monsters-inc",
+    "title": "Корпорация монстров",
+    "titleOriginal": "Monsters, Inc.",
+    "year": 2001
+  },
+  {
+    "slug": "monsters-university",
+    "title": "Университет монстров",
+    "titleOriginal": "Monsters University",
+    "year": 2013
+  },
+  {
+    "slug": "up",
+    "title": "Вверх",
+    "titleOriginal": "Up",
+    "year": 2009
+  },
+  {
+    "slug": "inside-out",
+    "title": "Головоломка",
+    "titleOriginal": "Inside Out",
+    "year": 2015
+  },
+  {
+    "slug": "coco",
+    "title": "Тайна Коко",
+    "titleOriginal": "Coco",
+    "year": 2017
+  },
+  {
+    "slug": "ratatouille",
+    "title": "Рататуй",
+    "titleOriginal": "Ratatouille",
+    "year": 2007
+  },
+  {
+    "slug": "wall-e",
+    "title": "ВАЛЛ·И",
+    "titleOriginal": "WALL-E",
+    "year": 2008
+  },
+  {
+    "slug": "the-incredibles",
+    "title": "Суперсемейка",
+    "titleOriginal": "The Incredibles",
+    "year": 2004
+  },
+  {
+    "slug": "incredibles-2",
+    "title": "Суперсемейка 2",
+    "titleOriginal": "Incredibles 2",
+    "year": 2018
+  },
+  {
+    "slug": "cars",
+    "title": "Тачки",
+    "titleOriginal": "Cars",
+    "year": 2006
+  },
+  {
+    "slug": "brave",
+    "title": "Храбрая сердцем",
+    "titleOriginal": "Brave",
+    "year": 2012
+  },
+  {
+    "slug": "soul",
+    "title": "Душа",
+    "titleOriginal": "Soul",
+    "year": 2020
+  },
+  {
+    "slug": "turning-red",
+    "title": "Я краснею",
+    "titleOriginal": "Turning Red",
+    "year": 2022
+  },
+  {
+    "slug": "frozen",
+    "title": "Холодное сердце",
+    "titleOriginal": "Frozen",
+    "year": 2013
+  },
+  {
+    "slug": "frozen-ii",
+    "title": "Холодное сердце 2",
+    "titleOriginal": "Frozen II",
+    "year": 2019
+  },
+  {
+    "slug": "moana",
+    "title": "Моана",
+    "titleOriginal": "Moana",
+    "year": 2016
+  },
+  {
+    "slug": "encanto",
+    "title": "Энканто",
+    "titleOriginal": "Encanto",
+    "year": 2021
+  },
+  {
+    "slug": "tangled",
+    "title": "Рапунцель: Запутанная история",
+    "titleOriginal": "Tangled",
+    "year": 2010
+  },
+  {
+    "slug": "beauty-and-the-beast",
+    "title": "Красавица и чудовище",
+    "titleOriginal": "Beauty and the Beast",
+    "year": 1991
+  },
+  {
+    "slug": "aladdin",
+    "title": "Аладдин",
+    "titleOriginal": "Aladdin",
+    "year": 1992
+  },
+  {
+    "slug": "the-little-mermaid",
+    "title": "Русалочка",
+    "titleOriginal": "The Little Mermaid",
+    "year": 1989
+  },
+  {
+    "slug": "mulan",
+    "title": "Мулан",
+    "titleOriginal": "Mulan",
+    "year": 1998
+  },
+  {
+    "slug": "the-lion-king",
+    "title": "Король Лев",
+    "titleOriginal": "The Lion King",
+    "year": 1994
+  },
+  {
+    "slug": "zootopia",
+    "title": "Зверополис",
+    "titleOriginal": "Zootopia",
+    "year": 2016
+  },
+  {
+    "slug": "big-hero-6",
+    "title": "Город героев",
+    "titleOriginal": "Big Hero 6",
+    "year": 2014
+  },
+  {
+    "slug": "wreck-it-ralph",
+    "title": "Ральф",
+    "titleOriginal": "Wreck-It Ralph",
+    "year": 2012
+  },
+  {
+    "slug": "madagascar",
+    "title": "Мадагаскар",
+    "titleOriginal": "Madagascar",
+    "year": 2005
+  },
+  {
+    "slug": "kung-fu-panda",
+    "title": "Кунг-фу Панда",
+    "titleOriginal": "Kung Fu Panda",
+    "year": 2008
+  },
+  {
+    "slug": "how-to-train-your-dragon",
+    "title": "Как приручить дракона",
+    "titleOriginal": "How to Train Your Dragon",
+    "year": 2010
+  },
+  {
+    "slug": "how-to-train-your-dragon-2",
+    "title": "Как приручить дракона 2",
+    "titleOriginal": "How to Train Your Dragon 2",
+    "year": 2014
+  },
+  {
+    "slug": "despicable-me",
+    "title": "Гадкий я",
+    "titleOriginal": "Despicable Me",
+    "year": 2010
+  },
+  {
+    "slug": "despicable-me-2",
+    "title": "Гадкий я 2",
+    "titleOriginal": "Despicable Me 2",
+    "year": 2013
+  },
+  {
+    "slug": "minions",
+    "title": "Миньоны",
+    "titleOriginal": "Minions",
+    "year": 2015
+  },
+  {
+    "slug": "ice-age",
+    "title": "Ледниковый период",
+    "titleOriginal": "Ice Age",
+    "year": 2002
+  },
+  {
+    "slug": "the-boss-baby",
+    "title": "Малыш босс",
+    "titleOriginal": "The Boss Baby",
+    "year": 2017
+  },
+  {
+    "slug": "spirited-away",
+    "title": "Унесённые призраками",
+    "titleOriginal": "Spirited Away",
+    "year": 2001
+  },
+  {
+    "slug": "my-neighbor-totoro",
+    "title": "Мой сосед Тоторо",
+    "titleOriginal": "My Neighbor Totoro",
+    "year": 1988
+  },
+  {
+    "slug": "princess-mononoke",
+    "title": "Принцесса Мононоке",
+    "titleOriginal": "Princess Mononoke",
+    "year": 1997
+  },
+  {
+    "slug": "howls-moving-castle",
+    "title": "Ходячий замок",
+    "titleOriginal": "Howl's Moving Castle",
+    "year": 2004
+  },
+  {
+    "slug": "kikis-delivery-service",
+    "title": "Ведьма на службе",
+    "titleOriginal": "Kiki's Delivery Service",
+    "year": 1989
+  },
+  {
+    "slug": "your-name",
+    "title": "Твоё имя",
+    "titleOriginal": "Your Name",
+    "year": 2016
+  },
+  {
+    "slug": "akira",
+    "title": "Акира",
+    "titleOriginal": "Akira",
+    "year": 1988
+  },
+  {
+    "slug": "titanic",
+    "title": "Титаник",
+    "titleOriginal": "Titanic",
+    "year": 1997
+  },
+  {
+    "slug": "the-notebook",
+    "title": "Дневник памяти",
+    "titleOriginal": "The Notebook",
+    "year": 2004
+  },
+  {
+    "slug": "pretty-woman",
+    "title": "Красотка",
+    "titleOriginal": "Pretty Woman",
+    "year": 1990
+  },
+  {
+    "slug": "ghost",
+    "title": "Привидение",
+    "titleOriginal": "Ghost",
+    "year": 1990
+  },
+  {
+    "slug": "dirty-dancing",
+    "title": "Грязные танцы",
+    "titleOriginal": "Dirty Dancing",
+    "year": 1987
+  },
+  {
+    "slug": "love-actually",
+    "title": "Реальная любовь",
+    "titleOriginal": "Love Actually",
+    "year": 2003
+  },
+  {
+    "slug": "when-harry-met-sally",
+    "title": "Когда Гарри встретил Салли",
+    "titleOriginal": "When Harry Met Sally...",
+    "year": 1989
+  },
+  {
+    "slug": "sleepless-in-seattle",
+    "title": "Бессонница в Сиэтле",
+    "titleOriginal": "Sleepless in Seattle",
+    "year": 1993
+  },
+  {
+    "slug": "notting-hill",
+    "title": "Ноттинг Хилл",
+    "titleOriginal": "Notting Hill",
+    "year": 1999
+  },
+  {
+    "slug": "four-weddings-and-a-funeral",
+    "title": "Четыре свадьбы и одни похороны",
+    "titleOriginal": "Four Weddings and a Funeral",
+    "year": 1994
+  },
+  {
+    "slug": "bridget-jones-diary",
+    "title": "Дневник Бриджит Джонс",
+    "titleOriginal": "Bridget Jones's Diary",
+    "year": 2001
+  },
+  {
+    "slug": "pride-and-prejudice",
+    "title": "Гордость и предубеждение",
+    "titleOriginal": "Pride & Prejudice",
+    "year": 2005
+  },
+  {
+    "slug": "la-la-land",
+    "title": "Ла-Ла Ленд",
+    "titleOriginal": "La La Land",
+    "year": 2016
+  },
+  {
+    "slug": "the-fault-in-our-stars",
+    "title": "Виноваты звёзды",
+    "titleOriginal": "The Fault in Our Stars",
+    "year": 2014
+  },
+  {
+    "slug": "fifty-shades-of-grey",
+    "title": "Пятьдесят оттенков серого",
+    "titleOriginal": "Fifty Shades of Grey",
+    "year": 2015
+  },
+  {
+    "slug": "amelie",
+    "title": "Амели",
+    "titleOriginal": "Amélie",
+    "year": 2001
+  },
+  {
+    "slug": "life-is-beautiful",
+    "title": "Жизнь прекрасна",
+    "titleOriginal": "Life Is Beautiful",
+    "year": 1997
+  },
+  {
+    "slug": "a-star-is-born",
+    "title": "Звезда родилась",
+    "titleOriginal": "A Star Is Born",
+    "year": 2018
+  },
+  {
+    "slug": "moulin-rouge",
+    "title": "Мулен Руж",
+    "titleOriginal": "Moulin Rouge!",
+    "year": 2001
+  },
+  {
+    "slug": "grease",
+    "title": "Бриолин",
+    "titleOriginal": "Grease",
+    "year": 1978
+  },
+  {
+    "slug": "west-side-story",
+    "title": "Вестсайдская история",
+    "titleOriginal": "West Side Story",
+    "year": 1961
+  },
+  {
+    "slug": "casablanca",
+    "title": "Касабланка",
+    "titleOriginal": "Casablanca",
+    "year": 1942
+  },
+  {
+    "slug": "breakfast-at-tiffanys",
+    "title": "Завтрак у Тиффани",
+    "titleOriginal": "Breakfast at Tiffany's",
+    "year": 1961
+  },
+  {
+    "slug": "saving-private-ryan",
+    "title": "Спасти рядового Райана",
+    "titleOriginal": "Saving Private Ryan",
+    "year": 1998
+  },
+  {
+    "slug": "apocalypse-now",
+    "title": "Апокалипсис сегодня",
+    "titleOriginal": "Apocalypse Now",
+    "year": 1979
+  },
+  {
+    "slug": "full-metal-jacket",
+    "title": "Цельнометаллическая оболочка",
+    "titleOriginal": "Full Metal Jacket",
+    "year": 1987
+  },
+  {
+    "slug": "platoon",
+    "title": "Взвод",
+    "titleOriginal": "Platoon",
+    "year": 1986
+  },
+  {
+    "slug": "dunkirk",
+    "title": "Дюнкерк",
+    "titleOriginal": "Dunkirk",
+    "year": 2017
+  },
+  {
+    "slug": "1917",
+    "title": "1917",
+    "titleOriginal": "1917",
+    "year": 2019
+  },
+  {
+    "slug": "hacksaw-ridge",
+    "title": "По соображениям совести",
+    "titleOriginal": "Hacksaw Ridge",
+    "year": 2016
+  },
+  {
+    "slug": "black-hawk-down",
+    "title": "Падение чёрного ястреба",
+    "titleOriginal": "Black Hawk Down",
+    "year": 2001
+  },
+  {
+    "slug": "pearl-harbor",
+    "title": "Пёрл-Харбор",
+    "titleOriginal": "Pearl Harbor",
+    "year": 2001
+  },
+  {
+    "slug": "inglourious-basterds",
+    "title": "Бесславные ублюдки",
+    "titleOriginal": "Inglourious Basterds",
+    "year": 2009
+  },
+  {
+    "slug": "fury",
+    "title": "Ярость",
+    "titleOriginal": "Fury",
+    "year": 2014
+  },
+  {
+    "slug": "das-boot",
+    "title": "Подводная лодка",
+    "titleOriginal": "Das Boot",
+    "year": 1981
+  },
+  {
+    "slug": "the-bridge-on-the-river-kwai",
+    "title": "Мост через реку Квай",
+    "titleOriginal": "The Bridge on the River Kwai",
+    "year": 1957
+  },
+  {
+    "slug": "the-great-escape",
+    "title": "Большой побег",
+    "titleOriginal": "The Great Escape",
+    "year": 1963
+  },
+  {
+    "slug": "schindlers-list",
+    "title": "Список Шиндлера",
+    "titleOriginal": "Schindler's List",
+    "year": 1993
+  },
+  {
+    "slug": "the-pianist",
+    "title": "Пианист",
+    "titleOriginal": "The Pianist",
+    "year": 2002
+  },
+  {
+    "slug": "the-good-the-bad-and-the-ugly",
+    "title": "Хороший, плохой, злой",
+    "titleOriginal": "The Good, the Bad and the Ugly",
+    "year": 1966
+  },
+  {
+    "slug": "once-upon-a-time-in-the-west",
+    "title": "Однажды на Диком Западе",
+    "titleOriginal": "Once Upon a Time in the West",
+    "year": 1968
+  },
+  {
+    "slug": "unforgiven",
+    "title": "Непрощённый",
+    "titleOriginal": "Unforgiven",
+    "year": 1992
+  },
+  {
+    "slug": "django-unchained",
+    "title": "Django освобождённый",
+    "titleOriginal": "Django Unchained",
+    "year": 2012
+  },
+  {
+    "slug": "true-grit",
+    "title": "Реальная крепость",
+    "titleOriginal": "True Grit",
+    "year": 2010
+  },
+  {
+    "slug": "butch-cassidy-and-the-sundance-kid",
+    "title": "Буч Кэссиди и Сандэнс Кид",
+    "titleOriginal": "Butch Cassidy and the Sundance Kid",
+    "year": 1969
+  },
+  {
+    "slug": "dances-with-wolves",
+    "title": "Танцы с волками",
+    "titleOriginal": "Dances with Wolves",
+    "year": 1990
+  },
+  {
+    "slug": "tombstone",
+    "title": "Тумстоун",
+    "titleOriginal": "Tombstone",
+    "year": 1993
+  },
+  {
+    "slug": "the-sound-of-music",
+    "title": "Звуки музыки",
+    "titleOriginal": "The Sound of Music",
+    "year": 1965
+  },
+  {
+    "slug": "the-wizard-of-oz",
+    "title": "Волшебник страны Оз",
+    "titleOriginal": "The Wizard of Oz",
+    "year": 1939
+  },
+  {
+    "slug": "mamma-mia",
+    "title": "Мамма Миа!",
+    "titleOriginal": "Mamma Mia!",
+    "year": 2008
+  },
+  {
+    "slug": "chicago",
+    "title": "Чикаго",
+    "titleOriginal": "Chicago",
+    "year": 2002
+  },
+  {
+    "slug": "les-miserables",
+    "title": "Отверженные",
+    "titleOriginal": "Les Misérables",
+    "year": 2012
+  },
+  {
+    "slug": "singin-in-the-rain",
+    "title": "Поющие под дождём",
+    "titleOriginal": "Singin' in the Rain",
+    "year": 1952
+  },
+  {
+    "slug": "mary-poppins",
+    "title": "Мэри Поппинс",
+    "titleOriginal": "Mary Poppins",
+    "year": 1964
+  },
+  {
+    "slug": "the-greatest-showman",
+    "title": "Величайший шоумен",
+    "titleOriginal": "The Greatest Showman",
+    "year": 2017
+  },
+  {
+    "slug": "bohemian-rhapsody",
+    "title": "Богемская рапсодия",
+    "titleOriginal": "Bohemian Rhapsody",
+    "year": 2018
+  },
+  {
+    "slug": "rocketman",
+    "title": "Рокетмен",
+    "titleOriginal": "Rocketman",
+    "year": 2019
+  },
+  {
+    "slug": "elvis",
+    "title": "Элвис",
+    "titleOriginal": "Elvis",
+    "year": 2022
+  },
+  {
+    "slug": "the-shawshank-redemption",
+    "title": "Побег из Шоушенка",
+    "titleOriginal": "The Shawshank Redemption",
+    "year": 1994
+  },
+  {
+    "slug": "good-will-hunting",
+    "title": "Умница Уилл Хантинг",
+    "titleOriginal": "Good Will Hunting",
+    "year": 1997
+  },
+  {
+    "slug": "american-beauty",
+    "title": "Красота по-американски",
+    "titleOriginal": "American Beauty",
+    "year": 1999
+  },
+  {
+    "slug": "rain-man",
+    "title": "Человек дождя",
+    "titleOriginal": "Rain Man",
+    "year": 1988
+  },
+  {
+    "slug": "a-beautiful-mind",
+    "title": "Игры разума",
+    "titleOriginal": "A Beautiful Mind",
+    "year": 2001
+  },
+  {
+    "slug": "million-dollar-baby",
+    "title": "Малышка на миллион",
+    "titleOriginal": "Million Dollar Baby",
+    "year": 2004
+  },
+  {
+    "slug": "birdman",
+    "title": "Бёрдмэн",
+    "titleOriginal": "Birdman",
+    "year": 2014
+  },
+  {
+    "slug": "spotlight",
+    "title": "В центре внимания",
+    "titleOriginal": "Spotlight",
+    "year": 2015
+  },
+  {
+    "slug": "moonlight",
+    "title": "Лунный свет",
+    "titleOriginal": "Moonlight",
+    "year": 2016
+  },
+  {
+    "slug": "parasite",
+    "title": "Паразиты",
+    "titleOriginal": "Parasite",
+    "year": 2019
+  },
+  {
+    "slug": "12-years-a-slave",
+    "title": "12 лет рабства",
+    "titleOriginal": "12 Years a Slave",
+    "year": 2013
+  },
+  {
+    "slug": "the-revenant",
+    "title": "Выживший",
+    "titleOriginal": "The Revenant",
+    "year": 2015
+  },
+  {
+    "slug": "there-will-be-blood",
+    "title": "Нефть",
+    "titleOriginal": "There Will Be Blood",
+    "year": 2007
+  },
+  {
+    "slug": "the-social-network",
+    "title": "Социальная сеть",
+    "titleOriginal": "The Social Network",
+    "year": 2010
+  },
+  {
+    "slug": "the-wolf-of-wall-street",
+    "title": "Волк с Уолл-стрит",
+    "titleOriginal": "The Wolf of Wall Street",
+    "year": 2013
+  },
+  {
+    "slug": "whiplash",
+    "title": "Одержимость",
+    "titleOriginal": "Whiplash",
+    "year": 2014
+  },
+  {
+    "slug": "oppenheimer",
+    "title": "Оппенгеймер",
+    "titleOriginal": "Oppenheimer",
+    "year": 2023
+  },
+  {
+    "slug": "the-kings-speech",
+    "title": "Король говорит!",
+    "titleOriginal": "The King's Speech",
+    "year": 2010
+  },
+  {
+    "slug": "slumdog-millionaire",
+    "title": "Миллионер из трущоб",
+    "titleOriginal": "Slumdog Millionaire",
+    "year": 2008
+  },
+  {
+    "slug": "life-of-pi",
+    "title": "Жизнь Пи",
+    "titleOriginal": "Life of Pi",
+    "year": 2012
+  },
+  {
+    "slug": "cast-away",
+    "title": "Изгой",
+    "titleOriginal": "Cast Away",
+    "year": 2000
+  },
+  {
+    "slug": "the-pursuit-of-happyness",
+    "title": "В погоне за счастьем",
+    "titleOriginal": "The Pursuit of Happyness",
+    "year": 2006
+  },
+  {
+    "slug": "the-goonies",
+    "title": "Балбёс",
+    "titleOriginal": "The Goonies",
+    "year": 1985
+  },
+  {
+    "slug": "honey-i-shrunk-the-kids",
+    "title": "Я уменьшил детей",
+    "titleOriginal": "Honey, I Shrunk the Kids",
+    "year": 1989
+  },
+  {
+    "slug": "charlie-and-the-chocolate-factory",
+    "title": "Чарли и шоколадная фабрика",
+    "titleOriginal": "Charlie and the Chocolate Factory",
+    "year": 2005
+  },
+  {
+    "slug": "willy-wonka-and-the-chocolate-factory",
+    "title": "Вилли Вонка и шоколадная фабрика",
+    "titleOriginal": "Willy Wonka & the Chocolate Factory",
+    "year": 1971
+  },
+  {
+    "slug": "hocus-pocus",
+    "title": "Фокус-покус",
+    "titleOriginal": "Hocus Pocus",
+    "year": 1993
+  },
+  {
+    "slug": "coraline",
+    "title": "Коралина в стране кошмаров",
+    "titleOriginal": "Coraline",
+    "year": 2009
+  },
+  {
+    "slug": "the-nightmare-before-christmas",
+    "title": "Кошмар перед Рождеством",
+    "titleOriginal": "The Nightmare Before Christmas",
+    "year": 1993
+  },
+  {
+    "slug": "edward-scissorhands",
+    "title": "Эдвард руки-ножницы",
+    "titleOriginal": "Edward Scissorhands",
+    "year": 1990
+  },
+  {
+    "slug": "alice-in-wonderland",
+    "title": "Алиса в Стране чудес",
+    "titleOriginal": "Alice in Wonderland",
+    "year": 2010
+  },
+  {
+    "slug": "pirates-of-the-caribbean-the-curse-of-the-black-pearl",
+    "title": "Пираты Карибского моря: Проклятие Чёрной жемчужины",
+    "titleOriginal": "Pirates of the Caribbean: The Curse of the Black Pearl",
+    "year": 2003
+  },
+  {
+    "slug": "pirates-of-the-caribbean-dead-mans-chest",
+    "title": "Пираты Карибского моря: Сундук мертвеца",
+    "titleOriginal": "Pirates of the Caribbean: Dead Man's Chest",
+    "year": 2006
+  },
+  {
+    "slug": "transformers",
+    "title": "Трансформеры",
+    "titleOriginal": "Transformers",
+    "year": 2007
+  },
+  {
+    "slug": "bumblebee",
+    "title": "Бамблби",
+    "titleOriginal": "Bumblebee",
+    "year": 2018
+  },
+  {
+    "slug": "teenage-mutant-ninja-turtles",
+    "title": "Черепашки-ниндзя",
+    "titleOriginal": "Teenage Mutant Ninja Turtles",
+    "year": 2014
+  },
+  {
+    "slug": "sonic-the-hedgehog",
+    "title": "Соник в кино",
+    "titleOriginal": "Sonic the Hedgehog",
+    "year": 2020
+  },
+  {
+    "slug": "detective-pikachu",
+    "title": "Детектив Пикачу",
+    "titleOriginal": "Detective Pikachu",
+    "year": 2019
+  },
+  {
+    "slug": "space-jam",
+    "title": "Космический джем",
+    "titleOriginal": "Space Jam",
+    "year": 1996
+  },
+  {
+    "slug": "rocky",
+    "title": "Рокки",
+    "titleOriginal": "Rocky",
+    "year": 1976
+  },
+  {
+    "slug": "rocky-ii",
+    "title": "Рокки 2",
+    "titleOriginal": "Rocky II",
+    "year": 1979
+  },
+  {
+    "slug": "rocky-iii",
+    "title": "Рокки 3",
+    "titleOriginal": "Rocky III",
+    "year": 1982
+  },
+  {
+    "slug": "rocky-iv",
+    "title": "Рокки 4",
+    "titleOriginal": "Rocky IV",
+    "year": 1985
+  },
+  {
+    "slug": "creed",
+    "title": "Крид: Наследие Рокки",
+    "titleOriginal": "Creed",
+    "year": 2015
+  },
+  {
+    "slug": "remember-the-titans",
+    "title": "Непобедимые",
+    "titleOriginal": "Remember the Titans",
+    "year": 2000
+  },
+  {
+    "slug": "moneyball",
+    "title": "Человек, который изменил всё",
+    "titleOriginal": "Moneyball",
+    "year": 2011
+  },
+  {
+    "slug": "jerry-maguire",
+    "title": "Джерри Магуайер",
+    "titleOriginal": "Jerry Maguire",
+    "year": 1996
+  },
+  {
+    "slug": "field-of-dreams",
+    "title": "Поле мечты",
+    "titleOriginal": "Field of Dreams",
+    "year": 1989
+  },
+  {
+    "slug": "the-karate-kid",
+    "title": "Каратэ-пацан",
+    "titleOriginal": "The Karate Kid",
+    "year": 1984
+  },
+  {
+    "slug": "oldboy",
+    "title": "Олдбой",
+    "titleOriginal": "Oldboy",
+    "year": 2003
+  },
+  {
+    "slug": "train-to-busan",
+    "title": "Поезд в Пусан",
+    "titleOriginal": "Train to Busan",
+    "year": 2016
+  },
+  {
+    "slug": "cinema-paradiso",
+    "title": "Новый кинотеатр «Парадизо»",
+    "titleOriginal": "Cinema Paradiso",
+    "year": 1988
+  },
+  {
+    "slug": "pans-labyrinth",
+    "title": "Лабиринт Фавна",
+    "titleOriginal": "Pan's Labyrinth",
+    "year": 2006
+  },
+  {
+    "slug": "the-intouchables",
+    "title": "1+1",
+    "titleOriginal": "The Intouchables",
+    "year": 2011
+  },
+  {
+    "slug": "city-of-god",
+    "title": "Город Бога",
+    "titleOriginal": "City of God",
+    "year": 2002
+  },
+  {
+    "slug": "crouching-tiger-hidden-dragon",
+    "title": "Крадущийся тигр, затаившийся дракон",
+    "titleOriginal": "Crouching Tiger, Hidden Dragon",
+    "year": 2000
+  },
+  {
+    "slug": "hero",
+    "title": "Герой",
+    "titleOriginal": "Hero",
+    "year": 2002
+  },
+  {
+    "slug": "shaolin-soccer",
+    "title": "Кунг-фу футбол",
+    "titleOriginal": "Shaolin Soccer",
+    "year": 2001
+  },
+  {
+    "slug": "kung-fu-hustle",
+    "title": "Кунг-фу дракон",
+    "titleOriginal": "Kung Fu Hustle",
+    "year": 2004
+  },
+  {
+    "slug": "battle-royale",
+    "title": "Королевская битва",
+    "titleOriginal": "Battle Royale",
+    "year": 2000
+  },
+  {
+    "slug": "ring",
+    "title": "Ринго",
+    "titleOriginal": "Ring",
+    "year": 1998
+  },
+  {
+    "slug": "seven-samurai",
+    "title": "Семь самураев",
+    "titleOriginal": "Seven Samurai",
+    "year": 1954
+  },
+  {
+    "slug": "rashomon",
+    "title": "Расёмон",
+    "titleOriginal": "Rashomon",
+    "year": 1950
+  },
+  {
+    "slug": "brat",
+    "title": "Брат",
+    "titleOriginal": "Brat",
+    "year": 1997
+  },
+  {
+    "slug": "brat-2",
+    "title": "Брат 2",
+    "titleOriginal": "Brat 2",
+    "year": 2000
+  },
+  {
+    "slug": "ironiya-sudby",
+    "title": "Ирония судьбы, или С лёгким паром!",
+    "titleOriginal": "Ironiya sudby, ili S lyogkim parom!",
+    "year": 1975
+  },
+  {
+    "slug": "ivan-vasilevich-menyaet-professiyu",
+    "title": "Иван Васильевич меняет профессию",
+    "titleOriginal": "Ivan Vasilevich menyaet professiyu",
+    "year": 1973
+  },
+  {
+    "slug": "moskva-slezam-ne-verit",
+    "title": "Москва слезам не верит",
+    "titleOriginal": "Moskva slezam ne verit",
+    "year": 1979
+  },
+  {
+    "slug": "operatsiya-y",
+    "title": "Операция «Ы» и другие приключения Шурика",
+    "titleOriginal": "Operatsiya Y i drugie priklyucheniya Shurika",
+    "year": 1965
+  },
+  {
+    "slug": "karnavalnaya-noch",
+    "title": "Карнавальная ночь",
+    "titleOriginal": "Karnavalnaya noch",
+    "year": 1956
+  },
+  {
+    "slug": "beregis-avtomobilya",
+    "title": "Берегись автомобиля",
+    "titleOriginal": "Beregis avtomobilya",
+    "year": 1966
+  },
+  {
+    "slug": "afonya",
+    "title": "Афоня",
+    "titleOriginal": "Afonya",
+    "year": 1975
+  },
+  {
+    "slug": "sluzhebnyy-roman",
+    "title": "Служебный роман",
+    "titleOriginal": "Sluzhebnyy roman",
+    "year": 1977
+  },
+  {
+    "slug": "kin-dza-dza",
+    "title": "Кин-дза-дза!",
+    "titleOriginal": "Kin-dza-dza!",
+    "year": 1986
+  },
+  {
+    "slug": "stalker",
+    "title": "Сталкер",
+    "titleOriginal": "Stalker",
+    "year": 1979
+  },
+  {
+    "slug": "solaris",
+    "title": "Солярис",
+    "titleOriginal": "Solaris",
+    "year": 1972
+  },
+  {
+    "slug": "beloe-solntse-pustyni",
+    "title": "Белое солнце пустыни",
+    "titleOriginal": "Beloe solntse pustyni",
+    "year": 1970
+  },
+  {
+    "slug": "gentlemen-of-fortune",
+    "title": "Джентльмены удачи",
+    "titleOriginal": "Dzhentlmeny udachi",
+    "year": 1971
+  },
+  {
+    "slug": "diamond-arm",
+    "title": "Бриллиантовая рука",
+    "titleOriginal": "Brilliantovaya ruka",
+    "year": 1968
+  },
+  {
+    "slug": "prisoner-of-the-caucasus",
+    "title": "Кавказская пленница",
+    "titleOriginal": "Kavkazskaya plennitsa",
+    "year": 1966
+  },
+  {
+    "slug": "stilyagi",
+    "title": "Стиляги",
+    "titleOriginal": "Stilyagi",
+    "year": 2008
+  },
+  {
+    "slug": "leviathan",
+    "title": "Левиафан",
+    "titleOriginal": "Leviathan",
+    "year": 2014
+  },
+  {
+    "slug": "the-hunger-games",
+    "title": "Голодные игры",
+    "titleOriginal": "The Hunger Games",
+    "year": 2012
+  },
+  {
+    "slug": "the-hunger-games-catching-fire",
+    "title": "Голодные игры: И вспыхнет пламя",
+    "titleOriginal": "The Hunger Games: Catching Fire",
+    "year": 2013
+  },
+  {
+    "slug": "twilight",
+    "title": "Сумерки",
+    "titleOriginal": "Twilight",
+    "year": 2008
+  },
+  {
+    "slug": "the-maze-runner",
+    "title": "Бегущий в лабиринте",
+    "titleOriginal": "The Maze Runner",
+    "year": 2014
+  },
+  {
+    "slug": "divergent",
+    "title": "Дивергент",
+    "titleOriginal": "Divergent",
+    "year": 2014
+  },
+  {
+    "slug": "the-twilight-saga-new-moon",
+    "title": "Сумерки. Сага. Новолуние",
+    "titleOriginal": "The Twilight Saga: New Moon",
+    "year": 2009
+  },
+  {
+    "slug": "free-guy",
+    "title": "Главный герой",
+    "titleOriginal": "Free Guy",
+    "year": 2021
+  },
+  {
+    "slug": "barbie",
+    "title": "Барби",
+    "titleOriginal": "Barbie",
+    "year": 2023
+  },
+  {
+    "slug": "everything-everywhere-all-at-once",
+    "title": "Всё везде и сразу",
+    "titleOriginal": "Everything Everywhere All at Once",
+    "year": 2022
+  },
+  {
+    "slug": "knives-out",
+    "title": "Достать ножи",
+    "titleOriginal": "Knives Out",
+    "year": 2019
+  },
+  {
+    "slug": "glass-onion",
+    "title": "Достать ножи: Стеклянная луковица",
+    "titleOriginal": "Glass Onion: A Knives Out Mystery",
+    "year": 2022
+  },
+  {
+    "slug": "the-grand-budapest-hotel",
+    "title": "Отель «Гранд Будапешт»",
+    "titleOriginal": "The Grand Budapest Hotel",
+    "year": 2014
+  },
+  {
+    "slug": "v-for-vendetta",
+    "title": "V — значит вендетта",
+    "titleOriginal": "V for Vendetta",
+    "year": 2006
+  },
+  {
+    "slug": "kill-bill-vol-1",
+    "title": "Убить Билла. Фильм 1",
+    "titleOriginal": "Kill Bill: Vol. 1",
+    "year": 2003
+  },
+  {
+    "slug": "kill-bill-vol-2",
+    "title": "Убить Билла. Фильм 2",
+    "titleOriginal": "Kill Bill: Vol. 2",
+    "year": 2004
+  },
+  {
+    "slug": "vertigo",
+    "title": "Головокружение",
+    "titleOriginal": "Vertigo",
+    "year": 1958
+  },
+  {
+    "slug": "rear-window",
+    "title": "Окно во двор",
+    "titleOriginal": "Rear Window",
+    "year": 1954
+  },
+  {
+    "slug": "jaws",
+    "title": "Челюсти",
+    "titleOriginal": "Jaws",
+    "year": 1975
+  }
+]
