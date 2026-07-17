@@ -25,15 +25,27 @@ interface ProgressiveRevealImageProps {
 
 function AnimatedRegion({ children }: { children: React.ReactNode }) {
   return (
-    <g className="[transform-box:fill-box] [transform-origin:center]">
+    <g
+      opacity="0"
+      className="[transform-box:fill-box] [transform-origin:center]"
+    >
       {children}
+      <animate
+        attributeName="opacity"
+        values="0;1"
+        dur="620ms"
+        calcMode="spline"
+        keySplines="0.22 1 0.36 1"
+        fill="freeze"
+      />
       <animateTransform
         attributeName="transform"
         type="scale"
-        values="0.01;1"
-        dur="500ms"
+        values="0.12;1.04;1"
+        keyTimes="0;0.72;1"
+        dur="620ms"
         calcMode="spline"
-        keySplines="0.22 1 0.36 1"
+        keySplines="0.22 1 0.36 1;0.33 0 0.2 1"
         additive="sum"
         fill="freeze"
       />

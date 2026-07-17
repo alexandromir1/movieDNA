@@ -197,6 +197,10 @@ export function ChallengeBoard({
   const [shareFeedback, setShareFeedback] = useState<string | null>(null);
   const [isWrongGuess, setIsWrongGuess] = useState(false);
   const [imageExpanded, setImageExpanded] = useState(false);
+  /** Win beat: полное изображение → название → экран результата */
+  const [winBeat, setWinBeat] = useState<"image" | "title" | "result">(
+    "image",
+  );
   const wrongGuessTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -206,6 +210,21 @@ export function ChallengeBoard({
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (session.state !== "COMPLETED") {
+      setWinBeat("image");
+      return;
+    }
+
+    setWinBeat("image");
+    const titleTimer = window.setTimeout(() => setWinBeat("title"), 320);
+    const resultTimer = window.setTimeout(() => setWinBeat("result"), 700);
+    return () => {
+      window.clearTimeout(titleTimer);
+      window.clearTimeout(resultTimer);
+    };
+  }, [session.state]);
 
   const areaRegions = [...level.revealRegions]
     .filter((region) => region.kind !== "full_image")
@@ -389,7 +408,29 @@ export function ChallengeBoard({
 
       <div className="mb-5">{progressSegments}</div>
 
-      {session.state === "COMPLETED" && scoreBreakdown ? (
+      {session.state === "COMPLETED" && (winBeat === "title" || winBeat === "result") && (
+        <div
+          className={cn(
+            "win-title-reveal mb-4 w-full max-w-md text-center",
+            winBeat === "result" && "opacity-90",
+          )}
+        >
+          <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-[var(--accent)]">
+            Это
+          </p>
+          <h2 className="mt-1.5 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            {movie.title}
+          </h2>
+          <p className="mt-1 text-sm text-white/45">
+            {movie.titleOriginal ? `${movie.titleOriginal} · ` : ""}
+            {movie.year}
+          </p>
+        </div>
+      )}
+
+      {session.state === "COMPLETED" &&
+      winBeat === "result" &&
+      scoreBreakdown ? (
         <div className="result-win relative w-full max-w-md text-center">
           <ConfettiOverlay />
 
@@ -397,13 +438,6 @@ export function ChallengeBoard({
 
           <p className="mt-4 text-sm font-semibold uppercase tracking-[0.25em] text-[var(--accent)]">
             Отлично!
-          </p>
-          <h2 className="mt-2 text-3xl font-semibold tracking-tight text-white">
-            {movie.title}
-          </h2>
-          <p className="mt-1 text-sm text-white/45">
-            {movie.titleOriginal ? `${movie.titleOriginal} · ` : ""}
-            {movie.year}
           </p>
 
           <p className="mt-6 text-5xl font-bold tabular-nums text-white">
@@ -454,8 +488,14 @@ export function ChallengeBoard({
           </p>
 
           <div className="mt-6 flex w-full flex-col gap-2.5">
+            <Link
+              href={GAME_ROUTES.archive}
+              className="inline-flex h-12 w-full items-center justify-center rounded-[10px] bg-[var(--accent)] text-sm font-medium text-black transition-all duration-200 hover:brightness-105 active:scale-[0.98]"
+            >
+              Перейти в архив
+            </Link>
             <Button
-              variant="accent"
+              variant="secondary"
               size="lg"
               className="w-full"
               onClick={() => void handleShare()}
@@ -465,12 +505,6 @@ export function ChallengeBoard({
             {shareFeedback && (
               <p className="text-xs text-white/40">{shareFeedback}</p>
             )}
-            <Link
-              href={GAME_ROUTES.archive}
-              className="inline-flex h-12 w-full items-center justify-center rounded-[10px] border border-white/[0.12] bg-white/[0.04] text-sm font-medium text-white transition-all duration-200 hover:border-white/25 hover:bg-white/[0.07] active:scale-[0.98]"
-            >
-              Перейти в архив
-            </Link>
           </div>
         </div>
       ) : session.state === "LOST" ? (

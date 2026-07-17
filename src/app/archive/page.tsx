@@ -21,9 +21,9 @@ export default async function ArchivePage() {
         <div className="min-w-0 flex-1">
           <h1 className="mb-2 text-2xl font-bold">Архив</h1>
           <p className="mb-6 max-w-xl text-sm text-white/40">
-            Прошедшие Daily Challenge без спойлеров. Если ты недавно в игре —
-            можно наверстать старые дни. Каждую игру можно пройти один раз: после
-            завершения она закрывается.
+            История твоих Daily Challenge. Непройденные дни можно наверстать один
+            раз; после завершения игра закрывается и остаётся в истории — без
+            повторного набора очков.
           </p>
 
           <PlayerArchiveList items={items} />

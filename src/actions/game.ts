@@ -15,14 +15,35 @@ export async function getPuzzleByDate(date: string) {
   return getChallengeBundleByDate(date);
 }
 
-/** Список архива для игрока — без названий фильмов (анти-спойлер). */
+/**
+ * Список архива для игрока.
+ * Метаданные фильма нужны для истории пройденных Challenge;
+ * UI не показывает название/кадр до завершения (анти-спойлер).
+ */
 export async function getArchiveList(): Promise<
-  Array<{ date: string; challengeId: string }>
+  Array<{
+    date: string;
+    challengeId: string;
+    title: string;
+    titleOriginal: string | null;
+    year: number;
+    image: string;
+  }>
 > {
-  return getArchiveChallenges().map((challenge) => ({
-    date: challenge.date,
-    challengeId: challenge.id,
-  }));
+  return getArchiveChallenges()
+    .map((challenge) => {
+      const bundle = getChallengeBundleByDate(challenge.date);
+      if (!bundle) return null;
+      return {
+        date: challenge.date,
+        challengeId: challenge.id,
+        title: bundle.movie.title,
+        titleOriginal: bundle.movie.titleOriginal,
+        year: bundle.movie.year,
+        image: bundle.level.image,
+      };
+    })
+    .filter((item): item is NonNullable<typeof item> => item !== null);
 }
 
 /**

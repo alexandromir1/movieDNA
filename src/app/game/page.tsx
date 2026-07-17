@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { ChallengePlayGate } from "@/components/game/ChallengePlayGate";
 import { ChallengeShell } from "@/components/game/ChallengeShell";
 import { getTodayChallengeBundle } from "@/lib/content/catalog";
+import { GAME_ROUTES } from "@/lib/game/constants";
 import { getUtcDateString } from "@/lib/game/daily";
 
 export const metadata: Metadata = {
@@ -17,10 +19,19 @@ export default function GamePage() {
     return (
       <ChallengeShell activeDate={today}>
         <div className="flex min-h-[40vh] flex-col items-center justify-center px-2 text-center">
-          <p className="text-white/50">На сегодня Challenge ещё не назначен</p>
-          <p className="mt-2 text-sm text-white/30">
-            Выбери прошедший день в списке справа
+          <p className="text-lg font-medium text-white/80">
+            Сегодня новый Challenge ещё не опубликован.
           </p>
+          <p className="mt-2 max-w-sm text-sm text-white/40">
+            Пока можно пройти предыдущие дни — в архиве твоя история Daily
+            Challenge.
+          </p>
+          <Link
+            href={GAME_ROUTES.archive}
+            className="mt-7 inline-flex h-12 items-center justify-center rounded-[10px] bg-[var(--accent)] px-7 text-sm font-medium text-black transition-all duration-200 hover:brightness-105 active:scale-[0.98]"
+          >
+            Перейти в архив
+          </Link>
         </div>
       </ChallengeShell>
     );
