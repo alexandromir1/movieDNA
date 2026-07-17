@@ -2,5 +2,9 @@
   "id": "challenge-forest-gump",
   "levelId": "level-forest-gump",
   "date": "2026-07-14",
-  "status": "scheduled"
+  "status": "scheduled",
+  "relatedChallenges": [
+    "challenge-green-mile",
+    "challenge-catch-me-if-you-can"
+  ]
 }

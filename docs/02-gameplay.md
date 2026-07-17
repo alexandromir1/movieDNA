@@ -342,3 +342,29 @@ MVP сохраняет прогресс игрока только в localStorag
 Пользователь покинул игру
 
 → Состояние сохраняется автоматически.
+
+## Player Progress
+
+Показатели прогресса игрока:
+
+- Current Streak
+- Best Movie Score
+- Average Movie Score
+- Daily Completed
+- Archive Completed
+- Total Challenges
+
+### Daily vs Archive
+
+Только Daily Challenge:
+
+- увеличивает Daily Streak;
+- влияет на личную статистику Daily;
+- учитывается как прохождение дня.
+
+Archive:
+
+- сохраняется в истории;
+- сохраняет Movie Score;
+- увеличивает Archive Completed;
+- не влияет на Daily Streak.

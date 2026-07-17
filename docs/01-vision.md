@@ -70,3 +70,25 @@ Competitive
 
 Collectors
 Хотят пройти абсолютно всё.
+
+## Core Retention Loop
+
+Daily Challenge
+↓
+
+Movie Score
+↓
+
+Player Statistics
+↓
+
+Daily Streak
+↓
+
+Возвращение завтра
+
+Daily Challenge — главный статус игрока и основная причина вернуться.
+
+Archive — дополнительный игровой режим для наверстывания прошлых дней.
+
+Archive никогда не заменяет Daily.

@@ -30,7 +30,7 @@ function getShortDate() {
 const NAV_ITEMS = [
   { href: GAME_ROUTES.today, label: "Игра" },
   { href: GAME_ROUTES.archive, label: "Архив" },
-  { href: GAME_ROUTES.stats, label: "Статистика" },
+  { href: GAME_ROUTES.profile, label: "Профиль" },
 ] as const;
 
 /**
@@ -62,12 +62,20 @@ export function Header() {
           </span>
         </Link>
 
-        <Link
-          href={GAME_ROUTES.archive}
-          className="shrink-0 rounded-md px-2 py-1 text-[11px] font-medium text-white/55 transition-colors hover:bg-white/[0.05] hover:text-white/85 sm:text-xs"
-        >
-          Архив
-        </Link>
+        <div className="flex shrink-0 items-center gap-0.5">
+          <Link
+            href={GAME_ROUTES.archive}
+            className="rounded-md px-2 py-1 text-[11px] font-medium text-white/55 transition-colors hover:bg-white/[0.05] hover:text-white/85 sm:text-xs"
+          >
+            Архив
+          </Link>
+          <Link
+            href={GAME_ROUTES.profile}
+            className="rounded-md px-2 py-1 text-[11px] font-medium text-white/55 transition-colors hover:bg-white/[0.05] hover:text-white/85 sm:text-xs"
+          >
+            Профиль
+          </Link>
+        </div>
       </div>
 
       <div className="mx-auto hidden h-[72px] max-w-6xl items-center justify-between px-6 lg:flex">

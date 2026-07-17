@@ -2,5 +2,9 @@
   "id": "challenge-shrek",
   "levelId": "level-shrek",
   "date": "2026-07-20",
-  "status": "scheduled"
+  "status": "scheduled",
+  "relatedChallenges": [
+    "challenge-hangover",
+    "challenge-shining"
+  ]
 }

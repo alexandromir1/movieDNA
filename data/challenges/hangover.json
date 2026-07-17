@@ -2,5 +2,9 @@
   "id": "challenge-hangover",
   "levelId": "level-hangover",
   "date": "2026-07-19",
-  "status": "scheduled"
+  "status": "scheduled",
+  "relatedChallenges": [
+    "challenge-shrek",
+    "challenge-catch-me-if-you-can"
+  ]
 }

@@ -246,6 +246,7 @@ export function useChallenge(bundle: ChallengeBundle): UseChallengeReturn {
         openedRegionCount: completed.openedRegionCount,
         wrongGuessCount: wrongs,
         elapsedSeconds: getElapsedSeconds(completed),
+        source: playDate === getUtcDateString() ? "daily" : "archive",
       });
 
       return { isCorrect: true, isLost: false };
@@ -263,6 +264,7 @@ export function useChallenge(bundle: ChallengeBundle): UseChallengeReturn {
         openedRegionCount: lost.openedRegionCount,
         wrongGuessCount: wrongs,
         elapsedSeconds: getElapsedSeconds(lost),
+        source: playDate === getUtcDateString() ? "daily" : "archive",
       });
 
       return { isCorrect: false, isLost: true };
@@ -290,6 +292,7 @@ export function useChallenge(bundle: ChallengeBundle): UseChallengeReturn {
       openedRegionCount: lost.openedRegionCount,
       wrongGuessCount: countWrongGuesses(guesses),
       elapsedSeconds: getElapsedSeconds(lost),
+      source: playDate === getUtcDateString() ? "daily" : "archive",
     });
   }
 

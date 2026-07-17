@@ -43,6 +43,8 @@ export interface Challenge {
   /** UTC date YYYY-MM-DD — дата публикации (publishAt) */
   date: string;
   status: ChallengeStatus;
+  /** Challenge IDs for "Что пройти дальше?" after Archive */
+  relatedChallenges?: string[];
 }
 
 export type GameState =

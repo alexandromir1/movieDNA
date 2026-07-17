@@ -5,11 +5,17 @@ import Link from "next/link";
 
 import { ProgressiveRevealImage } from "@/components/ProgressiveRevealImage";
 import { MovieSearchInput } from "@/components/game/MovieSearchInput";
+import { ComeBackTomorrow } from "@/components/game/ComeBackTomorrow";
+import {
+  WhatsNextBlock,
+  type NextChallengeLink,
+} from "@/components/game/WhatsNextBlock";
 import { Button } from "@/components/ui/Button";
 import { REVEAL_REGION_COUNT } from "@/config/economy";
 import { FEEDBACK_MESSAGE_MS, WRONG_GUESS_FEEDBACK_MS } from "@/config/game";
 import { useChallenge } from "@/hooks/useChallenge";
 import { GAME_ROUTES } from "@/lib/game/constants";
+import { getUtcDateString } from "@/lib/game/daily";
 import { shareChallengeResult } from "@/lib/game/share-result";
 import { cn } from "@/lib/utils/cn";
 
@@ -20,6 +26,8 @@ interface ChallengeBoardProps {
   challenge: Challenge;
   level: Level;
   movie: Movie;
+  relatedChallenges?: NextChallengeLink[];
+  archivePool?: NextChallengeLink[];
 }
 
 function formatElapsed(seconds: number): string {
@@ -180,6 +188,8 @@ export function ChallengeBoard({
   challenge,
   level,
   movie,
+  relatedChallenges = [],
+  archivePool = [],
 }: ChallengeBoardProps) {
   const {
     session,
@@ -247,6 +257,20 @@ export function ChallengeBoard({
     !isFinished && session.openedRegionCount < REVEAL_REGION_COUNT;
 
   const imageCompact = isFinished && !imageExpanded;
+  const isArchiveChallenge = challenge.date < getUtcDateString();
+
+  const whatsNext = isFinished ? (
+    <WhatsNextBlock
+      related={relatedChallenges}
+      archivePool={archivePool}
+      currentChallengeId={challenge.id}
+    />
+  ) : null;
+
+  const comeBackTomorrow =
+    isFinished && !isArchiveChallenge ? (
+      <ComeBackTomorrow showStreak={session.state === "COMPLETED"} />
+    ) : null;
 
   function showTemporaryFeedback(message: string) {
     setFeedback(message);
@@ -476,6 +500,8 @@ export function ChallengeBoard({
               <p className="text-xs text-white/40">{shareFeedback}</p>
             )}
           </div>
+          {comeBackTomorrow}
+          {whatsNext}
         </div>
       ) : session.state === "LOST" ? (
         <div className="result-lose w-full max-w-md text-center">
@@ -515,6 +541,8 @@ export function ChallengeBoard({
               Перейти в архив
             </Link>
           </div>
+          {comeBackTomorrow}
+          {whatsNext}
         </div>
       ) : (
         <div className="w-full max-w-md">

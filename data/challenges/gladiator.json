@@ -2,5 +2,9 @@
   "id": "challenge-gladiator",
   "levelId": "level-gladiator",
   "date": "2026-07-13",
-  "status": "scheduled"
+  "status": "scheduled",
+  "relatedChallenges": [
+    "challenge-green-mile",
+    "challenge-terminator-2-mvp"
+  ]
 }

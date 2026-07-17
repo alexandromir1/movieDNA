@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { ChallengeBoard } from "@/components/game/ChallengeBoard";
+import type { NextChallengeLink } from "@/components/game/WhatsNextBlock";
 import { GAME_ROUTES } from "@/lib/game/constants";
 import { getUtcDateString } from "@/lib/game/daily";
 import { loadPlayerStats } from "@/lib/game/player-stats";
@@ -15,6 +16,8 @@ interface ChallengePlayGateProps {
   challenge: Challenge;
   level: Level;
   movie: Movie;
+  relatedChallenges?: NextChallengeLink[];
+  archivePool?: NextChallengeLink[];
 }
 
 /**
@@ -26,6 +29,8 @@ export function ChallengePlayGate({
   challenge,
   level,
   movie,
+  relatedChallenges = [],
+  archivePool = [],
 }: ChallengePlayGateProps) {
   const [blocked, setBlocked] = useState(false);
   const [ready, setReady] = useState(false);
@@ -46,7 +51,6 @@ export function ChallengePlayGate({
     const sessionDone =
       session?.state === "COMPLETED" || session?.state === "LOST";
 
-    // Пройдено в stats, но нет сохранённого терминального экрана — не даём начать заново
     if (statsDone && !sessionDone) {
       setBlocked(true);
     }
@@ -79,6 +83,12 @@ export function ChallengePlayGate({
   }
 
   return (
-    <ChallengeBoard challenge={challenge} level={level} movie={movie} />
+    <ChallengeBoard
+      challenge={challenge}
+      level={level}
+      movie={movie}
+      relatedChallenges={relatedChallenges}
+      archivePool={archivePool}
+    />
   );
 }

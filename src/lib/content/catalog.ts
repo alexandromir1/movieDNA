@@ -42,6 +42,32 @@ export function getChallengeById(id: string): Challenge | null {
   return challenges().find((challenge) => challenge.id === id) ?? null;
 }
 
+/** Archive links for Related / Random CTAs (date + id only, no titles). */
+export function getArchiveChallengeLinks(
+  today: string = getUtcDateString(),
+): Array<{ challengeId: string; date: string }> {
+  return getArchiveChallenges(today).map((challenge) => ({
+    challengeId: challenge.id,
+    date: challenge.date,
+  }));
+}
+
+export function resolveRelatedChallengeLinks(
+  relatedIds: string[] | undefined,
+  today: string = getUtcDateString(),
+): Array<{ challengeId: string; date: string }> {
+  if (!relatedIds?.length) return [];
+  const links: Array<{ challengeId: string; date: string }> = [];
+  for (const id of relatedIds) {
+    const challenge = getChallengeById(id);
+    if (!challenge) continue;
+    if (challenge.status !== "scheduled") continue;
+    if (challenge.date >= today) continue;
+    links.push({ challengeId: challenge.id, date: challenge.date });
+  }
+  return links;
+}
+
 function toBundle(challenge: Challenge): ChallengeBundle | null {
   const level = getLevelById(challenge.levelId);
   if (!level) return null;

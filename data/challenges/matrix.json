@@ -2,5 +2,9 @@
   "id": "challenge-matrix",
   "levelId": "level-matrix",
   "date": "2026-07-18",
-  "status": "scheduled"
+  "status": "scheduled",
+  "relatedChallenges": [
+    "challenge-terminator-2-mvp",
+    "challenge-fight-club"
+  ]
 }

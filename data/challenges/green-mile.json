@@ -2,5 +2,9 @@
   "id": "challenge-green-mile",
   "levelId": "level-green-mile",
   "date": "2026-07-12",
-  "status": "scheduled"
+  "status": "scheduled",
+  "relatedChallenges": [
+    "challenge-forest-gump",
+    "challenge-gladiator"
+  ]
 }

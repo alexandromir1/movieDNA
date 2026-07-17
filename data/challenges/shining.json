@@ -2,5 +2,9 @@
   "id": "challenge-shining",
   "levelId": "level-shining",
   "date": "2026-07-21",
-  "status": "scheduled"
+  "status": "scheduled",
+  "relatedChallenges": [
+    "challenge-seven",
+    "challenge-shrek"
+  ]
 }

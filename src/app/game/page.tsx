@@ -3,7 +3,11 @@ import Link from "next/link";
 
 import { ChallengePlayGate } from "@/components/game/ChallengePlayGate";
 import { ChallengeShell } from "@/components/game/ChallengeShell";
-import { getTodayChallengeBundle } from "@/lib/content/catalog";
+import {
+  getArchiveChallengeLinks,
+  getTodayChallengeBundle,
+  resolveRelatedChallengeLinks,
+} from "@/lib/content/catalog";
 import { GAME_ROUTES } from "@/lib/game/constants";
 import { getUtcDateString } from "@/lib/game/daily";
 
@@ -37,12 +41,19 @@ export default function GamePage() {
     );
   }
 
+  const relatedChallenges = resolveRelatedChallengeLinks(
+    bundle.challenge.relatedChallenges,
+  );
+  const archivePool = getArchiveChallengeLinks();
+
   return (
     <ChallengeShell activeDate={bundle.challenge.date}>
       <ChallengePlayGate
         challenge={bundle.challenge}
         level={bundle.level}
         movie={bundle.movie}
+        relatedChallenges={relatedChallenges}
+        archivePool={archivePool}
       />
     </ChallengeShell>
   );

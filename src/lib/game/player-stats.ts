@@ -1,4 +1,7 @@
 import { PERSISTENCE_ENABLED } from "@/config/game";
+import { addUtcDays, getUtcDateString } from "@/lib/game/daily";
+
+export type ChallengePlaySource = "daily" | "archive";
 
 export interface CompletedChallengeRecord {
   challengeId: string;
@@ -8,17 +11,20 @@ export interface CompletedChallengeRecord {
   openedRegionCount: number;
   wrongGuessCount: number;
   elapsedSeconds: number;
+  /** daily = Today's Challenge; archive = Archive mode */
+  source?: ChallengePlaySource;
 }
 
 export interface PlayerProfileStats {
-  gamesPlayed: number;
-  gamesWon: number;
-  winRate: number;
-  averageMovieScore: number;
-  averageOpenedRegions: number;
-  bestMovieScore: number;
   currentStreak: number;
-  maxStreak: number;
+  bestMovieScore: number;
+  averageMovieScore: number;
+  dailyCompleted: number;
+  archiveCompleted: number;
+  totalChallenges: number;
+  lastPlayedDate: string | null;
+  /** Last Daily win date (UTC YYYY-MM-DD); used for streak increments */
+  lastDailyWinDate: string | null;
   completedChallenges: CompletedChallengeRecord[];
 }
 
@@ -27,15 +33,78 @@ const LEGACY_STATS_KEYS = ["kinoshka-stats"];
 
 export function createEmptyPlayerStats(): PlayerProfileStats {
   return {
-    gamesPlayed: 0,
-    gamesWon: 0,
-    winRate: 0,
-    averageMovieScore: 0,
-    averageOpenedRegions: 0,
-    bestMovieScore: 0,
     currentStreak: 0,
-    maxStreak: 0,
+    bestMovieScore: 0,
+    averageMovieScore: 0,
+    dailyCompleted: 0,
+    archiveCompleted: 0,
+    totalChallenges: 0,
+    lastPlayedDate: null,
+    lastDailyWinDate: null,
     completedChallenges: [],
+  };
+}
+
+function resolveSource(
+  record: CompletedChallengeRecord,
+  today: string,
+): ChallengePlaySource {
+  if (record.source === "daily" || record.source === "archive") {
+    return record.source;
+  }
+  // Legacy records: treat as daily to preserve prior streak behaviour
+  if (record.date <= today) return "daily";
+  return "archive";
+}
+
+function recomputeAggregates(
+  records: CompletedChallengeRecord[],
+  streakState: Pick<
+    PlayerProfileStats,
+    "currentStreak" | "lastPlayedDate" | "lastDailyWinDate"
+  >,
+  today: string = getUtcDateString(),
+): PlayerProfileStats {
+  let dailyCompleted = 0;
+  let archiveCompleted = 0;
+  const wonScores: number[] = [];
+
+  for (const record of records) {
+    const source = resolveSource(record, today);
+    if (source === "daily") dailyCompleted += 1;
+    else archiveCompleted += 1;
+    if (record.won && record.movieScore > 0) {
+      wonScores.push(record.movieScore);
+    } else if (record.won) {
+      wonScores.push(record.movieScore);
+    }
+  }
+
+  const bestMovieScore = wonScores.reduce((best, score) => Math.max(best, score), 0);
+  const averageMovieScore =
+    wonScores.length > 0
+      ? Math.round(wonScores.reduce((sum, score) => sum + score, 0) / wonScores.length)
+      : 0;
+
+  let currentStreak = streakState.currentStreak;
+  const yesterday = addUtcDays(today, -1);
+  if (
+    streakState.lastPlayedDate &&
+    streakState.lastPlayedDate < yesterday
+  ) {
+    currentStreak = 0;
+  }
+
+  return {
+    currentStreak,
+    bestMovieScore,
+    averageMovieScore,
+    dailyCompleted,
+    archiveCompleted,
+    totalChallenges: records.length,
+    lastPlayedDate: streakState.lastPlayedDate,
+    lastDailyWinDate: streakState.lastDailyWinDate,
+    completedChallenges: records,
   };
 }
 
@@ -46,9 +115,25 @@ export function loadPlayerStats(): PlayerProfileStats {
   try {
     const raw = localStorage.getItem(STATS_KEY);
     if (!raw) return createEmptyPlayerStats();
-    return derivePlayerStats(
-      (JSON.parse(raw) as PlayerProfileStats).completedChallenges ?? [],
+    const parsed = JSON.parse(raw) as Partial<PlayerProfileStats>;
+    const records = parsed.completedChallenges ?? [];
+    const today = getUtcDateString();
+    const stats = recomputeAggregates(
+      records,
+      {
+        currentStreak: parsed.currentStreak ?? 0,
+        lastPlayedDate: parsed.lastPlayedDate ?? null,
+        lastDailyWinDate: parsed.lastDailyWinDate ?? null,
+      },
+      today,
     );
+
+    // Persist streak reset after a missed Daily
+    if (stats.currentStreak !== (parsed.currentStreak ?? 0)) {
+      savePlayerStats(stats);
+    }
+
+    return stats;
   } catch {
     return createEmptyPlayerStats();
   }
@@ -68,91 +153,23 @@ export function clearStoredStats(): void {
   window.dispatchEvent(new Event("moviedna:stats-updated"));
 }
 
-function addUtcDays(date: string, days: number): string {
-  const [year, month, day] = date.split("-").map(Number);
-  return new Date(Date.UTC(year, month - 1, day + days))
-    .toISOString()
-    .split("T")[0];
-}
-
-function computeCurrentStreak(records: CompletedChallengeRecord[]): number {
-  const wins = records.filter((record) => record.won);
-  if (wins.length === 0) return 0;
-
-  const byDate = new Map(wins.map((record) => [record.date, record]));
-  let streak = 0;
-  let date = new Date().toISOString().split("T")[0];
-
-  while (byDate.has(date)) {
-    streak++;
-    date = addUtcDays(date, -1);
-  }
-
-  return streak;
-}
-
-function computeMaxStreak(records: CompletedChallengeRecord[]): number {
-  const wins = [...records]
-    .filter((record) => record.won)
-    .sort((a, b) => a.date.localeCompare(b.date));
-
-  let max = 0;
-  let current = 0;
-  let prev: string | null = null;
-
-  for (const record of wins) {
-    if (prev && addUtcDays(prev, 1) === record.date) {
-      current += 1;
-    } else {
-      current = 1;
-    }
-    max = Math.max(max, current);
-    prev = record.date;
-  }
-
-  return max;
-}
-
-export function derivePlayerStats(
-  completedChallenges: CompletedChallengeRecord[],
-): PlayerProfileStats {
-  const gamesPlayed = completedChallenges.length;
-  const gamesWon = completedChallenges.filter((record) => record.won).length;
-  const totalScore = completedChallenges.reduce(
-    (sum, record) => sum + record.movieScore,
-    0,
-  );
-  const totalRegions = completedChallenges.reduce(
-    (sum, record) => sum + record.openedRegionCount,
-    0,
-  );
-
-  return {
-    gamesPlayed,
-    gamesWon,
-    winRate: gamesPlayed > 0 ? Math.round((gamesWon / gamesPlayed) * 100) : 0,
-    averageMovieScore:
-      gamesPlayed > 0 ? Math.round(totalScore / gamesPlayed) : 0,
-    averageOpenedRegions:
-      gamesPlayed > 0
-        ? Math.round((totalRegions / gamesPlayed) * 10) / 10
-        : 0,
-    bestMovieScore: completedChallenges.reduce(
-      (best, record) => Math.max(best, record.movieScore),
-      0,
-    ),
-    currentStreak: computeCurrentStreak(completedChallenges),
-    maxStreak: computeMaxStreak(completedChallenges),
-    completedChallenges,
-  };
-}
-
 export function recordChallengeResult(
   record: CompletedChallengeRecord,
 ): PlayerProfileStats {
   if (!PERSISTENCE_ENABLED) {
     return createEmptyPlayerStats();
   }
+
+  const today = getUtcDateString();
+  const source = resolveSource(
+    {
+      ...record,
+      source:
+        record.source ??
+        (record.date === today ? "daily" : "archive"),
+    },
+    today,
+  );
 
   const stats = loadPlayerStats();
 
@@ -164,7 +181,40 @@ export function recordChallengeResult(
     return stats;
   }
 
-  const next = derivePlayerStats([...stats.completedChallenges, record]);
+  const nextRecord: CompletedChallengeRecord = { ...record, source };
+  const records = [...stats.completedChallenges, nextRecord];
+
+  let currentStreak = stats.currentStreak;
+  let lastPlayedDate = stats.lastPlayedDate;
+  let lastDailyWinDate = stats.lastDailyWinDate;
+
+  if (source === "daily") {
+    const yesterday = addUtcDays(today, -1);
+
+    if (lastPlayedDate && lastPlayedDate < yesterday) {
+      currentStreak = 0;
+    }
+
+    if (record.won) {
+      if (
+        lastDailyWinDate === yesterday ||
+        lastPlayedDate === yesterday
+      ) {
+        currentStreak += 1;
+      } else {
+        currentStreak = 1;
+      }
+      lastDailyWinDate = today;
+    }
+
+    lastPlayedDate = today;
+  }
+
+  const next = recomputeAggregates(
+    records,
+    { currentStreak, lastPlayedDate, lastDailyWinDate },
+    today,
+  );
   savePlayerStats(next);
   return next;
 }
