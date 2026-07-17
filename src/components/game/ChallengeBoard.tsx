@@ -137,8 +137,8 @@ function LoseIcon() {
 }
 
 /**
- * Кадр Challenge в фиксированном «окне» viewport:
- * на мобилке ниже — чтобы поле ввода и кнопки оставались на экране.
+ * Кадр Challenge: на мобилке даём больше высоты кадру,
+ * потому что chrome (header/архив) уже сжат — кнопки остаются в первом экране.
  */
 function ChallengeImageFrame({
   width,
@@ -158,11 +158,11 @@ function ChallengeImageFrame({
   return (
     <div
       className={cn(
-        "relative mx-auto overflow-hidden rounded-[12px] border border-white/[0.09] bg-black",
+        "relative mx-auto overflow-hidden rounded-[10px] border border-white/[0.09] bg-black sm:rounded-[12px]",
         "shadow-[0_8px_40px_rgb(0_0_0/0.4)] transition-all duration-500",
         compact
-          ? "[--frame-max-h:min(28vh,260px)] sm:[--frame-max-h:min(34vh,330px)]"
-          : "[--frame-max-h:min(36vh,300px)] sm:[--frame-max-h:min(52vh,530px)]",
+          ? "[--frame-max-h:min(30dvh,240px)] sm:[--frame-max-h:min(34vh,330px)]"
+          : "[--frame-max-h:min(42dvh,340px)] sm:[--frame-max-h:min(52vh,530px)]",
         className,
       )}
       style={{
@@ -344,12 +344,12 @@ export function ChallengeBoard({
   );
 
   const progressSegments = (
-    <div className="flex gap-1.5">
+    <div className="flex flex-1 gap-1">
       {Array.from({ length: REVEAL_REGION_COUNT }, (_, index) => (
         <span
           key={index}
           className={cn(
-            "h-1.5 w-9 rounded-full transition-colors duration-500",
+            "h-1 min-w-0 flex-1 rounded-full transition-colors duration-500 sm:h-1.5 sm:w-9 sm:flex-none",
             index < session.openedRegionCount
               ? isWrongGuess
                 ? "bg-rose-300/70"
@@ -369,11 +369,11 @@ export function ChallengeBoard({
     return (
       <div className="fade-up mx-auto flex w-full max-w-3xl flex-col items-center">
         <div className="mb-3 w-full sm:mb-5">{image}</div>
-        <p className="mb-4 max-w-md text-center text-sm leading-relaxed text-white/50 sm:mb-6">
+        <p className="mb-3 hidden max-w-md text-center text-sm leading-relaxed text-white/50 sm:mb-6 sm:block">
           Угадайте фильм по визуальной ДНК. Каждая открытая область снижает
           количество очков.
         </p>
-        <Button size="lg" onClick={startChallenge}>
+        <Button size="lg" className="h-11 w-full max-w-md sm:h-12 sm:w-auto" onClick={startChallenge}>
           Начать
         </Button>
       </div>
@@ -381,30 +381,32 @@ export function ChallengeBoard({
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col items-center pb-[max(0.5rem,env(safe-area-inset-bottom))]">
-      <div className="mb-2 flex w-full items-center justify-between text-[10px] font-medium uppercase tracking-widest text-white/40 sm:mb-3 sm:text-[11px]">
-        <span>
-          Подсказка {Math.min(session.openedRegionCount, REVEAL_REGION_COUNT)}/
+    <div className="mx-auto flex w-full max-w-3xl flex-col items-center pb-[max(0.25rem,env(safe-area-inset-bottom))]">
+      <div className="mb-1.5 flex w-full items-center gap-2 sm:mb-3 sm:gap-3">
+        {progressSegments}
+        <span className="shrink-0 text-[10px] font-medium uppercase tracking-wider text-white/40 sm:text-[11px]">
+          {Math.min(session.openedRegionCount, REVEAL_REGION_COUNT)}/
           {REVEAL_REGION_COUNT}
         </span>
         <span
           className={cn(
+            "shrink-0 text-[10px] font-medium uppercase tracking-wider sm:text-[11px]",
             session.state !== "LOST" &&
               session.state !== "COMPLETED" &&
               "text-[var(--accent)]/80",
+            (session.state === "LOST" || session.state === "COMPLETED") &&
+              "text-white/40",
           )}
         >
           {session.state === "COMPLETED"
-            ? `Очки ${session.movieScore}`
+            ? session.movieScore
             : session.state === "LOST"
-              ? "Очки —"
-              : `Очки ${potentialScore}`}
+              ? "—"
+              : potentialScore}
         </span>
       </div>
 
-      <div className="mb-3 w-full sm:mb-4">{image}</div>
-
-      <div className="mb-4 sm:mb-5">{progressSegments}</div>
+      <div className="mb-2 w-full sm:mb-4">{image}</div>
 
       {session.state === "COMPLETED" && (winBeat === "title" || winBeat === "result") && (
         <div
@@ -528,26 +530,27 @@ export function ChallengeBoard({
           </div>
 
           {isWrongGuess && (
-            <p className="wrong-guess-message mt-2 text-center text-sm text-rose-300/80">
+            <p className="wrong-guess-message mt-1.5 text-center text-xs text-rose-300/80 sm:mt-2 sm:text-sm">
               Неверно
             </p>
           )}
 
-          <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+          <div className="mt-2.5 grid grid-cols-2 gap-2 sm:mt-4 sm:gap-2.5">
             <Button
               size="lg"
-              className="w-full"
+              className="h-10 w-full px-2 text-xs sm:h-12 sm:px-8 sm:text-sm"
               disabled={isWrongGuess || guess.trim().length === 0}
               onClick={() => handleGuessSubmit(guess)}
             >
-              Проверить ответ
+              <span className="sm:hidden">Проверить</span>
+              <span className="hidden sm:inline">Проверить ответ</span>
             </Button>
 
             {canSurrender ? (
               <Button
                 variant="secondary"
                 size="lg"
-                className="w-full border-rose-300/25 text-rose-100/85 hover:border-rose-300/40 hover:bg-rose-400/[0.08]"
+                className="h-10 w-full px-2 text-xs border-rose-300/25 text-rose-100/85 hover:border-rose-300/40 hover:bg-rose-400/[0.08] sm:h-12 sm:px-8 sm:text-sm"
                 disabled={isWrongGuess}
                 onClick={surrender}
               >
@@ -557,7 +560,7 @@ export function ChallengeBoard({
               <Button
                 variant="secondary"
                 size="lg"
-                className="w-full"
+                className="h-10 w-full px-2 text-xs sm:h-12 sm:px-8 sm:text-sm"
                 disabled={!canOpenMore || isWrongGuess}
                 onClick={() => {
                   const nextCount = session.openedRegionCount + 1;
@@ -569,14 +572,26 @@ export function ChallengeBoard({
                   );
                 }}
               >
-                {session.openedRegionCount === REVEAL_REGION_COUNT - 1
-                  ? "Открыть всё изображение"
-                  : "Открыть следующую подсказку"}
+                {session.openedRegionCount === REVEAL_REGION_COUNT - 1 ? (
+                  <>
+                    <span className="sm:hidden">Открыть всё</span>
+                    <span className="hidden sm:inline">
+                      Открыть всё изображение
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span className="sm:hidden">Подсказка</span>
+                    <span className="hidden sm:inline">
+                      Открыть следующую подсказку
+                    </span>
+                  </>
+                )}
               </Button>
             )}
           </div>
 
-          <div className="mt-3 flex flex-col items-center gap-1.5">
+          <div className="mt-2 flex flex-col items-center gap-1 sm:mt-3 sm:gap-1.5">
             {feedback && !isWrongGuess && (
               <p className="text-center text-sm text-white/45">{feedback}</p>
             )}

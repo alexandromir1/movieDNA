@@ -67,25 +67,25 @@ export function ArchiveSidebar({ items, activeDate }: ArchiveSidebarProps) {
         <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-white/35">
           История
         </p>
-        <p className="mt-2 text-xs text-white/30">Пока пусто</p>
+        <p className="mt-1.5 text-xs text-white/30">Пока пусто</p>
       </aside>
     );
   }
 
   return (
     <aside className="w-full shrink-0 lg:w-40">
-      <div className="mb-1.5 flex items-center justify-between gap-2 lg:mb-2.5 lg:block">
-        <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-white/40">
+      <div className="mb-1 flex items-center justify-between gap-2 lg:mb-2 lg:block">
+        <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-white/40">
           История
         </p>
         <Link
           href={GAME_ROUTES.archive}
-          className="hidden text-[11px] text-[var(--accent)]/90 transition-colors hover:text-[var(--accent)] lg:mt-2 lg:inline-block"
+          className="text-[10px] text-[var(--accent)]/90 transition-colors hover:text-[var(--accent)] lg:mt-1.5 lg:inline-block lg:text-[11px]"
         >
-          Весь архив →
+          Все →
         </Link>
       </div>
-      <ul className="flex gap-1.5 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
+      <ul className="flex gap-1 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] lg:flex-col lg:gap-1 lg:overflow-visible [&::-webkit-scrollbar]:hidden">
         {items.map((item) => {
           const status = statuses[item.challengeId] ?? "available";
           const finished = status === "won" || status === "lost";
@@ -97,7 +97,7 @@ export function ArchiveSidebar({ items, activeDate }: ArchiveSidebarProps) {
           const mark = STATUS_MARK[status];
 
           const className = cn(
-            "flex min-w-[5.75rem] items-center justify-between gap-1.5 rounded-[8px] border px-2.5 py-1.5 text-left text-[11px] transition-all duration-200 lg:min-w-0 lg:rounded-[10px] lg:px-2.5 lg:py-1.5 lg:text-xs",
+            "flex min-w-[4.75rem] items-center justify-between gap-1 rounded-md border px-2 py-1 text-left text-[10px] transition-all duration-200 lg:min-w-0 lg:rounded-[10px] lg:px-2.5 lg:py-1.5 lg:text-xs",
             isActive
               ? "border-[var(--accent)]/40 bg-[var(--accent)]/[0.1] text-white"
               : "border-white/[0.06] bg-white/[0.03] text-white/60 hover:border-white/[0.12] hover:bg-white/[0.05] hover:text-white/80 lg:border-transparent lg:bg-transparent",
@@ -114,7 +114,7 @@ export function ArchiveSidebar({ items, activeDate }: ArchiveSidebarProps) {
                   <span>{label}</span>
                   <span
                     className={cn(
-                      "font-mono text-xs",
+                      "font-mono text-[10px] lg:text-xs",
                       status === "won"
                         ? "text-emerald-300/80"
                         : "text-rose-300/70",
@@ -137,7 +137,7 @@ export function ArchiveSidebar({ items, activeDate }: ArchiveSidebarProps) {
               >
                 <span>{label}</span>
                 <span
-                  className="font-mono text-xs text-white/35"
+                  className="font-mono text-[10px] text-white/35 lg:text-xs"
                   aria-label={
                     status === "in_progress" ? "в процессе" : "не проходил"
                   }

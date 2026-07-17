@@ -23,7 +23,7 @@ export function MovieSearchInput({
   onChange,
   onSubmit,
   disabled,
-  placeholder = "Введите название фильма...",
+  placeholder = "Название фильма...",
   isError = false,
   hideSubmitButton = false,
 }: MovieSearchInputProps) {
@@ -136,7 +136,7 @@ export function MovieSearchInput({
           disabled={disabled}
           placeholder={placeholder}
           className={cn(
-            "w-full rounded-[10px] border bg-white/[0.03] px-4 py-3 text-center text-base outline-none transition-all duration-300",
+            "w-full rounded-[10px] border bg-white/[0.03] px-3 py-2.5 text-center text-sm outline-none transition-all duration-300 sm:px-4 sm:py-3 sm:text-base",
             "disabled:cursor-not-allowed disabled:opacity-40",
             isError
               ? "border-rose-400/50 text-rose-200/90 placeholder:text-rose-200/35"
