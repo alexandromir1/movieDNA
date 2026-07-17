@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import { ContentStudio } from "@/components/dev/ContentStudio";
 import { loadContentStudioData } from "@/lib/dev/content-library";
@@ -11,7 +12,16 @@ interface DevPageProps {
   searchParams: Promise<{ level?: string; section?: string }>;
 }
 
+/**
+ * Content Studio только для локальной разработки.
+ * API /api/dev/* уже отдают 403 в production; страница тоже скрыта (404),
+ * чтобы не светить названия/расписание/checklist на публичном домене.
+ */
 export default async function DevPage({ searchParams }: DevPageProps) {
+  if (process.env.NODE_ENV === "production") {
+    notFound();
+  }
+
   const params = await searchParams;
   const data = loadContentStudioData();
 

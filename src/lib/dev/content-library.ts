@@ -211,10 +211,45 @@ export function loadContentStudioData(
     })
     .sort((a, b) => a.publishAt.localeCompare(b.publishAt));
 
+  const publishAtByMovieId = new Map<string, string>();
+  for (const row of levelRows) {
+    if (!row.movie || !row.challenge?.date) continue;
+    const prev = publishAtByMovieId.get(row.movie.id);
+    if (!prev || row.challenge.date < prev) {
+      publishAtByMovieId.set(row.movie.id, row.challenge.date);
+    }
+  }
+
+  function byPublishAtThenLabel(
+    aDate: string | undefined,
+    bDate: string | undefined,
+    aLabel: string,
+    bLabel: string,
+  ): number {
+    const da = aDate ?? "9999-99-99";
+    const db = bDate ?? "9999-99-99";
+    if (da !== db) return da.localeCompare(db);
+    return aLabel.localeCompare(bLabel, "ru");
+  }
+
   return {
     today,
-    movies: movieRows.sort((a, b) => a.label.localeCompare(b.label)),
-    levels: levelRows.sort((a, b) => a.label.localeCompare(b.label)),
+    movies: movieRows.sort((a, b) =>
+      byPublishAtThenLabel(
+        publishAtByMovieId.get(a.movie.id),
+        publishAtByMovieId.get(b.movie.id),
+        a.label,
+        b.label,
+      ),
+    ),
+    levels: levelRows.sort((a, b) =>
+      byPublishAtThenLabel(
+        a.challenge?.date,
+        b.challenge?.date,
+        a.label,
+        b.label,
+      ),
+    ),
     challenges: challengeRows,
     todayChallenge:
       challengeRows.find((row) => row.bucket === "today") ?? null,
@@ -222,8 +257,12 @@ export function loadContentStudioData(
     archive: challengeRows
       .filter((row) => row.bucket === "archive")
       .sort((a, b) => b.publishAt.localeCompare(a.publishAt)),
-    readyUnscheduled: challengeRows.filter((row) => row.status === "ready"),
-    drafts: challengeRows.filter((row) => row.status === "draft"),
+    readyUnscheduled: challengeRows
+      .filter((row) => row.status === "ready")
+      .sort((a, b) => a.publishAt.localeCompare(b.publishAt)),
+    drafts: challengeRows
+      .filter((row) => row.status === "draft")
+      .sort((a, b) => a.publishAt.localeCompare(b.publishAt)),
   };
 }
 

@@ -679,7 +679,14 @@ export function ContentStudio({
                           : "text-white/55 hover:bg-white/5 hover:text-white/80"
                       }`}
                     >
-                      <span className="truncate">{item.label}</span>
+                      <span className="min-w-0 truncate">
+                        <span className="block truncate">{item.label}</span>
+                        {item.challenge?.date && (
+                          <span className="block font-mono text-[10px] text-white/30">
+                            {item.challenge.date}
+                          </span>
+                        )}
+                      </span>
                       <span
                         className={`h-1.5 w-1.5 shrink-0 rounded-full ${
                           item.readyForSchedule
