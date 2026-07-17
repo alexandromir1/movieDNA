@@ -1,0 +1,127 @@
+{
+  "id": "level-matrix",
+  "movieId": "movie-matrix",
+  "difficulty": "medium",
+  "image": "/images/matrix.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Матрица",
+    "The Matrix",
+    "Matrix"
+  ],
+  "revealRegions": [
+    {
+      "id": "spoon",
+      "name": "spoon",
+      "polygon": [
+        [
+          695,
+          691
+        ],
+        [
+          993,
+          691
+        ],
+        [
+          995,
+          895
+        ],
+        [
+          667,
+          895
+        ],
+        [
+          667,
+          691
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "telephone-cabine",
+      "name": "telephone cabine",
+      "polygon": [
+        [
+          234,
+          80
+        ],
+        [
+          232,
+          844
+        ],
+        [
+          617,
+          873
+        ],
+        [
+          624,
+          62
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "screen",
+      "name": "screen",
+      "polygon": [
+        [
+          834,
+          163
+        ],
+        [
+          825,
+          685
+        ],
+        [
+          1431,
+          768
+        ],
+        [
+          1453,
+          190
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "teblet",
+      "name": "teblet",
+      "polygon": [
+        [
+          993,
+          734
+        ],
+        [
+          1245,
+          763
+        ],
+        [
+          1245,
+          908
+        ],
+        [
+          990,
+          890
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

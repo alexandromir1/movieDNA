@@ -1,0 +1,124 @@
+{
+  "id": "level-hangover",
+  "movieId": "movie-hangover",
+  "difficulty": "medium",
+  "image": "/images/hangover.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Мальчишник в Вегасе",
+    "The Hangover",
+    "Hangover",
+    "Мальчишник"
+  ],
+  "revealRegions": [
+    {
+      "id": "cards-and-tips",
+      "name": "cards and tips",
+      "polygon": [
+        [
+          0,
+          594
+        ],
+        [
+          275,
+          591
+        ],
+        [
+          275,
+          903
+        ],
+        [
+          0,
+          903
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "bottle",
+      "name": "bottle",
+      "polygon": [
+        [
+          273,
+          345
+        ],
+        [
+          440,
+          334
+        ],
+        [
+          442,
+          781
+        ],
+        [
+          275,
+          785
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "tooth-and-ring",
+      "name": "tooth and ring",
+      "polygon": [
+        [
+          442,
+          723
+        ],
+        [
+          747,
+          721
+        ],
+        [
+          750,
+          833
+        ],
+        [
+          438,
+          833
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "область-4",
+      "name": "Область 4",
+      "polygon": [
+        [
+          497,
+          311
+        ],
+        [
+          1201,
+          299
+        ],
+        [
+          1236,
+          1003
+        ],
+        [
+          495,
+          957
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

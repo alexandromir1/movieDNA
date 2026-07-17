@@ -1,0 +1,150 @@
+{
+  "id": "level-shrek",
+  "movieId": "movie-shrek",
+  "difficulty": "medium",
+  "image": "/images/shrek.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Шрек",
+    "Shrek"
+  ],
+  "revealRegions": [
+    {
+      "id": "onion",
+      "name": "onion",
+      "polygon": [
+        [
+          83,
+          532
+        ],
+        [
+          394,
+          532
+        ],
+        [
+          394,
+          809
+        ],
+        [
+          83,
+          809
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "candle-and-crown",
+      "name": "candle and crown",
+      "polygon": [
+        [
+          525,
+          517
+        ],
+        [
+          605,
+          510
+        ],
+        [
+          619,
+          586
+        ],
+        [
+          660,
+          609
+        ],
+        [
+          692,
+          602
+        ],
+        [
+          731,
+          643
+        ],
+        [
+          869,
+          730
+        ],
+        [
+          789,
+          875
+        ],
+        [
+          569,
+          765
+        ],
+        [
+          481,
+          677
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "fairytale",
+      "name": "fairytale",
+      "polygon": [
+        [
+          0,
+          283
+        ],
+        [
+          371,
+          281
+        ],
+        [
+          374,
+          891
+        ],
+        [
+          0,
+          888
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "toilet",
+      "name": "toilet",
+      "polygon": [
+        [
+          1064,
+          93
+        ],
+        [
+          990,
+          732
+        ],
+        [
+          1284,
+          820
+        ],
+        [
+          1463,
+          664
+        ],
+        [
+          1472,
+          148
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

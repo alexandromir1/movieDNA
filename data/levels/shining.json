@@ -1,0 +1,123 @@
+{
+  "id": "level-shining",
+  "movieId": "movie-shining",
+  "difficulty": "medium",
+  "image": "/images/shining.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Сияние",
+    "The Shining",
+    "Shining"
+  ],
+  "revealRegions": [
+    {
+      "id": "ball",
+      "name": "ball",
+      "polygon": [
+        [
+          497,
+          612
+        ],
+        [
+          612,
+          610
+        ],
+        [
+          610,
+          300
+        ],
+        [
+          497,
+          300
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "writting-machine",
+      "name": "writting machine",
+      "polygon": [
+        [
+          497,
+          366
+        ],
+        [
+          44,
+          363
+        ],
+        [
+          41,
+          664
+        ],
+        [
+          500,
+          664
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "key-and-cup",
+      "name": "key and cup",
+      "polygon": [
+        [
+          610,
+          446
+        ],
+        [
+          832,
+          444
+        ],
+        [
+          834,
+          671
+        ],
+        [
+          601,
+          675
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "axe-and-bike",
+      "name": "axe and bike",
+      "polygon": [
+        [
+          837,
+          366
+        ],
+        [
+          1479,
+          363
+        ],
+        [
+          1481,
+          1003
+        ],
+        [
+          834,
+          1003
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

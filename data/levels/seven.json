@@ -1,0 +1,128 @@
+{
+  "id": "level-seven",
+  "movieId": "movie-seven",
+  "difficulty": "medium",
+  "image": "/images/seven.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Семь",
+    "Se7en",
+    "Seven",
+    "7"
+  ],
+  "revealRegions": [
+    {
+      "id": "gluttony",
+      "name": "gluttony",
+      "polygon": [
+        [
+          85,
+          563
+        ],
+        [
+          497,
+          526
+        ],
+        [
+          699,
+          868
+        ],
+        [
+          291,
+          996
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "wall",
+      "name": "wall",
+      "polygon": [
+        [
+          7,
+          15
+        ],
+        [
+          656,
+          10
+        ],
+        [
+          658,
+          347
+        ],
+        [
+          5,
+          340
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "sins-and-seven",
+      "name": "sins and seven",
+      "polygon": [
+        [
+          14,
+          391
+        ],
+        [
+          1036,
+          386
+        ],
+        [
+          1045,
+          636
+        ],
+        [
+          7,
+          696
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "what-in-the-box",
+      "name": "what in the box",
+      "polygon": [
+        [
+          1103,
+          667
+        ],
+        [
+          1094,
+          154
+        ],
+        [
+          1531,
+          149
+        ],
+        [
+          1529,
+          688
+        ],
+        [
+          1268,
+          763
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}
