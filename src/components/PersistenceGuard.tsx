@@ -7,8 +7,7 @@ import { clearStoredStats } from "@/lib/game/player-stats";
 import { clearStoredSessions } from "@/lib/game/session-storage";
 
 /**
- * TODO: удалить после включения PERSISTENCE_ENABLED.
- * В тестовом режиме сбрасывает локальные сохранения при загрузке.
+ * Сбрасывает локальные сохранения, только если persistence выключен в конфиге.
  */
 export function PersistenceGuard({ children }: { children: React.ReactNode }) {
   useEffect(() => {

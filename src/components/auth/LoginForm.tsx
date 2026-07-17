@@ -1,15 +1,11 @@
 "use client";
 
-import { signInWithOAuth } from "@/actions/auth";
-import { Button } from "@/components/ui/Button";
-
+/**
+ * Legacy form — не используется в soft launch.
+ * /auth/login показывает честный экран «Аккаунты скоро появятся».
+ */
 export function LoginForm() {
   return (
-    <div className="flex flex-col gap-3">
-      <Button onClick={() => signInWithOAuth("google")}>Войти через Google</Button>
-      <Button variant="secondary" onClick={() => signInWithOAuth("github")}>
-        Войти через GitHub
-      </Button>
-    </div>
+    <p className="text-sm text-white/45">Аккаунты скоро появятся.</p>
   );
 }

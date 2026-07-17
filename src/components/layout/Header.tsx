@@ -62,20 +62,41 @@ export function Header() {
           </span>
         </Link>
 
-        <div className="flex shrink-0 items-center gap-0.5">
+        <nav className="flex shrink-0 items-center gap-0.5" aria-label="Основное меню">
+          <Link
+            href={GAME_ROUTES.today}
+            className={cn(
+              "rounded-md px-2 py-1 text-[11px] font-medium transition-colors sm:text-xs",
+              pathname === GAME_ROUTES.today || pathname.startsWith("/game/")
+                ? "bg-white/[0.08] text-white"
+                : "text-white/55 hover:bg-white/[0.05] hover:text-white/85",
+            )}
+          >
+            Игра
+          </Link>
           <Link
             href={GAME_ROUTES.archive}
-            className="rounded-md px-2 py-1 text-[11px] font-medium text-white/55 transition-colors hover:bg-white/[0.05] hover:text-white/85 sm:text-xs"
+            className={cn(
+              "rounded-md px-2 py-1 text-[11px] font-medium transition-colors sm:text-xs",
+              pathname === GAME_ROUTES.archive
+                ? "bg-white/[0.08] text-white"
+                : "text-white/55 hover:bg-white/[0.05] hover:text-white/85",
+            )}
           >
             Архив
           </Link>
           <Link
             href={GAME_ROUTES.profile}
-            className="rounded-md px-2 py-1 text-[11px] font-medium text-white/55 transition-colors hover:bg-white/[0.05] hover:text-white/85 sm:text-xs"
+            className={cn(
+              "rounded-md px-2 py-1 text-[11px] font-medium transition-colors sm:text-xs",
+              pathname === GAME_ROUTES.profile
+                ? "bg-white/[0.08] text-white"
+                : "text-white/55 hover:bg-white/[0.05] hover:text-white/85",
+            )}
           >
             Профиль
           </Link>
-        </div>
+        </nav>
       </div>
 
       <div className="mx-auto hidden h-[72px] max-w-6xl items-center justify-between px-6 lg:flex">

@@ -76,6 +76,7 @@ interface ChallengeResultCardProps {
   onExpandImage: () => void;
   onShare: () => void;
   shareFeedback: string | null;
+  shareFallbackText?: string | null;
 }
 
 /**
@@ -93,6 +94,7 @@ export function ChallengeResultCard({
   onExpandImage,
   onShare,
   shareFeedback,
+  shareFallbackText = null,
 }: ChallengeResultCardProps) {
   const timeLabel = scoreBreakdown
     ? formatElapsedClock(scoreBreakdown.elapsedSeconds)
@@ -241,6 +243,11 @@ export function ChallengeResultCard({
             <p className="mt-2 text-center text-xs text-white/40">
               {shareFeedback}
             </p>
+          )}
+          {shareFallbackText && (
+            <pre className="mt-3 max-h-36 overflow-auto whitespace-pre-wrap rounded-[10px] border border-white/10 bg-black/50 px-3 py-2 text-left text-[11px] leading-relaxed text-white/70 select-all">
+              {shareFallbackText}
+            </pre>
           )}
         </div>
       )}

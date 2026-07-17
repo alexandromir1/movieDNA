@@ -17,7 +17,7 @@ export async function generateMetadata({
   params,
 }: GameDatePageProps): Promise<Metadata> {
   const { date } = await params;
-  return { title: `Challenge ${date}` };
+  return { title: `Архив · ${date}` };
 }
 
 export default async function GameDatePage({ params }: GameDatePageProps) {

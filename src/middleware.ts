@@ -5,12 +5,14 @@ import { updateSession } from "@/lib/supabase/middleware";
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Content Studio и write-API — только локально (next dev).
+  // Content Studio, write-API и тестовый Reveal — только локально.
   if (
     process.env.NODE_ENV === "production" &&
     (pathname === "/dev" ||
       pathname.startsWith("/dev/") ||
-      pathname.startsWith("/api/dev"))
+      pathname.startsWith("/api/dev") ||
+      pathname === "/test" ||
+      pathname.startsWith("/test/"))
   ) {
     return new NextResponse("Not Found", { status: 404 });
   }

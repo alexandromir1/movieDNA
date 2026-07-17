@@ -1,16 +1,14 @@
 "use server";
 
+/** Auth не в soft launch — без throw, чтобы игрок не видел «Not implemented». */
 export async function signInWithOAuth(_provider: "google" | "github") {
-  // TODO: реализовать OAuth через Supabase
-  throw new Error("Not implemented");
+  return { ok: false as const, message: "Аккаунты скоро появятся." };
 }
 
 export async function signOut() {
-  // TODO: реализовать выход
-  throw new Error("Not implemented");
+  return { ok: false as const, message: "Аккаунты скоро появятся." };
 }
 
 export async function getCurrentUser() {
-  // TODO: получить текущего пользователя
   return null;
 }

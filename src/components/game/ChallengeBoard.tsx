@@ -12,7 +12,10 @@ import { REVEAL_REGION_COUNT } from "@/config/economy";
 import { FEEDBACK_MESSAGE_MS, WRONG_GUESS_FEEDBACK_MS } from "@/config/game";
 import { useChallenge } from "@/hooks/useChallenge";
 import { addUtcDays, getUtcDateString } from "@/lib/game/daily";
-import { shareChallengeResult } from "@/lib/game/share-result";
+import {
+  buildShareText,
+  shareChallengeResult,
+} from "@/lib/game/share-result";
 import { cn } from "@/lib/utils/cn";
 
 import type { Challenge, Level, Movie } from "@/types/content";
@@ -97,6 +100,9 @@ export function ChallengeBoard({
   const [guess, setGuess] = useState("");
   const [feedback, setFeedback] = useState<string | null>(null);
   const [shareFeedback, setShareFeedback] = useState<string | null>(null);
+  const [shareFallbackText, setShareFallbackText] = useState<string | null>(
+    null,
+  );
   const [isWrongGuess, setIsWrongGuess] = useState(false);
   const [imageExpanded, setImageExpanded] = useState(false);
   /** Win beat: полное изображение → название → экран результата */
@@ -221,14 +227,28 @@ export function ChallengeBoard({
       elapsedSeconds: scoreBreakdown.elapsedSeconds,
       won: true,
     });
+
+    if (result === "cancelled") return;
+
+    if (result === "failed") {
+      setShareFallbackText(
+        buildShareText({
+          movieTitle: movie.title,
+          movieScore: scoreBreakdown.total,
+          openedRegionCount: session.openedRegionCount,
+          elapsedSeconds: scoreBreakdown.elapsedSeconds,
+          won: true,
+        }),
+      );
+      setShareFeedback("Скопируй текст вручную");
+      return;
+    }
+
+    setShareFallbackText(null);
     setShareFeedback(
-      result === "copied"
-        ? "Скопировано"
-        : result === "shared"
-          ? "Отправлено"
-          : "Не удалось",
+      result === "copied" ? "Скопировано в буфер" : "Отправлено",
     );
-    window.setTimeout(() => setShareFeedback(null), 2000);
+    window.setTimeout(() => setShareFeedback(null), 2200);
   }
 
   const image = (
@@ -337,6 +357,7 @@ export function ChallengeBoard({
           onExpandImage={() => setImageExpanded(true)}
           onShare={() => void handleShare()}
           shareFeedback={shareFeedback}
+          shareFallbackText={shareFallbackText}
         />
       ) : (
         <div className="w-full max-w-md">

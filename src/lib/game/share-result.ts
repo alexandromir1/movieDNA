@@ -48,32 +48,63 @@ export function buildShareText(input: {
     .join("\n");
 }
 
+/** Можно ли предложить share/copy (не показывать мёртвую кнопку). */
+export function canOfferShare(): boolean {
+  if (typeof navigator === "undefined") return false;
+  const hasShare = typeof navigator.share === "function";
+  const hasClipboard =
+    typeof navigator.clipboard?.writeText === "function" ||
+    typeof document !== "undefined";
+  return hasShare || hasClipboard;
+}
+
 export async function shareChallengeResult(input: {
   movieTitle: string;
   movieScore: number;
   openedRegionCount: number;
   elapsedSeconds?: number;
   won: boolean;
-}): Promise<"shared" | "copied" | "failed"> {
+}): Promise<"shared" | "copied" | "cancelled" | "failed"> {
   const text = buildShareText(input);
 
-  if (typeof navigator !== "undefined" && navigator.share) {
+  if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
     try {
       await navigator.share({ text, title: siteConfig.name });
       return "shared";
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") {
-        return "failed";
+        return "cancelled";
       }
+      // fall through to clipboard
     }
   }
 
   try {
-    await navigator.clipboard.writeText(text);
-    return "copied";
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return "copied";
+    }
   } catch {
-    return "failed";
+    // fall through
   }
+
+  // Legacy textarea copy
+  try {
+    const area = document.createElement("textarea");
+    area.value = text;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.left = "-9999px";
+    document.body.appendChild(area);
+    area.select();
+    const ok = document.execCommand("copy");
+    document.body.removeChild(area);
+    if (ok) return "copied";
+  } catch {
+    // ignore
+  }
+
+  return "failed";
 }
 
 export function countWrongGuesses(guesses: GameGuess[]): number {
