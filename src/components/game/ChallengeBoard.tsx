@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ProgressiveRevealImage } from "@/components/ProgressiveRevealImage";
 import { MovieSearchInput } from "@/components/game/MovieSearchInput";
 import { ChallengeResultCard } from "@/components/game/ChallengeResultCard";
+import { ChallengeStartScreen } from "@/components/game/ChallengeStartScreen";
 import type { NextChallengeLink } from "@/components/game/WhatsNextBlock";
 import { Button } from "@/components/ui/Button";
 import { REVEAL_REGION_COUNT } from "@/config/economy";
@@ -276,16 +277,7 @@ export function ChallengeBoard({
 
   if (session.state === "NOT_STARTED") {
     return (
-      <div className="fade-up mx-auto flex w-full max-w-3xl flex-col items-center">
-        <div className="mb-3 w-full sm:mb-5">{image}</div>
-        <p className="mb-3 hidden max-w-md text-center text-sm leading-relaxed text-white/50 sm:mb-6 sm:block">
-          Угадайте фильм по визуальной ДНК. Каждая открытая область снижает
-          количество очков.
-        </p>
-        <Button size="lg" className="h-11 w-full max-w-md sm:h-12 sm:w-auto" onClick={startChallenge}>
-          Начать
-        </Button>
-      </div>
+      <ChallengeStartScreen image={image} onStart={startChallenge} />
     );
   }
 
