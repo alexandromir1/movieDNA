@@ -1,31 +1,47 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useSyncExternalStore } from "react";
 
-import { LogoMark } from "@/components/branding/Logo";
-import { formatHeaderDateShort } from "@/lib/game/format-date";
+import { Logo, LogoMark } from "@/components/branding/Logo";
+import {
+  formatHeaderDate,
+  formatHeaderDateShort,
+} from "@/lib/game/format-date";
 import { getUtcDateString } from "@/lib/game/daily";
 import { GAME_ROUTES } from "@/lib/game/constants";
+import { cn } from "@/lib/utils/cn";
 
 function subscribe() {
   return () => undefined;
 }
 
-function getShortDate() {
-  return formatHeaderDateShort(getUtcDateString());
+function getDateLabels() {
+  const today = getUtcDateString();
+  return {
+    full: formatHeaderDate(today),
+    short: formatHeaderDateShort(today),
+  };
 }
 
+const NAV_ITEMS = [
+  { href: GAME_ROUTES.today, label: "Игра" },
+  { href: GAME_ROUTES.archive, label: "Архив" },
+  { href: GAME_ROUTES.stats, label: "Статистика" },
+] as const;
+
 /**
- * Мобильный приоритет: одна строка ~36px.
- * Лого + дата inline, справа только Архив.
+ * Mobile: одна строка ~36px для Instagram WebView.
+ * Desktop: прежняя полноценная шапка с лого, датой и навигацией.
  */
 export function Header() {
-  const shortDate = useSyncExternalStore(subscribe, getShortDate, getShortDate);
+  const dates = useSyncExternalStore(subscribe, getDateLabels, getDateLabels);
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-30 border-b border-white/[0.06] bg-[#0e0e10]/95 backdrop-blur-md pt-[env(safe-area-inset-top)]">
-      <div className="mx-auto flex h-9 max-w-6xl items-center justify-between gap-2 px-3 sm:h-11 sm:px-4 lg:px-6">
+      <div className="mx-auto flex h-9 max-w-6xl items-center justify-between gap-2 px-3 sm:h-11 sm:px-4 lg:hidden">
         <Link
           href="/"
           className="flex min-w-0 items-center gap-1.5 rounded-md transition-opacity hover:opacity-85"
@@ -39,7 +55,7 @@ export function Header() {
             ·
           </span>
           <span className="truncate text-[11px] capitalize text-white/45 sm:text-xs">
-            {shortDate}
+            {dates.short}
           </span>
         </Link>
 
@@ -49,6 +65,39 @@ export function Header() {
         >
           Архив
         </Link>
+      </div>
+
+      <div className="mx-auto hidden h-[72px] max-w-6xl items-center justify-between px-6 lg:flex">
+        <Link
+          href="/"
+          className="rounded-[10px] transition-opacity hover:opacity-85"
+        >
+          <Logo dateLabel={dates.full} />
+        </Link>
+
+        <nav className="flex items-center gap-1 text-sm">
+          {NAV_ITEMS.map((item) => {
+            const isActive =
+              pathname === item.href ||
+              (item.href === GAME_ROUTES.today &&
+                pathname.startsWith("/game"));
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "rounded-[10px] px-3.5 py-2 transition-colors duration-200",
+                  isActive
+                    ? "bg-white/[0.08] text-white"
+                    : "text-white/45 hover:bg-white/[0.04] hover:text-white/80",
+                )}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
       </div>
     </header>
   );
