@@ -17,12 +17,14 @@ function subscribe() {
   return () => undefined;
 }
 
-function getDateLabels() {
-  const today = getUtcDateString();
-  return {
-    full: formatHeaderDate(today),
-    short: formatHeaderDateShort(today),
-  };
+// Возвращаем строки (сравниваются по значению), иначе useSyncExternalStore
+// зациклится на новом объекте при каждом снимке.
+function getFullDate() {
+  return formatHeaderDate(getUtcDateString());
+}
+
+function getShortDate() {
+  return formatHeaderDateShort(getUtcDateString());
 }
 
 const NAV_ITEMS = [
@@ -36,7 +38,8 @@ const NAV_ITEMS = [
  * Desktop: прежняя полноценная шапка с лого, датой и навигацией.
  */
 export function Header() {
-  const dates = useSyncExternalStore(subscribe, getDateLabels, getDateLabels);
+  const fullDate = useSyncExternalStore(subscribe, getFullDate, getFullDate);
+  const shortDate = useSyncExternalStore(subscribe, getShortDate, getShortDate);
   const pathname = usePathname();
 
   return (
@@ -55,7 +58,7 @@ export function Header() {
             ·
           </span>
           <span className="truncate text-[11px] capitalize text-white/45 sm:text-xs">
-            {dates.short}
+            {shortDate}
           </span>
         </Link>
 
@@ -72,7 +75,7 @@ export function Header() {
           href="/"
           className="rounded-[10px] transition-opacity hover:opacity-85"
         >
-          <Logo dateLabel={dates.full} />
+          <Logo dateLabel={fullDate} />
         </Link>
 
         <nav className="flex items-center gap-1 text-sm">
