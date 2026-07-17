@@ -50,22 +50,50 @@ export function LogoMark({ size = 32, className }: LogoMarkProps) {
 }
 
 interface LogoProps {
-  /** Дата под названием (уже отформатированная) */
+  /** Полная дата (десктоп) */
   dateLabel?: string;
+  /** Короткая дата (мобилка) */
+  dateLabelShort?: string;
+  /** Компактный вариант для узкой шапки */
+  compact?: boolean;
   className?: string;
 }
 
-export function Logo({ dateLabel, className }: LogoProps) {
+export function Logo({
+  dateLabel,
+  dateLabelShort,
+  compact = false,
+  className,
+}: LogoProps) {
+  const short = dateLabelShort ?? dateLabel;
+
   return (
-    <span className={cn("flex items-center gap-3", className)}>
-      <LogoMark size={38} />
-      <span className="flex flex-col leading-tight">
-        <span className="text-lg font-bold tracking-[0.14em] text-white sm:text-xl">
+    <span
+      className={cn(
+        "flex min-w-0 items-center",
+        compact ? "gap-2" : "gap-3",
+        className,
+      )}
+    >
+      <LogoMark size={compact ? 28 : 38} />
+      <span className="flex min-w-0 flex-col leading-tight">
+        <span
+          className={cn(
+            "font-bold tracking-[0.12em] text-white",
+            compact ? "text-[15px] sm:text-base" : "text-lg sm:text-xl",
+          )}
+        >
           MovieDNA
         </span>
-        {dateLabel && (
-          <span className="mt-0.5 text-[13px] capitalize text-white/50">
-            {dateLabel}
+        {(dateLabel || short) && (
+          <span
+            className={cn(
+              "truncate capitalize text-white/45",
+              compact ? "mt-0 text-[11px] sm:text-xs" : "mt-0.5 text-[13px]",
+            )}
+          >
+            <span className="sm:hidden">{short}</span>
+            <span className="hidden sm:inline">{dateLabel ?? short}</span>
           </span>
         )}
       </span>

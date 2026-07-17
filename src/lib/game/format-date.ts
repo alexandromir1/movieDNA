@@ -30,7 +30,7 @@ function parseUtcDate(date: string): Date {
   return new Date(Date.UTC(year, month - 1, day));
 }
 
-/** «пятница, 17 июля 2026» — дата под логотипом */
+/** «пятница, 17 июля 2026» — дата под логотипом (десктоп) */
 export function formatHeaderDate(date: string = new Date().toISOString().split("T")[0]): string {
   const utc = parseUtcDate(date);
   const weekday = WEEKDAYS_RU[utc.getUTCDay()];
@@ -38,6 +38,14 @@ export function formatHeaderDate(date: string = new Date().toISOString().split("
   const month = MONTHS_RU[utc.getUTCMonth()];
   const year = utc.getUTCFullYear();
   return `${weekday}, ${day} ${month} ${year}`;
+}
+
+/** «17 июля» — компактная дата для мобильной шапки */
+export function formatHeaderDateShort(
+  date: string = new Date().toISOString().split("T")[0],
+): string {
+  const utc = parseUtcDate(date);
+  return `${utc.getUTCDate()} ${MONTHS_RU[utc.getUTCMonth()]}`;
 }
 
 /** Короткий ярлык: Сегодня / Вчера / 15 июля */

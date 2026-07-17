@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ProgressiveRevealImage } from "@/components/ProgressiveRevealImage";
 import { MovieSearchInput } from "@/components/game/MovieSearchInput";
 import { Button } from "@/components/ui/Button";
-import { REVEAL_REGION_COUNT, MAX_MOVIE_SCORE } from "@/config/economy";
+import { REVEAL_REGION_COUNT } from "@/config/economy";
 import { FEEDBACK_MESSAGE_MS, WRONG_GUESS_FEEDBACK_MS } from "@/config/game";
 import { useChallenge } from "@/hooks/useChallenge";
 import { GAME_ROUTES } from "@/lib/game/constants";
@@ -138,7 +138,7 @@ function LoseIcon() {
 
 /**
  * Кадр Challenge в фиксированном «окне» viewport:
- * не раздувает страницу, кнопки остаются на экране без скролла.
+ * на мобилке ниже — чтобы поле ввода и кнопки оставались на экране.
  */
 function ChallengeImageFrame({
   width,
@@ -154,19 +154,21 @@ function ChallengeImageFrame({
   children: React.ReactNode;
 }) {
   const aspect = width / Math.max(height, 1);
-  const maxH = compact ? "min(34vh, 330px)" : "min(52vh, 530px)";
 
   return (
     <div
       className={cn(
         "relative mx-auto overflow-hidden rounded-[12px] border border-white/[0.09] bg-black",
         "shadow-[0_8px_40px_rgb(0_0_0/0.4)] transition-all duration-500",
+        compact
+          ? "[--frame-max-h:min(28vh,260px)] sm:[--frame-max-h:min(34vh,330px)]"
+          : "[--frame-max-h:min(36vh,300px)] sm:[--frame-max-h:min(52vh,530px)]",
         className,
       )}
       style={{
         aspectRatio: String(aspect),
-        maxHeight: maxH,
-        width: `min(100%, 48rem, calc(${maxH} * ${aspect}))`,
+        maxHeight: "var(--frame-max-h)",
+        width: `min(100%, 48rem, calc(var(--frame-max-h) * ${aspect}))`,
       }}
     >
       {children}
@@ -366,11 +368,8 @@ export function ChallengeBoard({
   if (session.state === "NOT_STARTED") {
     return (
       <div className="fade-up mx-auto flex w-full max-w-3xl flex-col items-center">
-        <p className="mb-4 text-xs font-medium uppercase tracking-[0.25em] text-white/40">
-          Игра дня
-        </p>
-        <div className="mb-5 w-full">{image}</div>
-        <p className="mb-6 max-w-md text-center text-sm leading-relaxed text-white/50">
+        <div className="mb-3 w-full sm:mb-5">{image}</div>
+        <p className="mb-4 max-w-md text-center text-sm leading-relaxed text-white/50 sm:mb-6">
           Угадайте фильм по визуальной ДНК. Каждая открытая область снижает
           количество очков.
         </p>
@@ -382,9 +381,8 @@ export function ChallengeBoard({
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col items-center">
-      <div className="mb-3 flex w-full items-center justify-between text-[11px] font-medium uppercase tracking-widest text-white/40">
-        <span>MovieDNA</span>
+    <div className="mx-auto flex w-full max-w-3xl flex-col items-center pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+      <div className="mb-2 flex w-full items-center justify-between text-[10px] font-medium uppercase tracking-widest text-white/40 sm:mb-3 sm:text-[11px]">
         <span>
           Подсказка {Math.min(session.openedRegionCount, REVEAL_REGION_COUNT)}/
           {REVEAL_REGION_COUNT}
@@ -404,9 +402,9 @@ export function ChallengeBoard({
         </span>
       </div>
 
-      <div className="mb-4 w-full">{image}</div>
+      <div className="mb-3 w-full sm:mb-4">{image}</div>
 
-      <div className="mb-5">{progressSegments}</div>
+      <div className="mb-4 sm:mb-5">{progressSegments}</div>
 
       {session.state === "COMPLETED" && (winBeat === "title" || winBeat === "result") && (
         <div
@@ -446,36 +444,6 @@ export function ChallengeBoard({
           <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.3em] text-white/40">
             Movie Score
           </p>
-
-          {/* Псевдо-процентиль от Movie Score, пока нет реальных данных игроков */}
-          <div className="mt-6 rounded-[12px] border border-white/[0.09] bg-white/[0.03] px-5 py-4 text-left">
-            <div className="flex items-baseline justify-between">
-              <p className="text-sm text-white/70">
-                Вы лучше, чем{" "}
-                <span className="font-semibold text-[var(--accent)]">
-                  {Math.min(
-                    99,
-                    Math.max(
-                      5,
-                      Math.round(
-                        (scoreBreakdown.total / MAX_MOVIE_SCORE) * 100,
-                      ),
-                    ),
-                  )}
-                  %
-                </span>{" "}
-                игроков
-              </p>
-            </div>
-            <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/[0.08]">
-              <div
-                className="percentile-fill h-full rounded-full bg-[var(--accent)]"
-                style={{
-                  width: `${Math.min(99, Math.max(5, Math.round((scoreBreakdown.total / MAX_MOVIE_SCORE) * 100)))}%`,
-                }}
-              />
-            </div>
-          </div>
 
           <p className="mt-4 text-xs text-white/40">
             Подсказки {scoreBreakdown.openedRegionCount}/{REVEAL_REGION_COUNT}
