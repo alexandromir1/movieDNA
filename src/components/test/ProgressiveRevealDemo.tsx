@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { ProgressiveRevealImage } from "@/components/ProgressiveRevealImage";
 
@@ -72,12 +72,7 @@ function clearSessionDraft(levelSlug: string | undefined): void {
   sessionStorage.removeItem(sessionKey(levelSlug));
 }
 
-function initialRegions(
-  config: RevealImageConfig,
-  levelSlug: string | undefined,
-): RevealRegion[] {
-  const draft = readSessionDraft(levelSlug);
-  if (draft && draft.length > 0) return draft;
+function initialRegionsFromConfig(config: RevealImageConfig): RevealRegion[] {
   return config.regions;
 }
 
@@ -92,21 +87,19 @@ export function ProgressiveRevealDemo({
   const [developerMode, setDeveloperMode] = useState(false);
   const [cursor, setCursor] = useState<ImageCoordinate | null>(null);
   const [selectedPoints, setSelectedPoints] = useState<ImageCoordinate[]>([]);
+  // SSR-safe: sessionStorage читаем только после mount (иначе hydration mismatch)
   const [regions, setRegions] = useState<RevealRegion[]>(() =>
-    initialRegions(config, levelSlug),
+    initialRegionsFromConfig(config),
   );
   const [regionLabel, setRegionLabel] = useState("");
   const [status, setStatus] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [isPreviewing, setIsPreviewing] = useState(false);
-  const [dirty, setDirty] = useState(() => {
-    const draft = readSessionDraft(levelSlug);
-    return Boolean(draft && draft.length > 0);
-  });
+  const [dirty, setDirty] = useState(false);
+  const [sessionReady, setSessionReady] = useState(false);
 
   /** Меняем level только при смене slug/image — не при каждом re-render родителя. */
   const identityKey = `${levelSlug ?? "anon"}:${config.image}:${config.width}x${config.height}`;
-  const lastIdentityRef = useRef(identityKey);
 
   const draftConfig = useMemo<RevealImageConfig>(
     () => ({
@@ -123,14 +116,10 @@ export function ProgressiveRevealDemo({
     cursor !== null &&
     distance(cursor, selectedPoints[0]) <= CLOSE_THRESHOLD;
 
-  // Смена Level → подтянуть disk или session draft
+  // После mount / смены Level — подтянуть disk или session draft
   useEffect(() => {
-    if (lastIdentityRef.current === identityKey) return;
-    lastIdentityRef.current = identityKey;
-
     const draft = readSessionDraft(levelSlug);
-    const next =
-      draft && draft.length > 0 ? draft : config.regions;
+    const next = draft && draft.length > 0 ? draft : config.regions;
     setRegions(next);
     setDirty(Boolean(draft && draft.length > 0));
     setRevealLevel(-1);
@@ -141,14 +130,16 @@ export function ProgressiveRevealDemo({
         ? `Восстановлен черновик сессии: ${draft.length} област.`
         : null,
     );
+    setSessionReady(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- только identity
   }, [identityKey]);
 
-  // Автосохранение черновика в sessionStorage (не на диск)
+  // Автосохранение черновика в sessionStorage (не на диск) —
+  // только после восстановления, иначе затрём draft снимком с диска
   useEffect(() => {
-    if (!levelSlug) return;
+    if (!sessionReady || !levelSlug) return;
     writeSessionDraft(levelSlug, regions);
-  }, [levelSlug, regions]);
+  }, [levelSlug, regions, sessionReady]);
 
   useEffect(() => {
     onRegionsChange?.(regions.length);
@@ -332,13 +323,17 @@ export function ProgressiveRevealDemo({
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2 text-xs">
         <p className="text-white/40">
           Черновик:{" "}
-          <span className={dirty ? "text-amber-200" : "text-emerald-300/80"}>
-            {dirty ? "не сохранён на диск" : "совпадает с диском"}
-          </span>
+          {sessionReady ? (
+            <span className={dirty ? "text-amber-200" : "text-emerald-300/80"}>
+              {dirty ? "не сохранён на диск" : "совпадает с диском"}
+            </span>
+          ) : (
+            <span className="text-white/30">…</span>
+          )}
           {" · "}
           <span className="text-white/70">{regions.length} област.</span>
         </p>
-        {dirty && (
+        {sessionReady && dirty && (
           <button
             type="button"
             onClick={discardSessionDraft}
