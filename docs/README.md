@@ -25,6 +25,9 @@ MovieDNA — ежедневная игра, в которой пользоват
 05-admin.md
 Админ-панель.
 
+06-analytics.md
+Аналитика: события, Providers, GA4.
+
 06-api.md
 Backend API.
 
