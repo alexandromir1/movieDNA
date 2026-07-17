@@ -225,9 +225,6 @@ export function ChallengeBoard({
   const canOpenMore =
     !isFinished && session.openedRegionCount < REVEAL_REGION_COUNT;
 
-  const isLastAttempt =
-    !isFinished && session.openedRegionCount >= REVEAL_REGION_COUNT;
-
   const imageCompact = isFinished && !imageExpanded;
 
   function showTemporaryFeedback(message: string) {
@@ -544,45 +541,46 @@ export function ChallengeBoard({
               Проверить ответ
             </Button>
 
-            <Button
-              variant="secondary"
-              size="lg"
-              className="w-full"
-              disabled={!canOpenMore || isWrongGuess}
-              onClick={() => {
-                const nextCount = session.openedRegionCount + 1;
-                openNextReveal();
-                showTemporaryFeedback(
-                  nextCount >= REVEAL_REGION_COUNT
-                    ? "Открыто полное изображение — последняя попытка"
-                    : "Открыта следующая область",
-                );
-              }}
-            >
-              {session.openedRegionCount === REVEAL_REGION_COUNT - 1
-                ? "Открыть всё изображение"
-                : "Открыть следующую подсказку"}
-            </Button>
+            {canSurrender ? (
+              <Button
+                variant="secondary"
+                size="lg"
+                className="w-full border-rose-300/25 text-rose-100/85 hover:border-rose-300/40 hover:bg-rose-400/[0.08]"
+                disabled={isWrongGuess}
+                onClick={surrender}
+              >
+                Сдаться
+              </Button>
+            ) : (
+              <Button
+                variant="secondary"
+                size="lg"
+                className="w-full"
+                disabled={!canOpenMore || isWrongGuess}
+                onClick={() => {
+                  const nextCount = session.openedRegionCount + 1;
+                  openNextReveal();
+                  showTemporaryFeedback(
+                    nextCount >= REVEAL_REGION_COUNT
+                      ? "Открыто полное изображение — последняя попытка"
+                      : "Открыта следующая область",
+                  );
+                }}
+              >
+                {session.openedRegionCount === REVEAL_REGION_COUNT - 1
+                  ? "Открыть всё изображение"
+                  : "Открыть следующую подсказку"}
+              </Button>
+            )}
           </div>
-
-          {canSurrender && (
-            <button
-              type="button"
-              disabled={isWrongGuess}
-              onClick={surrender}
-              className="mt-2.5 h-10 w-full rounded-[10px] text-sm text-white/35 transition-colors duration-200 hover:bg-rose-400/[0.06] hover:text-rose-200/80 disabled:opacity-40"
-            >
-              Сдаться
-            </button>
-          )}
 
           <div className="mt-3 flex flex-col items-center gap-1.5">
             {feedback && !isWrongGuess && (
               <p className="text-center text-sm text-white/45">{feedback}</p>
             )}
             <p className="text-center text-[11px] text-white/25">
-              {isLastAttempt
-                ? "Последняя попытка. Можно угадать или сдаться."
+              {canSurrender
+                ? "Все подсказки открыты. Можно угадать или сдаться."
                 : "Сначала проверь ответ — подсказка открывается только если нужно"}
             </p>
           </div>
