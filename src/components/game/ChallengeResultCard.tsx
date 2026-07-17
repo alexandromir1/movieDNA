@@ -276,7 +276,7 @@ export function ChallengeResultCard({
               : "bg-[var(--accent)] text-black hover:brightness-105",
           )}
         >
-          Открыть Архив
+          Открыть Архив — сыграть ещё
         </Link>
       </div>
 

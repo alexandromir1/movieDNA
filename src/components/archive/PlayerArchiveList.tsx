@@ -1,9 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
+import { addUtcDays, getUtcDateString } from "@/lib/game/daily";
+import { formatSidebarDateLabel } from "@/lib/game/format-date";
 import {
   loadPlayerStats,
   type CompletedChallengeRecord,
@@ -27,31 +28,37 @@ interface PlayerArchiveListProps {
   items: ArchiveListItem[];
 }
 
-const STATUS_LABEL: Record<ChallengePlayStatus, string> = {
-  available: "Играть",
-  in_progress: "Продолжить",
-  won: "Победа",
-  lost: "Поражение",
-};
-
-function formatArchiveDate(date: string): string {
-  const parsed = new Date(`${date}T12:00:00Z`);
-  if (Number.isNaN(parsed.getTime())) return date;
-  return new Intl.DateTimeFormat("ru-RU", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(parsed);
+function isPlayable(status: ChallengePlayStatus): boolean {
+  return status === "available" || status === "in_progress";
 }
 
+/**
+ * Архив как вторая игровая сессия: один главный CTA + история привычки.
+ * Без фильтров, поиска и спойлеров непройденных.
+ */
 export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
+  const today = getUtcDateString();
   const [statuses, setStatuses] = useState<Record<string, ChallengePlayStatus>>(
-    {},
+    () => {
+      const updated: Record<string, ChallengePlayStatus> = {};
+      for (const item of items) {
+        updated[item.challengeId] = resolveChallengePlayStatus(item);
+      }
+      return updated;
+    },
   );
   const [records, setRecords] = useState<
     Record<string, CompletedChallengeRecord>
-  >({});
+  >(() => {
+    const nextRecords: Record<string, CompletedChallengeRecord> = {};
+    for (const record of loadPlayerStats().completedChallenges) {
+      nextRecords[record.challengeId] = record;
+    }
+    return nextRecords;
+  });
+  const [bestScore, setBestScore] = useState(
+    () => loadPlayerStats().bestMovieScore,
+  );
 
   useEffect(() => {
     const refresh = () => {
@@ -68,6 +75,7 @@ export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
 
       setStatuses(updated);
       setRecords(nextRecords);
+      setBestScore(stats.bestMovieScore);
     };
 
     refresh();
@@ -79,85 +87,234 @@ export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
     };
   }, [items]);
 
+  const continueTarget = useMemo(() => {
+    if (items.length === 0) return null;
+
+    const yesterday = addUtcDays(today, -1);
+    const byDate = new Map(items.map((item) => [item.date, item]));
+
+    const yesterdayItem = byDate.get(yesterday);
+    if (
+      yesterdayItem &&
+      isPlayable(statuses[yesterdayItem.challengeId] ?? "available")
+    ) {
+      return {
+        item: yesterdayItem,
+        kind: "yesterday" as const,
+      };
+    }
+
+    // Newest unplayed / in-progress first (items are typically newest-first)
+    for (const item of items) {
+      if (isPlayable(statuses[item.challengeId] ?? "available")) {
+        return {
+          item,
+          kind: "next" as const,
+        };
+      }
+    }
+
+    return null;
+  }, [items, statuses, today]);
+
+  const completedCount = items.filter((item) => {
+    const status = statuses[item.challengeId];
+    return status === "won" || status === "lost";
+  }).length;
+
   if (items.length === 0) {
-    return <p className="text-sm text-white/35">Пока нет прошедших игр</p>;
+    return (
+      <p className="text-sm text-white/35">
+        Пока нет прошедших Challenge — вернись после первого Daily.
+      </p>
+    );
   }
 
   return (
-    <ul className="divide-y divide-white/[0.07] overflow-hidden rounded-[12px] border border-white/[0.09] bg-white/[0.02]">
-      {items.map((item) => {
-        const status = statuses[item.challengeId] ?? "available";
-        const finished = status === "won" || status === "lost";
-        const record = records[item.challengeId];
+    <div className="space-y-6">
+      {/* Primary reason to play again */}
+      {continueTarget ? (
+        <Link
+          href={`/game/${continueTarget.item.date}`}
+          className="block rounded-[16px] border border-[var(--accent)]/45 bg-gradient-to-b from-[var(--accent)]/[0.16] to-white/[0.03] px-5 py-5 transition-all duration-200 hover:border-[var(--accent)]/70 hover:brightness-105 active:scale-[0.99]"
+        >
+          <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--accent)]">
+            Сыграть ещё
+          </p>
+          <p className="mt-2 text-xl font-semibold text-white sm:text-2xl">
+            {continueTarget.kind === "yesterday"
+              ? "Вчерашний Challenge"
+              : "Ещё один Challenge"}
+          </p>
+          <p className="mt-1 text-sm text-white/45">
+            {formatSidebarDateLabel(continueTarget.item.date, today)}
+            {continueTarget.kind === "yesterday"
+              ? " · один клик — и ты снова в игре"
+              : " · наверстай день и держи ритм"}
+          </p>
+          <span className="mt-4 inline-flex h-11 items-center justify-center rounded-[10px] bg-[var(--accent)] px-5 text-sm font-semibold text-black">
+            {statuses[continueTarget.item.challengeId] === "in_progress"
+              ? "Продолжить →"
+              : "Играть →"}
+          </span>
+        </Link>
+      ) : (
+        <div className="rounded-[16px] border border-white/[0.09] bg-white/[0.03] px-5 py-5">
+          <p className="text-sm font-medium text-white">
+            Архив пройден
+          </p>
+          <p className="mt-1.5 text-sm text-white/40">
+            Завтра появится новый Daily — а сюда можно вернуться за историей
+            очков.
+          </p>
+        </div>
+      )}
 
-        if (finished) {
-          return (
-            <li key={item.challengeId}>
-              <div className="flex gap-3 px-3 py-3 sm:gap-4 sm:px-4">
-                <div className="relative h-16 w-12 shrink-0 overflow-hidden rounded-[8px] border border-white/[0.08] bg-black sm:h-[4.5rem] sm:w-14">
-                  <Image
-                    src={item.image}
-                    alt=""
-                    fill
-                    sizes="56px"
-                    className="object-cover"
-                  />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                    <p className="truncate text-sm font-medium text-white">
-                      {item.title}
-                    </p>
-                    <span className="text-xs text-white/35">{item.year}</span>
-                  </div>
-                  <p className="mt-0.5 text-xs text-white/40">
-                    {formatArchiveDate(item.date)}
-                  </p>
-                  <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
-                    <span
-                      className={cn(
-                        "rounded-md px-1.5 py-0.5 font-medium",
-                        status === "won"
-                          ? "bg-emerald-400/10 text-emerald-300/90"
-                          : "bg-rose-400/10 text-rose-300/85",
-                      )}
-                    >
-                      {STATUS_LABEL[status]}
-                    </span>
-                    {record && status === "won" && (
-                      <span className="tabular-nums text-white/50">
+      {/* Habit calendar / player path */}
+      <div>
+        <div className="mb-3 flex items-baseline justify-between gap-3">
+          <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-white/35">
+            Твой путь
+          </p>
+          <p className="text-xs tabular-nums text-white/35">
+            {completedCount}/{items.length} сыграно
+          </p>
+        </div>
+
+        <ul className="overflow-hidden rounded-[14px] border border-white/[0.09] bg-white/[0.02]">
+          {items.map((item) => {
+            const status = statuses[item.challengeId] ?? "available";
+            const record = records[item.challengeId];
+            const label = formatSidebarDateLabel(item.date, today);
+            const playable = isPlayable(status);
+            const isHighScore =
+              status === "won" &&
+              record &&
+              bestScore > 0 &&
+              record.movieScore === bestScore;
+
+            const row = (
+              <>
+                <div className="flex min-w-0 flex-1 items-center gap-3">
+                  <StatusMark status={status} isHighScore={Boolean(isHighScore)} />
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium text-white">{label}</p>
+                    {status === "won" && record ? (
+                      <p className="mt-0.5 text-xs text-white/45">
                         Movie Score{" "}
-                        <span className="font-medium text-white/75">
+                        <span className="font-semibold tabular-nums text-white/80">
                           {record.movieScore}
                         </span>
-                      </span>
+                        {isHighScore ? (
+                          <span className="ml-1.5 text-[var(--accent)]">
+                            🏆 рекорд
+                          </span>
+                        ) : null}
+                      </p>
+                    ) : status === "lost" ? (
+                      <p className="mt-0.5 text-xs text-white/40">Не угадал</p>
+                    ) : status === "in_progress" ? (
+                      <p className="mt-0.5 text-xs text-white/40">В процессе</p>
+                    ) : (
+                      <p className="mt-0.5 text-xs text-white/40">Не пройден</p>
                     )}
                   </div>
                 </div>
-              </div>
-            </li>
-          );
-        }
+                {playable ? (
+                  <span className="shrink-0 text-xs font-medium text-[var(--accent)]">
+                    {status === "in_progress" ? "Продолжить" : "Играть"} →
+                  </span>
+                ) : null}
+              </>
+            );
 
-        return (
-          <li key={item.challengeId}>
-            <Link
-              href={`/game/${item.date}`}
-              className="flex items-center justify-between gap-3 px-4 py-3.5 text-sm transition-colors duration-200 hover:bg-white/[0.05]"
-            >
-              <div>
-                <p className="font-mono text-sm text-white/80">{item.date}</p>
-                <p className="mt-0.5 text-xs text-white/35">
-                  Challenge ещё не пройден
-                </p>
-              </div>
-              <span className="text-xs text-white/35">
-                {STATUS_LABEL[status]} →
-              </span>
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
+            if (playable) {
+              return (
+                <li key={item.challengeId} className="border-b border-white/[0.06] last:border-0">
+                  <Link
+                    href={`/game/${item.date}`}
+                    className="flex items-center justify-between gap-3 px-4 py-3.5 transition-colors hover:bg-white/[0.04]"
+                  >
+                    {row}
+                  </Link>
+                </li>
+              );
+            }
+
+            return (
+              <li
+                key={item.challengeId}
+                className="flex items-center justify-between gap-3 border-b border-white/[0.06] px-4 py-3.5 last:border-0"
+              >
+                {row}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+function StatusMark({
+  status,
+  isHighScore,
+}: {
+  status: ChallengePlayStatus;
+  isHighScore: boolean;
+}) {
+  if (isHighScore) {
+    return (
+      <span
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--accent)]/15 text-sm"
+        aria-label="рекорд"
+      >
+        🏆
+      </span>
+    );
+  }
+
+  if (status === "won") {
+    return (
+      <span
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-400/15 text-sm font-semibold text-emerald-300"
+        aria-label="пройден"
+      >
+        ✓
+      </span>
+    );
+  }
+
+  if (status === "lost") {
+    return (
+      <span
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose-400/15 text-sm font-semibold text-rose-300/90"
+        aria-label="не угадал"
+      >
+        ✕
+      </span>
+    );
+  }
+
+  if (status === "in_progress") {
+    return (
+      <span
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-sm text-white/60"
+        aria-label="в процессе"
+      >
+        ◐
+      </span>
+    );
+  }
+
+  return (
+    <span
+      className={cn(
+        "flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-sm font-semibold text-white/35",
+      )}
+      aria-label="не пройден"
+    >
+      ✕
+    </span>
   );
 }

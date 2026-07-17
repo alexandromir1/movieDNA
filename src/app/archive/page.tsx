@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
-import { getArchiveList, getChallengeNavItems } from "@/actions/game";
-import { ArchiveSidebar } from "@/components/archive/ArchiveSidebar";
+import { getArchiveList } from "@/actions/game";
 import { PlayerArchiveList } from "@/components/archive/PlayerArchiveList";
 import { Container } from "@/components/layout/Container";
 
@@ -9,28 +8,22 @@ export const metadata: Metadata = {
   title: "Архив",
 };
 
+/**
+ * Архив = вторая игровая сессия после Daily.
+ * Один экран: главный CTA + путь игрока. Без сайдбара и лишних шагов.
+ */
 export default async function ArchivePage() {
-  const [items, navItems] = await Promise.all([
-    getArchiveList(),
-    getChallengeNavItems(),
-  ]);
+  const items = await getArchiveList();
 
   return (
-    <Container className="max-w-6xl">
-      <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
-        <div className="min-w-0 flex-1">
-          <h1 className="mb-2 text-2xl font-bold">Архив</h1>
-          <p className="mb-6 max-w-xl text-sm text-white/40">
-            История твоих Daily Challenge. Непройденные дни можно наверстать один
-            раз; после завершения игра закрывается и остаётся в истории — без
-            повторного набора очков.
-          </p>
+    <Container className="max-w-lg">
+      <h1 className="text-2xl font-bold text-white">Архив</h1>
+      <p className="mt-2 mb-7 text-sm text-white/40">
+        Продолжи игру: наверстай вчера или любой пропущенный день. Один раз на
+        Challenge.
+      </p>
 
-          <PlayerArchiveList items={items} />
-        </div>
-
-        <ArchiveSidebar items={navItems} />
-      </div>
+      <PlayerArchiveList items={items} />
     </Container>
   );
 }
