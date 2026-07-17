@@ -1,0 +1,166 @@
+{
+  "id": "level-catch-me-if-you-can",
+  "movieId": "movie-catch-me-if-you-can",
+  "difficulty": "medium",
+  "image": "/images/catch-me-if-you-can.jpeg",
+  "width": 1264,
+  "height": 842,
+  "acceptedAnswers": [
+    "Поймай меня, если сможешь",
+    "Catch Me If You Can"
+  ],
+  "revealRegions": [
+    {
+      "id": "evidences",
+      "name": "evidences",
+      "polygon": [
+        [
+          428,
+          832
+        ],
+        [
+          464,
+          747
+        ],
+        [
+          677,
+          713
+        ],
+        [
+          823,
+          689
+        ],
+        [
+          926,
+          713
+        ],
+        [
+          928,
+          762
+        ],
+        [
+          904,
+          824
+        ],
+        [
+          758,
+          832
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "область-2",
+      "name": "Область 2",
+      "polygon": [
+        [
+          1151,
+          826
+        ],
+        [
+          1202,
+          672
+        ],
+        [
+          1115,
+          558
+        ],
+        [
+          940,
+          566
+        ],
+        [
+          777,
+          747
+        ],
+        [
+          1047,
+          828
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "область-3",
+      "name": "Область 3",
+      "polygon": [
+        [
+          587,
+          747
+        ],
+        [
+          517,
+          689
+        ],
+        [
+          419,
+          472
+        ],
+        [
+          30,
+          483
+        ],
+        [
+          64,
+          840
+        ],
+        [
+          364,
+          834
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "область-4",
+      "name": "Область 4",
+      "polygon": [
+        [
+          460,
+          419
+        ],
+        [
+          474,
+          658
+        ],
+        [
+          549,
+          723
+        ],
+        [
+          836,
+          685
+        ],
+        [
+          845,
+          604
+        ],
+        [
+          757,
+          543
+        ],
+        [
+          736,
+          409
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}
