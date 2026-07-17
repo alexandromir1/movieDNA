@@ -11,6 +11,14 @@ import {
 import { getChallengeScheduleBucket } from "@/lib/content/schedule";
 import { getUtcDateString } from "@/lib/game/daily";
 
+import {
+  computeLevelPipeline,
+  countAreaRegions,
+  hasFullReveal,
+  type LevelPipeline,
+  type LevelPipelineStatus,
+} from "@/lib/dev/level-pipeline-status";
+
 import type {
   Challenge,
   ChallengeScheduleBucket,
@@ -42,6 +50,8 @@ export interface StudioLevelRow {
   readyForSchedule: boolean;
   areaRegionCount: number;
   hasFullReveal: boolean;
+  pipeline: LevelPipeline;
+  pipelineStatus: LevelPipelineStatus;
 }
 
 export interface StudioChallengeRow {
@@ -168,15 +178,10 @@ export function loadContentStudioData(
     const slug = slugFromLevelId(level.id);
     const movie = movieById.get(level.movieId) ?? null;
     const challenge = challengeByLevelId.get(level.id) ?? null;
-    const areaRegions = (level.revealRegions ?? []).filter(
-      (region) => region.kind !== "full_image",
-    );
-    const hasFullReveal = (level.revealRegions ?? []).some(
-      (region) => region.kind === "full_image",
-    );
     const checklist = buildChecklist({ level, movie, challenge });
     const readyForSchedule =
       checklist.find((item) => item.id === "ready")?.done ?? false;
+    const pipeline = computeLevelPipeline(level, challenge);
 
     return {
       slug,
@@ -186,8 +191,10 @@ export function loadContentStudioData(
       challenge,
       checklist,
       readyForSchedule,
-      areaRegionCount: areaRegions.length,
-      hasFullReveal,
+      areaRegionCount: countAreaRegions(level),
+      hasFullReveal: hasFullReveal(level),
+      pipeline,
+      pipelineStatus: pipeline.status,
     };
   });
 

@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, useTransition } from "react";
 
+import { ChallengeWizard } from "@/components/dev/ChallengeWizard";
+import { ContentQueue } from "@/components/dev/ContentQueue";
 import { ProgressiveRevealDemo } from "@/components/test/ProgressiveRevealDemo";
 
 import type {
@@ -28,10 +30,10 @@ interface ContentStudioProps {
 }
 
 const SECTIONS: Array<{ id: StudioSection; label: string }> = [
-  { id: "movies", label: "Movies" },
+  { id: "queue", label: "Content Queue" },
   { id: "levels", label: "Levels" },
+  { id: "movies", label: "Movies" },
   { id: "challenges", label: "Challenges" },
-  { id: "queue", label: "Publish Queue" },
   { id: "archive", label: "Archive" },
 ];
 
@@ -499,7 +501,7 @@ function ChallengeTable({
 export function ContentStudio({
   data,
   initialLevelSlug,
-  initialSection = "levels",
+  initialSection = "queue",
 }: ContentStudioProps) {
   const router = useRouter();
   const [, startTransition] = useTransition();
@@ -512,11 +514,17 @@ export function ContentStudio({
   const [liveAreaCount, setLiveAreaCount] = useState<number | null>(null);
   const [liveHasFull, setLiveHasFull] = useState<boolean | null>(null);
   const [expandedMovie, setExpandedMovie] = useState<string | null>(null);
+  const [wizardOpen, setWizardOpen] = useState(false);
 
   const refresh = () => {
     startTransition(() => {
       router.refresh();
     });
+  };
+
+  const openLevel = (slug: string) => {
+    setActiveSlug(slug);
+    setSection("levels");
   };
 
   const active = useMemo(
@@ -566,22 +574,52 @@ export function ContentStudio({
 
   return (
     <div className="mx-auto w-full max-w-7xl px-3 py-6 lg:px-6">
-      <div className="mb-5 border border-white/10 bg-black/40 px-4 py-3">
-        <p className="text-[10px] uppercase tracking-[0.2em] text-white/35">
-          Today (UTC) · {data.today}
-        </p>
-        <p className="mt-1 text-sm text-white/75">
-          {data.todayChallenge ? (
-            <>
-              Today&apos;s Challenge:{" "}
-              <span className="text-white">{data.todayChallenge.label}</span>
-            </>
-          ) : (
-            <span className="text-white/40">
-              На сегодня нет scheduled Challenge — поставь дату = {data.today}
-            </span>
-          )}
-        </p>
+      {wizardOpen && (
+        <ChallengeWizard
+          movies={data.movies}
+          today={data.today}
+          onClose={() => {
+            setWizardOpen(false);
+            if (activeSlug) {
+              setSection("levels");
+            }
+          }}
+          onLevelReady={(slug) => setActiveSlug(slug)}
+          onFinished={(slug) => {
+            setWizardOpen(false);
+            setActiveSlug(slug);
+            setSection("queue");
+            refresh();
+          }}
+          onRefresh={refresh}
+        />
+      )}
+
+      <div className="mb-5 flex flex-col gap-3 border border-white/10 bg-black/40 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-[10px] uppercase tracking-[0.2em] text-white/35">
+            Today (UTC) · {data.today}
+          </p>
+          <p className="mt-1 text-sm text-white/75">
+            {data.todayChallenge ? (
+              <>
+                Today&apos;s Challenge:{" "}
+                <span className="text-white">{data.todayChallenge.label}</span>
+              </>
+            ) : (
+              <span className="text-white/40">
+                На сегодня нет scheduled Challenge — поставь дату = {data.today}
+              </span>
+            )}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setWizardOpen(true)}
+          className="shrink-0 border border-white/30 bg-white/10 px-4 py-2 text-xs text-white transition-colors hover:bg-white/15"
+        >
+          + Import Image
+        </button>
       </div>
 
       <nav className="mb-5 flex flex-wrap gap-2 border-b border-white/10 pb-3">
@@ -594,7 +632,7 @@ export function ContentStudio({
                 : item.id === "challenges"
                   ? data.challenges.length
                   : item.id === "queue"
-                    ? data.upcoming.length + data.readyUnscheduled.length
+                    ? data.levels.length
                     : data.archive.length;
 
           return (
@@ -779,7 +817,18 @@ export function ContentStudio({
         <div className="space-y-4">
           <section className="border border-white/10 bg-black/30">
             <div className="border-b border-white/10 px-4 py-3">
-              <h2 className="text-sm text-white">Publish Queue · Upcoming</h2>
+              <h2 className="text-sm text-white">Content Queue</h2>
+              <p className="mt-1 text-xs text-white/35">
+                Pipeline: Image → Regions → Answers → Schedule. Клик по строке
+                открывает Reveal Editor.
+              </p>
+            </div>
+            <ContentQueue levels={data.levels} onOpenLevel={openLevel} />
+          </section>
+
+          <section className="border border-white/10 bg-black/30">
+            <div className="border-b border-white/10 px-4 py-3">
+              <h2 className="text-sm text-white">Schedule · Upcoming</h2>
               <p className="mt-1 text-xs text-white/35">
                 scheduled + publishAt &gt; today
               </p>
@@ -793,9 +842,6 @@ export function ContentStudio({
           <section className="border border-white/10 bg-black/30">
             <div className="border-b border-white/10 px-4 py-3">
               <h2 className="text-sm text-white">Ready · не в расписании</h2>
-              <p className="mt-1 text-xs text-white/35">
-                status = ready — готовы, но дата ещё не «в игре»
-              </p>
             </div>
             <ChallengeTable
               rows={data.readyUnscheduled}

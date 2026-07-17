@@ -33,7 +33,7 @@ export default async function DevPage({ searchParams }: DevPageProps) {
     sectionParam === "queue" ||
     sectionParam === "archive"
       ? sectionParam
-      : "levels";
+      : "queue";
 
   return (
     <div className="min-h-[calc(100vh-7rem)]">
@@ -42,8 +42,7 @@ export default async function DevPage({ searchParams }: DevPageProps) {
           Local Content Studio
         </p>
         <p className="mt-2 text-sm text-white/45">
-          Movies · Levels · Challenges · Queue · Archive — правки пишутся в
-          data/*.json
+          Content Queue · Import Image · Levels — правки пишутся в data/*.json
         </p>
       </div>
 
