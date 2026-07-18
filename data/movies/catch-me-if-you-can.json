@@ -3,5 +3,49 @@
   "title": "Поймай меня, если сможешь",
   "titleOriginal": "Catch Me If You Can",
   "year": 2002,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "🎩 Если нравятся обаятельные мошенники",
+      "items": [
+        {
+          "movieId": "movie-oceans-eleven"
+        },
+        {
+          "movieId": "movie-the-sting"
+        },
+        {
+          "movieId": "movie-now-you-see-me"
+        }
+      ]
+    },
+    {
+      "title": "✈️ Если хочется приключений по всему миру",
+      "items": [
+        {
+          "movieId": "movie-the-terminal"
+        },
+        {
+          "movieId": "movie-the-wolf-of-wall-street"
+        },
+        {
+          "movieId": "movie-the-great-gatsby"
+        }
+      ]
+    },
+    {
+      "title": "🎬 Если нравится Стивен Спилберг",
+      "items": [
+        {
+          "movieId": "movie-raiders-of-the-lost-ark"
+        },
+        {
+          "movieId": "movie-saving-private-ryan"
+        },
+        {
+          "movieId": "movie-schindlers-list"
+        }
+      ]
+    }
+  ]
 }

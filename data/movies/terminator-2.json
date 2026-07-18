@@ -3,5 +3,49 @@
   "title": "Терминатор 2: Судный день",
   "titleOriginal": "Terminator 2: Judgment Day",
   "year": 1991,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "🤖 Если хочется фантастического экшена",
+      "items": [
+        {
+          "movieId": "movie-robocop"
+        },
+        {
+          "movieId": "movie-aliens"
+        },
+        {
+          "movieId": "movie-edge-of-tomorrow"
+        }
+      ]
+    },
+    {
+      "title": "⏳ Если нравятся путешествия во времени",
+      "items": [
+        {
+          "movieId": "movie-predestination"
+        },
+        {
+          "movieId": "movie-twelve-monkeys"
+        },
+        {
+          "movieId": "movie-back-to-the-future"
+        }
+      ]
+    },
+    {
+      "title": "🎬 Если нравится Джеймс Кэмерон",
+      "items": [
+        {
+          "movieId": "movie-avatar"
+        },
+        {
+          "movieId": "movie-titanic"
+        },
+        {
+          "movieId": "movie-the-abyss"
+        }
+      ]
+    }
+  ]
 }

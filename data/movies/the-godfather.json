@@ -3,5 +3,49 @@
   "title": "Крестный отец",
   "titleOriginal": "The Godfather",
   "year": 1972,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "👑 Если нравится мафия",
+      "items": [
+        {
+          "movieId": "movie-goodfellas"
+        },
+        {
+          "movieId": "movie-casino"
+        },
+        {
+          "movieId": "movie-the-irishman"
+        }
+      ]
+    },
+    {
+      "title": "👨‍👦 Если нравится семейная драма",
+      "items": [
+        {
+          "movieId": "movie-once-upon-a-time-in-america"
+        },
+        {
+          "movieId": "movie-scarface"
+        },
+        {
+          "movieId": "movie-the-untouchables"
+        }
+      ]
+    },
+    {
+      "title": "🎬 Если нравится Коппола",
+      "items": [
+        {
+          "movieId": "movie-apocalypse-now"
+        },
+        {
+          "movieId": "movie-the-conversation"
+        },
+        {
+          "movieId": "movie-bram-stokers-dracula"
+        }
+      ]
+    }
+  ]
 }

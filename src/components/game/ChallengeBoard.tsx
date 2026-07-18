@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/Button";
 import { REVEAL_REGION_COUNT } from "@/config/economy";
 import { FEEDBACK_MESSAGE_MS, WRONG_GUESS_FEEDBACK_MS } from "@/config/game";
 import { useChallenge } from "@/hooks/useChallenge";
+import type { MovieRecommendationCategoryView } from "@/types/recommendations";
 import { addUtcDays, getUtcDateString } from "@/lib/game/daily";
 import {
   buildShareText,
@@ -25,6 +26,7 @@ interface ChallengeBoardProps {
   challenge: Challenge;
   level: Level;
   movie: Movie;
+  recommendations?: MovieRecommendationCategoryView[];
   relatedChallenges?: NextChallengeLink[];
   archivePool?: NextChallengeLink[];
 }
@@ -82,6 +84,7 @@ export function ChallengeBoard({
   challenge,
   level,
   movie,
+  recommendations = [],
   archivePool = [],
 }: ChallengeBoardProps) {
   const {
@@ -104,10 +107,15 @@ export function ChallengeBoard({
     null,
   );
   const [isWrongGuess, setIsWrongGuess] = useState(false);
-  const [imageExpanded, setImageExpanded] = useState(false);
+  const [imageExpanded, setImageExpanded] = useState(
+    () => session.state === "COMPLETED" || session.state === "LOST",
+  );
   /** Win beat: полное изображение → название → экран результата */
-  const [winBeat, setWinBeat] = useState<"image" | "title" | "result">(
-    "image",
+  const [winBeat, setWinBeat] = useState<"image" | "title" | "result">(() =>
+    session.state === "COMPLETED" || session.state === "LOST" ? "result" : "image",
+  );
+  const skipWinIntroRef = useRef(
+    session.state === "COMPLETED" || session.state === "LOST",
   );
   const wrongGuessTimeoutRef = useRef<number | null>(null);
 
@@ -121,7 +129,12 @@ export function ChallengeBoard({
 
   useEffect(() => {
     if (session.state !== "COMPLETED") {
-      setWinBeat("image");
+      if (session.state !== "LOST") setWinBeat("image");
+      return;
+    }
+
+    if (skipWinIntroRef.current) {
+      setWinBeat("result");
       return;
     }
 
@@ -350,8 +363,12 @@ export function ChallengeBoard({
           movie={movie}
           won={session.state === "COMPLETED"}
           isDaily={isDaily}
+          challengeId={challenge.id}
+          challengeDate={challenge.date}
           scoreBreakdown={scoreBreakdown}
           openedRegionCount={session.openedRegionCount}
+          hasCollections={recommendations.length > 0}
+          archivePool={archivePool}
           yesterdayHref={yesterdayHref}
           imageExpanded={imageExpanded}
           onExpandImage={() => setImageExpanded(true)}

@@ -3,5 +3,49 @@
   "title": "Гладиатор",
   "titleOriginal": "Gladiator",
   "year": 2000,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "⚔️ Если хочется эпичных исторических битв",
+      "items": [
+        {
+          "movieId": "movie-troy"
+        },
+        {
+          "movieId": "movie-kingdom-of-heaven"
+        },
+        {
+          "movieId": "movie-braveheart"
+        }
+      ]
+    },
+    {
+      "title": "🏛️ Если нравится атмосфера Древнего мира",
+      "items": [
+        {
+          "movieId": "movie-spartacus"
+        },
+        {
+          "movieId": "movie-alexander"
+        },
+        {
+          "movieId": "movie-ben-hur"
+        }
+      ]
+    },
+    {
+      "title": "🎬 Если нравится Ридли Скотт",
+      "items": [
+        {
+          "movieId": "movie-the-martian"
+        },
+        {
+          "movieId": "movie-alien"
+        },
+        {
+          "movieId": "movie-blade-runner"
+        }
+      ]
+    }
+  ]
 }

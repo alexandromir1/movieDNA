@@ -3,5 +3,49 @@
   "title": "Начало",
   "titleOriginal": "Inception",
   "year": 2010,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "🌀 Если хочется ломать реальность",
+      "items": [
+        {
+          "movieId": "movie-matrix"
+        },
+        {
+          "movieId": "movie-existenz"
+        },
+        {
+          "movieId": "movie-the-thirteenth-floor"
+        }
+      ]
+    },
+    {
+      "title": "🧠 Если нравятся головоломки",
+      "items": [
+        {
+          "movieId": "movie-memento"
+        },
+        {
+          "movieId": "movie-shutter-island"
+        },
+        {
+          "movieId": "movie-the-game"
+        }
+      ]
+    },
+    {
+      "title": "🎬 Если нравится Нолан",
+      "items": [
+        {
+          "movieId": "movie-interstellar"
+        },
+        {
+          "movieId": "movie-the-prestige"
+        },
+        {
+          "movieId": "movie-tenet"
+        }
+      ]
+    }
+  ]
 }

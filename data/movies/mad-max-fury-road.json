@@ -3,5 +3,49 @@
   "title": "Безумный Макс: Дорога ярости",
   "titleOriginal": "Mad Max: Fury Road",
   "year": 2015,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "🔥 Если хочется безумного экшена",
+      "items": [
+        {
+          "movieId": "movie-john-wick"
+        },
+        {
+          "movieId": "movie-the-raid"
+        },
+        {
+          "movieId": "movie-nobody"
+        }
+      ]
+    },
+    {
+      "title": "☢️ Если нравится постапокалипсис",
+      "items": [
+        {
+          "movieId": "movie-the-road"
+        },
+        {
+          "movieId": "movie-the-book-of-eli"
+        },
+        {
+          "movieId": "movie-children-of-men"
+        }
+      ]
+    },
+    {
+      "title": "🚗 Если нравится скорость",
+      "items": [
+        {
+          "movieId": "movie-ford-v-ferrari"
+        },
+        {
+          "movieId": "movie-baby-driver"
+        },
+        {
+          "movieId": "movie-rush"
+        }
+      ]
+    }
+  ]
 }

@@ -1,9 +1,30 @@
+/** Один фильм внутри ручной подборки. */
+export interface MovieRecommendationItem {
+  movieId: string;
+  /** Короткая подпись после названия: «любовь вопреки времени» */
+  note?: string;
+}
+
+/** Категория подборки — как в редакторском списке. */
+export interface MovieRecommendationCategory {
+  /** Заголовок категории, можно с эмодзи: «❤️ Если хочется большой любви» */
+  title: string;
+  items: MovieRecommendationItem[];
+}
+
 export interface Movie {
   id: string;
   title: string;
   titleOriginal: string | null;
   year: number;
   aliases: string[];
+  /**
+   * Ручные подборки по категориям («что посмотреть»).
+   * Правило контента: не включать фильмы из ближайшего окна будущих Daily
+   * (upcoming scheduled) — иначе спойлер угадайки.
+   * Пусто / отсутствует → блок на результате скрыт.
+   */
+  recommendations?: MovieRecommendationCategory[];
 }
 
 export interface RevealRegion {

@@ -3,5 +3,49 @@
   "title": "Форрест Гамп",
   "titleOriginal": "Forrest Gump",
   "year": 1994,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "❤️ Если хочется доброй истории о жизни",
+      "items": [
+        {
+          "movieId": "movie-the-secret-life-of-walter-mitty"
+        },
+        {
+          "movieId": "movie-green-book"
+        },
+        {
+          "movieId": "movie-the-intouchables"
+        }
+      ]
+    },
+    {
+      "title": "🌎 Если нравятся путешествия через эпохи",
+      "items": [
+        {
+          "movieId": "movie-the-curious-case-of-benjamin-button"
+        },
+        {
+          "movieId": "movie-big-fish"
+        },
+        {
+          "movieId": "movie-the-terminal"
+        }
+      ]
+    },
+    {
+      "title": "🎬 Если нравится Том Хэнкс",
+      "items": [
+        {
+          "movieId": "movie-cast-away"
+        },
+        {
+          "movieId": "movie-catch-me-if-you-can"
+        },
+        {
+          "movieId": "movie-saving-private-ryan"
+        }
+      ]
+    }
+  ]
 }

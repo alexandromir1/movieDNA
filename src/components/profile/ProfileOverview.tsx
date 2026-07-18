@@ -10,9 +10,7 @@ import {
 } from "@/lib/game/player-stats";
 
 export function ProfileOverview() {
-  const [stats, setStats] = useState<PlayerProfileStats>(() =>
-    loadPlayerStats(),
-  );
+  const [stats, setStats] = useState<PlayerProfileStats | null>(null);
 
   const refresh = useCallback(() => {
     setStats(loadPlayerStats());
@@ -28,6 +26,14 @@ export function ProfileOverview() {
     };
   }, [refresh]);
 
+  if (!stats) {
+    return (
+      <p className="text-sm text-white/40" aria-hidden>
+        …
+      </p>
+    );
+  }
+
   const isEmpty = stats.totalChallenges === 0;
 
   return (
@@ -35,13 +41,13 @@ export function ProfileOverview() {
       {isEmpty ? (
         <div className="rounded-[12px] border border-white/[0.09] bg-white/[0.03] px-4 py-6 text-center">
           <p className="text-sm text-white/70">
-            Сыграй сегодняшний Daily — здесь появится серия и результаты.
+            Сыграй сегодняшний Challenge — здесь появится серия и результаты.
           </p>
           <Link
             href={GAME_ROUTES.today}
             className="mt-4 inline-flex h-11 items-center justify-center rounded-[10px] bg-[var(--accent)] px-5 text-sm font-medium text-black transition-all hover:brightness-105"
           >
-            К Daily Challenge
+            К сегодняшней игре
           </Link>
         </div>
       ) : null}
@@ -50,22 +56,22 @@ export function ProfileOverview() {
         <StatCard emoji="🔥" label="Текущая серия" value={stats.currentStreak} />
         <StatCard
           emoji="🎬"
-          label="Пройдено Daily"
+          label="Дневных игр"
           value={stats.dailyCompleted}
         />
         <StatCard
           emoji="📚"
-          label="Пройдено в архиве"
+          label="Архивных игр"
           value={stats.archiveCompleted}
         />
         <StatCard
           emoji="⭐"
-          label="Средний Movie Score"
+          label="Средний счёт"
           value={stats.averageMovieScore}
         />
         <StatCard
           emoji="🏆"
-          label="Лучший Movie Score"
+          label="Лучший счёт"
           value={stats.bestMovieScore}
         />
       </div>

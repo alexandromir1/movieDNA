@@ -3,5 +3,49 @@
   "title": "Тёмный рыцарь",
   "titleOriginal": "The Dark Knight",
   "year": 2008,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "🦇 Если хочется ещё Бэтмена",
+      "items": [
+        {
+          "movieId": "movie-batman-begins"
+        },
+        {
+          "movieId": "movie-the-batman"
+        },
+        {
+          "movieId": "movie-the-dark-knight-returns"
+        }
+      ]
+    },
+    {
+      "title": "🃏 Если нравится харизматичный злодей",
+      "items": [
+        {
+          "movieId": "movie-no-country-for-old-men"
+        },
+        {
+          "movieId": "movie-joker"
+        },
+        {
+          "movieId": "movie-oldboy"
+        }
+      ]
+    },
+    {
+      "title": "💥 Если нравятся серьёзные супергерои",
+      "items": [
+        {
+          "movieId": "movie-logan"
+        },
+        {
+          "movieId": "movie-watchmen"
+        },
+        {
+          "movieId": "movie-spider-man-into-the-spider-verse"
+        }
+      ]
+    }
+  ]
 }

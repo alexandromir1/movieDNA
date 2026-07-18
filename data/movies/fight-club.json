@@ -3,5 +3,49 @@
   "title": "Бойцовский клуб",
   "titleOriginal": "Fight Club",
   "year": 1999,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "🥊 Если нравятся фильмы, ломающие сознание",
+      "items": [
+        {
+          "movieId": "movie-memento"
+        },
+        {
+          "movieId": "movie-shutter-island"
+        },
+        {
+          "movieId": "movie-the-machinist"
+        }
+      ]
+    },
+    {
+      "title": "🧠 Если хочется психологического напряжения",
+      "items": [
+        {
+          "movieId": "movie-black-swan"
+        },
+        {
+          "movieId": "movie-oldboy"
+        },
+        {
+          "movieId": "movie-donnie-darko"
+        }
+      ]
+    },
+    {
+      "title": "🎬 Если нравится Дэвид Финчер",
+      "items": [
+        {
+          "movieId": "movie-seven"
+        },
+        {
+          "movieId": "movie-the-game"
+        },
+        {
+          "movieId": "movie-gone-girl"
+        }
+      ]
+    }
+  ]
 }

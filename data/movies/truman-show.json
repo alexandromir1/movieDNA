@@ -3,5 +3,49 @@
   "title": "Шоу Трумана",
   "titleOriginal": "The Truman Show",
   "year": 1998,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "🎭 Если нравятся фильмы о природе реальности",
+      "items": [
+        {
+          "movieId": "movie-matrix"
+        },
+        {
+          "movieId": "movie-they-live"
+        },
+        {
+          "movieId": "movie-existenz"
+        }
+      ]
+    },
+    {
+      "title": "🧠 Если хочется задуматься о жизни",
+      "items": [
+        {
+          "movieId": "movie-mr-nobody"
+        },
+        {
+          "movieId": "movie-eternal-sunshine-of-the-spotless-mind"
+        },
+        {
+          "movieId": "movie-the-tree-of-life"
+        }
+      ]
+    },
+    {
+      "title": "🎬 Если нравится Джим Керри в серьёзной роли",
+      "items": [
+        {
+          "movieId": "movie-man-on-the-moon"
+        },
+        {
+          "movieId": "movie-eternal-sunshine-of-the-spotless-mind"
+        },
+        {
+          "movieId": "movie-the-number-23"
+        }
+      ]
+    }
+  ]
 }

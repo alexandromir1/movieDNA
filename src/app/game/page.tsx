@@ -8,6 +8,7 @@ import {
   getTodayChallengeBundle,
   resolveRelatedChallengeLinks,
 } from "@/lib/content/catalog";
+import { resolveMovieRecommendations } from "@/lib/content/recommendations";
 import { GAME_ROUTES } from "@/lib/game/constants";
 import { getUtcDateString } from "@/lib/game/daily";
 
@@ -53,6 +54,7 @@ export default function GamePage() {
     bundle.challenge.relatedChallenges,
   );
   const archivePool = getArchiveChallengeLinks();
+  const recommendations = resolveMovieRecommendations(bundle.movie);
 
   return (
     <ChallengeShell activeDate={bundle.challenge.date}>
@@ -60,6 +62,7 @@ export default function GamePage() {
         challenge={bundle.challenge}
         level={bundle.level}
         movie={bundle.movie}
+        recommendations={recommendations}
         relatedChallenges={relatedChallenges}
         archivePool={archivePool}
       />

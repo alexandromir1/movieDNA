@@ -3,5 +3,49 @@
   "title": "Назад в будущее",
   "titleOriginal": "Back to the Future",
   "year": 1985,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "⏰ Если нравится путешествие во времени",
+      "items": [
+        {
+          "movieId": "movie-predestination"
+        },
+        {
+          "movieId": "movie-edge-of-tomorrow"
+        },
+        {
+          "movieId": "movie-the-butterfly-effect"
+        }
+      ]
+    },
+    {
+      "title": "🚗 Если хочется приключений",
+      "items": [
+        {
+          "movieId": "movie-ghostbusters"
+        },
+        {
+          "movieId": "movie-jumanji"
+        },
+        {
+          "movieId": "movie-raiders-of-the-lost-ark"
+        }
+      ]
+    },
+    {
+      "title": "😄 Если нравится лёгкая фантастика",
+      "items": [
+        {
+          "movieId": "movie-honey-i-shrunk-the-kids"
+        },
+        {
+          "movieId": "movie-short-circuit"
+        },
+        {
+          "movieId": "movie-flight-of-the-navigator"
+        }
+      ]
+    }
+  ]
 }

@@ -3,5 +3,49 @@
   "title": "Гарри Поттер и философский камень",
   "titleOriginal": "Harry Potter and the Philosopher's Stone",
   "year": 2001,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "🪄 Если хочется магии",
+      "items": [
+        {
+          "movieId": "movie-the-chronicles-of-narnia-the-lion-the-witch-and-the-wardrobe"
+        },
+        {
+          "movieId": "movie-stardust"
+        },
+        {
+          "movieId": "movie-pans-labyrinth"
+        }
+      ]
+    },
+    {
+      "title": "🏰 Если нравится волшебный мир",
+      "items": [
+        {
+          "movieId": "movie-fantastic-beasts-and-where-to-find-them"
+        },
+        {
+          "movieId": "movie-percy-jackson-and-the-olympians-the-lightning-thief"
+        },
+        {
+          "movieId": "movie-miss-peregrines-home-for-peculiar-children"
+        }
+      ]
+    },
+    {
+      "title": "⚔️ Если хочется эпического фэнтези",
+      "items": [
+        {
+          "movieId": "movie-lord-of-the-rings-fellowship"
+        },
+        {
+          "movieId": "movie-the-hobbit-an-unexpected-journey"
+        },
+        {
+          "movieId": "movie-warcraft"
+        }
+      ]
+    }
+  ]
 }

@@ -3,5 +3,49 @@
   "title": "Мальчишник в Вегасе",
   "titleOriginal": "The Hangover",
   "year": 2009,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "🍻 Если хочется безумных комедий",
+      "items": [
+        {
+          "movieId": "movie-project-x"
+        },
+        {
+          "movieId": "movie-were-the-millers"
+        },
+        {
+          "movieId": "movie-game-night"
+        }
+      ]
+    },
+    {
+      "title": "🤣 Если нравится чёрный юмор",
+      "items": [
+        {
+          "movieId": "movie-horrible-bosses"
+        },
+        {
+          "movieId": "movie-tucker-and-dale-vs-evil"
+        },
+        {
+          "movieId": "movie-paul"
+        }
+      ]
+    },
+    {
+      "title": "🎬 Если хочется комедий про друзей",
+      "items": [
+        {
+          "movieId": "movie-superbad"
+        },
+        {
+          "movieId": "movie-eurotrip"
+        },
+        {
+          "movieId": "movie-road-trip"
+        }
+      ]
+    }
+  ]
 }

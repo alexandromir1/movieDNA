@@ -32,33 +32,30 @@ function isPlayable(status: ChallengePlayStatus): boolean {
   return status === "available" || status === "in_progress";
 }
 
+function isOpenable(status: ChallengePlayStatus): boolean {
+  return (
+    status === "available" ||
+    status === "in_progress" ||
+    status === "won" ||
+    status === "lost"
+  );
+}
+
 /**
  * Архив как вторая игровая сессия: один главный CTA + история привычки.
  * Без фильтров, поиска и спойлеров непройденных.
  */
 export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
   const today = getUtcDateString();
-  const [statuses, setStatuses] = useState<Record<string, ChallengePlayStatus>>(
-    () => {
-      const updated: Record<string, ChallengePlayStatus> = {};
-      for (const item of items) {
-        updated[item.challengeId] = resolveChallengePlayStatus(item);
-      }
-      return updated;
-    },
-  );
+  // SSR + первый клиентский кадр без localStorage — иначе hydration mismatch.
+  // Реальные статусы подтягиваем в useEffect.
+  const [statuses, setStatuses] = useState<
+    Record<string, ChallengePlayStatus>
+  >({});
   const [records, setRecords] = useState<
     Record<string, CompletedChallengeRecord>
-  >(() => {
-    const nextRecords: Record<string, CompletedChallengeRecord> = {};
-    for (const record of loadPlayerStats().completedChallenges) {
-      nextRecords[record.challengeId] = record;
-    }
-    return nextRecords;
-  });
-  const [bestScore, setBestScore] = useState(
-    () => loadPlayerStats().bestMovieScore,
-  );
+  >({});
+  const [bestScore, setBestScore] = useState(0);
 
   useEffect(() => {
     const refresh = () => {
@@ -187,6 +184,7 @@ export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
             const record = records[item.challengeId];
             const label = formatSidebarDateLabel(item.date, today);
             const playable = isPlayable(status);
+            const openable = isOpenable(status);
             const isHighScore =
               status === "won" &&
               record &&
@@ -201,7 +199,7 @@ export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
                     <p className="text-sm font-medium text-white">{label}</p>
                     {status === "won" && record ? (
                       <p className="mt-0.5 text-xs text-white/45">
-                        Movie Score{" "}
+                        Счёт{" "}
                         <span className="font-semibold tabular-nums text-white/80">
                           {record.movieScore}
                         </span>
@@ -224,11 +222,15 @@ export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
                   <span className="shrink-0 text-xs font-medium text-[var(--accent)]">
                     {status === "in_progress" ? "Продолжить" : "Играть"} →
                   </span>
+                ) : status === "won" || status === "lost" ? (
+                  <span className="shrink-0 text-xs font-medium text-white/45">
+                    Смотреть →
+                  </span>
                 ) : null}
               </>
             );
 
-            if (playable) {
+            if (openable) {
               return (
                 <li key={item.challengeId} className="border-b border-white/[0.06] last:border-0">
                   <Link

@@ -3,5 +3,49 @@
   "title": "Пираты Карибского моря: Проклятие Чёрной жемчужины",
   "titleOriginal": "Pirates of the Caribbean: The Curse of the Black Pearl",
   "year": 2003,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "🏴‍☠️ Если хочется приключений",
+      "items": [
+        {
+          "movieId": "movie-raiders-of-the-lost-ark"
+        },
+        {
+          "movieId": "movie-the-mummy"
+        },
+        {
+          "movieId": "movie-national-treasure"
+        }
+      ]
+    },
+    {
+      "title": "🌊 Если нравится море",
+      "items": [
+        {
+          "movieId": "movie-master-and-commander"
+        },
+        {
+          "movieId": "movie-life-of-pi"
+        },
+        {
+          "movieId": "movie-in-the-heart-of-the-sea"
+        }
+      ]
+    },
+    {
+      "title": "😂 Если нравится лёгкий юмор",
+      "items": [
+        {
+          "movieId": "movie-home-alone"
+        },
+        {
+          "movieId": "movie-jumanji"
+        },
+        {
+          "movieId": "movie-guardians-of-the-galaxy"
+        }
+      ]
+    }
+  ]
 }

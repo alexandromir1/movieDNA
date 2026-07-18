@@ -3,5 +3,49 @@
   "title": "Матрица",
   "titleOriginal": "The Matrix",
   "year": 1999,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "💊 Если хочется ещё больше вопросов о реальности",
+      "items": [
+        {
+          "movieId": "movie-truman-show"
+        },
+        {
+          "movieId": "movie-existenz"
+        },
+        {
+          "movieId": "movie-the-thirteenth-floor"
+        }
+      ]
+    },
+    {
+      "title": "🤖 Если нравится киберпанк",
+      "items": [
+        {
+          "movieId": "movie-blade-runner-2049"
+        },
+        {
+          "movieId": "movie-ghost-in-the-shell"
+        },
+        {
+          "movieId": "movie-upgrade"
+        }
+      ]
+    },
+    {
+      "title": "🎬 Если нравятся революционные фантастические фильмы",
+      "items": [
+        {
+          "movieId": "movie-inception"
+        },
+        {
+          "movieId": "movie-interstellar"
+        },
+        {
+          "movieId": "movie-tenet"
+        }
+      ]
+    }
+  ]
 }

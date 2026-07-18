@@ -3,5 +3,49 @@
   "title": "Шрек",
   "titleOriginal": "Shrek",
   "year": 2001,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "🐉 Если хочется сказочных приключений",
+      "items": [
+        {
+          "movieId": "movie-how-to-train-your-dragon"
+        },
+        {
+          "movieId": "movie-tangled"
+        },
+        {
+          "movieId": "movie-brave"
+        }
+      ]
+    },
+    {
+      "title": "😂 Если нравится юмор для взрослых и детей",
+      "items": [
+        {
+          "movieId": "movie-kung-fu-panda"
+        },
+        {
+          "movieId": "movie-megamind"
+        },
+        {
+          "movieId": "movie-the-lego-movie"
+        }
+      ]
+    },
+    {
+      "title": "👑 Если хочется современной сказки",
+      "items": [
+        {
+          "movieId": "movie-ella-enchanted"
+        },
+        {
+          "movieId": "movie-the-princess-bride"
+        },
+        {
+          "movieId": "movie-stardust"
+        }
+      ]
+    }
+  ]
 }

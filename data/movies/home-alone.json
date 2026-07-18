@@ -3,5 +3,49 @@
   "title": "Один дома",
   "titleOriginal": "Home Alone",
   "year": 1990,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "🎄 Если хочется новогоднего настроения",
+      "items": [
+        {
+          "movieId": "movie-the-holiday"
+        },
+        {
+          "movieId": "movie-love-actually"
+        },
+        {
+          "movieId": "movie-how-the-grinch-stole-christmas"
+        }
+      ]
+    },
+    {
+      "title": "😂 Если нравится семейная комедия",
+      "items": [
+        {
+          "movieId": "movie-problem-child"
+        },
+        {
+          "movieId": "movie-mrs-doubtfire"
+        },
+        {
+          "movieId": "movie-dennis-the-menace"
+        }
+      ]
+    },
+    {
+      "title": "👶 Если нравятся дети против взрослых",
+      "items": [
+        {
+          "movieId": "movie-the-little-rascals"
+        },
+        {
+          "movieId": "movie-richie-rich"
+        },
+        {
+          "movieId": "movie-beethoven"
+        }
+      ]
+    }
+  ]
 }

@@ -3,5 +3,49 @@
   "title": "Зелёная миля",
   "titleOriginal": "The Green Mile",
   "year": 1999,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "💚 Если хочется сильной человеческой драмы",
+      "items": [
+        {
+          "movieId": "movie-the-shawshank-redemption"
+        },
+        {
+          "movieId": "movie-forest-gump"
+        },
+        {
+          "movieId": "movie-the-intouchables"
+        }
+      ]
+    },
+    {
+      "title": "✨ Если нравится мистика с душой",
+      "items": [
+        {
+          "movieId": "movie-the-sixth-sense"
+        },
+        {
+          "movieId": "movie-big-fish"
+        },
+        {
+          "movieId": "movie-ghost"
+        }
+      ]
+    },
+    {
+      "title": "🎬 Если нравится Фрэнк Дарабонт",
+      "items": [
+        {
+          "movieId": "movie-the-shawshank-redemption"
+        },
+        {
+          "movieId": "movie-the-mist"
+        },
+        {
+          "movieId": "movie-the-majestic"
+        }
+      ]
+    }
+  ]
 }

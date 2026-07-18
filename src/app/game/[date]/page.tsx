@@ -8,6 +8,7 @@ import {
   getChallengeBundleByDate,
   resolveRelatedChallengeLinks,
 } from "@/lib/content/catalog";
+import { resolveMovieRecommendations } from "@/lib/content/recommendations";
 
 interface GameDatePageProps {
   params: Promise<{ date: string }>;
@@ -32,6 +33,7 @@ export default async function GameDatePage({ params }: GameDatePageProps) {
     bundle.challenge.relatedChallenges,
   );
   const archivePool = getArchiveChallengeLinks();
+  const recommendations = resolveMovieRecommendations(bundle.movie);
 
   return (
     <ChallengeShell activeDate={bundle.challenge.date}>
@@ -39,6 +41,7 @@ export default async function GameDatePage({ params }: GameDatePageProps) {
         challenge={bundle.challenge}
         level={bundle.level}
         movie={bundle.movie}
+        recommendations={recommendations}
         relatedChallenges={relatedChallenges}
         archivePool={archivePool}
       />

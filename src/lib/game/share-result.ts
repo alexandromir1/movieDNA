@@ -3,10 +3,43 @@ import { REVEAL_REGION_COUNT } from "@/config/economy";
 
 import type { GameGuess, GameSession } from "@/types/content";
 
-function formatElapsedClock(seconds: number): string {
-  const mins = Math.floor(Math.max(0, seconds) / 60);
-  const secs = Math.max(0, seconds) % 60;
-  return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+function hintNoun(count: number): string {
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+  if (mod10 === 1 && mod100 !== 11) return "подсказка";
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) {
+    return "подсказки";
+  }
+  return "подсказок";
+}
+
+/** Человеческая строка про подсказки — без слова Reveal. */
+export function formatHintsShareLine(openedRegionCount: number): string {
+  const count = Math.max(0, openedRegionCount);
+  if (count <= 1) return "Угадал с первой подсказки";
+  if (count >= REVEAL_REGION_COUNT) return "Понадобились все подсказки";
+  return `Понадобилось ${count} ${hintNoun(count)}`;
+}
+
+/**
+ * Ссылка в шаринге только в production.
+ * Локально (localhost / 127.0.0.1) — не добавляем.
+ */
+export function getShareLink(): string | null {
+  if (typeof window !== "undefined") {
+    const host = window.location.hostname;
+    if (host === "localhost" || host === "127.0.0.1") return null;
+  }
+
+  try {
+    const parsed = new URL(siteConfig.url);
+    if (parsed.hostname === "localhost" || parsed.hostname === "127.0.0.1") {
+      return null;
+    }
+    return parsed.origin;
+  } catch {
+    return null;
+  }
 }
 
 export function buildShareText(input: {
@@ -16,36 +49,37 @@ export function buildShareText(input: {
   elapsedSeconds?: number;
   won: boolean;
 }): string {
-  const cells = Array.from({ length: REVEAL_REGION_COUNT }, (_, index) => {
-    if (index < input.openedRegionCount) return "⬜";
-    return "⬛";
-  }).join("");
+  const link = getShareLink();
 
+  // Без названия фильма — иначе получатель шаринга уже знает ответ.
   if (!input.won) {
     return [
       `${siteConfig.name}`,
-      cells,
-      `Reveal ${input.openedRegionCount}/${REVEAL_REGION_COUNT}`,
-      siteConfig.url,
-    ].join("\n");
+      "Не угадал Challenge",
+      loseHintsLine(input.openedRegionCount),
+      "Сможешь лучше?",
+      link,
+    ]
+      .filter((line): line is string => Boolean(line))
+      .join("\n");
   }
-
-  const time =
-    typeof input.elapsedSeconds === "number"
-      ? `Time ${formatElapsedClock(input.elapsedSeconds)}`
-      : null;
 
   return [
     `${siteConfig.name}`,
     `Movie Score ${input.movieScore}`,
-    cells,
-    `Reveal ${input.openedRegionCount}/${REVEAL_REGION_COUNT}`,
-    time,
-    `Movie: ${input.movieTitle}`,
-    siteConfig.url,
+    formatHintsShareLine(input.openedRegionCount),
+    "Попробуй сегодняшний Challenge",
+    link,
   ]
-    .filter(Boolean)
+    .filter((line): line is string => Boolean(line))
     .join("\n");
+}
+
+function loseHintsLine(openedRegionCount: number): string {
+  const count = Math.max(0, openedRegionCount);
+  if (count <= 0) return "Так и не открыл подсказки";
+  if (count >= REVEAL_REGION_COUNT) return "Открыл все подсказки";
+  return `Открыл ${count} ${hintNoun(count)}`;
 }
 
 /** Можно ли предложить share/copy (не показывать мёртвую кнопку). */

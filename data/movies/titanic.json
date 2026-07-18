@@ -3,5 +3,58 @@
   "title": "Титаник",
   "titleOriginal": "Titanic",
   "year": 1997,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "❤️ Если хочется большой любви",
+      "items": [
+        {
+          "movieId": "movie-the-notebook",
+          "note": "любовь вопреки времени"
+        },
+        {
+          "movieId": "movie-atonement",
+          "note": "трагическая романтика"
+        },
+        {
+          "movieId": "movie-me-before-you",
+          "note": "сильные чувства и потеря"
+        }
+      ]
+    },
+    {
+      "title": "🚢 Если нравятся исторические драмы",
+      "items": [
+        {
+          "movieId": "movie-1917",
+          "note": "масштаб истории глазами обычных людей"
+        },
+        {
+          "movieId": "movie-dunkirk",
+          "note": "борьба за выживание"
+        },
+        {
+          "movieId": "movie-pearl-harbor",
+          "note": "война и любовь"
+        }
+      ]
+    },
+    {
+      "title": "🎬 Если нравится Джеймс Кэмерон",
+      "items": [
+        {
+          "movieId": "movie-avatar",
+          "note": "грандиозное приключение"
+        },
+        {
+          "movieId": "movie-terminator-2",
+          "note": "культовый экшен"
+        },
+        {
+          "movieId": "movie-the-abyss",
+          "note": "ещё одна масштабная история Кэмерона"
+        }
+      ]
+    }
+  ]
 }

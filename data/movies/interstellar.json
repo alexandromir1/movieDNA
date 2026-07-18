@@ -3,5 +3,49 @@
   "title": "Интерстеллар",
   "titleOriginal": "Interstellar",
   "year": 2014,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "🚀 Если хочется ещё космоса",
+      "items": [
+        {
+          "movieId": "movie-the-martian"
+        },
+        {
+          "movieId": "movie-contact"
+        },
+        {
+          "movieId": "movie-apollo-13"
+        }
+      ]
+    },
+    {
+      "title": "🧠 Если нравятся идеи",
+      "items": [
+        {
+          "movieId": "movie-arrival"
+        },
+        {
+          "movieId": "movie-contact"
+        },
+        {
+          "movieId": "movie-moon"
+        }
+      ]
+    },
+    {
+      "title": "🎬 Если нравится Нолан",
+      "items": [
+        {
+          "movieId": "movie-inception"
+        },
+        {
+          "movieId": "movie-the-prestige"
+        },
+        {
+          "movieId": "movie-tenet"
+        }
+      ]
+    }
+  ]
 }

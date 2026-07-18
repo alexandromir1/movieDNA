@@ -3,5 +3,49 @@
   "title": "Волк с Уолл-стрит",
   "titleOriginal": "The Wolf of Wall Street",
   "year": 2013,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": "💰 Если нравятся истории о больших деньгах",
+      "items": [
+        {
+          "movieId": "movie-the-big-short"
+        },
+        {
+          "movieId": "movie-the-founder"
+        },
+        {
+          "movieId": "movie-the-social-network"
+        }
+      ]
+    },
+    {
+      "title": "🎩 Если хочется харизматичных антигероев",
+      "items": [
+        {
+          "movieId": "movie-catch-me-if-you-can"
+        },
+        {
+          "movieId": "movie-american-psycho"
+        },
+        {
+          "movieId": "movie-scarface"
+        }
+      ]
+    },
+    {
+      "title": "🎬 Если нравится Мартин Скорсезе",
+      "items": [
+        {
+          "movieId": "movie-goodfellas"
+        },
+        {
+          "movieId": "movie-casino"
+        },
+        {
+          "movieId": "movie-the-departed"
+        }
+      ]
+    }
+  ]
 }
