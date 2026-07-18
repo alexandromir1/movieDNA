@@ -1,0 +1,138 @@
+{
+  "id": "level-inception",
+  "movieId": "movie-inception",
+  "difficulty": "medium",
+  "image": "/images/inception.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Начало",
+    "Inception"
+  ],
+  "revealRegions": [
+    {
+      "id": "roll-dice-cables-and-papers",
+      "name": "roll dice, cables and papers",
+      "polygon": [
+        [
+          76,
+          735
+        ],
+        [
+          743,
+          620
+        ],
+        [
+          830,
+          726
+        ],
+        [
+          821,
+          1003
+        ],
+        [
+          144,
+          1014
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "bag",
+      "name": "bag",
+      "polygon": [
+        [
+          899,
+          531
+        ],
+        [
+          892,
+          673
+        ],
+        [
+          1387,
+          870
+        ],
+        [
+          1534,
+          781
+        ],
+        [
+          1529,
+          565
+        ],
+        [
+          1190,
+          476
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "plane-saloon",
+      "name": "plane saloon",
+      "polygon": [
+        [
+          619,
+          75
+        ],
+        [
+          34,
+          93
+        ],
+        [
+          0,
+          100
+        ],
+        [
+          0,
+          794
+        ],
+        [
+          626,
+          794
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "main",
+      "name": "main",
+      "polygon": [
+        [
+          720,
+          79
+        ],
+        [
+          816,
+          948
+        ],
+        [
+          1032,
+          932
+        ],
+        [
+          926,
+          38
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

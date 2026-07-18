@@ -1,0 +1,10 @@
+{
+  "id": "challenge-the-godfather",
+  "levelId": "level-the-godfather",
+  "date": "2026-06-28",
+  "status": "scheduled",
+  "relatedChallenges": [
+    "challenge-shrek",
+    "challenge-shining"
+  ]
+}

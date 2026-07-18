@@ -1,0 +1,10 @@
+{
+  "id": "challenge-interstellar",
+  "levelId": "level-interstellar",
+  "date": "2026-07-02",
+  "status": "scheduled",
+  "relatedChallenges": [
+    "challenge-lord-of-the-rings-fellowship",
+    "challenge-matrix"
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "id": "level-interstellar",
+  "movieId": "movie-interstellar",
+  "difficulty": "medium",
+  "image": "/images/interstellar.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Интерстеллар",
+    "Interstellar"
+  ],
+  "revealRegions": [
+    {
+      "id": "watch-and-book",
+      "name": "watch and book",
+      "polygon": [
+        [
+          766,
+          689
+        ],
+        [
+          449,
+          510
+        ],
+        [
+          133,
+          593
+        ],
+        [
+          367,
+          856
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "corn-field",
+      "name": "corn field",
+      "polygon": [
+        [
+          514,
+          146
+        ],
+        [
+          724,
+          157
+        ],
+        [
+          727,
+          320
+        ],
+        [
+          525,
+          340
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "astrounat-costume",
+      "name": "astrounat costume",
+      "polygon": [
+        [
+          857,
+          276
+        ],
+        [
+          83,
+          379
+        ],
+        [
+          245,
+          973
+        ],
+        [
+          569,
+          1019
+        ],
+        [
+          1476,
+          1012
+        ],
+        [
+          1453,
+          739
+        ],
+        [
+          1130,
+          616
+        ],
+        [
+          1144,
+          267
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "cooper-car",
+      "name": "cooper car",
+      "polygon": [
+        [
+          1233,
+          15
+        ],
+        [
+          1199,
+          565
+        ],
+        [
+          1451,
+          643
+        ],
+        [
+          1520,
+          22
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

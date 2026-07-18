@@ -1,0 +1,10 @@
+{
+  "id": "challenge-home-alone",
+  "levelId": "level-home-alone",
+  "date": "2026-07-04",
+  "status": "scheduled",
+  "relatedChallenges": [
+    "challenge-shining",
+    "challenge-seven"
+  ]
+}

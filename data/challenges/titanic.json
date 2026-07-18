@@ -1,0 +1,10 @@
+{
+  "id": "challenge-titanic",
+  "levelId": "level-titanic",
+  "date": "2026-06-27",
+  "status": "scheduled",
+  "relatedChallenges": [
+    "challenge-shining",
+    "challenge-seven"
+  ]
+}

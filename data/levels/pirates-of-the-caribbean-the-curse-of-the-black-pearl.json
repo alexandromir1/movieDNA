@@ -1,0 +1,137 @@
+{
+  "id": "level-pirates-of-the-caribbean-the-curse-of-the-black-pearl",
+  "movieId": "movie-pirates-of-the-caribbean-the-curse-of-the-black-pearl",
+  "difficulty": "medium",
+  "image": "/images/pirates-of-the-caribbean-the-curse-of-the-black-pearl.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Пираты Карибского моря: Проклятие Чёрной жемчужины",
+    "Pirates of the Caribbean: The Curse of the Black Pearl",
+    "Пираты Карибского моря",
+    "Pirates of the Caribbean",
+    "Pirates of the Caribbean: Curse of the Black Pearl"
+  ],
+  "revealRegions": [
+    {
+      "id": "treasures",
+      "name": "treasures",
+      "polygon": [
+        [
+          131,
+          383
+        ],
+        [
+          112,
+          429
+        ],
+        [
+          236,
+          445
+        ],
+        [
+          348,
+          390
+        ],
+        [
+          261,
+          337
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "compass",
+      "name": "compass",
+      "polygon": [
+        [
+          1474,
+          812
+        ],
+        [
+          1213,
+          690
+        ],
+        [
+          1075,
+          919
+        ],
+        [
+          1362,
+          1018
+        ],
+        [
+          1499,
+          933
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "hand-and-coin",
+      "name": "hand and coin",
+      "polygon": [
+        [
+          25,
+          706
+        ],
+        [
+          642,
+          516
+        ],
+        [
+          981,
+          658
+        ],
+        [
+          1016,
+          857
+        ],
+        [
+          16,
+          1013
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "ship",
+      "name": "ship",
+      "polygon": [
+        [
+          1084,
+          41
+        ],
+        [
+          1061,
+          323
+        ],
+        [
+          1359,
+          353
+        ],
+        [
+          1401,
+          46
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

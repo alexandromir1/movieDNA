@@ -1,0 +1,10 @@
+{
+  "id": "challenge-mad-max-fury-road",
+  "levelId": "level-mad-max-fury-road",
+  "date": "2026-07-01",
+  "status": "scheduled",
+  "relatedChallenges": [
+    "challenge-matrix",
+    "challenge-joker"
+  ]
+}

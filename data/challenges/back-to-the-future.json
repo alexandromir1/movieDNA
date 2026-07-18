@@ -1,0 +1,10 @@
+{
+  "id": "challenge-back-to-the-future",
+  "levelId": "level-back-to-the-future",
+  "date": "2026-07-06",
+  "status": "scheduled",
+  "relatedChallenges": [
+    "challenge-hangover",
+    "challenge-shrek"
+  ]
+}

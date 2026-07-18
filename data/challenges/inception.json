@@ -1,0 +1,10 @@
+{
+  "id": "challenge-inception",
+  "levelId": "level-inception",
+  "date": "2026-07-03",
+  "status": "scheduled",
+  "relatedChallenges": [
+    "challenge-seven",
+    "challenge-lord-of-the-rings-fellowship"
+  ]
+}

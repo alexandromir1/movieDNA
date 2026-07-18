@@ -1,0 +1,147 @@
+{
+  "id": "level-back-to-the-future",
+  "movieId": "movie-back-to-the-future",
+  "difficulty": "medium",
+  "image": "/images/back-to-the-future.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Назад в будущее",
+    "Back to the Future",
+    "Back To The Future"
+  ],
+  "revealRegions": [
+    {
+      "id": "cable",
+      "name": "cable",
+      "polygon": [
+        [
+          1059,
+          259
+        ],
+        [
+          876,
+          711
+        ],
+        [
+          1116,
+          949
+        ],
+        [
+          1337,
+          935
+        ],
+        [
+          1486,
+          420
+        ],
+        [
+          1311,
+          92
+        ],
+        [
+          1142,
+          39
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "clock-on-house",
+      "name": "clock on house",
+      "polygon": [
+        [
+          839,
+          9
+        ],
+        [
+          839,
+          358
+        ],
+        [
+          993,
+          344
+        ],
+        [
+          954,
+          14
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "paper-and-time",
+      "name": "paper and time",
+      "polygon": [
+        [
+          775,
+          793
+        ],
+        [
+          199,
+          718
+        ],
+        [
+          55,
+          809
+        ],
+        [
+          96,
+          988
+        ],
+        [
+          596,
+          1016
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "fire-road",
+      "name": "fire road",
+      "polygon": [
+        [
+          525,
+          410
+        ],
+        [
+          351,
+          718
+        ],
+        [
+          867,
+          802
+        ],
+        [
+          995,
+          440
+        ],
+        [
+          1052,
+          323
+        ],
+        [
+          555,
+          303
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

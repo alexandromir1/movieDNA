@@ -1,0 +1,136 @@
+{
+  "id": "level-the-dark-knight",
+  "movieId": "movie-the-dark-knight",
+  "difficulty": "medium",
+  "image": "/images/the-dark-knight.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Тёмный рыцарь",
+    "The Dark Knight",
+    "Темный рыцарь",
+    "Dark Knight"
+  ],
+  "revealRegions": [
+    {
+      "id": "safe",
+      "name": "safe",
+      "polygon": [
+        [
+          5,
+          96
+        ],
+        [
+          704,
+          99
+        ],
+        [
+          699,
+          371
+        ],
+        [
+          424,
+          362
+        ],
+        [
+          387,
+          362
+        ],
+        [
+          399,
+          591
+        ],
+        [
+          14,
+          573
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "coin",
+      "name": "coin",
+      "polygon": [
+        [
+          369,
+          791
+        ],
+        [
+          374,
+          949
+        ],
+        [
+          614,
+          933
+        ],
+        [
+          610,
+          777
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "bus",
+      "name": "bus",
+      "polygon": [
+        [
+          1522,
+          50
+        ],
+        [
+          938,
+          101
+        ],
+        [
+          1022,
+          578
+        ],
+        [
+          1520,
+          536
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "table-mask-and-detonator",
+      "name": "table, mask and detonator",
+      "polygon": [
+        [
+          378,
+          358
+        ],
+        [
+          1504,
+          346
+        ],
+        [
+          1515,
+          986
+        ],
+        [
+          614,
+          984
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "id": "level-the-godfather",
+  "movieId": "movie-the-godfather",
+  "difficulty": "medium",
+  "image": "/images/the-godfather.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Крестный отец",
+    "The Godfather",
+    "Godfather",
+    "Крестный Отец"
+  ],
+  "revealRegions": [
+    {
+      "id": "oranges-and-txtbook",
+      "name": "oranges and txtbook",
+      "polygon": [
+        [
+          355,
+          415
+        ],
+        [
+          158,
+          500
+        ],
+        [
+          275,
+          608
+        ],
+        [
+          548,
+          564
+        ],
+        [
+          674,
+          475
+        ],
+        [
+          440,
+          383
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "rose",
+      "name": "rose",
+      "polygon": [
+        [
+          243,
+          580
+        ],
+        [
+          229,
+          757
+        ],
+        [
+          410,
+          796
+        ],
+        [
+          477,
+          605
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "wedding",
+      "name": "wedding",
+      "polygon": [
+        [
+          724,
+          0
+        ],
+        [
+          745,
+          718
+        ],
+        [
+          988,
+          715
+        ],
+        [
+          1059,
+          14
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "horse-hair",
+      "name": "horse hair",
+      "polygon": [
+        [
+          883,
+          761
+        ],
+        [
+          887,
+          961
+        ],
+        [
+          1096,
+          1006
+        ],
+        [
+          1087,
+          830
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

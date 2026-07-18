@@ -1,0 +1,130 @@
+{
+  "id": "level-titanic",
+  "movieId": "movie-titanic",
+  "difficulty": "medium",
+  "image": "/images/titanic.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Титаник",
+    "Titanic"
+  ],
+  "revealRegions": [
+    {
+      "id": "scarf-and-watch",
+      "name": "scarf and watch",
+      "polygon": [
+        [
+          993,
+          608
+        ],
+        [
+          768,
+          656
+        ],
+        [
+          912,
+          846
+        ],
+        [
+          1153,
+          715
+        ],
+        [
+          1077,
+          626
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "music-band-stuff",
+      "name": "music band stuff",
+      "polygon": [
+        [
+          775,
+          183
+        ],
+        [
+          422,
+          186
+        ],
+        [
+          463,
+          335
+        ],
+        [
+          724,
+          346
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "compass-and-heart-of-ocean",
+      "name": "compass and heart of ocean",
+      "polygon": [
+        [
+          1171,
+          697
+        ],
+        [
+          1022,
+          834
+        ],
+        [
+          1220,
+          995
+        ],
+        [
+          1431,
+          876
+        ],
+        [
+          1247,
+          720
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "window",
+      "name": "window",
+      "polygon": [
+        [
+          1254,
+          11
+        ],
+        [
+          1190,
+          413
+        ],
+        [
+          1408,
+          502
+        ],
+        [
+          1481,
+          14
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

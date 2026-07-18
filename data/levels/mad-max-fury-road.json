@@ -1,0 +1,158 @@
+{
+  "id": "level-mad-max-fury-road",
+  "movieId": "movie-mad-max-fury-road",
+  "difficulty": "medium",
+  "image": "/images/mad-max-fury-road.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Безумный Макс: Дорога ярости",
+    "Mad Max: Fury Road",
+    "Безумный Макс",
+    "Mad Max",
+    "Fury Road",
+    "Mad Max Fury Road"
+  ],
+  "revealRegions": [
+    {
+      "id": "blood",
+      "name": "blood",
+      "polygon": [
+        [
+          30,
+          636
+        ],
+        [
+          80,
+          893
+        ],
+        [
+          328,
+          918
+        ],
+        [
+          738,
+          1017
+        ],
+        [
+          834,
+          872
+        ],
+        [
+          624,
+          753
+        ],
+        [
+          486,
+          749
+        ],
+        [
+          312,
+          638
+        ],
+        [
+          229,
+          600
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "bottles",
+      "name": "bottles",
+      "polygon": [
+        [
+          165,
+          354
+        ],
+        [
+          497,
+          384
+        ],
+        [
+          520,
+          499
+        ],
+        [
+          142,
+          469
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "mask",
+      "name": "mask",
+      "polygon": [
+        [
+          0,
+          322
+        ],
+        [
+          729,
+          391
+        ],
+        [
+          830,
+          593
+        ],
+        [
+          633,
+          746
+        ],
+        [
+          2,
+          774
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "guitar",
+      "name": "guitar",
+      "polygon": [
+        [
+          1355,
+          22
+        ],
+        [
+          1100,
+          561
+        ],
+        [
+          1151,
+          618
+        ],
+        [
+          1428,
+          616
+        ],
+        [
+          1529,
+          47
+        ],
+        [
+          1492,
+          13
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

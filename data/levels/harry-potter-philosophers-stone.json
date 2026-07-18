@@ -1,0 +1,125 @@
+{
+  "id": "level-harry-potter-philosophers-stone",
+  "movieId": "movie-harry-potter-philosophers-stone",
+  "difficulty": "medium",
+  "image": "/images/harry-potter-philosophers-stone.png",
+  "width": 1537,
+  "height": 1023,
+  "acceptedAnswers": [
+    "Гарри Поттер и философский камень",
+    "Harry Potter and the Philosopher's Stone",
+    "Гарри Поттер",
+    "Harry Potter",
+    "Harry Potter and the Sorcerer's Stone"
+  ],
+  "revealRegions": [
+    {
+      "id": "broken-door",
+      "name": "broken door",
+      "polygon": [
+        [
+          553,
+          61
+        ],
+        [
+          571,
+          692
+        ],
+        [
+          927,
+          614
+        ],
+        [
+          899,
+          63
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "letter",
+      "name": "letter",
+      "polygon": [
+        [
+          512,
+          783
+        ],
+        [
+          502,
+          926
+        ],
+        [
+          725,
+          928
+        ],
+        [
+          723,
+          783
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "fire",
+      "name": "fire",
+      "polygon": [
+        [
+          30,
+          13
+        ],
+        [
+          496,
+          33
+        ],
+        [
+          548,
+          717
+        ],
+        [
+          62,
+          852
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "sofa",
+      "name": "sofa",
+      "polygon": [
+        [
+          996,
+          437
+        ],
+        [
+          986,
+          1008
+        ],
+        [
+          1532,
+          1004
+        ],
+        [
+          1498,
+          292
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

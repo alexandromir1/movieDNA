@@ -1,0 +1,10 @@
+{
+  "id": "challenge-the-dark-knight",
+  "levelId": "level-the-dark-knight",
+  "date": "2026-06-29",
+  "status": "scheduled",
+  "relatedChallenges": [
+    "challenge-hangover",
+    "challenge-shrek"
+  ]
+}

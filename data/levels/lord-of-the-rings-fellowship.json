@@ -1,0 +1,140 @@
+{
+  "id": "level-lord-of-the-rings-fellowship",
+  "movieId": "movie-lord-of-the-rings-fellowship",
+  "difficulty": "medium",
+  "image": "/images/lord-of-the-rings-fellowship.png",
+  "width": 1672,
+  "height": 941,
+  "acceptedAnswers": [
+    "Властелин колец: Братство кольца",
+    "Властелин колец",
+    "The Lord of the Rings: The Fellowship of the Ring",
+    "The Lord of the Rings"
+  ],
+  "revealRegions": [
+    {
+      "id": "book-and-stone",
+      "name": "book and stone",
+      "polygon": [
+        [
+          1065,
+          611
+        ],
+        [
+          1068,
+          843
+        ],
+        [
+          1227,
+          930
+        ],
+        [
+          1464,
+          882
+        ],
+        [
+          1471,
+          732
+        ],
+        [
+          1234,
+          618
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "well",
+      "name": "well",
+      "polygon": [
+        [
+          498,
+          679
+        ],
+        [
+          485,
+          583
+        ],
+        [
+          340,
+          360
+        ],
+        [
+          0,
+          372
+        ],
+        [
+          24,
+          853
+        ],
+        [
+          363,
+          836
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "deads-and-stone",
+      "name": "deads and stone",
+      "polygon": [
+        [
+          408,
+          348
+        ],
+        [
+          479,
+          747
+        ],
+        [
+          853,
+          718
+        ],
+        [
+          778,
+          343
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "door",
+      "name": "door",
+      "polygon": [
+        [
+          824,
+          41
+        ],
+        [
+          824,
+          599
+        ],
+        [
+          1227,
+          583
+        ],
+        [
+          1216,
+          27
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

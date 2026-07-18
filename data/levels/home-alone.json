@@ -1,0 +1,138 @@
+{
+  "id": "level-home-alone",
+  "movieId": "movie-home-alone",
+  "difficulty": "medium",
+  "image": "/images/home-alone.png",
+  "width": 1448,
+  "height": 1086,
+  "acceptedAnswers": [
+    "Один дома",
+    "Home Alone"
+  ],
+  "revealRegions": [
+    {
+      "id": "spider-and-car-panel",
+      "name": "spider and car panel",
+      "polygon": [
+        [
+          1152,
+          224
+        ],
+        [
+          648,
+          271
+        ],
+        [
+          37,
+          654
+        ],
+        [
+          132,
+          956
+        ],
+        [
+          776,
+          435
+        ],
+        [
+          1167,
+          325
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "boots-and-socks",
+      "name": "boots and socks",
+      "polygon": [
+        [
+          672,
+          656
+        ],
+        [
+          549,
+          874
+        ],
+        [
+          880,
+          1077
+        ],
+        [
+          1132,
+          1008
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "hat-and-crowbar",
+      "name": "hat and crowbar",
+      "polygon": [
+        [
+          888,
+          531
+        ],
+        [
+          914,
+          697
+        ],
+        [
+          1219,
+          827
+        ],
+        [
+          1299,
+          569
+        ],
+        [
+          1126,
+          472
+        ],
+        [
+          890,
+          513
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "new-year-house",
+      "name": "new year house",
+      "polygon": [
+        [
+          19,
+          29
+        ],
+        [
+          39,
+          334
+        ],
+        [
+          445,
+          269
+        ],
+        [
+          411,
+          5
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}
