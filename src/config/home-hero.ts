@@ -9,20 +9,16 @@ export type HomeHeroMode = "showcase" | "reveal_teaser" | "parallax";
 export const HOME_HERO_MODE: HomeHeroMode = "showcase";
 
 /**
- * Тайминг под типичный dwell на home/landing:
- * решение «остаться / уйти» обычно 10–15 с, ценностный скан ~5–8 с.
- * Один полный цикл до кадра целиком ≈ 10 с — механика успевает показаться
- * до ухода или тапа по CTA.
- *
- * 0.0s чёрный → 0.7s 1-я область → … → ~9.5s полный кадр → hold → цикл
+ * Полный цикл до кадра целиком ≈ 6 с
+ * (0.4 + 4 × 1.4): первая область быстро, дальше ровный ритм.
  */
-export const HOME_REVEAL_FIRST_DELAY_MS = 700;
+export const HOME_REVEAL_FIRST_DELAY_MS = 400;
 
 /** Пауза между областями (мс). */
-export const HOME_REVEAL_INTERVAL_MS = 2200;
+export const HOME_REVEAL_INTERVAL_MS = 1400;
 
 /** Пауза на полном кадре перед новым циклом (мс). */
-export const HOME_REVEAL_HOLD_MS = 2800;
+export const HOME_REVEAL_HOLD_MS = 1600;
 
-/** Длительность fade области — короче интервала, чтобы кадр успел «проявиться». */
-export const HOME_REVEAL_FADE_MS = 1100;
+/** Fade короче интервала, чтобы область успела проявиться. */
+export const HOME_REVEAL_FADE_MS = 750;
