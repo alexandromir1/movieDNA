@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useRef } from "react";
+import { useEffect, useId, useRef, useState, Children, cloneElement, isValidElement } from "react";
 
 import { cn } from "@/lib/utils/cn";
 import type {
@@ -20,10 +20,18 @@ interface ProgressiveRevealImageProps {
   closeHint?: boolean;
   onCursorMove?: (coordinate: ImageCoordinate | null) => void;
   onCoordinateClick?: (coordinate: ImageCoordinate) => void;
+  /** cover = full-bleed (slice); contain = целиком вписать (meet). */
+  fit?: "contain" | "cover";
+  /** snappy — в игре; smooth — витрина на главной. */
+  revealMotion?: "snappy" | "smooth";
+  /** Длительность smooth-fade (мс). */
+  revealFadeMs?: number;
   className?: string;
+  "aria-label"?: string;
 }
 
-function AnimatedRegion({ children }: { children: React.ReactNode }) {
+/** SMIL внутри mask часто не интерполируется — для игры оставляем snappy-pop. */
+function SnappyRegion({ children }: { children: React.ReactNode }) {
   return (
     <g
       opacity="0"
@@ -51,6 +59,85 @@ function AnimatedRegion({ children }: { children: React.ReactNode }) {
       />
     </g>
   );
+}
+
+/**
+ * Плавный fade для mask: каждый кадр обновляем fillOpacity + blur через React,
+ * иначе браузер рисует область «вкл/выкл» без промежуточных значений.
+ */
+function SmoothRegion({
+  children,
+  durationMs = 1100,
+  blurMax = 26,
+}: {
+  children: React.ReactNode;
+  durationMs?: number;
+  blurMax?: number;
+}) {
+  const rawId = useId().replaceAll(":", "");
+  const filterId = `smooth-reveal-${rawId}`;
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let raf = 0;
+    const start = performance.now();
+
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / durationMs);
+      // ease-out cubic — мягкое проявление без рывка в конце
+      const eased = 1 - (1 - t) ** 3;
+      setProgress(eased);
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [durationMs]);
+
+  const blur = blurMax * (1 - progress);
+
+  return (
+    <>
+      <defs>
+        <filter
+          id={filterId}
+          x="-50%"
+          y="-50%"
+          width="200%"
+          height="200%"
+          colorInterpolationFilters="sRGB"
+        >
+          <feGaussianBlur stdDeviation={Math.max(blur, 0)} />
+        </filter>
+      </defs>
+      <g filter={blur > 0.2 ? `url(#${filterId})` : undefined}>
+        {Children.map(children, (child) => {
+          if (!isValidElement<{ fillOpacity?: number; fill?: string }>(child)) {
+            return child;
+          }
+          return cloneElement(child, {
+            fill: "white",
+            fillOpacity: progress,
+          });
+        })}
+      </g>
+    </>
+  );
+}
+
+function AnimatedRegion({
+  children,
+  motion = "snappy",
+  fadeMs,
+}: {
+  children: React.ReactNode;
+  motion?: "snappy" | "smooth";
+  fadeMs?: number;
+}) {
+  if (motion === "smooth") {
+    return <SmoothRegion durationMs={fadeMs}>{children}</SmoothRegion>;
+  }
+  return <SnappyRegion>{children}</SnappyRegion>;
 }
 
 function toPoints(points: number[][]): string {
@@ -91,7 +178,11 @@ export function ProgressiveRevealImage({
   closeHint = false,
   onCursorMove,
   onCoordinateClick,
+  fit = "contain",
+  revealMotion = "snappy",
+  revealFadeMs,
   className,
+  "aria-label": ariaLabel,
 }: ProgressiveRevealImageProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const maskId = `reveal-mask-${useId().replaceAll(":", "")}`;
@@ -103,13 +194,18 @@ export function ProgressiveRevealImage({
       ref={svgRef}
       viewBox={`0 0 ${width} ${height}`}
       role="img"
-      aria-label={`Кадр фильма, уровень открытия ${level} из ${maxLevel}`}
+      aria-label={
+        ariaLabel ??
+        `Кадр фильма, уровень открытия ${level} из ${maxLevel}`
+      }
       className={cn(
         "block bg-black",
         developerMode && "cursor-crosshair",
         className ?? "h-auto w-full",
       )}
-      preserveAspectRatio="xMidYMid meet"
+      preserveAspectRatio={
+        fit === "cover" ? "xMidYMid slice" : "xMidYMid meet"
+      }
       onPointerMove={(event) => {
         if (!developerMode) return;
         onCursorMove?.(
@@ -149,13 +245,17 @@ export function ProgressiveRevealImage({
           <rect width={width} height={height} fill="black" />
 
           {regions.slice(0, level + 1).map((region) => (
-            <AnimatedRegion key={region.id}>
+            <AnimatedRegion
+              key={region.id}
+              motion={revealMotion}
+              fadeMs={revealFadeMs}
+            >
               <polygon points={toPoints(region.points)} fill="white" />
             </AnimatedRegion>
           ))}
 
           {level >= maxLevel && (
-            <AnimatedRegion>
+            <AnimatedRegion motion={revealMotion} fadeMs={revealFadeMs}>
               <rect width={width} height={height} fill="white" />
             </AnimatedRegion>
           )}
