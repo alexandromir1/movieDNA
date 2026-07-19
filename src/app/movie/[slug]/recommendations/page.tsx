@@ -7,6 +7,8 @@ import {
   getMovieBySlug,
   resolveMovieRecommendations,
 } from "@/lib/content/recommendations";
+import { localize } from "@/lib/i18n/localize";
+import { getRequestLocale } from "@/lib/i18n/server";
 
 interface MovieRecommendationsPageProps {
   params: Promise<{ slug: string }>;
@@ -17,9 +19,10 @@ export async function generateMetadata({
 }: MovieRecommendationsPageProps): Promise<Metadata> {
   const { slug } = await params;
   const movie = getMovieBySlug(slug);
-  if (!movie) return { title: "Подборка" };
+  if (!movie) return { title: "Collections" };
+  const locale = await getRequestLocale();
   return {
-    title: `Подборка · ${movie.title}`,
+    title: `Collections · ${localize(movie.title, locale)}`,
   };
 }
 
@@ -40,7 +43,7 @@ export default async function MovieRecommendationsPage({
   return (
     <Container className="max-w-lg py-6">
       <MovieCollectionsView
-        movieTitle={movie.title || movie.titleOriginal || slug}
+        movieTitle={movie.title}
         categories={categories}
       />
     </Container>

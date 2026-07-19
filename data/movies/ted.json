@@ -1,7 +1,9 @@
 {
   "id": "movie-ted",
-  "title": "Тед",
-  "titleOriginal": "Ted",
+  "title": {
+    "ru": "Тед",
+    "en": "Ted"
+  },
   "year": 2012,
   "aliases": []
 }

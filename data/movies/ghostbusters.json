@@ -1,7 +1,9 @@
 {
   "id": "movie-ghostbusters",
-  "title": "Охотники за привидениями",
-  "titleOriginal": "Ghostbusters",
+  "title": {
+    "ru": "Охотники за привидениями",
+    "en": "Ghostbusters"
+  },
   "year": 1984,
   "aliases": []
 }

@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/Button";
 import { REVEAL_REGION_COUNT } from "@/config/economy";
+import { useTranslations } from "@/lib/i18n/LocaleProvider";
 
 interface ChallengeStartScreenProps {
   image: React.ReactNode;
@@ -10,17 +11,17 @@ interface ChallengeStartScreenProps {
 
 /**
  * Первый опыт до Start: показать суть за 5–10 секунд.
- * Не инструкция — желание попробовать.
  */
 export function ChallengeStartScreen({
   image,
   onStart,
 }: ChallengeStartScreenProps) {
+  const t = useTranslations();
+
   return (
     <div className="fade-up mx-auto flex w-full max-w-md flex-col items-center">
       <div className="mb-4 w-full">{image}</div>
 
-      {/* Show: fewer reveals → higher score */}
       <div
         className="mb-4 w-full rounded-[12px] border border-white/[0.08] bg-white/[0.03] px-3 py-2.5"
         aria-hidden
@@ -40,7 +41,7 @@ export function ChallengeStartScreen({
           </div>
         </div>
         <p className="mt-2 text-center text-[11px] text-white/40">
-          1 подсказка · высокий Score ··· 5 · ниже
+          {t("game.scoreHint")}
         </p>
       </div>
 
@@ -49,28 +50,28 @@ export function ChallengeStartScreen({
           <span className="shrink-0" aria-hidden>
             🎬
           </span>
-          <span>Угадай фильм по картинке</span>
+          <span>{t("game.ruleGuess")}</span>
         </li>
         <li className="flex gap-2.5">
           <span className="shrink-0" aria-hidden>
             🧩
           </span>
-          <span>Не знаешь — открывай новые области</span>
+          <span>{t("game.ruleReveal")}</span>
         </li>
         <li className="flex gap-2.5">
           <span className="shrink-0" aria-hidden>
             ⭐
           </span>
-          <span>Меньше подсказок — выше Movie Score</span>
+          <span>{t("game.ruleScore")}</span>
         </li>
       </ul>
 
       <p className="mt-4 w-full text-center text-xs leading-relaxed text-white/40">
-        Неверный ответ сам открывает следующую область
+        {t("game.ruleWrong")}
       </p>
 
       <p className="mt-3 w-full text-center text-xs font-medium text-white/55">
-        📅 Каждый день — новый Challenge
+        {t("game.ruleDaily")}
       </p>
 
       <Button
@@ -78,7 +79,7 @@ export function ChallengeStartScreen({
         className="mt-5 h-12 w-full text-base font-semibold sm:mt-6"
         onClick={onStart}
       >
-        Попробовать
+        {t("game.tryButton")}
       </Button>
     </div>
   );

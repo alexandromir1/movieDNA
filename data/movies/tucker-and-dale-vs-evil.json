@@ -1,7 +1,9 @@
 {
   "id": "movie-tucker-and-dale-vs-evil",
-  "title": "Убойные каникулы",
-  "titleOriginal": "Tucker and Dale vs Evil",
+  "title": {
+    "ru": "Убойные каникулы",
+    "en": "Tucker and Dale vs Evil"
+  },
   "year": 2010,
   "aliases": []
 }

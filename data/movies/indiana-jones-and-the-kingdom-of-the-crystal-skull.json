@@ -1,7 +1,9 @@
 {
   "id": "movie-indiana-jones-and-the-kingdom-of-the-crystal-skull",
-  "title": "Индиана Джонс и Королевство хрустального черепа",
-  "titleOriginal": "Indiana Jones and the Kingdom of the Crystal Skull",
+  "title": {
+    "ru": "Индиана Джонс и Королевство хрустального черепа",
+    "en": "Indiana Jones and the Kingdom of the Crystal Skull"
+  },
   "year": 2008,
   "aliases": []
 }

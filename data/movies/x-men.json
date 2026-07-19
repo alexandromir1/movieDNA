@@ -1,7 +1,9 @@
 {
   "id": "movie-x-men",
-  "title": "Люди Икс",
-  "titleOriginal": "X-Men",
+  "title": {
+    "ru": "Люди Икс",
+    "en": "X-Men"
+  },
   "year": 2000,
   "aliases": []
 }

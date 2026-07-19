@@ -1,7 +1,9 @@
 {
   "id": "movie-the-game",
-  "title": "Игра",
-  "titleOriginal": "The Game",
+  "title": {
+    "ru": "Игра",
+    "en": "The Game"
+  },
   "year": 1997,
   "aliases": []
 }

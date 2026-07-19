@@ -1,7 +1,9 @@
 {
   "id": "movie-mary-poppins",
-  "title": "Мэри Поппинс",
-  "titleOriginal": "Mary Poppins",
+  "title": {
+    "ru": "Мэри Поппинс",
+    "en": "Mary Poppins"
+  },
   "year": 1964,
   "aliases": []
 }

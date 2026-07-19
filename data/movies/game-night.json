@@ -1,7 +1,9 @@
 {
   "id": "movie-game-night",
-  "title": "Ночные игры",
-  "titleOriginal": "Game Night",
+  "title": {
+    "ru": "Ночные игры",
+    "en": "Game Night"
+  },
   "year": 2018,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-the-social-network",
-  "title": "Социальная сеть",
-  "titleOriginal": "The Social Network",
+  "title": {
+    "ru": "Социальная сеть",
+    "en": "The Social Network"
+  },
   "year": 2010,
   "aliases": []
 }

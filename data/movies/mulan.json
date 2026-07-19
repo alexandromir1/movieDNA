@@ -1,7 +1,9 @@
 {
   "id": "movie-mulan",
-  "title": "Мулан",
-  "titleOriginal": "Mulan",
+  "title": {
+    "ru": "Мулан",
+    "en": "Mulan"
+  },
   "year": 1998,
   "aliases": []
 }

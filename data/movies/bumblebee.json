@@ -1,7 +1,9 @@
 {
   "id": "movie-bumblebee",
-  "title": "Бамблби",
-  "titleOriginal": "Bumblebee",
+  "title": {
+    "ru": "Бамблби",
+    "en": "Bumblebee"
+  },
   "year": 2018,
   "aliases": []
 }

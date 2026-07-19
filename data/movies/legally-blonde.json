@@ -1,7 +1,9 @@
 {
   "id": "movie-legally-blonde",
-  "title": "Блондинка в законе",
-  "titleOriginal": "Legally Blonde",
+  "title": {
+    "ru": "Блондинка в законе",
+    "en": "Legally Blonde"
+  },
   "year": 2001,
   "aliases": []
 }

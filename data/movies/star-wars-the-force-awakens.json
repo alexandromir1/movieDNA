@@ -1,7 +1,9 @@
 {
   "id": "movie-star-wars-the-force-awakens",
-  "title": "Звёздные войны: Пробуждение силы",
-  "titleOriginal": "Star Wars: The Force Awakens",
+  "title": {
+    "ru": "Звёздные войны: Пробуждение силы",
+    "en": "Star Wars: The Force Awakens"
+  },
   "year": 2015,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-despicable-me-2",
-  "title": "Гадкий я 2",
-  "titleOriginal": "Despicable Me 2",
+  "title": {
+    "ru": "Гадкий я 2",
+    "en": "Despicable Me 2"
+  },
   "year": 2013,
   "aliases": []
 }

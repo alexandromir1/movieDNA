@@ -1,7 +1,9 @@
 {
   "id": "movie-the-boss-baby",
-  "title": "Малыш босс",
-  "titleOriginal": "The Boss Baby",
+  "title": {
+    "ru": "Малыш босс",
+    "en": "The Boss Baby"
+  },
   "year": 2017,
   "aliases": []
 }

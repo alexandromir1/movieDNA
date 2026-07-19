@@ -1,7 +1,9 @@
 {
   "id": "movie-men-in-black",
-  "title": "Люди в чёрном",
-  "titleOriginal": "Men in Black",
+  "title": {
+    "ru": "Люди в чёрном",
+    "en": "Men in Black"
+  },
   "year": 1997,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-deadpool",
-  "title": "Дэдпул",
-  "titleOriginal": "Deadpool",
+  "title": {
+    "ru": "Дэдпул",
+    "en": "Deadpool"
+  },
   "year": 2016,
   "aliases": []
 }

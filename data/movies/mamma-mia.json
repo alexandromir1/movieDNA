@@ -1,7 +1,9 @@
 {
   "id": "movie-mamma-mia",
-  "title": "Мамма Миа!",
-  "titleOriginal": "Mamma Mia!",
+  "title": {
+    "ru": "Мамма Миа!",
+    "en": "Mamma Mia!"
+  },
   "year": 2008,
   "aliases": []
 }

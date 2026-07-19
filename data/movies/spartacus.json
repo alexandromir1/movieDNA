@@ -1,7 +1,9 @@
 {
   "id": "movie-spartacus",
-  "title": "Спартак",
-  "titleOriginal": "Spartacus",
+  "title": {
+    "ru": "Спартак",
+    "en": "Spartacus"
+  },
   "year": 1960,
   "aliases": []
 }

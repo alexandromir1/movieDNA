@@ -1,7 +1,9 @@
 {
   "id": "movie-mission-impossible",
-  "title": "Миссия невыполнима",
-  "titleOriginal": "Mission: Impossible",
+  "title": {
+    "ru": "Миссия невыполнима",
+    "en": "Mission: Impossible"
+  },
   "year": 1996,
   "aliases": []
 }

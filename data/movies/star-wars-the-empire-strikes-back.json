@@ -1,7 +1,9 @@
 {
   "id": "movie-star-wars-the-empire-strikes-back",
-  "title": "Звёздные войны: Империя наносит ответный удар",
-  "titleOriginal": "Star Wars: The Empire Strikes Back",
+  "title": {
+    "ru": "Звёздные войны: Империя наносит ответный удар",
+    "en": "Star Wars: The Empire Strikes Back"
+  },
   "year": 1980,
   "aliases": []
 }

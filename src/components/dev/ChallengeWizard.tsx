@@ -6,6 +6,8 @@ import { ProgressiveRevealDemo } from "@/components/test/ProgressiveRevealDemo";
 
 import type { StudioMovieRow } from "@/lib/dev/content-library";
 import { slugifyLevelSlug } from "@/lib/dev/slugify";
+import { localize } from "@/lib/i18n/localize";
+import type { LocalizedString } from "@/lib/i18n/types";
 import type { ChallengeStatus } from "@/types/content";
 import type { RevealImageConfig } from "@/types/reveal-image";
 
@@ -113,12 +115,16 @@ export function ChallengeWizard({
   const filteredMovies = useMemo(() => {
     const q = query.trim().toLowerCase();
     const base = q
-      ? movies.filter(
-          (row) =>
+      ? movies.filter((row) => {
+          const ru = localize(row.movie.title, "ru").toLowerCase();
+          const en = localize(row.movie.title, "en").toLowerCase();
+          return (
             row.label.toLowerCase().includes(q) ||
             row.slug.includes(q) ||
-            (row.movie.titleOriginal ?? "").toLowerCase().includes(q),
-        )
+            ru.includes(q) ||
+            en.includes(q)
+          );
+        })
       : movies;
     return base.slice(0, 40);
   }, [movies, query]);
@@ -170,7 +176,7 @@ export function ChallengeWizard({
         image?: string;
         width?: number;
         height?: number;
-        movie?: { title?: string; titleOriginal?: string | null };
+        movie?: { title?: LocalizedString | string };
       };
       if (!response.ok) {
         throw new Error(json.error ?? `Create failed (${response.status})`);
@@ -182,9 +188,10 @@ export function ChallengeWizard({
         width: json.width!,
         height: json.height!,
         label:
-          json.movie?.title?.trim() ||
-          json.movie?.titleOriginal?.trim() ||
-          json.slug!,
+          (json.movie?.title
+            ? localize(json.movie.title, "ru") ||
+              localize(json.movie.title, "en")
+            : "") || json.slug!,
       };
       setCreated(preview);
       setSlug(preview.slug);

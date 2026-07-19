@@ -1,7 +1,9 @@
 {
   "id": "movie-troy",
-  "title": "Троя",
-  "titleOriginal": "Troy",
+  "title": {
+    "ru": "Троя",
+    "en": "Troy"
+  },
   "year": 2004,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-dr-no",
-  "title": "Доктор Ноу",
-  "titleOriginal": "Dr. No",
+  "title": {
+    "ru": "Доктор Ноу",
+    "en": "Dr. No"
+  },
   "year": 1962,
   "aliases": []
 }

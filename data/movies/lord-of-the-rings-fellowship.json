@@ -1,7 +1,9 @@
 {
   "id": "movie-lord-of-the-rings-fellowship",
-  "title": "Властелин колец: Братство кольца",
-  "titleOriginal": "The Lord of the Rings: The Fellowship of the Ring",
+  "title": {
+    "ru": "Властелин колец: Братство кольца",
+    "en": "The Lord of the Rings: The Fellowship of the Ring"
+  },
   "year": 2001,
   "aliases": []
 }

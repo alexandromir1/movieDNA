@@ -1,12 +1,17 @@
 {
   "id": "movie-hangover",
-  "title": "Мальчишник в Вегасе",
-  "titleOriginal": "The Hangover",
+  "title": {
+    "ru": "Мальчишник в Вегасе",
+    "en": "The Hangover"
+  },
   "year": 2009,
   "aliases": [],
   "recommendations": [
     {
-      "title": "🍻 Если хочется безумных комедий",
+      "title": {
+        "ru": "🍻 Если хочется безумных комедий",
+        "en": "🍻 If you want wild comedies"
+      },
       "items": [
         {
           "movieId": "movie-project-x"
@@ -20,7 +25,10 @@
       ]
     },
     {
-      "title": "🤣 Если нравится чёрный юмор",
+      "title": {
+        "ru": "🤣 Если нравится чёрный юмор",
+        "en": "🤣 If you like dark humor"
+      },
       "items": [
         {
           "movieId": "movie-horrible-bosses"
@@ -34,7 +42,10 @@
       ]
     },
     {
-      "title": "🎬 Если хочется комедий про друзей",
+      "title": {
+        "ru": "🎬 Если хочется комедий про друзей",
+        "en": "🎬 If you want buddy comedies"
+      },
       "items": [
         {
           "movieId": "movie-superbad"

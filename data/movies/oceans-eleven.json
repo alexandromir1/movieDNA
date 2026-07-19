@@ -1,7 +1,9 @@
 {
   "id": "movie-oceans-eleven",
-  "title": "Одиннадцать друзей Оушена",
-  "titleOriginal": "Ocean's Eleven",
+  "title": {
+    "ru": "Одиннадцать друзей Оушена",
+    "en": "Ocean's Eleven"
+  },
   "year": 2001,
   "aliases": []
 }

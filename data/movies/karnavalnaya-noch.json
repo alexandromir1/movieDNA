@@ -1,7 +1,9 @@
 {
   "id": "movie-karnavalnaya-noch",
-  "title": "Карнавальная ночь",
-  "titleOriginal": "Karnavalnaya noch",
+  "title": {
+    "ru": "Карнавальная ночь",
+    "en": "Karnavalnaya noch"
+  },
   "year": 1956,
   "aliases": []
 }

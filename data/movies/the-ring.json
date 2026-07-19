@@ -1,7 +1,9 @@
 {
   "id": "movie-the-ring",
-  "title": "Звонок",
-  "titleOriginal": "The Ring",
+  "title": {
+    "ru": "Звонок",
+    "en": "The Ring"
+  },
   "year": 2002,
   "aliases": []
 }

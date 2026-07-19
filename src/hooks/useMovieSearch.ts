@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react";
 
+import { useLocale } from "@/lib/i18n/LocaleProvider";
 import type { MovieSuggestion } from "@/types/game";
 
 const DEBOUNCE_MS = 180;
 
 export function useMovieSearch(query: string) {
+  const { locale } = useLocale();
   const [suggestions, setSuggestions] = useState<MovieSuggestion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,7 +27,7 @@ export function useMovieSearch(query: string) {
 
       try {
         const response = await fetch(
-          `/api/movies/search?q=${encodeURIComponent(trimmed)}`,
+          `/api/movies/search?q=${encodeURIComponent(trimmed)}&locale=${locale}`,
           { signal: controller.signal },
         );
 
@@ -50,7 +52,7 @@ export function useMovieSearch(query: string) {
       clearTimeout(timer);
       controller.abort();
     };
-  }, [query]);
+  }, [query, locale]);
 
   return { suggestions, isLoading };
 }

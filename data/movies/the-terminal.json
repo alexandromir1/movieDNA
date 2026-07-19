@@ -1,7 +1,9 @@
 {
   "id": "movie-the-terminal",
-  "title": "Терминал",
-  "titleOriginal": "The Terminal",
+  "title": {
+    "ru": "Терминал",
+    "en": "The Terminal"
+  },
   "year": 2004,
   "aliases": []
 }

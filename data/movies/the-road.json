@@ -1,7 +1,9 @@
 {
   "id": "movie-the-road",
-  "title": "Дорога",
-  "titleOriginal": "The Road",
+  "title": {
+    "ru": "Дорога",
+    "en": "The Road"
+  },
   "year": 2009,
   "aliases": []
 }

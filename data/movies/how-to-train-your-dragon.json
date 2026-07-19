@@ -1,7 +1,9 @@
 {
   "id": "movie-how-to-train-your-dragon",
-  "title": "Как приручить дракона",
-  "titleOriginal": "How to Train Your Dragon",
+  "title": {
+    "ru": "Как приручить дракона",
+    "en": "How to Train Your Dragon"
+  },
   "year": 2010,
   "aliases": []
 }

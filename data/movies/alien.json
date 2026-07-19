@@ -1,7 +1,9 @@
 {
   "id": "movie-alien",
-  "title": "Чужой",
-  "titleOriginal": "Alien",
+  "title": {
+    "ru": "Чужой",
+    "en": "Alien"
+  },
   "year": 1979,
   "aliases": []
 }

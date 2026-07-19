@@ -1,7 +1,9 @@
 {
   "id": "movie-pulp-fiction",
-  "title": "Криминальное чтиво",
-  "titleOriginal": "Pulp Fiction",
+  "title": {
+    "ru": "Криминальное чтиво",
+    "en": "Pulp Fiction"
+  },
   "year": 1994,
   "aliases": []
 }

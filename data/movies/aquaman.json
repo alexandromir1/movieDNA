@@ -1,7 +1,9 @@
 {
   "id": "movie-aquaman",
-  "title": "Аквамен",
-  "titleOriginal": "Aquaman",
+  "title": {
+    "ru": "Аквамен",
+    "en": "Aquaman"
+  },
   "year": 2018,
   "aliases": []
 }

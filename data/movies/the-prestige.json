@@ -1,7 +1,9 @@
 {
   "id": "movie-the-prestige",
-  "title": "Престиж",
-  "titleOriginal": "The Prestige",
+  "title": {
+    "ru": "Престиж",
+    "en": "The Prestige"
+  },
   "year": 2006,
   "aliases": []
 }

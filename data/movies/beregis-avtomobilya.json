@@ -1,7 +1,9 @@
 {
   "id": "movie-beregis-avtomobilya",
-  "title": "Берегись автомобиля",
-  "titleOriginal": "Beregis avtomobilya",
+  "title": {
+    "ru": "Берегись автомобиля",
+    "en": "Beregis avtomobilya"
+  },
   "year": 1966,
   "aliases": []
 }

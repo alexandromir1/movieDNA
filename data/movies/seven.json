@@ -1,7 +1,9 @@
 {
   "id": "movie-seven",
-  "title": "Семь",
-  "titleOriginal": "Se7en",
+  "title": {
+    "ru": "Семь",
+    "en": "Se7en"
+  },
   "year": 1995,
   "aliases": []
 }

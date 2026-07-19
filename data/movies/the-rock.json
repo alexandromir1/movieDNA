@@ -1,7 +1,9 @@
 {
   "id": "movie-the-rock",
-  "title": "Скала",
-  "titleOriginal": "The Rock",
+  "title": {
+    "ru": "Скала",
+    "en": "The Rock"
+  },
   "year": 1996,
   "aliases": []
 }

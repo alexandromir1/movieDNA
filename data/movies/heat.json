@@ -1,7 +1,9 @@
 {
   "id": "movie-heat",
-  "title": "Схватка",
-  "titleOriginal": "Heat",
+  "title": {
+    "ru": "Схватка",
+    "en": "Heat"
+  },
   "year": 1995,
   "aliases": []
 }

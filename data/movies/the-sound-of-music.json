@@ -1,7 +1,9 @@
 {
   "id": "movie-the-sound-of-music",
-  "title": "Звуки музыки",
-  "titleOriginal": "The Sound of Music",
+  "title": {
+    "ru": "Звуки музыки",
+    "en": "The Sound of Music"
+  },
   "year": 1965,
   "aliases": []
 }

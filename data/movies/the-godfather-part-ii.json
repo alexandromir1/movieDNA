@@ -1,7 +1,9 @@
 {
   "id": "movie-the-godfather-part-ii",
-  "title": "Крестный отец 2",
-  "titleOriginal": "The Godfather Part II",
+  "title": {
+    "ru": "Крестный отец 2",
+    "en": "The Godfather Part II"
+  },
   "year": 1974,
   "aliases": []
 }

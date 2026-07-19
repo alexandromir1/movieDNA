@@ -1,7 +1,9 @@
 {
   "id": "movie-mean-girls",
-  "title": "Дрянные девчонки",
-  "titleOriginal": "Mean Girls",
+  "title": {
+    "ru": "Дрянные девчонки",
+    "en": "Mean Girls"
+  },
   "year": 2004,
   "aliases": []
 }

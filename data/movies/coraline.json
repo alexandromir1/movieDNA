@@ -1,7 +1,9 @@
 {
   "id": "movie-coraline",
-  "title": "Коралина в стране кошмаров",
-  "titleOriginal": "Coraline",
+  "title": {
+    "ru": "Коралина в стране кошмаров",
+    "en": "Coraline"
+  },
   "year": 2009,
   "aliases": []
 }

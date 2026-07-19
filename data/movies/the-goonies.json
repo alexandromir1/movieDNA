@@ -1,7 +1,9 @@
 {
   "id": "movie-the-goonies",
-  "title": "Балбёс",
-  "titleOriginal": "The Goonies",
+  "title": {
+    "ru": "Балбёс",
+    "en": "The Goonies"
+  },
   "year": 1985,
   "aliases": []
 }

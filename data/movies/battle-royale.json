@@ -1,7 +1,9 @@
 {
   "id": "movie-battle-royale",
-  "title": "Королевская битва",
-  "titleOriginal": "Battle Royale",
+  "title": {
+    "ru": "Королевская битва",
+    "en": "Battle Royale"
+  },
   "year": 2000,
   "aliases": []
 }

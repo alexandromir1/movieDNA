@@ -1,7 +1,9 @@
 {
   "id": "movie-predestination",
-  "title": "Петля времени",
-  "titleOriginal": "Predestination",
+  "title": {
+    "ru": "Петля времени",
+    "en": "Predestination"
+  },
   "year": 2014,
   "aliases": []
 }

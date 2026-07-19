@@ -1,7 +1,9 @@
 {
   "id": "movie-casablanca",
-  "title": "Касабланка",
-  "titleOriginal": "Casablanca",
+  "title": {
+    "ru": "Касабланка",
+    "en": "Casablanca"
+  },
   "year": 1942,
   "aliases": []
 }

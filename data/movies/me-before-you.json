@@ -1,7 +1,9 @@
 {
   "id": "movie-me-before-you",
-  "title": "До встречи с тобой",
-  "titleOriginal": "Me Before You",
+  "title": {
+    "ru": "До встречи с тобой",
+    "en": "Me Before You"
+  },
   "year": 2016,
   "aliases": []
 }

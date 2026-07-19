@@ -1,7 +1,9 @@
 {
   "id": "movie-akira",
-  "title": "Акира",
-  "titleOriginal": "Akira",
+  "title": {
+    "ru": "Акира",
+    "en": "Akira"
+  },
   "year": 1988,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-platoon",
-  "title": "Взвод",
-  "titleOriginal": "Platoon",
+  "title": {
+    "ru": "Взвод",
+    "en": "Platoon"
+  },
   "year": 1986,
   "aliases": []
 }

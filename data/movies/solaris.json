@@ -1,7 +1,9 @@
 {
   "id": "movie-solaris",
-  "title": "Солярис",
-  "titleOriginal": "Solaris",
+  "title": {
+    "ru": "Солярис",
+    "en": "Solaris"
+  },
   "year": 1972,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-operatsiya-y",
-  "title": "Операция «Ы» и другие приключения Шурика",
-  "titleOriginal": "Operatsiya Y i drugie priklyucheniya Shurika",
+  "title": {
+    "ru": "Операция «Ы» и другие приключения Шурика",
+    "en": "Operatsiya Y i drugie priklyucheniya Shurika"
+  },
   "year": 1965,
   "aliases": []
 }

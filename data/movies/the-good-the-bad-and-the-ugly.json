@@ -1,7 +1,9 @@
 {
   "id": "movie-the-good-the-bad-and-the-ugly",
-  "title": "Хороший, плохой, злой",
-  "titleOriginal": "The Good, the Bad and the Ugly",
+  "title": {
+    "ru": "Хороший, плохой, злой",
+    "en": "The Good, the Bad and the Ugly"
+  },
   "year": 1966,
   "aliases": []
 }

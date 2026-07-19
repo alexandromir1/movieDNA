@@ -1,7 +1,9 @@
 {
   "id": "movie-edward-scissorhands",
-  "title": "Эдвард руки-ножницы",
-  "titleOriginal": "Edward Scissorhands",
+  "title": {
+    "ru": "Эдвард руки-ножницы",
+    "en": "Edward Scissorhands"
+  },
   "year": 1990,
   "aliases": []
 }

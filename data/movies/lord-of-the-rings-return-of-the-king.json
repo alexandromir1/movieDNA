@@ -1,7 +1,9 @@
 {
   "id": "movie-lord-of-the-rings-return-of-the-king",
-  "title": "Властелин колец: Возвращение короля",
-  "titleOriginal": "The Lord of the Rings: The Return of the King",
+  "title": {
+    "ru": "Властелин колец: Возвращение короля",
+    "en": "The Lord of the Rings: The Return of the King"
+  },
   "year": 2003,
   "aliases": []
 }

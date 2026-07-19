@@ -1,7 +1,9 @@
 {
   "id": "movie-kung-fu-panda",
-  "title": "Кунг-фу Панда",
-  "titleOriginal": "Kung Fu Panda",
+  "title": {
+    "ru": "Кунг-фу Панда",
+    "en": "Kung Fu Panda"
+  },
   "year": 2008,
   "aliases": []
 }

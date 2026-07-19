@@ -1,7 +1,9 @@
 {
   "id": "movie-rocky",
-  "title": "Рокки",
-  "titleOriginal": "Rocky",
+  "title": {
+    "ru": "Рокки",
+    "en": "Rocky"
+  },
   "year": 1976,
   "aliases": []
 }

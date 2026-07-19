@@ -1,7 +1,9 @@
 {
   "id": "movie-harry-potter-goblet-of-fire",
-  "title": "Гарри Поттер и Кубок огня",
-  "titleOriginal": "Harry Potter and the Goblet of Fire",
+  "title": {
+    "ru": "Гарри Поттер и Кубок огня",
+    "en": "Harry Potter and the Goblet of Fire"
+  },
   "year": 2005,
   "aliases": []
 }

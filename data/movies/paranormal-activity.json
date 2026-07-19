@@ -1,7 +1,9 @@
 {
   "id": "movie-paranormal-activity",
-  "title": "Паранормальное явление",
-  "titleOriginal": "Paranormal Activity",
+  "title": {
+    "ru": "Паранормальное явление",
+    "en": "Paranormal Activity"
+  },
   "year": 2007,
   "aliases": []
 }

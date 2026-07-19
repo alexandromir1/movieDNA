@@ -1,7 +1,9 @@
 {
   "id": "movie-west-side-story",
-  "title": "Вестсайдская история",
-  "titleOriginal": "West Side Story",
+  "title": {
+    "ru": "Вестсайдская история",
+    "en": "West Side Story"
+  },
   "year": 1961,
   "aliases": []
 }

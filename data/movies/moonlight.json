@@ -1,7 +1,9 @@
 {
   "id": "movie-moonlight",
-  "title": "Лунный свет",
-  "titleOriginal": "Moonlight",
+  "title": {
+    "ru": "Лунный свет",
+    "en": "Moonlight"
+  },
   "year": 2016,
   "aliases": []
 }

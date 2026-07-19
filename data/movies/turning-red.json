@@ -1,7 +1,9 @@
 {
   "id": "movie-turning-red",
-  "title": "Я краснею",
-  "titleOriginal": "Turning Red",
+  "title": {
+    "ru": "Я краснею",
+    "en": "Turning Red"
+  },
   "year": 2022,
   "aliases": []
 }

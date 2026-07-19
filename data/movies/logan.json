@@ -1,7 +1,9 @@
 {
   "id": "movie-logan",
-  "title": "Логан",
-  "titleOriginal": "Logan",
+  "title": {
+    "ru": "Логан",
+    "en": "Logan"
+  },
   "year": 2017,
   "aliases": []
 }

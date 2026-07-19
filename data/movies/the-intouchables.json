@@ -1,7 +1,9 @@
 {
   "id": "movie-the-intouchables",
-  "title": "1+1",
-  "titleOriginal": "The Intouchables",
+  "title": {
+    "ru": "1+1",
+    "en": "The Intouchables"
+  },
   "year": 2011,
   "aliases": []
 }

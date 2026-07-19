@@ -10,6 +10,8 @@ import {
 } from "@/lib/content/load-fs";
 import { getChallengeScheduleBucket } from "@/lib/content/schedule";
 import { getUtcDateString } from "@/lib/game/daily";
+import { localize } from "@/lib/i18n/localize";
+import { DEFAULT_LOCALE } from "@/lib/i18n/types";
 
 import {
   computeLevelPipeline,
@@ -86,15 +88,16 @@ function titleCaseFromSlug(slug: string): string {
 }
 
 function displayLabel(movie: Movie | null, slug: string): string {
-  if (movie?.title?.trim()) return movie.title.trim();
-  if (movie?.titleOriginal?.trim()) return movie.titleOriginal.trim();
+  if (!movie) return titleCaseFromSlug(slug);
+  const label = localize(movie.title, DEFAULT_LOCALE);
+  if (label.trim()) return label.trim();
   return titleCaseFromSlug(slug);
 }
 
 function isMovieFilled(movie: Movie): boolean {
   return Boolean(
-    movie.title.trim() &&
-      (movie.titleOriginal?.trim() ?? "") &&
+    localize(movie.title, "ru").trim() &&
+      localize(movie.title, "en").trim() &&
       movie.year > 0,
   );
 }

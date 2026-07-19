@@ -1,7 +1,9 @@
 {
   "id": "movie-speed",
-  "title": "Скорость",
-  "titleOriginal": "Speed",
+  "title": {
+    "ru": "Скорость",
+    "en": "Speed"
+  },
   "year": 1994,
   "aliases": []
 }

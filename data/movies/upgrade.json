@@ -1,7 +1,9 @@
 {
   "id": "movie-upgrade",
-  "title": "Апгрейд",
-  "titleOriginal": "Upgrade",
+  "title": {
+    "ru": "Апгрейд",
+    "en": "Upgrade"
+  },
   "year": 2018,
   "aliases": []
 }

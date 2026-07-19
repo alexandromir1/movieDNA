@@ -1,7 +1,9 @@
 {
   "id": "movie-once-upon-a-time-in-the-west",
-  "title": "Однажды на Диком Западе",
-  "titleOriginal": "Once Upon a Time in the West",
+  "title": {
+    "ru": "Однажды на Диком Западе",
+    "en": "Once Upon a Time in the West"
+  },
   "year": 1968,
   "aliases": []
 }

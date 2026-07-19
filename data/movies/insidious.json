@@ -1,7 +1,9 @@
 {
   "id": "movie-insidious",
-  "title": "Астрал",
-  "titleOriginal": "Insidious",
+  "title": {
+    "ru": "Астрал",
+    "en": "Insidious"
+  },
   "year": 2010,
   "aliases": []
 }

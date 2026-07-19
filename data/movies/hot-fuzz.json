@@ -1,7 +1,9 @@
 {
   "id": "movie-hot-fuzz",
-  "title": "Зубастики",
-  "titleOriginal": "Hot Fuzz",
+  "title": {
+    "ru": "Зубастики",
+    "en": "Hot Fuzz"
+  },
   "year": 2007,
   "aliases": []
 }

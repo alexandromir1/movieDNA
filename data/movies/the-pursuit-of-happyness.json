@@ -1,7 +1,9 @@
 {
   "id": "movie-the-pursuit-of-happyness",
-  "title": "В погоне за счастьем",
-  "titleOriginal": "The Pursuit of Happyness",
+  "title": {
+    "ru": "В погоне за счастьем",
+    "en": "The Pursuit of Happyness"
+  },
   "year": 2006,
   "aliases": []
 }

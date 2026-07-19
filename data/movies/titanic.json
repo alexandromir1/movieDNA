@@ -1,58 +1,96 @@
 {
   "id": "movie-titanic",
-  "title": "Титаник",
-  "titleOriginal": "Titanic",
+  "title": {
+    "ru": "Титаник",
+    "en": "Titanic"
+  },
   "year": 1997,
   "aliases": [],
   "recommendations": [
     {
-      "title": "❤️ Если хочется большой любви",
+      "title": {
+        "ru": "❤️ Если хочется большой любви",
+        "en": "❤️ If you want a grand love story"
+      },
       "items": [
         {
           "movieId": "movie-the-notebook",
-          "note": "любовь вопреки времени"
+          "note": {
+            "ru": "любовь вопреки времени",
+            "en": "love against time"
+          }
         },
         {
           "movieId": "movie-atonement",
-          "note": "трагическая романтика"
+          "note": {
+            "ru": "трагическая романтика",
+            "en": "tragic romance"
+          }
         },
         {
           "movieId": "movie-me-before-you",
-          "note": "сильные чувства и потеря"
+          "note": {
+            "ru": "сильные чувства и потеря",
+            "en": "deep feeling and loss"
+          }
         }
       ]
     },
     {
-      "title": "🚢 Если нравятся исторические драмы",
+      "title": {
+        "ru": "🚢 Если нравятся исторические драмы",
+        "en": "🚢 If you like historical dramas"
+      },
       "items": [
         {
           "movieId": "movie-1917",
-          "note": "масштаб истории глазами обычных людей"
+          "note": {
+            "ru": "масштаб истории глазами обычных людей",
+            "en": "history through ordinary eyes"
+          }
         },
         {
           "movieId": "movie-dunkirk",
-          "note": "борьба за выживание"
+          "note": {
+            "ru": "борьба за выживание",
+            "en": "a fight for survival"
+          }
         },
         {
           "movieId": "movie-pearl-harbor",
-          "note": "война и любовь"
+          "note": {
+            "ru": "война и любовь",
+            "en": "war and love"
+          }
         }
       ]
     },
     {
-      "title": "🎬 Если нравится Джеймс Кэмерон",
+      "title": {
+        "ru": "🎬 Если нравится Джеймс Кэмерон",
+        "en": "🎬 If you like James Cameron"
+      },
       "items": [
         {
           "movieId": "movie-avatar",
-          "note": "грандиозное приключение"
+          "note": {
+            "ru": "грандиозное приключение",
+            "en": "a grand adventure"
+          }
         },
         {
           "movieId": "movie-terminator-2",
-          "note": "культовый экшен"
+          "note": {
+            "ru": "культовый экшен",
+            "en": "iconic action"
+          }
         },
         {
           "movieId": "movie-the-abyss",
-          "note": "ещё одна масштабная история Кэмерона"
+          "note": {
+            "ru": "ещё одна масштабная история Кэмерона",
+            "en": "another sweeping Cameron story"
+          }
         }
       ]
     }

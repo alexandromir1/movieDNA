@@ -1,7 +1,9 @@
 {
   "id": "movie-space-jam",
-  "title": "Космический джем",
-  "titleOriginal": "Space Jam",
+  "title": {
+    "ru": "Космический джем",
+    "en": "Space Jam"
+  },
   "year": 1996,
   "aliases": []
 }

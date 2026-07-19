@@ -1,7 +1,9 @@
 {
   "id": "movie-donnie-darko",
-  "title": "Донни Дарко",
-  "titleOriginal": "Donnie Darko",
+  "title": {
+    "ru": "Донни Дарко",
+    "en": "Donnie Darko"
+  },
   "year": 2001,
   "aliases": []
 }

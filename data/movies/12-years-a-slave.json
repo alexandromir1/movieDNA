@@ -1,7 +1,9 @@
 {
   "id": "movie-12-years-a-slave",
-  "title": "12 лет рабства",
-  "titleOriginal": "12 Years a Slave",
+  "title": {
+    "ru": "12 лет рабства",
+    "en": "12 Years a Slave"
+  },
   "year": 2013,
   "aliases": []
 }

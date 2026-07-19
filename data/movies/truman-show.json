@@ -1,12 +1,17 @@
 {
   "id": "movie-truman-show",
-  "title": "Шоу Трумана",
-  "titleOriginal": "The Truman Show",
+  "title": {
+    "ru": "Шоу Трумана",
+    "en": "The Truman Show"
+  },
   "year": 1998,
   "aliases": [],
   "recommendations": [
     {
-      "title": "🎭 Если нравятся фильмы о природе реальности",
+      "title": {
+        "ru": "🎭 Если нравятся фильмы о природе реальности",
+        "en": "🎭 If you like films about the nature of reality"
+      },
       "items": [
         {
           "movieId": "movie-matrix"
@@ -20,7 +25,10 @@
       ]
     },
     {
-      "title": "🧠 Если хочется задуматься о жизни",
+      "title": {
+        "ru": "🧠 Если хочется задуматься о жизни",
+        "en": "🧠 If you want to reflect on life"
+      },
       "items": [
         {
           "movieId": "movie-mr-nobody"
@@ -34,7 +42,10 @@
       ]
     },
     {
-      "title": "🎬 Если нравится Джим Керри в серьёзной роли",
+      "title": {
+        "ru": "🎬 Если нравится Джим Керри в серьёзной роли",
+        "en": "🎬 If you like Jim Carrey in a serious role"
+      },
       "items": [
         {
           "movieId": "movie-man-on-the-moon"

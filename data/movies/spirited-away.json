@@ -1,7 +1,9 @@
 {
   "id": "movie-spirited-away",
-  "title": "Унесённые призраками",
-  "titleOriginal": "Spirited Away",
+  "title": {
+    "ru": "Унесённые призраками",
+    "en": "Spirited Away"
+  },
   "year": 2001,
   "aliases": []
 }

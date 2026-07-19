@@ -7,6 +7,7 @@ import { MovieSearchInput } from "@/components/game/MovieSearchInput";
 import { ChallengeResultCard } from "@/components/game/ChallengeResultCard";
 import { ChallengeStartScreen } from "@/components/game/ChallengeStartScreen";
 import type { NextChallengeLink } from "@/components/game/WhatsNextBlock";
+import { MovieTitle } from "@/components/i18n/MovieTitle";
 import { Button } from "@/components/ui/Button";
 import { REVEAL_REGION_COUNT } from "@/config/economy";
 import { FEEDBACK_MESSAGE_MS, WRONG_GUESS_FEEDBACK_MS } from "@/config/game";
@@ -17,6 +18,8 @@ import {
   buildShareText,
   shareChallengeResult,
 } from "@/lib/game/share-result";
+import { localize } from "@/lib/i18n/localize";
+import { useLocale } from "@/lib/i18n/LocaleProvider";
 import { cn } from "@/lib/utils/cn";
 
 import type { Challenge, Level, Movie } from "@/types/content";
@@ -99,6 +102,7 @@ export function ChallengeBoard({
     surrender,
     startChallenge,
   } = useChallenge({ challenge, level, movie });
+  const { locale, t } = useLocale();
 
   const [guess, setGuess] = useState("");
   const [feedback, setFeedback] = useState<string | null>(null);
@@ -211,8 +215,8 @@ export function ChallengeBoard({
       setGuess("");
       showTemporaryFeedback(
         openedBefore + 1 >= REVEAL_REGION_COUNT
-          ? "Открыто полное изображение — последняя попытка"
-          : "Открыта следующая область",
+          ? t("game.openedFullLast")
+          : t("game.openedNext"),
       );
       return;
     }
@@ -225,20 +229,22 @@ export function ChallengeBoard({
 
     const followUp =
       openedBefore + 1 >= REVEAL_REGION_COUNT
-        ? "Открыто полное изображение — последняя попытка"
-        : "Неверно — открыта следующая область";
+        ? t("game.openedFullLast")
+        : t("game.openedNext");
 
     playWrongGuessFeedback(submitted, followUp);
   }
 
   async function handleShare() {
     if (!scoreBreakdown) return;
+    const movieTitle = localize(movie.title, locale);
     const result = await shareChallengeResult({
-      movieTitle: movie.title,
+      movieTitle,
       movieScore: scoreBreakdown.total,
       openedRegionCount: session.openedRegionCount,
       elapsedSeconds: scoreBreakdown.elapsedSeconds,
       won: true,
+      locale,
     });
 
     if (result === "cancelled") return;
@@ -246,20 +252,21 @@ export function ChallengeBoard({
     if (result === "failed") {
       setShareFallbackText(
         buildShareText({
-          movieTitle: movie.title,
+          movieTitle,
           movieScore: scoreBreakdown.total,
           openedRegionCount: session.openedRegionCount,
           elapsedSeconds: scoreBreakdown.elapsedSeconds,
           won: true,
+          locale,
         }),
       );
-      setShareFeedback("Скопируй текст вручную");
+      setShareFeedback(t("game.copyManual"));
       return;
     }
 
     setShareFallbackText(null);
     setShareFeedback(
-      result === "copied" ? "Скопировано в буфер" : "Отправлено",
+      result === "copied" ? t("game.copied") : t("game.shared"),
     );
     window.setTimeout(() => setShareFeedback(null), 2200);
   }
@@ -348,13 +355,12 @@ export function ChallengeBoard({
           <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-[var(--accent)]">
             Это
           </p>
-          <h2 className="mt-1.5 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            {movie.title}
-          </h2>
-          <p className="mt-1 text-sm text-white/45">
-            {movie.titleOriginal ? `${movie.titleOriginal} · ` : ""}
-            {movie.year}
-          </p>
+          <MovieTitle
+            title={movie.title}
+            className="mt-1.5 text-3xl font-semibold tracking-tight text-white sm:text-4xl"
+            alternateClassName="mt-1.5 text-sm text-white/50"
+          />
+          <p className="mt-1 text-sm text-white/45">{movie.year}</p>
         </div>
       )}
 
@@ -392,7 +398,7 @@ export function ChallengeBoard({
 
           {isWrongGuess && (
             <p className="wrong-guess-message mt-1.5 text-center text-xs text-rose-300/80 sm:mt-2 sm:text-sm">
-              Неверно
+              {t("game.wrongShort")}
             </p>
           )}
 
@@ -403,8 +409,8 @@ export function ChallengeBoard({
               disabled={isWrongGuess || guess.trim().length === 0}
               onClick={() => handleGuessSubmit(guess)}
             >
-              <span className="sm:hidden">Проверить</span>
-              <span className="hidden sm:inline">Проверить ответ</span>
+              <span className="sm:hidden">{t("game.check")}</span>
+              <span className="hidden sm:inline">{t("game.checkAnswer")}</span>
             </Button>
 
             {canSurrender ? (
@@ -415,7 +421,7 @@ export function ChallengeBoard({
                 disabled={isWrongGuess}
                 onClick={surrender}
               >
-                Сдаться
+                {t("game.surrender")}
               </Button>
             ) : (
               <Button
@@ -428,23 +434,23 @@ export function ChallengeBoard({
                   openNextReveal();
                   showTemporaryFeedback(
                     nextCount >= REVEAL_REGION_COUNT
-                      ? "Открыто полное изображение — последняя попытка"
-                      : "Открыта следующая область",
+                      ? t("game.openedFullLast")
+                      : t("game.openedNext"),
                   );
                 }}
               >
                 {session.openedRegionCount === REVEAL_REGION_COUNT - 1 ? (
                   <>
-                    <span className="sm:hidden">Открыть всё</span>
+                    <span className="sm:hidden">{t("game.openAll")}</span>
                     <span className="hidden sm:inline">
-                      Открыть всё изображение
+                      {t("game.openAllFull")}
                     </span>
                   </>
                 ) : (
                   <>
-                    <span className="sm:hidden">Подсказка</span>
+                    <span className="sm:hidden">{t("game.hint")}</span>
                     <span className="hidden sm:inline">
-                      Открыть следующую подсказку
+                      {t("game.hintNext")}
                     </span>
                   </>
                 )}
@@ -457,9 +463,7 @@ export function ChallengeBoard({
               <p className="text-center text-sm text-white/45">{feedback}</p>
             )}
             <p className="text-center text-[11px] text-white/25">
-              {canSurrender
-                ? "Все подсказки открыты. Можно угадать или сдаться."
-                : "Сначала проверь ответ — подсказка открывается только если нужно"}
+              {canSurrender ? t("game.allHintsOpen") : t("game.checkFirst")}
             </p>
           </div>
         </div>

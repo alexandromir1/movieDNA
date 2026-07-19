@@ -3,6 +3,7 @@ import path from "node:path";
 
 import { NextResponse } from "next/server";
 
+import { localized } from "@/lib/i18n/localize";
 import type { Challenge, ChallengeStatus, Level, Movie } from "@/types/content";
 
 const SLUG_RE = /^[a-z0-9-]+$/i;
@@ -118,8 +119,7 @@ export async function POST(request: Request) {
       );
     }
 
-    movie.title = title;
-    movie.titleOriginal = titleOriginal;
+    movie.title = localized(title, titleOriginal);
     movie.year = Math.trunc(year);
     if (Array.isArray(body.aliases)) {
       movie.aliases = body.aliases.map((item) => item.trim()).filter(Boolean);

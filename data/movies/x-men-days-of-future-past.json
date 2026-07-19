@@ -1,7 +1,9 @@
 {
   "id": "movie-x-men-days-of-future-past",
-  "title": "Люди Икс: Дни минувшего будущего",
-  "titleOriginal": "X-Men: Days of Future Past",
+  "title": {
+    "ru": "Люди Икс: Дни минувшего будущего",
+    "en": "X-Men: Days of Future Past"
+  },
   "year": 2014,
   "aliases": []
 }

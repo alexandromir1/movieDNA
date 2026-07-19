@@ -1,7 +1,9 @@
 {
   "id": "movie-the-departed",
-  "title": "Отступники",
-  "titleOriginal": "The Departed",
+  "title": {
+    "ru": "Отступники",
+    "en": "The Departed"
+  },
   "year": 2006,
   "aliases": []
 }

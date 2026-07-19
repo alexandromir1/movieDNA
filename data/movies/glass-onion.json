@@ -1,7 +1,9 @@
 {
   "id": "movie-glass-onion",
-  "title": "Достать ножи: Стеклянная луковица",
-  "titleOriginal": "Glass Onion: A Knives Out Mystery",
+  "title": {
+    "ru": "Достать ножи: Стеклянная луковица",
+    "en": "Glass Onion: A Knives Out Mystery"
+  },
   "year": 2022,
   "aliases": []
 }

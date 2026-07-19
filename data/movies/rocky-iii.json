@@ -1,7 +1,9 @@
 {
   "id": "movie-rocky-iii",
-  "title": "Рокки 3",
-  "titleOriginal": "Rocky III",
+  "title": {
+    "ru": "Рокки 3",
+    "en": "Rocky III"
+  },
   "year": 1982,
   "aliases": []
 }

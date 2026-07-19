@@ -1,7 +1,9 @@
 {
   "id": "movie-the-holiday",
-  "title": "Отпуск по обмену",
-  "titleOriginal": "The Holiday",
+  "title": {
+    "ru": "Отпуск по обмену",
+    "en": "The Holiday"
+  },
   "year": 2006,
   "aliases": []
 }

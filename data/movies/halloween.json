@@ -1,7 +1,9 @@
 {
   "id": "movie-halloween",
-  "title": "Хэллоуин",
-  "titleOriginal": "Halloween",
+  "title": {
+    "ru": "Хэллоуин",
+    "en": "Halloween"
+  },
   "year": 1978,
   "aliases": []
 }

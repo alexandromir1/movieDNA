@@ -1,12 +1,17 @@
 {
   "id": "movie-harry-potter-philosophers-stone",
-  "title": "Гарри Поттер и философский камень",
-  "titleOriginal": "Harry Potter and the Philosopher's Stone",
+  "title": {
+    "ru": "Гарри Поттер и философский камень",
+    "en": "Harry Potter and the Philosopher's Stone"
+  },
   "year": 2001,
   "aliases": [],
   "recommendations": [
     {
-      "title": "🪄 Если хочется магии",
+      "title": {
+        "ru": "🪄 Если хочется магии",
+        "en": "🪄 If you want magic"
+      },
       "items": [
         {
           "movieId": "movie-the-chronicles-of-narnia-the-lion-the-witch-and-the-wardrobe"
@@ -20,7 +25,10 @@
       ]
     },
     {
-      "title": "🏰 Если нравится волшебный мир",
+      "title": {
+        "ru": "🏰 Если нравится волшебный мир",
+        "en": "🏰 If you like a magical world"
+      },
       "items": [
         {
           "movieId": "movie-fantastic-beasts-and-where-to-find-them"
@@ -34,7 +42,10 @@
       ]
     },
     {
-      "title": "⚔️ Если хочется эпического фэнтези",
+      "title": {
+        "ru": "⚔️ Если хочется эпического фэнтези",
+        "en": "⚔️ If you want epic fantasy"
+      },
       "items": [
         {
           "movieId": "movie-lord-of-the-rings-fellowship"

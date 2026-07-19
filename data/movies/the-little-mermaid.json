@@ -1,7 +1,9 @@
 {
   "id": "movie-the-little-mermaid",
-  "title": "Русалочка",
-  "titleOriginal": "The Little Mermaid",
+  "title": {
+    "ru": "Русалочка",
+    "en": "The Little Mermaid"
+  },
   "year": 1989,
   "aliases": []
 }

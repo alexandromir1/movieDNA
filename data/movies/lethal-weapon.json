@@ -1,7 +1,9 @@
 {
   "id": "movie-lethal-weapon",
-  "title": "Смертельное оружие",
-  "titleOriginal": "Lethal Weapon",
+  "title": {
+    "ru": "Смертельное оружие",
+    "en": "Lethal Weapon"
+  },
   "year": 1987,
   "aliases": []
 }

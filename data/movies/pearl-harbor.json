@@ -1,7 +1,9 @@
 {
   "id": "movie-pearl-harbor",
-  "title": "Пёрл-Харбор",
-  "titleOriginal": "Pearl Harbor",
+  "title": {
+    "ru": "Пёрл-Харбор",
+    "en": "Pearl Harbor"
+  },
   "year": 2001,
   "aliases": []
 }

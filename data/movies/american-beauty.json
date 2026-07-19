@@ -1,7 +1,9 @@
 {
   "id": "movie-american-beauty",
-  "title": "Красота по-американски",
-  "titleOriginal": "American Beauty",
+  "title": {
+    "ru": "Красота по-американски",
+    "en": "American Beauty"
+  },
   "year": 1999,
   "aliases": []
 }

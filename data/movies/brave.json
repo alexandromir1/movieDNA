@@ -1,7 +1,9 @@
 {
   "id": "movie-brave",
-  "title": "Храбрая сердцем",
-  "titleOriginal": "Brave",
+  "title": {
+    "ru": "Храбрая сердцем",
+    "en": "Brave"
+  },
   "year": 2012,
   "aliases": []
 }

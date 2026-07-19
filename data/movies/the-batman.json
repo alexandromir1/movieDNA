@@ -1,7 +1,9 @@
 {
   "id": "movie-the-batman",
-  "title": "Бэтмен",
-  "titleOriginal": "The Batman",
+  "title": {
+    "ru": "Бэтмен",
+    "en": "The Batman"
+  },
   "year": 2022,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-a-star-is-born",
-  "title": "Звезда родилась",
-  "titleOriginal": "A Star Is Born",
+  "title": {
+    "ru": "Звезда родилась",
+    "en": "A Star Is Born"
+  },
   "year": 2018,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-brat-2",
-  "title": "Брат 2",
-  "titleOriginal": "Brat 2",
+  "title": {
+    "ru": "Брат 2",
+    "en": "Brat 2"
+  },
   "year": 2000,
   "aliases": []
 }

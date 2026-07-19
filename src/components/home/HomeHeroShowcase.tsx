@@ -14,8 +14,8 @@ import {
   HOME_REVEAL_INTERVAL_MS,
   type HomeHeroMode,
 } from "@/config/home-hero";
-import { siteConfig } from "@/config/site";
 import { GAME_ROUTES } from "@/lib/game/constants";
+import { useTranslations } from "@/lib/i18n/LocaleProvider";
 import { cn } from "@/lib/utils/cn";
 import type { RevealImageConfig } from "@/types/reveal-image";
 
@@ -113,20 +113,19 @@ function HeroCopy({
   className?: string;
 }) {
   const teaser = mode === "reveal_teaser";
+  const t = useTranslations();
 
   return (
     <div className={cn("relative z-10 max-w-md", className)}>
       <h1 className="text-4xl font-semibold tracking-[0.14em] text-white sm:text-5xl">
-        {siteConfig.name}
+        {t("brand.name")}
       </h1>
       <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/55 sm:text-base">
-        {teaser
-          ? "Угадаешь раньше, чем откроется вся картина?"
-          : "Меньше подсказок — выше счёт. Угадай фильм по визуальной ДНК."}
+        {teaser ? t("home.taglineTeaser") : t("home.tagline")}
       </p>
       <Link href={GAME_ROUTES.today} className="mt-8 block w-full max-w-xs">
         <Button size="lg" className="h-12 w-full text-base font-semibold">
-          Играть сегодня
+          {t("home.playToday")}
         </Button>
       </Link>
     </div>

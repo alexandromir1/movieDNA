@@ -1,7 +1,9 @@
 {
   "id": "movie-the-hobbit-the-battle-of-the-five-armies",
-  "title": "Хоббит: Битва пяти воинств",
-  "titleOriginal": "The Hobbit: The Battle of the Five Armies",
+  "title": {
+    "ru": "Хоббит: Битва пяти воинств",
+    "en": "The Hobbit: The Battle of the Five Armies"
+  },
   "year": 2014,
   "aliases": []
 }

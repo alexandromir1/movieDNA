@@ -1,7 +1,9 @@
 {
   "id": "movie-get-out",
-  "title": "Прочь",
-  "titleOriginal": "Get Out",
+  "title": {
+    "ru": "Прочь",
+    "en": "Get Out"
+  },
   "year": 2017,
   "aliases": []
 }

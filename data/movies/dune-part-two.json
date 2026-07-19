@@ -1,7 +1,9 @@
 {
   "id": "movie-dune-part-two",
-  "title": "Дюна: Часть вторая",
-  "titleOriginal": "Dune: Part Two",
+  "title": {
+    "ru": "Дюна: Часть вторая",
+    "en": "Dune: Part Two"
+  },
   "year": 2024,
   "aliases": []
 }

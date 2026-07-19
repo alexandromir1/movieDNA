@@ -1,7 +1,9 @@
 {
   "id": "movie-paul",
-  "title": "Пол: Секретный материальчик",
-  "titleOriginal": "Paul",
+  "title": {
+    "ru": "Пол: Секретный материальчик",
+    "en": "Paul"
+  },
   "year": 2011,
   "aliases": []
 }

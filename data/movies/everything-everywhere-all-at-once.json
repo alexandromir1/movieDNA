@@ -1,7 +1,9 @@
 {
   "id": "movie-everything-everywhere-all-at-once",
-  "title": "Всё везде и сразу",
-  "titleOriginal": "Everything Everywhere All at Once",
+  "title": {
+    "ru": "Всё везде и сразу",
+    "en": "Everything Everywhere All at Once"
+  },
   "year": 2022,
   "aliases": []
 }

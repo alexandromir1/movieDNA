@@ -1,7 +1,9 @@
 {
   "id": "movie-moulin-rouge",
-  "title": "Мулен Руж",
-  "titleOriginal": "Moulin Rouge!",
+  "title": {
+    "ru": "Мулен Руж",
+    "en": "Moulin Rouge!"
+  },
   "year": 2001,
   "aliases": []
 }

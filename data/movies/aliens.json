@@ -1,7 +1,9 @@
 {
   "id": "movie-aliens",
-  "title": "Чужие",
-  "titleOriginal": "Aliens",
+  "title": {
+    "ru": "Чужие",
+    "en": "Aliens"
+  },
   "year": 1986,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-ratatouille",
-  "title": "Рататуй",
-  "titleOriginal": "Ratatouille",
+  "title": {
+    "ru": "Рататуй",
+    "en": "Ratatouille"
+  },
   "year": 2007,
   "aliases": []
 }

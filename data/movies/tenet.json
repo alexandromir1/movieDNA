@@ -1,7 +1,9 @@
 {
   "id": "movie-tenet",
-  "title": "Довод",
-  "titleOriginal": "Tenet",
+  "title": {
+    "ru": "Довод",
+    "en": "Tenet"
+  },
   "year": 2020,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-big",
-  "title": "Большой",
-  "titleOriginal": "Big",
+  "title": {
+    "ru": "Большой",
+    "en": "Big"
+  },
   "year": 1988,
   "aliases": []
 }

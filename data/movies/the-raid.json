@@ -1,7 +1,9 @@
 {
   "id": "movie-the-raid",
-  "title": "Рейд",
-  "titleOriginal": "The Raid: Redemption",
+  "title": {
+    "ru": "Рейд",
+    "en": "The Raid: Redemption"
+  },
   "year": 2011,
   "aliases": []
 }

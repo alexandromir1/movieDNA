@@ -1,7 +1,9 @@
 {
   "id": "movie-rocky-ii",
-  "title": "Рокки 2",
-  "titleOriginal": "Rocky II",
+  "title": {
+    "ru": "Рокки 2",
+    "en": "Rocky II"
+  },
   "year": 1979,
   "aliases": []
 }

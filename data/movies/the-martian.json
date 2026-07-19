@@ -1,7 +1,9 @@
 {
   "id": "movie-the-martian",
-  "title": "Марсианин",
-  "titleOriginal": "The Martian",
+  "title": {
+    "ru": "Марсианин",
+    "en": "The Martian"
+  },
   "year": 2015,
   "aliases": []
 }

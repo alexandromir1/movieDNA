@@ -1,7 +1,9 @@
 {
   "id": "movie-apocalypse-now",
-  "title": "Апокалипсис сегодня",
-  "titleOriginal": "Apocalypse Now",
+  "title": {
+    "ru": "Апокалипсис сегодня",
+    "en": "Apocalypse Now"
+  },
   "year": 1979,
   "aliases": []
 }

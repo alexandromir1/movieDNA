@@ -1,7 +1,9 @@
 {
   "id": "movie-willy-wonka-and-the-chocolate-factory",
-  "title": "Вилли Вонка и шоколадная фабрика",
-  "titleOriginal": "Willy Wonka & the Chocolate Factory",
+  "title": {
+    "ru": "Вилли Вонка и шоколадная фабрика",
+    "en": "Willy Wonka & the Chocolate Factory"
+  },
   "year": 1971,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-captain-marvel",
-  "title": "Капитан Марвел",
-  "titleOriginal": "Captain Marvel",
+  "title": {
+    "ru": "Капитан Марвел",
+    "en": "Captain Marvel"
+  },
   "year": 2019,
   "aliases": []
 }

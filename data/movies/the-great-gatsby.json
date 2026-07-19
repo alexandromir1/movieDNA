@@ -1,7 +1,9 @@
 {
   "id": "movie-the-great-gatsby",
-  "title": "Великий Гэтсби",
-  "titleOriginal": "The Great Gatsby",
+  "title": {
+    "ru": "Великий Гэтсби",
+    "en": "The Great Gatsby"
+  },
   "year": 2013,
   "aliases": []
 }

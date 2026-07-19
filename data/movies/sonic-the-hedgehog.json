@@ -1,7 +1,9 @@
 {
   "id": "movie-sonic-the-hedgehog",
-  "title": "Соник в кино",
-  "titleOriginal": "Sonic the Hedgehog",
+  "title": {
+    "ru": "Соник в кино",
+    "en": "Sonic the Hedgehog"
+  },
   "year": 2020,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-ben-hur",
-  "title": "Бен-Гур",
-  "titleOriginal": "Ben-Hur",
+  "title": {
+    "ru": "Бен-Гур",
+    "en": "Ben-Hur"
+  },
   "year": 1959,
   "aliases": []
 }

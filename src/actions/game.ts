@@ -6,6 +6,7 @@ import {
   getTodayChallengeBundle,
 } from "@/lib/content/catalog";
 import { getUtcDateString } from "@/lib/game/daily";
+import type { LocalizedString } from "@/lib/i18n/types";
 
 export async function getTodayPuzzle() {
   return getTodayChallengeBundle();
@@ -24,8 +25,7 @@ export async function getArchiveList(): Promise<
   Array<{
     date: string;
     challengeId: string;
-    title: string;
-    titleOriginal: string | null;
+    title: LocalizedString;
     year: number;
     image: string;
   }>
@@ -38,7 +38,6 @@ export async function getArchiveList(): Promise<
         date: challenge.date,
         challengeId: challenge.id,
         title: bundle.movie.title,
-        titleOriginal: bundle.movie.titleOriginal,
         year: bundle.movie.year,
         image: bundle.level.image,
       };

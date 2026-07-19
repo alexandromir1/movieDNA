@@ -13,6 +13,7 @@ import type {
   StudioLevelRow,
   StudioMovieRow,
 } from "@/lib/dev/content-library";
+import { localize } from "@/lib/i18n/localize";
 import type { ChallengeStatus } from "@/types/content";
 import type { RevealImageConfig } from "@/types/reveal-image";
 
@@ -137,9 +138,9 @@ function MovieEditor({
   row: StudioMovieRow;
   onSaved: () => void;
 }) {
-  const [title, setTitle] = useState(row.movie.title);
+  const [title, setTitle] = useState(localize(row.movie.title, "ru"));
   const [titleOriginal, setTitleOriginal] = useState(
-    row.movie.titleOriginal ?? "",
+    localize(row.movie.title, "en"),
   );
   const [year, setYear] = useState(
     row.movie.year > 0 ? String(row.movie.year) : "",
@@ -148,8 +149,8 @@ function MovieEditor({
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    setTitle(row.movie.title);
-    setTitleOriginal(row.movie.titleOriginal ?? "");
+    setTitle(localize(row.movie.title, "ru"));
+    setTitleOriginal(localize(row.movie.title, "en"));
     setYear(row.movie.year > 0 ? String(row.movie.year) : "");
     setMessage(null);
   }, [row.movie, row.slug]);
@@ -216,9 +217,11 @@ function LevelMetaEditor({
   active: StudioLevelRow;
   onSaved: () => void;
 }) {
-  const [title, setTitle] = useState(active.movie?.title ?? "");
+  const [title, setTitle] = useState(
+    active.movie ? localize(active.movie.title, "ru") : "",
+  );
   const [titleOriginal, setTitleOriginal] = useState(
-    active.movie?.titleOriginal ?? "",
+    active.movie ? localize(active.movie.title, "en") : "",
   );
   const [year, setYear] = useState(
     active.movie && active.movie.year > 0 ? String(active.movie.year) : "",
@@ -234,8 +237,8 @@ function LevelMetaEditor({
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    setTitle(active.movie?.title ?? "");
-    setTitleOriginal(active.movie?.titleOriginal ?? "");
+    setTitle(active.movie ? localize(active.movie.title, "ru") : "");
+    setTitleOriginal(active.movie ? localize(active.movie.title, "en") : "");
     setYear(
       active.movie && active.movie.year > 0 ? String(active.movie.year) : "",
     );

@@ -1,7 +1,9 @@
 {
   "id": "movie-the-terminator",
-  "title": "Терминатор",
-  "titleOriginal": "The Terminator",
+  "title": {
+    "ru": "Терминатор",
+    "en": "The Terminator"
+  },
   "year": 1984,
   "aliases": []
 }

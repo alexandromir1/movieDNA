@@ -1,7 +1,9 @@
 {
   "id": "movie-gravity",
-  "title": "Гравитация",
-  "titleOriginal": "Gravity",
+  "title": {
+    "ru": "Гравитация",
+    "en": "Gravity"
+  },
   "year": 2013,
   "aliases": []
 }

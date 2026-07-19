@@ -1,7 +1,9 @@
 {
   "id": "movie-teenage-mutant-ninja-turtles",
-  "title": "Черепашки-ниндзя",
-  "titleOriginal": "Teenage Mutant Ninja Turtles",
+  "title": {
+    "ru": "Черепашки-ниндзя",
+    "en": "Teenage Mutant Ninja Turtles"
+  },
   "year": 2014,
   "aliases": []
 }

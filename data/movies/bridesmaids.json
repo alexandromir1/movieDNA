@@ -1,7 +1,9 @@
 {
   "id": "movie-bridesmaids",
-  "title": "Девичник в Вегасе",
-  "titleOriginal": "Bridesmaids",
+  "title": {
+    "ru": "Девичник в Вегасе",
+    "en": "Bridesmaids"
+  },
   "year": 2011,
   "aliases": []
 }

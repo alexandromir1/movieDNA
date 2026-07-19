@@ -1,7 +1,9 @@
 {
   "id": "movie-elvis",
-  "title": "Элвис",
-  "titleOriginal": "Elvis",
+  "title": {
+    "ru": "Элвис",
+    "en": "Elvis"
+  },
   "year": 2022,
   "aliases": []
 }

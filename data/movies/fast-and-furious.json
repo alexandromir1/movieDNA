@@ -1,7 +1,9 @@
 {
   "id": "movie-fast-and-furious",
-  "title": "Форсаж",
-  "titleOriginal": "The Fast and the Furious",
+  "title": {
+    "ru": "Форсаж",
+    "en": "The Fast and the Furious"
+  },
   "year": 2001,
   "aliases": []
 }

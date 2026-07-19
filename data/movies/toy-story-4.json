@@ -1,7 +1,9 @@
 {
   "id": "movie-toy-story-4",
-  "title": "История игрушек 4",
-  "titleOriginal": "Toy Story 4",
+  "title": {
+    "ru": "История игрушек 4",
+    "en": "Toy Story 4"
+  },
   "year": 2019,
   "aliases": []
 }

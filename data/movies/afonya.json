@@ -1,7 +1,9 @@
 {
   "id": "movie-afonya",
-  "title": "Афоня",
-  "titleOriginal": "Afonya",
+  "title": {
+    "ru": "Афоня",
+    "en": "Afonya"
+  },
   "year": 1975,
   "aliases": []
 }

@@ -1,24 +1,41 @@
 import { siteConfig } from "@/config/site";
 import { REVEAL_REGION_COUNT } from "@/config/economy";
+import { pluralForm } from "@/lib/i18n/plural";
+import type { Locale } from "@/lib/i18n/types";
+import { en } from "@/locales/en";
+import { ru } from "@/locales/ru";
 
 import type { GameGuess, GameSession } from "@/types/content";
 
-function hintNoun(count: number): string {
-  const mod10 = count % 10;
-  const mod100 = count % 100;
-  if (mod10 === 1 && mod100 !== 11) return "подсказка";
-  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) {
-    return "подсказки";
-  }
-  return "подсказок";
+const dict = { ru, en };
+
+function hintWord(count: number, locale: Locale): string {
+  const form = pluralForm(count, locale);
+  return dict[locale].share.hintWord[form];
+}
+
+function interpolate(
+  template: string,
+  vars: Record<string, string | number>,
+): string {
+  return template.replace(/\{(\w+)\}/g, (_, name: string) =>
+    vars[name] != null ? String(vars[name]) : `{${name}}`,
+  );
 }
 
 /** Человеческая строка про подсказки — без слова Reveal. */
-export function formatHintsShareLine(openedRegionCount: number): string {
+export function formatHintsShareLine(
+  openedRegionCount: number,
+  locale: Locale = "ru",
+): string {
+  const messages = dict[locale].share;
   const count = Math.max(0, openedRegionCount);
-  if (count <= 1) return "Угадал с первой подсказки";
-  if (count >= REVEAL_REGION_COUNT) return "Понадобились все подсказки";
-  return `Понадобилось ${count} ${hintNoun(count)}`;
+  if (count <= 1) return messages.firstHint;
+  if (count >= REVEAL_REGION_COUNT) return messages.allHints;
+  return interpolate(messages.neededHints, {
+    n: count,
+    word: hintWord(count, locale),
+  });
 }
 
 /**
@@ -48,16 +65,19 @@ export function buildShareText(input: {
   openedRegionCount: number;
   elapsedSeconds?: number;
   won: boolean;
+  locale?: Locale;
 }): string {
+  const locale = input.locale ?? "ru";
+  const messages = dict[locale].share;
   const link = getShareLink();
 
   // Без названия фильма — иначе получатель шаринга уже знает ответ.
   if (!input.won) {
     return [
       `${siteConfig.name}`,
-      "Не угадал Challenge",
-      loseHintsLine(input.openedRegionCount),
-      "Сможешь лучше?",
+      messages.lostChallenge,
+      loseHintsLine(input.openedRegionCount, locale),
+      messages.canYouDoBetter,
       link,
     ]
       .filter((line): line is string => Boolean(line))
@@ -66,20 +86,24 @@ export function buildShareText(input: {
 
   return [
     `${siteConfig.name}`,
-    `Movie Score ${input.movieScore}`,
-    formatHintsShareLine(input.openedRegionCount),
-    "Попробуй сегодняшний Challenge",
+    interpolate(messages.scorePlain, { score: input.movieScore }),
+    formatHintsShareLine(input.openedRegionCount, locale),
+    messages.tryToday,
     link,
   ]
     .filter((line): line is string => Boolean(line))
     .join("\n");
 }
 
-function loseHintsLine(openedRegionCount: number): string {
+function loseHintsLine(openedRegionCount: number, locale: Locale): string {
+  const messages = dict[locale].share;
   const count = Math.max(0, openedRegionCount);
-  if (count <= 0) return "Так и не открыл подсказки";
-  if (count >= REVEAL_REGION_COUNT) return "Открыл все подсказки";
-  return `Открыл ${count} ${hintNoun(count)}`;
+  if (count <= 0) return messages.neverOpened;
+  if (count >= REVEAL_REGION_COUNT) return messages.openedAll;
+  return interpolate(messages.openedCount, {
+    n: count,
+    word: hintWord(count, locale),
+  });
 }
 
 /** Можно ли предложить share/copy (не показывать мёртвую кнопку). */
@@ -98,6 +122,7 @@ export async function shareChallengeResult(input: {
   openedRegionCount: number;
   elapsedSeconds?: number;
   won: boolean;
+  locale?: Locale;
 }): Promise<"shared" | "copied" | "cancelled" | "failed"> {
   const text = buildShareText(input);
 

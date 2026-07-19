@@ -1,7 +1,9 @@
 {
   "id": "movie-dirty-dancing",
-  "title": "Грязные танцы",
-  "titleOriginal": "Dirty Dancing",
+  "title": {
+    "ru": "Грязные танцы",
+    "en": "Dirty Dancing"
+  },
   "year": 1987,
   "aliases": []
 }

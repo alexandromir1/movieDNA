@@ -1,7 +1,9 @@
 {
   "id": "movie-pans-labyrinth",
-  "title": "Лабиринт Фавна",
-  "titleOriginal": "Pan's Labyrinth",
+  "title": {
+    "ru": "Лабиринт Фавна",
+    "en": "Pan's Labyrinth"
+  },
   "year": 2006,
   "aliases": []
 }

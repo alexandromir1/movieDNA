@@ -1,7 +1,9 @@
 {
   "id": "movie-the-bourne-supremacy",
-  "title": "Превосходство Борна",
-  "titleOriginal": "The Bourne Supremacy",
+  "title": {
+    "ru": "Превосходство Борна",
+    "en": "The Bourne Supremacy"
+  },
   "year": 2004,
   "aliases": []
 }

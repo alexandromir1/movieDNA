@@ -1,4 +1,6 @@
 import { loadAllMovies, slugFromMovieId } from "@/lib/content/load-fs";
+import { localize } from "@/lib/i18n/localize";
+import type { LocalizedString } from "@/lib/i18n/types";
 
 import type {
   Movie,
@@ -16,9 +18,21 @@ export type {
 
 const MAX_ITEMS_PER_CATEGORY = 3;
 
+function asLocalized(
+  value: LocalizedString | string | undefined,
+): LocalizedString | null {
+  if (value == null) return null;
+  if (typeof value === "string") {
+    const text = value.trim();
+    return text ? { ru: text, en: text } : null;
+  }
+  if (!localize(value, "ru") && !localize(value, "en")) return null;
+  return value;
+}
+
 /**
  * Резолв ручных Movie.recommendations → view-model для киномарафона.
- * Без картинок Challenge и без ссылок на игру (анти-спойлер).
+ * Названия остаются LocalizedString — UI показывает только текущий язык.
  */
 export function resolveMovieRecommendations(
   movie: Movie,
@@ -30,7 +44,8 @@ export function resolveMovieRecommendations(
   const categories: MovieRecommendationCategoryView[] = [];
 
   for (const category of raw as MovieRecommendationCategory[]) {
-    if (!category?.title?.trim() || !category.items?.length) continue;
+    const categoryTitle = asLocalized(category.title);
+    if (!categoryTitle || !category.items?.length) continue;
 
     const items: MovieRecommendationItemView[] = [];
     const seen = new Set<string>();
@@ -47,16 +62,15 @@ export function resolveMovieRecommendations(
       items.push({
         movieId: recommended.id,
         slug: slugFromMovieId(recommended.id),
-        title: recommended.title || recommended.titleOriginal || recommended.id,
-        titleOriginal: recommended.titleOriginal,
+        title: recommended.title,
         year: recommended.year,
-        note: entry.note?.trim() || null,
+        note: entry.note ? asLocalized(entry.note) : null,
       });
     }
 
     if (items.length === 0) continue;
     categories.push({
-      title: category.title.trim(),
+      title: categoryTitle,
       items,
     });
   }

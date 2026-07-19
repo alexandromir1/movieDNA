@@ -1,7 +1,9 @@
 {
   "id": "movie-were-the-millers",
-  "title": "Мы — Миллеры",
-  "titleOriginal": "We're the Millers",
+  "title": {
+    "ru": "Мы — Миллеры",
+    "en": "We're the Millers"
+  },
   "year": 2013,
   "aliases": []
 }

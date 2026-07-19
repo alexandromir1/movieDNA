@@ -1,7 +1,9 @@
 {
   "id": "movie-diamond-arm",
-  "title": "Бриллиантовая рука",
-  "titleOriginal": "Brilliantovaya ruka",
+  "title": {
+    "ru": "Бриллиантовая рука",
+    "en": "Brilliantovaya ruka"
+  },
   "year": 1968,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-1917",
-  "title": "1917",
-  "titleOriginal": "1917",
+  "title": {
+    "ru": "1917",
+    "en": "1917"
+  },
   "year": 2019,
   "aliases": []
 }

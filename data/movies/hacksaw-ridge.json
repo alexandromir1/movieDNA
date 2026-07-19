@@ -1,7 +1,9 @@
 {
   "id": "movie-hacksaw-ridge",
-  "title": "По соображениям совести",
-  "titleOriginal": "Hacksaw Ridge",
+  "title": {
+    "ru": "По соображениям совести",
+    "en": "Hacksaw Ridge"
+  },
   "year": 2016,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-star-wars-the-last-jedi",
-  "title": "Звёздные войны: Последние джедаи",
-  "titleOriginal": "Star Wars: The Last Jedi",
+  "title": {
+    "ru": "Звёздные войны: Последние джедаи",
+    "en": "Star Wars: The Last Jedi"
+  },
   "year": 2017,
   "aliases": []
 }

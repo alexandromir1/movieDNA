@@ -1,7 +1,9 @@
 {
   "id": "movie-jaws",
-  "title": "Челюсти",
-  "titleOriginal": "Jaws",
+  "title": {
+    "ru": "Челюсти",
+    "en": "Jaws"
+  },
   "year": 1975,
   "aliases": []
 }

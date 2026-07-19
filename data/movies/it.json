@@ -1,7 +1,9 @@
 {
   "id": "movie-it",
-  "title": "Оно",
-  "titleOriginal": "It",
+  "title": {
+    "ru": "Оно",
+    "en": "It"
+  },
   "year": 2017,
   "aliases": []
 }

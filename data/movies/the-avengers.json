@@ -1,7 +1,9 @@
 {
   "id": "movie-the-avengers",
-  "title": "Мстители",
-  "titleOriginal": "The Avengers",
+  "title": {
+    "ru": "Мстители",
+    "en": "The Avengers"
+  },
   "year": 2012,
   "aliases": []
 }

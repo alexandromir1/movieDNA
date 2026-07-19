@@ -1,7 +1,9 @@
 {
   "id": "movie-saw",
-  "title": "Пила",
-  "titleOriginal": "Saw",
+  "title": {
+    "ru": "Пила",
+    "en": "Saw"
+  },
   "year": 2004,
   "aliases": []
 }

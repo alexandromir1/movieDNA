@@ -1,7 +1,9 @@
 {
   "id": "movie-the-hunger-games",
-  "title": "Голодные игры",
-  "titleOriginal": "The Hunger Games",
+  "title": {
+    "ru": "Голодные игры",
+    "en": "The Hunger Games"
+  },
   "year": 2012,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-free-guy",
-  "title": "Главный герой",
-  "titleOriginal": "Free Guy",
+  "title": {
+    "ru": "Главный герой",
+    "en": "Free Guy"
+  },
   "year": 2021,
   "aliases": []
 }

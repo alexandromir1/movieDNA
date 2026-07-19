@@ -1,7 +1,9 @@
 {
   "id": "movie-black-panther",
-  "title": "Чёрная Пантера",
-  "titleOriginal": "Black Panther",
+  "title": {
+    "ru": "Чёрная Пантера",
+    "en": "Black Panther"
+  },
   "year": 2018,
   "aliases": []
 }

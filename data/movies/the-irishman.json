@@ -1,7 +1,9 @@
 {
   "id": "movie-the-irishman",
-  "title": "Ирландец",
-  "titleOriginal": "The Irishman",
+  "title": {
+    "ru": "Ирландец",
+    "en": "The Irishman"
+  },
   "year": 2019,
   "aliases": []
 }

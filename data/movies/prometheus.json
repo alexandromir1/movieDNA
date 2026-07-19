@@ -1,7 +1,9 @@
 {
   "id": "movie-prometheus",
-  "title": "Прометей",
-  "titleOriginal": "Prometheus",
+  "title": {
+    "ru": "Прометей",
+    "en": "Prometheus"
+  },
   "year": 2012,
   "aliases": []
 }

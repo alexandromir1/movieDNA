@@ -1,7 +1,9 @@
 {
   "id": "movie-gone-girl",
-  "title": "Исчезнувшая",
-  "titleOriginal": "Gone Girl",
+  "title": {
+    "ru": "Исчезнувшая",
+    "en": "Gone Girl"
+  },
   "year": 2014,
   "aliases": []
 }

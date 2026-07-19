@@ -1,7 +1,9 @@
 {
   "id": "movie-the-bridge-on-the-river-kwai",
-  "title": "Мост через реку Квай",
-  "titleOriginal": "The Bridge on the River Kwai",
+  "title": {
+    "ru": "Мост через реку Квай",
+    "en": "The Bridge on the River Kwai"
+  },
   "year": 1957,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-mission-impossible-ghost-protocol",
-  "title": "Миссия невыполнима: Протокол Фантом",
-  "titleOriginal": "Mission: Impossible – Ghost Protocol",
+  "title": {
+    "ru": "Миссия невыполнима: Протокол Фантом",
+    "en": "Mission: Impossible – Ghost Protocol"
+  },
   "year": 2011,
   "aliases": []
 }

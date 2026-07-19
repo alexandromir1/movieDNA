@@ -1,7 +1,9 @@
 {
   "id": "movie-the-hobbit-an-unexpected-journey",
-  "title": "Хоббит: Нежданное путешествие",
-  "titleOriginal": "The Hobbit: An Unexpected Journey",
+  "title": {
+    "ru": "Хоббит: Нежданное путешествие",
+    "en": "The Hobbit: An Unexpected Journey"
+  },
   "year": 2012,
   "aliases": []
 }

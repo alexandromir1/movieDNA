@@ -1,7 +1,9 @@
 {
   "id": "movie-i-robot",
-  "title": "Я, робот",
-  "titleOriginal": "I, Robot",
+  "title": {
+    "ru": "Я, робот",
+    "en": "I, Robot"
+  },
   "year": 2004,
   "aliases": []
 }

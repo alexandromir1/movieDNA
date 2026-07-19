@@ -1,7 +1,9 @@
 {
   "id": "movie-baby-driver",
-  "title": "Малыш на драйве",
-  "titleOriginal": "Baby Driver",
+  "title": {
+    "ru": "Малыш на драйве",
+    "en": "Baby Driver"
+  },
   "year": 2017,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-princess-mononoke",
-  "title": "Принцесса Мононоке",
-  "titleOriginal": "Princess Mononoke",
+  "title": {
+    "ru": "Принцесса Мононоке",
+    "en": "Princess Mononoke"
+  },
   "year": 1997,
   "aliases": []
 }

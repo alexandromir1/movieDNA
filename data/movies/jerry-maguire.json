@@ -1,7 +1,9 @@
 {
   "id": "movie-jerry-maguire",
-  "title": "Джерри Магуайер",
-  "titleOriginal": "Jerry Maguire",
+  "title": {
+    "ru": "Джерри Магуайер",
+    "en": "Jerry Maguire"
+  },
   "year": 1996,
   "aliases": []
 }

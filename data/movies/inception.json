@@ -1,12 +1,17 @@
 {
   "id": "movie-inception",
-  "title": "Начало",
-  "titleOriginal": "Inception",
+  "title": {
+    "ru": "Начало",
+    "en": "Inception"
+  },
   "year": 2010,
   "aliases": [],
   "recommendations": [
     {
-      "title": "🌀 Если хочется ломать реальность",
+      "title": {
+        "ru": "🌀 Если хочется ломать реальность",
+        "en": "🌀 If you want to bend reality"
+      },
       "items": [
         {
           "movieId": "movie-matrix"
@@ -20,7 +25,10 @@
       ]
     },
     {
-      "title": "🧠 Если нравятся головоломки",
+      "title": {
+        "ru": "🧠 Если нравятся головоломки",
+        "en": "🧠 If you like puzzles"
+      },
       "items": [
         {
           "movieId": "movie-memento"
@@ -34,7 +42,10 @@
       ]
     },
     {
-      "title": "🎬 Если нравится Нолан",
+      "title": {
+        "ru": "🎬 Если нравится Нолан",
+        "en": "🎬 If you like Nolan"
+      },
       "items": [
         {
           "movieId": "movie-interstellar"

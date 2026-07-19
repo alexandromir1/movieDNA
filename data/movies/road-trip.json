@@ -1,7 +1,9 @@
 {
   "id": "movie-road-trip",
-  "title": "Дорожное приключение",
-  "titleOriginal": "Road Trip",
+  "title": {
+    "ru": "Дорожное приключение",
+    "en": "Road Trip"
+  },
   "year": 2000,
   "aliases": []
 }

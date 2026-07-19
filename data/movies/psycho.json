@@ -1,7 +1,9 @@
 {
   "id": "movie-psycho",
-  "title": "Психо",
-  "titleOriginal": "Psycho",
+  "title": {
+    "ru": "Психо",
+    "en": "Psycho"
+  },
   "year": 1960,
   "aliases": []
 }

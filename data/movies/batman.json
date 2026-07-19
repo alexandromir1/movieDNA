@@ -1,7 +1,9 @@
 {
   "id": "movie-batman",
-  "title": "Бэтмен",
-  "titleOriginal": "Batman",
+  "title": {
+    "ru": "Бэтмен",
+    "en": "Batman"
+  },
   "year": 1989,
   "aliases": []
 }

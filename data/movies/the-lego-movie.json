@@ -1,7 +1,9 @@
 {
   "id": "movie-the-lego-movie",
-  "title": "Лего. Фильм",
-  "titleOriginal": "The Lego Movie",
+  "title": {
+    "ru": "Лего. Фильм",
+    "en": "The Lego Movie"
+  },
   "year": 2014,
   "aliases": []
 }

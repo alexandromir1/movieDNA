@@ -1,7 +1,9 @@
 {
   "id": "movie-harry-potter-prisoner-of-azkaban",
-  "title": "Гарри Поттер и узник Азкабана",
-  "titleOriginal": "Harry Potter and the Prisoner of Azkaban",
+  "title": {
+    "ru": "Гарри Поттер и узник Азкабана",
+    "en": "Harry Potter and the Prisoner of Azkaban"
+  },
   "year": 2004,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-divergent",
-  "title": "Дивергент",
-  "titleOriginal": "Divergent",
+  "title": {
+    "ru": "Дивергент",
+    "en": "Divergent"
+  },
   "year": 2014,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-bonnie-and-clyde",
-  "title": "Бонни и Клайд",
-  "titleOriginal": "Bonnie and Clyde",
+  "title": {
+    "ru": "Бонни и Клайд",
+    "en": "Bonnie and Clyde"
+  },
   "year": 1967,
   "aliases": []
 }

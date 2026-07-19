@@ -1,7 +1,9 @@
 {
   "id": "movie-up",
-  "title": "Вверх",
-  "titleOriginal": "Up",
+  "title": {
+    "ru": "Вверх",
+    "en": "Up"
+  },
   "year": 2009,
   "aliases": []
 }

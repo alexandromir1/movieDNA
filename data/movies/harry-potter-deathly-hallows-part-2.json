@@ -1,7 +1,9 @@
 {
   "id": "movie-harry-potter-deathly-hallows-part-2",
-  "title": "Гарри Поттер и Дары Смерти: Часть II",
-  "titleOriginal": "Harry Potter and the Deathly Hallows – Part 2",
+  "title": {
+    "ru": "Гарри Поттер и Дары Смерти: Часть II",
+    "en": "Harry Potter and the Deathly Hallows – Part 2"
+  },
   "year": 2011,
   "aliases": []
 }

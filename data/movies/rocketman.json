@@ -1,7 +1,9 @@
 {
   "id": "movie-rocketman",
-  "title": "Рокетмен",
-  "titleOriginal": "Rocketman",
+  "title": {
+    "ru": "Рокетмен",
+    "en": "Rocketman"
+  },
   "year": 2019,
   "aliases": []
 }

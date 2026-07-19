@@ -1,7 +1,9 @@
 {
   "id": "movie-wall-e",
-  "title": "ВАЛЛ·И",
-  "titleOriginal": "WALL-E",
+  "title": {
+    "ru": "ВАЛЛ·И",
+    "en": "WALL-E"
+  },
   "year": 2008,
   "aliases": []
 }

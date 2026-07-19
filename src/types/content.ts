@@ -1,28 +1,31 @@
+import type { LocalizedString } from "@/lib/i18n/types";
+
 /** Один фильм внутри ручной подборки. */
 export interface MovieRecommendationItem {
   movieId: string;
-  /** Короткая подпись после названия: «любовь вопреки времени» */
-  note?: string;
+  /** Короткая подпись после названия */
+  note?: LocalizedString | string;
 }
 
 /** Категория подборки — как в редакторском списке. */
 export interface MovieRecommendationCategory {
-  /** Заголовок категории, можно с эмодзи: «❤️ Если хочется большой любви» */
-  title: string;
+  title: LocalizedString | string;
   items: MovieRecommendationItem[];
 }
 
 export interface Movie {
   id: string;
-  title: string;
-  titleOriginal: string | null;
+  /** Локализованное название. EN = официальное международное имя. */
+  title: LocalizedString;
   year: number;
+  /**
+   * Доп. варианты для угадывания (все языки).
+   * Не для UI — только GuessValidator / aliases.
+   */
   aliases: string[];
   /**
    * Ручные подборки по категориям («что посмотреть»).
-   * Правило контента: не включать фильмы из ближайшего окна будущих Daily
-   * (upcoming scheduled) — иначе спойлер угадайки.
-   * Пусто / отсутствует → блок на результате скрыт.
+   * Правило контента: не включать фильмы из ближайшего окна будущих Daily.
    */
   recommendations?: MovieRecommendationCategory[];
 }
@@ -47,6 +50,10 @@ export interface Level {
   width: number;
   height: number;
   revealRegions: RevealRegion[];
+  /**
+   * Все допустимые ответы (RU + EN и сокращения).
+   * Не зависит от UI-локали — игрок может ввести любой язык.
+   */
   acceptedAnswers: string[];
 }
 

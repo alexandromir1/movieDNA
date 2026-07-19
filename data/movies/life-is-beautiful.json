@@ -1,7 +1,9 @@
 {
   "id": "movie-life-is-beautiful",
-  "title": "Жизнь прекрасна",
-  "titleOriginal": "Life Is Beautiful",
+  "title": {
+    "ru": "Жизнь прекрасна",
+    "en": "Life Is Beautiful"
+  },
   "year": 1997,
   "aliases": []
 }

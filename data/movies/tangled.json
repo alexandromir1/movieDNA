@@ -1,7 +1,9 @@
 {
   "id": "movie-tangled",
-  "title": "Рапунцель: Запутанная история",
-  "titleOriginal": "Tangled",
+  "title": {
+    "ru": "Рапунцель: Запутанная история",
+    "en": "Tangled"
+  },
   "year": 2010,
   "aliases": []
 }

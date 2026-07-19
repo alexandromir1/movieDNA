@@ -1,7 +1,9 @@
 {
   "id": "movie-monsters-inc",
-  "title": "Корпорация монстров",
-  "titleOriginal": "Monsters, Inc.",
+  "title": {
+    "ru": "Корпорация монстров",
+    "en": "Monsters, Inc."
+  },
   "year": 2001,
   "aliases": []
 }

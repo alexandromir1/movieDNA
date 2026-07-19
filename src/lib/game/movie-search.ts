@@ -1,10 +1,10 @@
 import type { MovieSuggestion } from "@/types/game";
+import type { Locale } from "@/lib/i18n/types";
 
 import { normalizeTitle } from "./title-match";
 
 export function formatMovieLabel(movie: MovieSuggestion): string {
-  const original = movie.titleOriginal ? ` / ${movie.titleOriginal}` : "";
-  return `${movie.title}${original} (${movie.year})`;
+  return `${movie.title} (${movie.year})`;
 }
 
 function bigrams(text: string): Set<string> {
@@ -21,7 +21,6 @@ function diceSimilarity(a: string, b: string): number {
 
   const shorter = a.length <= b.length ? a : b;
   const longer = a.length <= b.length ? b : a;
-  // Avoid "м" matching "терминатор" via includes()
   if (
     shorter.length >= 3 &&
     longer.includes(shorter) &&
@@ -52,20 +51,17 @@ function scoreTitle(query: string, title: string): number {
   const wordPrefix = words.some((word) => word.startsWith(query));
   const contains = query.length >= 4 && title.includes(query);
 
-  // Short queries: prefix only (avoids noise in a large catalog)
   if (query.length < 4) {
     return startsWithQuery || wordPrefix
       ? 1 + query.length / Math.max(title.length, 1)
       : 0;
   }
 
-  // Shared title prefix («Гарри Поттер…») — equal base, don't punish long titles
   if (startsWithQuery) return 2.1;
   if (wordPrefix) return 1.5 + diceSimilarity(query, title) * 0.3;
   if (contains) return 1.1 + diceSimilarity(query, title) * 0.2;
 
   const dice = diceSimilarity(query, title);
-  // Pure fuzzy only for strong typo-like matches
   return dice >= 0.72 ? dice : 0;
 }
 
@@ -74,19 +70,19 @@ function isPlayableMovieId(id: string): boolean {
 }
 
 function scoreMovie(query: string, movie: MovieSuggestion): number {
-  const ru = normalizeTitle(movie.title);
-  const en = movie.titleOriginal ? normalizeTitle(movie.titleOriginal) : "";
-  const base = Math.max(scoreTitle(query, ru), scoreTitle(query, en), 0);
+  // Поиск только по title выбранной локали (уже подставлен в suggestion.title)
+  const title = normalizeTitle(movie.title);
+  const base = scoreTitle(query, title);
   if (base <= 0) return 0;
-  // Playable / challenge films slightly above raw IMDb catalog clones
   return base + (isPlayableMovieId(movie.id) ? 0.05 : 0);
 }
 
-/** Локальный fallback-поиск (без Supabase), с базовой нечёткой логикой */
+/** Локальный поиск: каталог должен быть уже с title на нужном языке. */
 export function searchMoviesLocal(
   query: string,
   catalog: MovieSuggestion[],
   limit = 8,
+  _locale?: Locale,
 ): MovieSuggestion[] {
   const normalizedQuery = normalizeTitle(query);
   if (!normalizedQuery) return [];
@@ -100,7 +96,6 @@ export function searchMoviesLocal(
         Number(isPlayableMovieId(b.movie.id)) -
         Number(isPlayableMovieId(a.movie.id));
       if (playableDelta !== 0) return playableDelta;
-      // Earlier film first in a series («Гарри Поттер» → философский камень)
       return a.movie.year - b.movie.year;
     })
     .slice(0, limit)

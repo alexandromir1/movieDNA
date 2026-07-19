@@ -1,7 +1,9 @@
 {
   "id": "movie-kill-bill-vol-2",
-  "title": "Убить Билла. Фильм 2",
-  "titleOriginal": "Kill Bill: Vol. 2",
+  "title": {
+    "ru": "Убить Билла. Фильм 2",
+    "en": "Kill Bill: Vol. 2"
+  },
   "year": 2004,
   "aliases": []
 }

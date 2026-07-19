@@ -1,7 +1,9 @@
 {
   "id": "movie-toy-story-3",
-  "title": "История игрушек 3",
-  "titleOriginal": "Toy Story 3",
+  "title": {
+    "ru": "История игрушек 3",
+    "en": "Toy Story 3"
+  },
   "year": 2010,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-bruce-almighty",
-  "title": "Брюс Всемогущий",
-  "titleOriginal": "Bruce Almighty",
+  "title": {
+    "ru": "Брюс Всемогущий",
+    "en": "Bruce Almighty"
+  },
   "year": 2003,
   "aliases": []
 }

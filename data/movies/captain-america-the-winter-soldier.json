@@ -1,7 +1,9 @@
 {
   "id": "movie-captain-america-the-winter-soldier",
-  "title": "Первый мститель: Другая война",
-  "titleOriginal": "Captain America: The Winter Soldier",
+  "title": {
+    "ru": "Первый мститель: Другая война",
+    "en": "Captain America: The Winter Soldier"
+  },
   "year": 2014,
   "aliases": []
 }

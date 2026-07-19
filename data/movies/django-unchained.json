@@ -1,7 +1,9 @@
 {
   "id": "movie-django-unchained",
-  "title": "Django освобождённый",
-  "titleOriginal": "Django Unchained",
+  "title": {
+    "ru": "Django освобождённый",
+    "en": "Django Unchained"
+  },
   "year": 2012,
   "aliases": []
 }

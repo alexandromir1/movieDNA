@@ -1,7 +1,9 @@
 {
   "id": "movie-the-abyss",
-  "title": "Бездна",
-  "titleOriginal": "The Abyss",
+  "title": {
+    "ru": "Бездна",
+    "en": "The Abyss"
+  },
   "year": 1989,
   "aliases": []
 }

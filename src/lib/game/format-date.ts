@@ -1,66 +1,70 @@
+import type { Locale } from "@/lib/i18n/types";
+import { en } from "@/locales/en";
+import { ru } from "@/locales/ru";
+
 /** Форматирование дат Challenge для UI (UTC YYYY-MM-DD). */
 
-const MONTHS_RU = [
-  "января",
-  "февраля",
-  "марта",
-  "апреля",
-  "мая",
-  "июня",
-  "июля",
-  "августа",
-  "сентября",
-  "октября",
-  "ноября",
-  "декабря",
-] as const;
-
-const WEEKDAYS_RU = [
-  "воскресенье",
-  "понедельник",
-  "вторник",
-  "среда",
-  "четверг",
-  "пятница",
-  "суббота",
-] as const;
+const dict = { ru, en };
 
 function parseUtcDate(date: string): Date {
   const [year, month, day] = date.split("-").map(Number);
   return new Date(Date.UTC(year, month - 1, day));
 }
 
-/** «пятница, 17 июля 2026» — дата под логотипом (десктоп) */
-export function formatHeaderDate(date: string = new Date().toISOString().split("T")[0]): string {
+function monthName(locale: Locale, monthIndex: number): string {
+  return dict[locale].dates.months[String(monthIndex) as keyof typeof ru.dates.months];
+}
+
+function weekdayShort(locale: Locale, dayIndex: number): string {
+  return dict[locale].dates.weekdays[String(dayIndex) as keyof typeof ru.dates.weekdays];
+}
+
+/** Полная дата под логотипом (десктоп) */
+export function formatHeaderDate(
+  date: string = new Date().toISOString().split("T")[0],
+  locale: Locale = "ru",
+): string {
   const utc = parseUtcDate(date);
-  const weekday = WEEKDAYS_RU[utc.getUTCDay()];
+  const weekday = weekdayShort(locale, utc.getUTCDay());
   const day = utc.getUTCDate();
-  const month = MONTHS_RU[utc.getUTCMonth()];
+  const month = monthName(locale, utc.getUTCMonth());
   const year = utc.getUTCFullYear();
+  if (locale === "en") {
+    return `${weekday}, ${month} ${day}, ${year}`;
+  }
   return `${weekday}, ${day} ${month} ${year}`;
 }
 
-/** «17 июля» — компактная дата для мобильной шапки */
+/** Компактная дата для мобильной шапки */
 export function formatHeaderDateShort(
   date: string = new Date().toISOString().split("T")[0],
+  locale: Locale = "ru",
 ): string {
   const utc = parseUtcDate(date);
-  return `${utc.getUTCDate()} ${MONTHS_RU[utc.getUTCMonth()]}`;
+  const day = utc.getUTCDate();
+  const month = monthName(locale, utc.getUTCMonth());
+  if (locale === "en") return `${month} ${day}`;
+  return `${day} ${month}`;
 }
 
 /** Короткий ярлык: Сегодня / Вчера / 15 июля */
 export function formatSidebarDateLabel(
   date: string,
   today: string,
+  locale: Locale = "ru",
 ): string {
-  if (date === today) return "Сегодня";
+  const messages = dict[locale].dates;
+  if (date === today) return messages.today;
 
   const [ty, tm, td] = today.split("-").map(Number);
   const yesterday = new Date(Date.UTC(ty, tm - 1, td - 1))
     .toISOString()
     .split("T")[0];
-  if (date === yesterday) return "Вчера";
+  if (date === yesterday) return messages.yesterday;
 
   const utc = parseUtcDate(date);
-  return `${utc.getUTCDate()} ${MONTHS_RU[utc.getUTCMonth()]}`;
+  const day = utc.getUTCDate();
+  const month = monthName(locale, utc.getUTCMonth());
+  if (locale === "en") return `${month} ${day}`;
+  return `${day} ${month}`;
 }

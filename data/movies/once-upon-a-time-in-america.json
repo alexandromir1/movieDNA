@@ -1,7 +1,9 @@
 {
   "id": "movie-once-upon-a-time-in-america",
-  "title": "Однажды в Америке",
-  "titleOriginal": "Once Upon a Time in America",
+  "title": {
+    "ru": "Однажды в Америке",
+    "en": "Once Upon a Time in America"
+  },
   "year": 1984,
   "aliases": []
 }

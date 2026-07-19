@@ -1,7 +1,9 @@
 {
   "id": "movie-monty-python-and-the-holy-grail",
-  "title": "Монти Пайтон и Священный Грааль",
-  "titleOriginal": "Monty Python and the Holy Grail",
+  "title": {
+    "ru": "Монти Пайтон и Священный Грааль",
+    "en": "Monty Python and the Holy Grail"
+  },
   "year": 1975,
   "aliases": []
 }

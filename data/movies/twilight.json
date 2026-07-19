@@ -1,7 +1,9 @@
 {
   "id": "movie-twilight",
-  "title": "Сумерки",
-  "titleOriginal": "Twilight",
+  "title": {
+    "ru": "Сумерки",
+    "en": "Twilight"
+  },
   "year": 2008,
   "aliases": []
 }

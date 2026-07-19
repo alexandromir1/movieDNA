@@ -1,7 +1,9 @@
 {
   "id": "movie-american-gangster",
-  "title": "Американский гангстер",
-  "titleOriginal": "American Gangster",
+  "title": {
+    "ru": "Американский гангстер",
+    "en": "American Gangster"
+  },
   "year": 2007,
   "aliases": []
 }

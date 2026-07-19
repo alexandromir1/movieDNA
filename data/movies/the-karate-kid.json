@@ -1,7 +1,9 @@
 {
   "id": "movie-the-karate-kid",
-  "title": "Каратэ-пацан",
-  "titleOriginal": "The Karate Kid",
+  "title": {
+    "ru": "Каратэ-пацан",
+    "en": "The Karate Kid"
+  },
   "year": 1984,
   "aliases": []
 }

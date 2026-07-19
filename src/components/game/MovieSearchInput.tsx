@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 
 import { formatMovieLabel } from "@/lib/game/movie-search";
+import { useTranslations } from "@/lib/i18n/LocaleProvider";
 import { cn } from "@/lib/utils/cn";
 import { useMovieSearch } from "@/hooks/useMovieSearch";
 
@@ -23,10 +24,12 @@ export function MovieSearchInput({
   onChange,
   onSubmit,
   disabled,
-  placeholder = "Название фильма...",
+  placeholder,
   isError = false,
   hideSubmitButton = false,
 }: MovieSearchInputProps) {
+  const t = useTranslations();
+  const resolvedPlaceholder = placeholder ?? t("game.searchPlaceholder");
   const listboxId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -134,7 +137,7 @@ export function MovieSearchInput({
           enterKeyHint="done"
           value={value}
           disabled={disabled}
-          placeholder={placeholder}
+          placeholder={resolvedPlaceholder}
           className={cn(
             "w-full rounded-[10px] border bg-white/[0.03] px-3 py-2.5 text-center text-sm outline-none transition-all duration-300 sm:px-4 sm:py-3 sm:text-base",
             "disabled:cursor-not-allowed disabled:opacity-40",

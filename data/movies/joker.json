@@ -1,7 +1,9 @@
 {
   "id": "movie-joker",
-  "title": "Джокер",
-  "titleOriginal": "Joker",
+  "title": {
+    "ru": "Джокер",
+    "en": "Joker"
+  },
   "year": 2019,
   "aliases": []
 }

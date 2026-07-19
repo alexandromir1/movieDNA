@@ -1,7 +1,9 @@
 {
   "id": "movie-rear-window",
-  "title": "Окно во двор",
-  "titleOriginal": "Rear Window",
+  "title": {
+    "ru": "Окно во двор",
+    "en": "Rear Window"
+  },
   "year": 1954,
   "aliases": []
 }

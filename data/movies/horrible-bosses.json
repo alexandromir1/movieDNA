@@ -1,7 +1,9 @@
 {
   "id": "movie-horrible-bosses",
-  "title": "Несносные боссы",
-  "titleOriginal": "Horrible Bosses",
+  "title": {
+    "ru": "Несносные боссы",
+    "en": "Horrible Bosses"
+  },
   "year": 2011,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-fast-five",
-  "title": "Форсаж 5",
-  "titleOriginal": "Fast Five",
+  "title": {
+    "ru": "Форсаж 5",
+    "en": "Fast Five"
+  },
   "year": 2011,
   "aliases": []
 }

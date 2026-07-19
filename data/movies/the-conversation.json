@@ -1,7 +1,9 @@
 {
   "id": "movie-the-conversation",
-  "title": "Разговор",
-  "titleOriginal": "The Conversation",
+  "title": {
+    "ru": "Разговор",
+    "en": "The Conversation"
+  },
   "year": 1974,
   "aliases": []
 }

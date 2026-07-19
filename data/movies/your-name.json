@@ -1,7 +1,9 @@
 {
   "id": "movie-your-name",
-  "title": "Твоё имя",
-  "titleOriginal": "Your Name",
+  "title": {
+    "ru": "Твоё имя",
+    "en": "Your Name"
+  },
   "year": 2016,
   "aliases": []
 }

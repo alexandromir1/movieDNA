@@ -1,12 +1,17 @@
 {
   "id": "movie-mad-max-fury-road",
-  "title": "Безумный Макс: Дорога ярости",
-  "titleOriginal": "Mad Max: Fury Road",
+  "title": {
+    "ru": "Безумный Макс: Дорога ярости",
+    "en": "Mad Max: Fury Road"
+  },
   "year": 2015,
   "aliases": [],
   "recommendations": [
     {
-      "title": "🔥 Если хочется безумного экшена",
+      "title": {
+        "ru": "🔥 Если хочется безумного экшена",
+        "en": "🔥 If you want wild action"
+      },
       "items": [
         {
           "movieId": "movie-john-wick"
@@ -20,7 +25,10 @@
       ]
     },
     {
-      "title": "☢️ Если нравится постапокалипсис",
+      "title": {
+        "ru": "☢️ Если нравится постапокалипсис",
+        "en": "☢️ If you like post-apocalypse"
+      },
       "items": [
         {
           "movieId": "movie-the-road"
@@ -34,7 +42,10 @@
       ]
     },
     {
-      "title": "🚗 Если нравится скорость",
+      "title": {
+        "ru": "🚗 Если нравится скорость",
+        "en": "🚗 If you like speed"
+      },
       "items": [
         {
           "movieId": "movie-ford-v-ferrari"

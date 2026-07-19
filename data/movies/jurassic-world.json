@@ -1,7 +1,9 @@
 {
   "id": "movie-jurassic-world",
-  "title": "Мир Юрского периода",
-  "titleOriginal": "Jurassic World",
+  "title": {
+    "ru": "Мир Юрского периода",
+    "en": "Jurassic World"
+  },
   "year": 2015,
   "aliases": []
 }

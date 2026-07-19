@@ -1,7 +1,9 @@
 {
   "id": "movie-madagascar",
-  "title": "Мадагаскар",
-  "titleOriginal": "Madagascar",
+  "title": {
+    "ru": "Мадагаскар",
+    "en": "Madagascar"
+  },
   "year": 2005,
   "aliases": []
 }

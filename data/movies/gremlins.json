@@ -1,7 +1,9 @@
 {
   "id": "movie-gremlins",
-  "title": "Гремлины",
-  "titleOriginal": "Gremlins",
+  "title": {
+    "ru": "Гремлины",
+    "en": "Gremlins"
+  },
   "year": 1984,
   "aliases": []
 }

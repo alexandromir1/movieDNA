@@ -1,12 +1,17 @@
 {
   "id": "movie-back-to-the-future",
-  "title": "Назад в будущее",
-  "titleOriginal": "Back to the Future",
+  "title": {
+    "ru": "Назад в будущее",
+    "en": "Back to the Future"
+  },
   "year": 1985,
   "aliases": [],
   "recommendations": [
     {
-      "title": "⏰ Если нравится путешествие во времени",
+      "title": {
+        "ru": "⏰ Если нравится путешествие во времени",
+        "en": "⏰ If you like time travel"
+      },
       "items": [
         {
           "movieId": "movie-predestination"
@@ -20,7 +25,10 @@
       ]
     },
     {
-      "title": "🚗 Если хочется приключений",
+      "title": {
+        "ru": "🚗 Если хочется приключений",
+        "en": "🚗 If you want adventure"
+      },
       "items": [
         {
           "movieId": "movie-ghostbusters"
@@ -34,7 +42,10 @@
       ]
     },
     {
-      "title": "😄 Если нравится лёгкая фантастика",
+      "title": {
+        "ru": "😄 Если нравится лёгкая фантастика",
+        "en": "😄 If you like light sci-fi"
+      },
       "items": [
         {
           "movieId": "movie-honey-i-shrunk-the-kids"

@@ -1,7 +1,9 @@
 {
   "id": "movie-transformers",
-  "title": "Трансформеры",
-  "titleOriginal": "Transformers",
+  "title": {
+    "ru": "Трансформеры",
+    "en": "Transformers"
+  },
   "year": 2007,
   "aliases": []
 }

@@ -9,6 +9,7 @@ import {
   resolveRelatedChallengeLinks,
 } from "@/lib/content/catalog";
 import { resolveMovieRecommendations } from "@/lib/content/recommendations";
+import { getRequestLocale } from "@/lib/i18n/server";
 
 interface GameDatePageProps {
   params: Promise<{ date: string }>;
@@ -18,11 +19,12 @@ export async function generateMetadata({
   params,
 }: GameDatePageProps): Promise<Metadata> {
   const { date } = await params;
-  return { title: `Архив · ${date}` };
+  return { title: `Archive · ${date}` };
 }
 
 export default async function GameDatePage({ params }: GameDatePageProps) {
   const { date } = await params;
+  const locale = await getRequestLocale();
   const bundle = getChallengeBundleByDate(date);
 
   if (!bundle) {

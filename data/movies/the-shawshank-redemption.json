@@ -1,7 +1,9 @@
 {
   "id": "movie-the-shawshank-redemption",
-  "title": "Побег из Шоушенка",
-  "titleOriginal": "The Shawshank Redemption",
+  "title": {
+    "ru": "Побег из Шоушенка",
+    "en": "The Shawshank Redemption"
+  },
   "year": 1994,
   "aliases": []
 }

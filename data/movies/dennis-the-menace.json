@@ -1,7 +1,9 @@
 {
   "id": "movie-dennis-the-menace",
-  "title": "Деннис-мучитель",
-  "titleOriginal": "Dennis the Menace",
+  "title": {
+    "ru": "Деннис-мучитель",
+    "en": "Dennis the Menace"
+  },
   "year": 1993,
   "aliases": []
 }

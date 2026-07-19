@@ -1,7 +1,9 @@
 {
   "id": "movie-the-usual-suspects",
-  "title": "Обычные подозреваемые",
-  "titleOriginal": "The Usual Suspects",
+  "title": {
+    "ru": "Обычные подозреваемые",
+    "en": "The Usual Suspects"
+  },
   "year": 1995,
   "aliases": []
 }

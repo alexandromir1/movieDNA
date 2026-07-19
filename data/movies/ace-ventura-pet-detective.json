@@ -1,7 +1,9 @@
 {
   "id": "movie-ace-ventura-pet-detective",
-  "title": "Эйс Вентура: Розыск домашних животных",
-  "titleOriginal": "Ace Ventura: Pet Detective",
+  "title": {
+    "ru": "Эйс Вентура: Розыск домашних животных",
+    "en": "Ace Ventura: Pet Detective"
+  },
   "year": 1994,
   "aliases": []
 }

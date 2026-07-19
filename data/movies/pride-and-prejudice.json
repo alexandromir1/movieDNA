@@ -1,7 +1,9 @@
 {
   "id": "movie-pride-and-prejudice",
-  "title": "Гордость и предубеждение",
-  "titleOriginal": "Pride & Prejudice",
+  "title": {
+    "ru": "Гордость и предубеждение",
+    "en": "Pride & Prejudice"
+  },
   "year": 2005,
   "aliases": []
 }

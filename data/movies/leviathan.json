@@ -1,7 +1,9 @@
 {
   "id": "movie-leviathan",
-  "title": "Левиафан",
-  "titleOriginal": "Leviathan",
+  "title": {
+    "ru": "Левиафан",
+    "en": "Leviathan"
+  },
   "year": 2014,
   "aliases": []
 }

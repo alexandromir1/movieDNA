@@ -1,7 +1,9 @@
 {
   "id": "movie-howls-moving-castle",
-  "title": "Ходячий замок",
-  "titleOriginal": "Howl's Moving Castle",
+  "title": {
+    "ru": "Ходячий замок",
+    "en": "Howl's Moving Castle"
+  },
   "year": 2004,
   "aliases": []
 }

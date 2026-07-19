@@ -1,7 +1,9 @@
 {
   "id": "movie-brat",
-  "title": "Брат",
-  "titleOriginal": "Brat",
+  "title": {
+    "ru": "Брат",
+    "en": "Brat"
+  },
   "year": 1997,
   "aliases": []
 }

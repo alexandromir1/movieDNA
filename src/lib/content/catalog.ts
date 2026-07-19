@@ -4,6 +4,8 @@ import {
   loadAllMovies,
 } from "@/lib/content/load-fs";
 import { getChallengeScheduleBucket } from "@/lib/content/schedule";
+import { localize } from "@/lib/i18n/localize";
+import { DEFAULT_LOCALE, type Locale, type LocalizedString } from "@/lib/i18n/types";
 import { getUtcDateString } from "@/lib/game/daily";
 import searchCatalog from "../../../data/movies/search-catalog.json";
 
@@ -17,6 +19,12 @@ export interface ChallengeBundle {
 
 /** @deprecated используй ChallengeBundle */
 export type PublishedChallengeBundle = ChallengeBundle;
+
+export interface SearchCatalogEntry {
+  id: string;
+  title: LocalizedString;
+  year: number;
+}
 
 function movies(): Movie[] {
   return loadAllMovies();
@@ -136,61 +144,57 @@ export function getPublishedChallenges(): Challenge[] {
   return getScheduledChallenges();
 }
 
+function filmKey(title: LocalizedString, year: number): string {
+  return `${localize(title, "en").toLowerCase()}|${year}`;
+}
+
+function filmNameEn(title: LocalizedString): string {
+  return localize(title, "en").toLowerCase().trim();
+}
+
 /**
- * Каталог для автодополнения: ~500 фильмов (RU + EN) + playable movies.
- * Playable побеждает дубликаты каталога (тот же titleOriginal, год ±2 или IMDb-запись).
+ * Каталог для автодополнения: search-catalog + playable.
+ * Playable побеждает IMDb-клоны / год ±2.
  */
-export function getMovieSearchCatalog(): Array<{
-  id: string;
-  title: string;
-  titleOriginal: string | null;
-  year: number;
-}> {
-  type Entry = {
-    id: string;
-    title: string;
-    titleOriginal: string | null;
-    year: number;
-  };
-
-  const byKey = new Map<string, Entry>();
-
-  const filmName = (entry: Entry) =>
-    (entry.titleOriginal ?? entry.title).toLowerCase().trim();
-
-  const exactKey = (entry: Entry) => `${filmName(entry)}|${entry.year}`;
-
+export function getMovieSearchCatalog(): SearchCatalogEntry[] {
+  const byKey = new Map<string, SearchCatalogEntry>();
   const isImdbCatalogId = (id: string) => /^movie-tt\d+/i.test(id);
 
-  for (const movie of searchCatalog as Entry[]) {
-    const entry: Entry = {
+  for (const movie of searchCatalog as SearchCatalogEntry[]) {
+    byKey.set(filmKey(movie.title, movie.year), {
       id: movie.id,
       title: movie.title,
-      titleOriginal: movie.titleOriginal,
       year: movie.year,
-    };
-    byKey.set(exactKey(entry), entry);
+    });
   }
 
   for (const movie of movies()) {
-    if (!movie.title.trim() && !movie.titleOriginal?.trim()) continue;
-    const entry: Entry = {
+    const title = movie.title;
+    if (!localize(title, DEFAULT_LOCALE).trim()) continue;
+    const entry: SearchCatalogEntry = {
       id: movie.id,
-      title: movie.title || movie.titleOriginal || movie.id,
-      titleOriginal: movie.titleOriginal,
+      title,
       year: movie.year,
     };
 
     for (const [key, existing] of [...byKey.entries()]) {
-      if (filmName(existing) !== filmName(entry)) continue;
+      if (filmNameEn(existing.title) !== filmNameEn(entry.title)) continue;
       const yearClose = Math.abs(existing.year - entry.year) <= 2;
       if (yearClose || isImdbCatalogId(existing.id)) {
         byKey.delete(key);
       }
     }
 
-    byKey.set(exactKey(entry), entry);
+    byKey.set(filmKey(entry.title, entry.year), entry);
   }
 
   return Array.from(byKey.values());
+}
+
+/** Подпись для UI поиска в выбранной локали. */
+export function formatSearchLabel(
+  entry: SearchCatalogEntry,
+  locale: Locale,
+): string {
+  return `${localize(entry.title, locale)} (${entry.year})`;
 }

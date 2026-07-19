@@ -1,7 +1,9 @@
 {
   "id": "movie-blade-runner",
-  "title": "Бегущий по лезвию",
-  "titleOriginal": "Blade Runner",
+  "title": {
+    "ru": "Бегущий по лезвию",
+    "en": "Blade Runner"
+  },
   "year": 1982,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-mrs-doubtfire",
-  "title": "Миссис Даутфайр",
-  "titleOriginal": "Mrs. Doubtfire",
+  "title": {
+    "ru": "Миссис Даутфайр",
+    "en": "Mrs. Doubtfire"
+  },
   "year": 1993,
   "aliases": []
 }

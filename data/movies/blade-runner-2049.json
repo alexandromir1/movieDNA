@@ -1,7 +1,9 @@
 {
   "id": "movie-blade-runner-2049",
-  "title": "Бегущий по лезвию 2049",
-  "titleOriginal": "Blade Runner 2049",
+  "title": {
+    "ru": "Бегущий по лезвию 2049",
+    "en": "Blade Runner 2049"
+  },
   "year": 2017,
   "aliases": []
 }

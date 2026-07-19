@@ -1,7 +1,9 @@
 {
   "id": "movie-cinema-paradiso",
-  "title": "Новый кинотеатр «Парадизо»",
-  "titleOriginal": "Cinema Paradiso",
+  "title": {
+    "ru": "Новый кинотеатр «Парадизо»",
+    "en": "Cinema Paradiso"
+  },
   "year": 1988,
   "aliases": []
 }

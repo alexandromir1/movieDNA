@@ -1,7 +1,9 @@
 {
   "id": "movie-rambo-first-blood",
-  "title": "Первая кровь",
-  "titleOriginal": "First Blood",
+  "title": {
+    "ru": "Первая кровь",
+    "en": "First Blood"
+  },
   "year": 1982,
   "aliases": []
 }

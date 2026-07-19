@@ -1,7 +1,9 @@
 {
   "id": "movie-wreck-it-ralph",
-  "title": "Ральф",
-  "titleOriginal": "Wreck-It Ralph",
+  "title": {
+    "ru": "Ральф",
+    "en": "Wreck-It Ralph"
+  },
   "year": 2012,
   "aliases": []
 }

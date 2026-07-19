@@ -1,7 +1,9 @@
 {
   "id": "movie-american-pie",
-  "title": "Американский пирог",
-  "titleOriginal": "American Pie",
+  "title": {
+    "ru": "Американский пирог",
+    "en": "American Pie"
+  },
   "year": 1999,
   "aliases": []
 }

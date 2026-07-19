@@ -1,7 +1,9 @@
 {
   "id": "movie-life-of-pi",
-  "title": "Жизнь Пи",
-  "titleOriginal": "Life of Pi",
+  "title": {
+    "ru": "Жизнь Пи",
+    "en": "Life of Pi"
+  },
   "year": 2012,
   "aliases": []
 }

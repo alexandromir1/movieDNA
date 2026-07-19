@@ -1,7 +1,9 @@
 {
   "id": "movie-elf",
-  "title": "Эльф",
-  "titleOriginal": "Elf",
+  "title": {
+    "ru": "Эльф",
+    "en": "Elf"
+  },
   "year": 2003,
   "aliases": []
 }

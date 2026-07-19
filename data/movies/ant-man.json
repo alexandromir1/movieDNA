@@ -1,7 +1,9 @@
 {
   "id": "movie-ant-man",
-  "title": "Человек-муравей",
-  "titleOriginal": "Ant-Man",
+  "title": {
+    "ru": "Человек-муравей",
+    "en": "Ant-Man"
+  },
   "year": 2015,
   "aliases": []
 }

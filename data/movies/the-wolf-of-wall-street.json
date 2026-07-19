@@ -1,12 +1,17 @@
 {
   "id": "movie-the-wolf-of-wall-street",
-  "title": "Волк с Уолл-стрит",
-  "titleOriginal": "The Wolf of Wall Street",
+  "title": {
+    "ru": "Волк с Уолл-стрит",
+    "en": "The Wolf of Wall Street"
+  },
   "year": 2013,
   "aliases": [],
   "recommendations": [
     {
-      "title": "💰 Если нравятся истории о больших деньгах",
+      "title": {
+        "ru": "💰 Если нравятся истории о больших деньгах",
+        "en": "💰 If you like big-money stories"
+      },
       "items": [
         {
           "movieId": "movie-the-big-short"
@@ -20,7 +25,10 @@
       ]
     },
     {
-      "title": "🎩 Если хочется харизматичных антигероев",
+      "title": {
+        "ru": "🎩 Если хочется харизматичных антигероев",
+        "en": "🎩 If you want charismatic antiheroes"
+      },
       "items": [
         {
           "movieId": "movie-catch-me-if-you-can"
@@ -34,7 +42,10 @@
       ]
     },
     {
-      "title": "🎬 Если нравится Мартин Скорсезе",
+      "title": {
+        "ru": "🎬 Если нравится Мартин Скорсезе",
+        "en": "🎬 If you like Martin Scorsese"
+      },
       "items": [
         {
           "movieId": "movie-goodfellas"

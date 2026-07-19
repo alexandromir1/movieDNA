@@ -1,7 +1,9 @@
 {
   "id": "movie-avengers-age-of-ultron",
-  "title": "Мстители: Эра Альтрона",
-  "titleOriginal": "Avengers: Age of Ultron",
+  "title": {
+    "ru": "Мстители: Эра Альтрона",
+    "en": "Avengers: Age of Ultron"
+  },
   "year": 2015,
   "aliases": []
 }

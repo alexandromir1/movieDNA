@@ -1,7 +1,9 @@
 {
   "id": "movie-miss-peregrines-home-for-peculiar-children",
-  "title": "Дом странных детей мисс Перегрин",
-  "titleOriginal": "Miss Peregrine's Home for Peculiar Children",
+  "title": {
+    "ru": "Дом странных детей мисс Перегрин",
+    "en": "Miss Peregrine's Home for Peculiar Children"
+  },
   "year": 2016,
   "aliases": []
 }

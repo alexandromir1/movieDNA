@@ -1,7 +1,9 @@
 {
   "id": "movie-stilyagi",
-  "title": "Стиляги",
-  "titleOriginal": "Stilyagi",
+  "title": {
+    "ru": "Стиляги",
+    "en": "Stilyagi"
+  },
   "year": 2008,
   "aliases": []
 }

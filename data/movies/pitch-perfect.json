@@ -1,7 +1,9 @@
 {
   "id": "movie-pitch-perfect",
-  "title": "Идеальный голос",
-  "titleOriginal": "Pitch Perfect",
+  "title": {
+    "ru": "Идеальный голос",
+    "en": "Pitch Perfect"
+  },
   "year": 2012,
   "aliases": []
 }

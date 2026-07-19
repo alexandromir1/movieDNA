@@ -1,7 +1,9 @@
 {
   "id": "movie-tombstone",
-  "title": "Тумстоун",
-  "titleOriginal": "Tombstone",
+  "title": {
+    "ru": "Тумстоун",
+    "en": "Tombstone"
+  },
   "year": 1993,
   "aliases": []
 }

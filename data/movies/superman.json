@@ -1,7 +1,9 @@
 {
   "id": "movie-superman",
-  "title": "Супермен",
-  "titleOriginal": "Superman",
+  "title": {
+    "ru": "Супермен",
+    "en": "Superman"
+  },
   "year": 1978,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-the-fault-in-our-stars",
-  "title": "Виноваты звёзды",
-  "titleOriginal": "The Fault in Our Stars",
+  "title": {
+    "ru": "Виноваты звёзды",
+    "en": "The Fault in Our Stars"
+  },
   "year": 2014,
   "aliases": []
 }

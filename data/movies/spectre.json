@@ -1,7 +1,9 @@
 {
   "id": "movie-spectre",
-  "title": "007: Спектр",
-  "titleOriginal": "Spectre",
+  "title": {
+    "ru": "007: Спектр",
+    "en": "Spectre"
+  },
   "year": 2015,
   "aliases": []
 }

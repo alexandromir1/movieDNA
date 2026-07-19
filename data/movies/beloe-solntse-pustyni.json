@@ -1,7 +1,9 @@
 {
   "id": "movie-beloe-solntse-pustyni",
-  "title": "Белое солнце пустыни",
-  "titleOriginal": "Beloe solntse pustyni",
+  "title": {
+    "ru": "Белое солнце пустыни",
+    "en": "Beloe solntse pustyni"
+  },
   "year": 1970,
   "aliases": []
 }

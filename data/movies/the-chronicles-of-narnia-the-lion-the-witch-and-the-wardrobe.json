@@ -1,7 +1,9 @@
 {
   "id": "movie-the-chronicles-of-narnia-the-lion-the-witch-and-the-wardrobe",
-  "title": "Хроники Нарнии: Лев, колдунья и волшебный шкаф",
-  "titleOriginal": "The Chronicles of Narnia: The Lion, the Witch and the Wardrobe",
+  "title": {
+    "ru": "Хроники Нарнии: Лев, колдунья и волшебный шкаф",
+    "en": "The Chronicles of Narnia: The Lion, the Witch and the Wardrobe"
+  },
   "year": 2005,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-no-time-to-die",
-  "title": "Не время умирать",
-  "titleOriginal": "No Time to Die",
+  "title": {
+    "ru": "Не время умирать",
+    "en": "No Time to Die"
+  },
   "year": 2021,
   "aliases": []
 }

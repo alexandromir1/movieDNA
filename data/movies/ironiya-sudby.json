@@ -1,7 +1,9 @@
 {
   "id": "movie-ironiya-sudby",
-  "title": "Ирония судьбы, или С лёгким паром!",
-  "titleOriginal": "Ironiya sudby, ili S lyogkim parom!",
+  "title": {
+    "ru": "Ирония судьбы, или С лёгким паром!",
+    "en": "Ironiya sudby, ili S lyogkim parom!"
+  },
   "year": 1975,
   "aliases": []
 }

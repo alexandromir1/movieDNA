@@ -1,7 +1,9 @@
 {
   "id": "movie-the-dark-knight-returns",
-  "title": "Возвращение Тёмного рыцаря",
-  "titleOriginal": "Batman: The Dark Knight Returns",
+  "title": {
+    "ru": "Возвращение Тёмного рыцаря",
+    "en": "Batman: The Dark Knight Returns"
+  },
   "year": 2012,
   "aliases": []
 }

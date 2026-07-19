@@ -1,7 +1,9 @@
 {
   "id": "movie-unforgiven",
-  "title": "Непрощённый",
-  "titleOriginal": "Unforgiven",
+  "title": {
+    "ru": "Непрощённый",
+    "en": "Unforgiven"
+  },
   "year": 1992,
   "aliases": []
 }

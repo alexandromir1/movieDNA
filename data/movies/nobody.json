@@ -1,7 +1,9 @@
 {
   "id": "movie-nobody",
-  "title": "Никто",
-  "titleOriginal": "Nobody",
+  "title": {
+    "ru": "Никто",
+    "en": "Nobody"
+  },
   "year": 2021,
   "aliases": []
 }

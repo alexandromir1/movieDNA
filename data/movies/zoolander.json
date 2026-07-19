@@ -1,7 +1,9 @@
 {
   "id": "movie-zoolander",
-  "title": "Образцовый самец",
-  "titleOriginal": "Zoolander",
+  "title": {
+    "ru": "Образцовый самец",
+    "en": "Zoolander"
+  },
   "year": 2001,
   "aliases": []
 }

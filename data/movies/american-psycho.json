@@ -1,7 +1,9 @@
 {
   "id": "movie-american-psycho",
-  "title": "Американский психопат",
-  "titleOriginal": "American Psycho",
+  "title": {
+    "ru": "Американский психопат",
+    "en": "American Psycho"
+  },
   "year": 2000,
   "aliases": []
 }

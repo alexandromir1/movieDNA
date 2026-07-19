@@ -1,7 +1,9 @@
 {
   "id": "movie-fantastic-beasts-and-where-to-find-them",
-  "title": "Фантастические твари и где они обитают",
-  "titleOriginal": "Fantastic Beasts and Where to Find Them",
+  "title": {
+    "ru": "Фантастические твари и где они обитают",
+    "en": "Fantastic Beasts and Where to Find Them"
+  },
   "year": 2016,
   "aliases": []
 }

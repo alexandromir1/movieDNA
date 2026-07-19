@@ -1,12 +1,17 @@
 {
   "id": "movie-terminator-2",
-  "title": "Терминатор 2: Судный день",
-  "titleOriginal": "Terminator 2: Judgment Day",
+  "title": {
+    "ru": "Терминатор 2: Судный день",
+    "en": "Terminator 2: Judgment Day"
+  },
   "year": 1991,
   "aliases": [],
   "recommendations": [
     {
-      "title": "🤖 Если хочется фантастического экшена",
+      "title": {
+        "ru": "🤖 Если хочется фантастического экшена",
+        "en": "🤖 If you want sci-fi action"
+      },
       "items": [
         {
           "movieId": "movie-robocop"
@@ -20,7 +25,10 @@
       ]
     },
     {
-      "title": "⏳ Если нравятся путешествия во времени",
+      "title": {
+        "ru": "⏳ Если нравятся путешествия во времени",
+        "en": "⏳ If you like time-travel stories"
+      },
       "items": [
         {
           "movieId": "movie-predestination"
@@ -34,7 +42,10 @@
       ]
     },
     {
-      "title": "🎬 Если нравится Джеймс Кэмерон",
+      "title": {
+        "ru": "🎬 Если нравится Джеймс Кэмерон",
+        "en": "🎬 If you like James Cameron"
+      },
       "items": [
         {
           "movieId": "movie-avatar"

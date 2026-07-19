@@ -41,7 +41,7 @@ export interface GuessResult {
 
 export interface MovieSuggestion {
   id: string;
+  /** Уже локализованное название для текущей UI-локали */
   title: string;
-  titleOriginal: string | null;
   year: number;
 }

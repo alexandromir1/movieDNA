@@ -1,7 +1,9 @@
 {
   "id": "movie-the-number-23",
-  "title": "Роковое число 23",
-  "titleOriginal": "The Number 23",
+  "title": {
+    "ru": "Роковое число 23",
+    "en": "The Number 23"
+  },
   "year": 2007,
   "aliases": []
 }

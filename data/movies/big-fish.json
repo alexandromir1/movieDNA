@@ -1,7 +1,9 @@
 {
   "id": "movie-big-fish",
-  "title": "Крупная рыба",
-  "titleOriginal": "Big Fish",
+  "title": {
+    "ru": "Крупная рыба",
+    "en": "Big Fish"
+  },
   "year": 2003,
   "aliases": []
 }

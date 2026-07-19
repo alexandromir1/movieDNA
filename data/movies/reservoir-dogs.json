@@ -1,7 +1,9 @@
 {
   "id": "movie-reservoir-dogs",
-  "title": "Бешеные псы",
-  "titleOriginal": "Reservoir Dogs",
+  "title": {
+    "ru": "Бешеные псы",
+    "en": "Reservoir Dogs"
+  },
   "year": 1992,
   "aliases": []
 }

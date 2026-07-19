@@ -1,7 +1,9 @@
 {
   "id": "movie-jumanji",
-  "title": "Джуманджи",
-  "titleOriginal": "Jumanji",
+  "title": {
+    "ru": "Джуманджи",
+    "en": "Jumanji"
+  },
   "year": 1995,
   "aliases": []
 }

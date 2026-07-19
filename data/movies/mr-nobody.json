@@ -1,7 +1,9 @@
 {
   "id": "movie-mr-nobody",
-  "title": "Господин Никто",
-  "titleOriginal": "Mr. Nobody",
+  "title": {
+    "ru": "Господин Никто",
+    "en": "Mr. Nobody"
+  },
   "year": 2009,
   "aliases": []
 }

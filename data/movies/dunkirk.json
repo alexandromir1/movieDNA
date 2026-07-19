@@ -1,7 +1,9 @@
 {
   "id": "movie-dunkirk",
-  "title": "Дюнкерк",
-  "titleOriginal": "Dunkirk",
+  "title": {
+    "ru": "Дюнкерк",
+    "en": "Dunkirk"
+  },
   "year": 2017,
   "aliases": []
 }

@@ -1,12 +1,17 @@
 {
   "id": "movie-matrix",
-  "title": "Матрица",
-  "titleOriginal": "The Matrix",
+  "title": {
+    "ru": "Матрица",
+    "en": "The Matrix"
+  },
   "year": 1999,
   "aliases": [],
   "recommendations": [
     {
-      "title": "💊 Если хочется ещё больше вопросов о реальности",
+      "title": {
+        "ru": "💊 Если хочется ещё больше вопросов о реальности",
+        "en": "💊 If you want more questions about reality"
+      },
       "items": [
         {
           "movieId": "movie-truman-show"
@@ -20,7 +25,10 @@
       ]
     },
     {
-      "title": "🤖 Если нравится киберпанк",
+      "title": {
+        "ru": "🤖 Если нравится киберпанк",
+        "en": "🤖 If you like cyberpunk"
+      },
       "items": [
         {
           "movieId": "movie-blade-runner-2049"
@@ -34,7 +42,10 @@
       ]
     },
     {
-      "title": "🎬 Если нравятся революционные фантастические фильмы",
+      "title": {
+        "ru": "🎬 Если нравятся революционные фантастические фильмы",
+        "en": "🎬 If you like groundbreaking sci-fi"
+      },
       "items": [
         {
           "movieId": "movie-inception"

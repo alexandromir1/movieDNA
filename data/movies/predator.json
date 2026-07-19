@@ -1,7 +1,9 @@
 {
   "id": "movie-predator",
-  "title": "Хищник",
-  "titleOriginal": "Predator",
+  "title": {
+    "ru": "Хищник",
+    "en": "Predator"
+  },
   "year": 1987,
   "aliases": []
 }

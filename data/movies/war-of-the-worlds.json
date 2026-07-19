@@ -1,7 +1,9 @@
 {
   "id": "movie-war-of-the-worlds",
-  "title": "Война миров",
-  "titleOriginal": "War of the Worlds",
+  "title": {
+    "ru": "Война миров",
+    "en": "War of the Worlds"
+  },
   "year": 2005,
   "aliases": []
 }

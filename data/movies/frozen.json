@@ -1,7 +1,9 @@
 {
   "id": "movie-frozen",
-  "title": "Холодное сердце",
-  "titleOriginal": "Frozen",
+  "title": {
+    "ru": "Холодное сердце",
+    "en": "Frozen"
+  },
   "year": 2013,
   "aliases": []
 }

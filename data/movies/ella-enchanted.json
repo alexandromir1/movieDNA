@@ -1,7 +1,9 @@
 {
   "id": "movie-ella-enchanted",
-  "title": "Заколдованная Элла",
-  "titleOriginal": "Ella Enchanted",
+  "title": {
+    "ru": "Заколдованная Элла",
+    "en": "Ella Enchanted"
+  },
   "year": 2004,
   "aliases": []
 }

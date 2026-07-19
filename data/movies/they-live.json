@@ -1,7 +1,9 @@
 {
   "id": "movie-they-live",
-  "title": "Они живут",
-  "titleOriginal": "They Live",
+  "title": {
+    "ru": "Они живут",
+    "en": "They Live"
+  },
   "year": 1988,
   "aliases": []
 }

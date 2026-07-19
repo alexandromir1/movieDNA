@@ -1,7 +1,9 @@
 {
   "id": "movie-skyfall",
-  "title": "007: Координаты «Скайфолл»",
-  "titleOriginal": "Skyfall",
+  "title": {
+    "ru": "007: Координаты «Скайфолл»",
+    "en": "Skyfall"
+  },
   "year": 2012,
   "aliases": []
 }

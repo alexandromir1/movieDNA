@@ -1,7 +1,9 @@
 {
   "id": "movie-vertigo",
-  "title": "Головокружение",
-  "titleOriginal": "Vertigo",
+  "title": {
+    "ru": "Головокружение",
+    "en": "Vertigo"
+  },
   "year": 1958,
   "aliases": []
 }

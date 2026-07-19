@@ -1,7 +1,9 @@
 {
   "id": "movie-in-the-heart-of-the-sea",
-  "title": "В сердце моря",
-  "titleOriginal": "In the Heart of the Sea",
+  "title": {
+    "ru": "В сердце моря",
+    "en": "In the Heart of the Sea"
+  },
   "year": 2015,
   "aliases": []
 }

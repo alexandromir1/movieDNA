@@ -1,7 +1,9 @@
 {
   "id": "movie-cars",
-  "title": "Тачки",
-  "titleOriginal": "Cars",
+  "title": {
+    "ru": "Тачки",
+    "en": "Cars"
+  },
   "year": 2006,
   "aliases": []
 }

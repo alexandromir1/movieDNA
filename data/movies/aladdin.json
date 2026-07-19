@@ -1,7 +1,9 @@
 {
   "id": "movie-aladdin",
-  "title": "Аладдин",
-  "titleOriginal": "Aladdin",
+  "title": {
+    "ru": "Аладдин",
+    "en": "Aladdin"
+  },
   "year": 1992,
   "aliases": []
 }

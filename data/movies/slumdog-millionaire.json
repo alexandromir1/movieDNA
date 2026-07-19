@@ -1,7 +1,9 @@
 {
   "id": "movie-slumdog-millionaire",
-  "title": "Миллионер из трущоб",
-  "titleOriginal": "Slumdog Millionaire",
+  "title": {
+    "ru": "Миллионер из трущоб",
+    "en": "Slumdog Millionaire"
+  },
   "year": 2008,
   "aliases": []
 }

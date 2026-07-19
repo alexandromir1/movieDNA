@@ -1,7 +1,9 @@
 {
   "id": "movie-the-incredibles",
-  "title": "Суперсемейка",
-  "titleOriginal": "The Incredibles",
+  "title": {
+    "ru": "Суперсемейка",
+    "en": "The Incredibles"
+  },
   "year": 2004,
   "aliases": []
 }

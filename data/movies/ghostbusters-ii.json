@@ -1,7 +1,9 @@
 {
   "id": "movie-ghostbusters-ii",
-  "title": "Охотники за привидениями 2",
-  "titleOriginal": "Ghostbusters II",
+  "title": {
+    "ru": "Охотники за привидениями 2",
+    "en": "Ghostbusters II"
+  },
   "year": 1989,
   "aliases": []
 }

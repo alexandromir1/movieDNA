@@ -1,7 +1,9 @@
 {
   "id": "movie-hero",
-  "title": "Герой",
-  "titleOriginal": "Hero",
+  "title": {
+    "ru": "Герой",
+    "en": "Hero"
+  },
   "year": 2002,
   "aliases": []
 }

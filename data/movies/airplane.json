@@ -1,7 +1,9 @@
 {
   "id": "movie-airplane",
-  "title": "Аэроплан!",
-  "titleOriginal": "Airplane!",
+  "title": {
+    "ru": "Аэроплан!",
+    "en": "Airplane!"
+  },
   "year": 1980,
   "aliases": []
 }

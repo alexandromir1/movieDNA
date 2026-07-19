@@ -1,7 +1,9 @@
 {
   "id": "movie-rain-man",
-  "title": "Человек дождя",
-  "titleOriginal": "Rain Man",
+  "title": {
+    "ru": "Человек дождя",
+    "en": "Rain Man"
+  },
   "year": 1988,
   "aliases": []
 }

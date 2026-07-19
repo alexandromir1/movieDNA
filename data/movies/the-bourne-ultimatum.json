@@ -1,7 +1,9 @@
 {
   "id": "movie-the-bourne-ultimatum",
-  "title": "Ультиматум Борна",
-  "titleOriginal": "The Bourne Ultimatum",
+  "title": {
+    "ru": "Ультиматум Борна",
+    "en": "The Bourne Ultimatum"
+  },
   "year": 2007,
   "aliases": []
 }

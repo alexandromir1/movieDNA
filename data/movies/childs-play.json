@@ -1,7 +1,9 @@
 {
   "id": "movie-childs-play",
-  "title": "Детские игры",
-  "titleOriginal": "Child's Play",
+  "title": {
+    "ru": "Детские игры",
+    "en": "Child's Play"
+  },
   "year": 1988,
   "aliases": []
 }

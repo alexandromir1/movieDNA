@@ -1,7 +1,9 @@
 {
   "id": "movie-chicago",
-  "title": "Чикаго",
-  "titleOriginal": "Chicago",
+  "title": {
+    "ru": "Чикаго",
+    "en": "Chicago"
+  },
   "year": 2002,
   "aliases": []
 }

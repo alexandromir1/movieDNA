@@ -1,7 +1,9 @@
 {
   "id": "movie-goldfinger",
-  "title": "Голдфингер",
-  "titleOriginal": "Goldfinger",
+  "title": {
+    "ru": "Голдфингер",
+    "en": "Goldfinger"
+  },
   "year": 1964,
   "aliases": []
 }

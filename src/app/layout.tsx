@@ -6,6 +6,10 @@ import { AnalyticsBootstrap } from "@/components/analytics/AnalyticsBootstrap";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { siteConfig } from "@/config/site";
+import { LocaleProvider } from "@/lib/i18n/LocaleProvider";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { en } from "@/locales/en";
+import { ru } from "@/locales/ru";
 
 import "./globals.css";
 
@@ -33,23 +37,29 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getRequestLocale();
+  const description =
+    locale === "en" ? en.brand.description : ru.brand.description;
+
   return (
     <html
-      lang="ru"
+      lang={locale}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-[#0e0e10] font-sans text-white">
-        <AnalyticsBootstrap />
-        <PersistenceGuard>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </PersistenceGuard>
+        <LocaleProvider initialLocale={locale}>
+          <AnalyticsBootstrap />
+          <PersistenceGuard>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer description={description} />
+          </PersistenceGuard>
+        </LocaleProvider>
       </body>
     </html>
   );

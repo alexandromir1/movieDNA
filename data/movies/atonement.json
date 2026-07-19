@@ -1,7 +1,9 @@
 {
   "id": "movie-atonement",
-  "title": "Искупление",
-  "titleOriginal": "Atonement",
+  "title": {
+    "ru": "Искупление",
+    "en": "Atonement"
+  },
   "year": 2007,
   "aliases": []
 }

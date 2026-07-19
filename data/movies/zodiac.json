@@ -1,7 +1,9 @@
 {
   "id": "movie-zodiac",
-  "title": "Зодиак",
-  "titleOriginal": "Zodiac",
+  "title": {
+    "ru": "Зодиак",
+    "en": "Zodiac"
+  },
   "year": 2007,
   "aliases": []
 }

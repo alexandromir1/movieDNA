@@ -1,7 +1,9 @@
 {
   "id": "movie-hocus-pocus",
-  "title": "Фокус-покус",
-  "titleOriginal": "Hocus Pocus",
+  "title": {
+    "ru": "Фокус-покус",
+    "en": "Hocus Pocus"
+  },
   "year": 1993,
   "aliases": []
 }

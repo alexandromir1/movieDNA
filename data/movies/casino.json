@@ -1,7 +1,9 @@
 {
   "id": "movie-casino",
-  "title": "Казино",
-  "titleOriginal": "Casino",
+  "title": {
+    "ru": "Казино",
+    "en": "Casino"
+  },
   "year": 1995,
   "aliases": []
 }

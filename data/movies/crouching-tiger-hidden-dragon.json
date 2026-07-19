@@ -1,7 +1,9 @@
 {
   "id": "movie-crouching-tiger-hidden-dragon",
-  "title": "Крадущийся тигр, затаившийся дракон",
-  "titleOriginal": "Crouching Tiger, Hidden Dragon",
+  "title": {
+    "ru": "Крадущийся тигр, затаившийся дракон",
+    "en": "Crouching Tiger, Hidden Dragon"
+  },
   "year": 2000,
   "aliases": []
 }

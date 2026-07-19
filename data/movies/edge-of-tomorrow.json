@@ -1,7 +1,9 @@
 {
   "id": "movie-edge-of-tomorrow",
-  "title": "Грань будущего",
-  "titleOriginal": "Edge of Tomorrow",
+  "title": {
+    "ru": "Грань будущего",
+    "en": "Edge of Tomorrow"
+  },
   "year": 2014,
   "aliases": []
 }

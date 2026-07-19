@@ -1,7 +1,9 @@
 {
   "id": "movie-the-expendables",
-  "title": "Неудержимые",
-  "titleOriginal": "The Expendables",
+  "title": {
+    "ru": "Неудержимые",
+    "en": "The Expendables"
+  },
   "year": 2010,
   "aliases": []
 }

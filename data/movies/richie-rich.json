@@ -1,7 +1,9 @@
 {
   "id": "movie-richie-rich",
-  "title": "Богатенький Ричи",
-  "titleOriginal": "Richie Rich",
+  "title": {
+    "ru": "Богатенький Ричи",
+    "en": "Richie Rich"
+  },
   "year": 1994,
   "aliases": []
 }

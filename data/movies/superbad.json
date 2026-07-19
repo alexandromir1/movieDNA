@@ -1,7 +1,9 @@
 {
   "id": "movie-superbad",
-  "title": "Суперплохие",
-  "titleOriginal": "Superbad",
+  "title": {
+    "ru": "Суперплохие",
+    "en": "Superbad"
+  },
   "year": 2007,
   "aliases": []
 }

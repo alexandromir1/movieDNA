@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { getArchiveList } from "@/actions/game";
+import { ArchivePageHeader } from "@/components/archive/ArchivePageHeader";
 import { PlayerArchiveList } from "@/components/archive/PlayerArchiveList";
 import { Container } from "@/components/layout/Container";
 
@@ -17,12 +18,7 @@ export default async function ArchivePage() {
 
   return (
     <Container className="max-w-lg">
-      <h1 className="text-2xl font-bold text-white">Архив</h1>
-      <p className="mt-2 mb-7 text-sm text-white/40">
-        Продолжи игру: наверстай вчера или любой пропущенный день. Один раз на
-        Challenge.
-      </p>
-
+      <ArchivePageHeader />
       <PlayerArchiveList items={items} />
     </Container>
   );

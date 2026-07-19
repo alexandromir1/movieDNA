@@ -1,7 +1,9 @@
 {
   "id": "movie-guardians-of-the-galaxy-vol-2",
-  "title": "Стражи Галактики. Часть 2",
-  "titleOriginal": "Guardians of the Galaxy Vol. 2",
+  "title": {
+    "ru": "Стражи Галактики. Часть 2",
+    "en": "Guardians of the Galaxy Vol. 2"
+  },
   "year": 2017,
   "aliases": []
 }

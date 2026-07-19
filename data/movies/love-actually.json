@@ -1,7 +1,9 @@
 {
   "id": "movie-love-actually",
-  "title": "Реальная любовь",
-  "titleOriginal": "Love Actually",
+  "title": {
+    "ru": "Реальная любовь",
+    "en": "Love Actually"
+  },
   "year": 2003,
   "aliases": []
 }

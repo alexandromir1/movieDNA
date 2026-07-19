@@ -1,7 +1,9 @@
 {
   "id": "movie-contact",
-  "title": "Контакт",
-  "titleOriginal": "Contact",
+  "title": {
+    "ru": "Контакт",
+    "en": "Contact"
+  },
   "year": 1997,
   "aliases": []
 }

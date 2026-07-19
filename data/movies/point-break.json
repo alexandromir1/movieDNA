@@ -1,7 +1,9 @@
 {
   "id": "movie-point-break",
-  "title": "На гребне волны",
-  "titleOriginal": "Point Break",
+  "title": {
+    "ru": "На гребне волны",
+    "en": "Point Break"
+  },
   "year": 1991,
   "aliases": []
 }

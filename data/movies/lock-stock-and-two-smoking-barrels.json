@@ -1,7 +1,9 @@
 {
   "id": "movie-lock-stock-and-two-smoking-barrels",
-  "title": "Карты, деньги, два ствола",
-  "titleOriginal": "Lock, Stock and Two Smoking Barrels",
+  "title": {
+    "ru": "Карты, деньги, два ствола",
+    "en": "Lock, Stock and Two Smoking Barrels"
+  },
   "year": 1998,
   "aliases": []
 }

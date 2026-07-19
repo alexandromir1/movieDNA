@@ -1,7 +1,9 @@
 {
   "id": "movie-independence-day",
-  "title": "День независимости",
-  "titleOriginal": "Independence Day",
+  "title": {
+    "ru": "День независимости",
+    "en": "Independence Day"
+  },
   "year": 1996,
   "aliases": []
 }

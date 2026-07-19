@@ -11,6 +11,7 @@ import {
   resolveChallengePlayStatus,
   type ChallengePlayStatus,
 } from "@/lib/game/play-status";
+import { useLocale } from "@/lib/i18n/LocaleProvider";
 import { cn } from "@/lib/utils/cn";
 
 export interface ChallengeNavItem {
@@ -37,6 +38,7 @@ function hrefForItem(item: ChallengeNavItem): string {
 }
 
 export function ArchiveSidebar({ items, activeDate }: ArchiveSidebarProps) {
+  const { locale, t } = useLocale();
   const pathname = usePathname();
   const today = getUtcDateString();
   const [statuses, setStatuses] = useState<Record<string, ChallengePlayStatus>>(
@@ -65,9 +67,9 @@ export function ArchiveSidebar({ items, activeDate }: ArchiveSidebarProps) {
     return (
       <aside className="w-full shrink-0 lg:w-40">
         <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-white/35">
-          История
+          {t("archive.history")}
         </p>
-        <p className="mt-1.5 text-xs text-white/30">Пока пусто</p>
+        <p className="mt-1.5 text-xs text-white/30">{t("archive.historyEmpty")}</p>
       </aside>
     );
   }
@@ -76,13 +78,13 @@ export function ArchiveSidebar({ items, activeDate }: ArchiveSidebarProps) {
     <aside className="w-full shrink-0 lg:w-40">
       <div className="mb-1 flex items-center justify-between gap-2 lg:mb-2 lg:block">
         <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-white/40">
-          История
+          {t("archive.history")}
         </p>
         <Link
           href={GAME_ROUTES.archive}
           className="text-[10px] text-[var(--accent)]/90 transition-colors hover:text-[var(--accent)] lg:mt-1.5 lg:inline-block lg:text-[11px]"
         >
-          Все →
+          {t("archive.historyAll")}
         </Link>
       </div>
       <ul className="flex gap-1 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] lg:flex-col lg:gap-1 lg:overflow-visible [&::-webkit-scrollbar]:hidden">
@@ -93,7 +95,7 @@ export function ArchiveSidebar({ items, activeDate }: ArchiveSidebarProps) {
             activeDate === item.date ||
             (item.isToday && pathname === "/game") ||
             pathname === `/game/${item.date}`;
-          const label = formatSidebarDateLabel(item.date, today);
+          const label = formatSidebarDateLabel(item.date, today, locale);
           const mark = STATUS_MARK[status];
 
           const className = cn(
@@ -119,7 +121,11 @@ export function ArchiveSidebar({ items, activeDate }: ArchiveSidebarProps) {
                         ? "text-emerald-300/80"
                         : "text-rose-300/70",
                     )}
-                    aria-label={status === "won" ? "пройден" : "проигран"}
+                    aria-label={
+                      status === "won"
+                        ? t("archive.ariaSidebarWon")
+                        : t("archive.ariaSidebarLost")
+                    }
                   >
                     {mark}
                   </span>
@@ -139,7 +145,9 @@ export function ArchiveSidebar({ items, activeDate }: ArchiveSidebarProps) {
                 <span
                   className="font-mono text-[10px] text-white/35 lg:text-xs"
                   aria-label={
-                    status === "in_progress" ? "в процессе" : "не проходил"
+                    status === "in_progress"
+                      ? t("archive.ariaSidebarInProgress")
+                      : t("archive.ariaSidebarAvailable")
                   }
                 >
                   {mark}

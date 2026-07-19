@@ -1,7 +1,9 @@
 {
   "id": "movie-kin-dza-dza",
-  "title": "Кин-дза-дза!",
-  "titleOriginal": "Kin-dza-dza!",
+  "title": {
+    "ru": "Кин-дза-дза!",
+    "en": "Kin-dza-dza!"
+  },
   "year": 1986,
   "aliases": []
 }

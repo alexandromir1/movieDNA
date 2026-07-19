@@ -1,7 +1,9 @@
 {
   "id": "movie-eternal-sunshine-of-the-spotless-mind",
-  "title": "Вечное сияние чистого разума",
-  "titleOriginal": "Eternal Sunshine of the Spotless Mind",
+  "title": {
+    "ru": "Вечное сияние чистого разума",
+    "en": "Eternal Sunshine of the Spotless Mind"
+  },
   "year": 2004,
   "aliases": []
 }

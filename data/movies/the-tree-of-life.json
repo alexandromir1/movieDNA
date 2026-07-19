@@ -1,7 +1,9 @@
 {
   "id": "movie-the-tree-of-life",
-  "title": "Древо жизни",
-  "titleOriginal": "The Tree of Life",
+  "title": {
+    "ru": "Древо жизни",
+    "en": "The Tree of Life"
+  },
   "year": 2011,
   "aliases": []
 }

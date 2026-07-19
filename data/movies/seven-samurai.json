@@ -1,7 +1,9 @@
 {
   "id": "movie-seven-samurai",
-  "title": "Семь самураев",
-  "titleOriginal": "Seven Samurai",
+  "title": {
+    "ru": "Семь самураев",
+    "en": "Seven Samurai"
+  },
   "year": 1954,
   "aliases": []
 }

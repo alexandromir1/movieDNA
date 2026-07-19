@@ -1,7 +1,9 @@
 {
   "id": "movie-now-you-see-me",
-  "title": "Иллюзия обмана",
-  "titleOriginal": "Now You See Me",
+  "title": {
+    "ru": "Иллюзия обмана",
+    "en": "Now You See Me"
+  },
   "year": 2013,
   "aliases": []
 }

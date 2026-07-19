@@ -1,7 +1,9 @@
 {
   "id": "movie-captain-america-civil-war",
-  "title": "Первый мститель: Противостояние",
-  "titleOriginal": "Captain America: Civil War",
+  "title": {
+    "ru": "Первый мститель: Противостояние",
+    "en": "Captain America: Civil War"
+  },
   "year": 2016,
   "aliases": []
 }

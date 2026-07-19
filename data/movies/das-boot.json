@@ -1,7 +1,9 @@
 {
   "id": "movie-das-boot",
-  "title": "Подводная лодка",
-  "titleOriginal": "Das Boot",
+  "title": {
+    "ru": "Подводная лодка",
+    "en": "Das Boot"
+  },
   "year": 1981,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-whiplash",
-  "title": "Одержимость",
-  "titleOriginal": "Whiplash",
+  "title": {
+    "ru": "Одержимость",
+    "en": "Whiplash"
+  },
   "year": 2014,
   "aliases": []
 }

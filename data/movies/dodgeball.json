@@ -1,7 +1,9 @@
 {
   "id": "movie-dodgeball",
-  "title": "Мячом по яйцам",
-  "titleOriginal": "Dodgeball: A True Underdog Story",
+  "title": {
+    "ru": "Мячом по яйцам",
+    "en": "Dodgeball: A True Underdog Story"
+  },
   "year": 2004,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-ex-machina",
-  "title": "Из машины",
-  "titleOriginal": "Ex Machina",
+  "title": {
+    "ru": "Из машины",
+    "en": "Ex Machina"
+  },
   "year": 2014,
   "aliases": []
 }

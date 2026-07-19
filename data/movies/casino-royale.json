@@ -1,7 +1,9 @@
 {
   "id": "movie-casino-royale",
-  "title": "Казино Рояль",
-  "titleOriginal": "Casino Royale",
+  "title": {
+    "ru": "Казино Рояль",
+    "en": "Casino Royale"
+  },
   "year": 2006,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-collateral",
-  "title": "Такси",
-  "titleOriginal": "Collateral",
+  "title": {
+    "ru": "Такси",
+    "en": "Collateral"
+  },
   "year": 2004,
   "aliases": []
 }

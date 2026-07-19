@@ -1,7 +1,9 @@
 {
   "id": "movie-the-untouchables",
-  "title": "Неприкасаемые",
-  "titleOriginal": "The Untouchables",
+  "title": {
+    "ru": "Неприкасаемые",
+    "en": "The Untouchables"
+  },
   "year": 1987,
   "aliases": []
 }

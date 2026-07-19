@@ -1,7 +1,9 @@
 {
   "id": "movie-stalker",
-  "title": "Сталкер",
-  "titleOriginal": "Stalker",
+  "title": {
+    "ru": "Сталкер",
+    "en": "Stalker"
+  },
   "year": 1979,
   "aliases": []
 }

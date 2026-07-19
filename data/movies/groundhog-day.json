@@ -1,7 +1,9 @@
 {
   "id": "movie-groundhog-day",
-  "title": "День сурка",
-  "titleOriginal": "Groundhog Day",
+  "title": {
+    "ru": "День сурка",
+    "en": "Groundhog Day"
+  },
   "year": 1993,
   "aliases": []
 }

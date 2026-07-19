@@ -1,12 +1,17 @@
 {
   "id": "movie-shrek",
-  "title": "Шрек",
-  "titleOriginal": "Shrek",
+  "title": {
+    "ru": "Шрек",
+    "en": "Shrek"
+  },
   "year": 2001,
   "aliases": [],
   "recommendations": [
     {
-      "title": "🐉 Если хочется сказочных приключений",
+      "title": {
+        "ru": "🐉 Если хочется сказочных приключений",
+        "en": "🐉 If you want fairy-tale adventure"
+      },
       "items": [
         {
           "movieId": "movie-how-to-train-your-dragon"
@@ -20,7 +25,10 @@
       ]
     },
     {
-      "title": "😂 Если нравится юмор для взрослых и детей",
+      "title": {
+        "ru": "😂 Если нравится юмор для взрослых и детей",
+        "en": "😂 If you like humor for kids and adults"
+      },
       "items": [
         {
           "movieId": "movie-kung-fu-panda"
@@ -34,7 +42,10 @@
       ]
     },
     {
-      "title": "👑 Если хочется современной сказки",
+      "title": {
+        "ru": "👑 Если хочется современной сказки",
+        "en": "👑 If you want a modern fairy tale"
+      },
       "items": [
         {
           "movieId": "movie-ella-enchanted"

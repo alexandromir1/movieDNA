@@ -1,7 +1,9 @@
 {
   "id": "movie-mad-max-2",
-  "title": "Безумный Макс 2",
-  "titleOriginal": "Mad Max 2",
+  "title": {
+    "ru": "Безумный Макс 2",
+    "en": "Mad Max 2"
+  },
   "year": 1981,
   "aliases": []
 }

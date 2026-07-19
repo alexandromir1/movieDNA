@@ -1,7 +1,9 @@
 {
   "id": "movie-the-mummy",
-  "title": "Мумия",
-  "titleOriginal": "The Mummy",
+  "title": {
+    "ru": "Мумия",
+    "en": "The Mummy"
+  },
   "year": 1999,
   "aliases": []
 }

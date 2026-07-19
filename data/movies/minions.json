@@ -1,7 +1,9 @@
 {
   "id": "movie-minions",
-  "title": "Миньоны",
-  "titleOriginal": "Minions",
+  "title": {
+    "ru": "Миньоны",
+    "en": "Minions"
+  },
   "year": 2015,
   "aliases": []
 }

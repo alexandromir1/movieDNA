@@ -1,7 +1,9 @@
 {
   "id": "movie-star-wars-rogue-one",
-  "title": "Изгой-один. Звёздные войны",
-  "titleOriginal": "Rogue One: A Star Wars Story",
+  "title": {
+    "ru": "Изгой-один. Звёздные войны",
+    "en": "Rogue One: A Star Wars Story"
+  },
   "year": 2016,
   "aliases": []
 }

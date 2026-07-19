@@ -1,7 +1,9 @@
 {
   "id": "movie-prisoner-of-the-caucasus",
-  "title": "Кавказская пленница",
-  "titleOriginal": "Kavkazskaya plennitsa",
+  "title": {
+    "ru": "Кавказская пленница",
+    "en": "Kavkazskaya plennitsa"
+  },
   "year": 1966,
   "aliases": []
 }

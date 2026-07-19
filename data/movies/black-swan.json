@@ -1,7 +1,9 @@
 {
   "id": "movie-black-swan",
-  "title": "Чёрный лебедь",
-  "titleOriginal": "Black Swan",
+  "title": {
+    "ru": "Чёрный лебедь",
+    "en": "Black Swan"
+  },
   "year": 2010,
   "aliases": []
 }

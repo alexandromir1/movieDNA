@@ -1,7 +1,9 @@
 {
   "id": "movie-from-russia-with-love",
-  "title": "Из России с любовью",
-  "titleOriginal": "From Russia with Love",
+  "title": {
+    "ru": "Из России с любовью",
+    "en": "From Russia with Love"
+  },
   "year": 1963,
   "aliases": []
 }

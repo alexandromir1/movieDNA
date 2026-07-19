@@ -1,7 +1,9 @@
 {
   "id": "movie-goldeneye",
-  "title": "Золотой глаз",
-  "titleOriginal": "GoldenEye",
+  "title": {
+    "ru": "Золотой глаз",
+    "en": "GoldenEye"
+  },
   "year": 1995,
   "aliases": []
 }

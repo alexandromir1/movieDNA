@@ -1,7 +1,9 @@
 {
   "id": "movie-rashomon",
-  "title": "Расёмон",
-  "titleOriginal": "Rashomon",
+  "title": {
+    "ru": "Расёмон",
+    "en": "Rashomon"
+  },
   "year": 1950,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-the-princess-bride",
-  "title": "Принцесса-невеста",
-  "titleOriginal": "The Princess Bride",
+  "title": {
+    "ru": "Принцесса-невеста",
+    "en": "The Princess Bride"
+  },
   "year": 1987,
   "aliases": []
 }

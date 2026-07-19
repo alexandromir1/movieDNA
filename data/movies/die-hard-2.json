@@ -1,7 +1,9 @@
 {
   "id": "movie-die-hard-2",
-  "title": "Крепкий орешек 2",
-  "titleOriginal": "Die Hard 2",
+  "title": {
+    "ru": "Крепкий орешек 2",
+    "en": "Die Hard 2"
+  },
   "year": 1990,
   "aliases": []
 }

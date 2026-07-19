@@ -1,7 +1,9 @@
 {
   "id": "movie-john-wick",
-  "title": "Джон Уик",
-  "titleOriginal": "John Wick",
+  "title": {
+    "ru": "Джон Уик",
+    "en": "John Wick"
+  },
   "year": 2014,
   "aliases": []
 }

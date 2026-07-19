@@ -98,8 +98,9 @@ export function useChallenge(bundle: ChallengeBundle): UseChallengeReturn {
       regions: toRevealDefinitions(level),
       acceptedAnswers: [
         ...level.acceptedAnswers,
-        movie.title,
-        movie.titleOriginal ?? "",
+        ...movie.aliases,
+        movie.title.ru,
+        movie.title.en,
       ].filter(Boolean),
       initialState: saved
         ? {

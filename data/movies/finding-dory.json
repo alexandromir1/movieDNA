@@ -1,7 +1,9 @@
 {
   "id": "movie-finding-dory",
-  "title": "В поисках Дори",
-  "titleOriginal": "Finding Dory",
+  "title": {
+    "ru": "В поисках Дори",
+    "en": "Finding Dory"
+  },
   "year": 2016,
   "aliases": []
 }

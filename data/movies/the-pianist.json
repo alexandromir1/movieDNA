@@ -1,7 +1,9 @@
 {
   "id": "movie-the-pianist",
-  "title": "Пианист",
-  "titleOriginal": "The Pianist",
+  "title": {
+    "ru": "Пианист",
+    "en": "The Pianist"
+  },
   "year": 2002,
   "aliases": []
 }

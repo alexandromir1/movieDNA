@@ -1,12 +1,17 @@
 {
   "id": "movie-fight-club",
-  "title": "Бойцовский клуб",
-  "titleOriginal": "Fight Club",
+  "title": {
+    "ru": "Бойцовский клуб",
+    "en": "Fight Club"
+  },
   "year": 1999,
   "aliases": [],
   "recommendations": [
     {
-      "title": "🥊 Если нравятся фильмы, ломающие сознание",
+      "title": {
+        "ru": "🥊 Если нравятся фильмы, ломающие сознание",
+        "en": "🥊 If you like mind-bending films"
+      },
       "items": [
         {
           "movieId": "movie-memento"
@@ -20,7 +25,10 @@
       ]
     },
     {
-      "title": "🧠 Если хочется психологического напряжения",
+      "title": {
+        "ru": "🧠 Если хочется психологического напряжения",
+        "en": "🧠 If you want psychological tension"
+      },
       "items": [
         {
           "movieId": "movie-black-swan"
@@ -34,7 +42,10 @@
       ]
     },
     {
-      "title": "🎬 Если нравится Дэвид Финчер",
+      "title": {
+        "ru": "🎬 Если нравится Дэвид Финчер",
+        "en": "🎬 If you like David Fincher"
+      },
       "items": [
         {
           "movieId": "movie-seven"

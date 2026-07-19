@@ -1,7 +1,9 @@
 {
   "id": "movie-the-notebook",
-  "title": "Дневник памяти",
-  "titleOriginal": "The Notebook",
+  "title": {
+    "ru": "Дневник памяти",
+    "en": "The Notebook"
+  },
   "year": 2004,
   "aliases": []
 }

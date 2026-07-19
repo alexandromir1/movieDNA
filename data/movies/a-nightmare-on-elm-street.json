@@ -1,7 +1,9 @@
 {
   "id": "movie-a-nightmare-on-elm-street",
-  "title": "Кошмар на улице Вязов",
-  "titleOriginal": "A Nightmare on Elm Street",
+  "title": {
+    "ru": "Кошмар на улице Вязов",
+    "en": "A Nightmare on Elm Street"
+  },
   "year": 1984,
   "aliases": []
 }

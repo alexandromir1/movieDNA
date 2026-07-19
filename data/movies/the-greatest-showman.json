@@ -1,7 +1,9 @@
 {
   "id": "movie-the-greatest-showman",
-  "title": "Величайший шоумен",
-  "titleOriginal": "The Greatest Showman",
+  "title": {
+    "ru": "Величайший шоумен",
+    "en": "The Greatest Showman"
+  },
   "year": 2017,
   "aliases": []
 }

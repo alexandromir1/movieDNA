@@ -1,7 +1,9 @@
 {
   "id": "movie-there-will-be-blood",
-  "title": "Нефть",
-  "titleOriginal": "There Will Be Blood",
+  "title": {
+    "ru": "Нефть",
+    "en": "There Will Be Blood"
+  },
   "year": 2007,
   "aliases": []
 }

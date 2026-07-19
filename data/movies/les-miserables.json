@@ -1,7 +1,9 @@
 {
   "id": "movie-les-miserables",
-  "title": "Отверженные",
-  "titleOriginal": "Les Misérables",
+  "title": {
+    "ru": "Отверженные",
+    "en": "Les Misérables"
+  },
   "year": 2012,
   "aliases": []
 }

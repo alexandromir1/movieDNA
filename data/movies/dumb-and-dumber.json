@@ -1,7 +1,9 @@
 {
   "id": "movie-dumb-and-dumber",
-  "title": "Тупой и ещё тупее",
-  "titleOriginal": "Dumb and Dumber",
+  "title": {
+    "ru": "Тупой и ещё тупее",
+    "en": "Dumb and Dumber"
+  },
   "year": 1994,
   "aliases": []
 }

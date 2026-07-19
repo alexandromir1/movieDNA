@@ -8,6 +8,7 @@ import path from "node:path";
 
 import type { Challenge, Level, Movie } from "@/types/content";
 import { getUtcDateString } from "@/lib/game/daily";
+import { localize, localized } from "@/lib/i18n/localize";
 import { slugifyLevelSlug } from "@/lib/dev/slugify";
 
 const ROOT = process.cwd();
@@ -253,8 +254,12 @@ export const LevelCreator = {
           const title = input.movie.title.trim();
           const titleOriginal = input.movie.titleOriginal.trim();
           const year = Math.trunc(Number(input.movie.year));
-          if (title) movie.title = title;
-          if (titleOriginal) movie.titleOriginal = titleOriginal;
+          if (title || titleOriginal) {
+            movie.title = localized(
+              title || localize(movie.title, "ru"),
+              titleOriginal || localize(movie.title, "en"),
+            );
+          }
           if (Number.isFinite(year) && year >= 1888) movie.year = year;
           if (Array.isArray(input.movie.aliases)) {
             movie.aliases = input.movie.aliases
@@ -274,8 +279,7 @@ export const LevelCreator = {
             : 0;
         movie = {
           id: `movie-${slug}`,
-          title,
-          titleOriginal,
+          title: localized(title || titleOriginal, titleOriginal),
           year,
           aliases: (input.movie?.aliases ?? [])
             .map((item) => item.trim())

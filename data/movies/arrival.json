@@ -1,7 +1,9 @@
 {
   "id": "movie-arrival",
-  "title": "Прибытие",
-  "titleOriginal": "Arrival",
+  "title": {
+    "ru": "Прибытие",
+    "en": "Arrival"
+  },
   "year": 2016,
   "aliases": []
 }

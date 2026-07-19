@@ -1,7 +1,9 @@
 {
   "id": "movie-taken",
-  "title": "Заложница",
-  "titleOriginal": "Taken",
+  "title": {
+    "ru": "Заложница",
+    "en": "Taken"
+  },
   "year": 2008,
   "aliases": []
 }

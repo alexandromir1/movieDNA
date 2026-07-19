@@ -1,7 +1,9 @@
 {
   "id": "movie-national-treasure",
-  "title": "Сокровище нации",
-  "titleOriginal": "National Treasure",
+  "title": {
+    "ru": "Сокровище нации",
+    "en": "National Treasure"
+  },
   "year": 2004,
   "aliases": []
 }

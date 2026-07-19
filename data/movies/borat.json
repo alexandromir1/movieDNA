@@ -1,7 +1,9 @@
 {
   "id": "movie-borat",
-  "title": "Борат",
-  "titleOriginal": "Borat",
+  "title": {
+    "ru": "Борат",
+    "en": "Borat"
+  },
   "year": 2006,
   "aliases": []
 }

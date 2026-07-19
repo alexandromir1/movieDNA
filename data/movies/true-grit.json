@@ -1,7 +1,9 @@
 {
   "id": "movie-true-grit",
-  "title": "Реальная крепость",
-  "titleOriginal": "True Grit",
+  "title": {
+    "ru": "Реальная крепость",
+    "en": "True Grit"
+  },
   "year": 2010,
   "aliases": []
 }

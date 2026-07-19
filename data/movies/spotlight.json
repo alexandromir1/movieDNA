@@ -1,7 +1,9 @@
 {
   "id": "movie-spotlight",
-  "title": "В центре внимания",
-  "titleOriginal": "Spotlight",
+  "title": {
+    "ru": "В центре внимания",
+    "en": "Spotlight"
+  },
   "year": 2015,
   "aliases": []
 }

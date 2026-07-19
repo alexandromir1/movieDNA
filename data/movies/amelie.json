@@ -1,7 +1,9 @@
 {
   "id": "movie-amelie",
-  "title": "Амели",
-  "titleOriginal": "Amélie",
+  "title": {
+    "ru": "Амели",
+    "en": "Amélie"
+  },
   "year": 2001,
   "aliases": []
 }

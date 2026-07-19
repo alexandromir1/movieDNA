@@ -8,8 +8,10 @@ import {
   loadPlayerStats,
   type PlayerProfileStats,
 } from "@/lib/game/player-stats";
+import { useTranslations } from "@/lib/i18n/LocaleProvider";
 
 export function ProfileOverview() {
+  const t = useTranslations();
   const [stats, setStats] = useState<PlayerProfileStats | null>(null);
 
   const refresh = useCallback(() => {
@@ -28,9 +30,12 @@ export function ProfileOverview() {
 
   if (!stats) {
     return (
-      <p className="text-sm text-white/40" aria-hidden>
-        …
-      </p>
+      <div className="space-y-6">
+        <h1 className="text-2xl font-bold text-white">{t("profile.title")}</h1>
+        <p className="text-sm text-white/40" aria-hidden>
+          …
+        </p>
+      </div>
     );
   }
 
@@ -38,40 +43,40 @@ export function ProfileOverview() {
 
   return (
     <div className="space-y-6">
+      <h1 className="text-2xl font-bold text-white">{t("profile.title")}</h1>
+
       {isEmpty ? (
         <div className="rounded-[12px] border border-white/[0.09] bg-white/[0.03] px-4 py-6 text-center">
-          <p className="text-sm text-white/70">
-            Сыграй сегодняшний Challenge — здесь появится серия и результаты.
-          </p>
+          <p className="text-sm text-white/70">{t("profile.emptyBody")}</p>
           <Link
             href={GAME_ROUTES.today}
             className="mt-4 inline-flex h-11 items-center justify-center rounded-[10px] bg-[var(--accent)] px-5 text-sm font-medium text-black transition-all hover:brightness-105"
           >
-            К сегодняшней игре
+            {t("profile.playToday")}
           </Link>
         </div>
       ) : null}
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <StatCard emoji="🔥" label="Текущая серия" value={stats.currentStreak} />
+        <StatCard emoji="🔥" label={t("profile.streak")} value={stats.currentStreak} />
         <StatCard
           emoji="🎬"
-          label="Дневных игр"
+          label={t("profile.dailyGames")}
           value={stats.dailyCompleted}
         />
         <StatCard
           emoji="📚"
-          label="Архивных игр"
+          label={t("profile.archiveGames")}
           value={stats.archiveCompleted}
         />
         <StatCard
           emoji="⭐"
-          label="Средний счёт"
+          label={t("profile.avgScore")}
           value={stats.averageMovieScore}
         />
         <StatCard
           emoji="🏆"
-          label="Лучший счёт"
+          label={t("profile.bestScore")}
           value={stats.bestMovieScore}
         />
       </div>

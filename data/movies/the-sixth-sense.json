@@ -1,7 +1,9 @@
 {
   "id": "movie-the-sixth-sense",
-  "title": "Шестое чувство",
-  "titleOriginal": "The Sixth Sense",
+  "title": {
+    "ru": "Шестое чувство",
+    "en": "The Sixth Sense"
+  },
   "year": 1999,
   "aliases": []
 }

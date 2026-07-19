@@ -1,7 +1,9 @@
 {
   "id": "movie-zootopia",
-  "title": "Зверополис",
-  "titleOriginal": "Zootopia",
+  "title": {
+    "ru": "Зверополис",
+    "en": "Zootopia"
+  },
   "year": 2016,
   "aliases": []
 }

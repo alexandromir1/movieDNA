@@ -1,7 +1,9 @@
 {
   "id": "movie-warcraft",
-  "title": "Варкрафт",
-  "titleOriginal": "Warcraft",
+  "title": {
+    "ru": "Варкрафт",
+    "en": "Warcraft"
+  },
   "year": 2016,
   "aliases": []
 }

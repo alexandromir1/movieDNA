@@ -1,7 +1,9 @@
 {
   "id": "movie-when-harry-met-sally",
-  "title": "Когда Гарри встретил Салли",
-  "titleOriginal": "When Harry Met Sally...",
+  "title": {
+    "ru": "Когда Гарри встретил Салли",
+    "en": "When Harry Met Sally..."
+  },
   "year": 1989,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-knives-out",
-  "title": "Достать ножи",
-  "titleOriginal": "Knives Out",
+  "title": {
+    "ru": "Достать ножи",
+    "en": "Knives Out"
+  },
   "year": 2019,
   "aliases": []
 }

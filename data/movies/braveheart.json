@@ -1,7 +1,9 @@
 {
   "id": "movie-braveheart",
-  "title": "Храброе сердце",
-  "titleOriginal": "Braveheart",
+  "title": {
+    "ru": "Храброе сердце",
+    "en": "Braveheart"
+  },
   "year": 1995,
   "aliases": []
 }

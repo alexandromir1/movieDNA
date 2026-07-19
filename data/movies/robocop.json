@@ -1,7 +1,9 @@
 {
   "id": "movie-robocop",
-  "title": "Робокоп",
-  "titleOriginal": "RoboCop",
+  "title": {
+    "ru": "Робокоп",
+    "en": "RoboCop"
+  },
   "year": 1987,
   "aliases": []
 }

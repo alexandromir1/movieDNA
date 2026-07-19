@@ -1,7 +1,9 @@
 {
   "id": "movie-parasite",
-  "title": "Паразиты",
-  "titleOriginal": "Parasite",
+  "title": {
+    "ru": "Паразиты",
+    "en": "Parasite"
+  },
   "year": 2019,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-beetlejuice",
-  "title": "Битлджус",
-  "titleOriginal": "Beetlejuice",
+  "title": {
+    "ru": "Битлджус",
+    "en": "Beetlejuice"
+  },
   "year": 1988,
   "aliases": []
 }

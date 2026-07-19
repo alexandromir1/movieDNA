@@ -1,7 +1,9 @@
 {
   "id": "movie-how-the-grinch-stole-christmas",
-  "title": "Гринч — похититель Рождества",
-  "titleOriginal": "How the Grinch Stole Christmas",
+  "title": {
+    "ru": "Гринч — похититель Рождества",
+    "en": "How the Grinch Stole Christmas"
+  },
   "year": 2000,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-moskva-slezam-ne-verit",
-  "title": "Москва слезам не верит",
-  "titleOriginal": "Moskva slezam ne verit",
+  "title": {
+    "ru": "Москва слезам не верит",
+    "en": "Moskva slezam ne verit"
+  },
   "year": 1979,
   "aliases": []
 }

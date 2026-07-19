@@ -1,7 +1,9 @@
 {
   "id": "movie-memento",
-  "title": "Помни",
-  "titleOriginal": "Memento",
+  "title": {
+    "ru": "Помни",
+    "en": "Memento"
+  },
   "year": 2000,
   "aliases": []
 }

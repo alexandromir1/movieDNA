@@ -1,7 +1,9 @@
 {
   "id": "movie-four-weddings-and-a-funeral",
-  "title": "Четыре свадьбы и одни похороны",
-  "titleOriginal": "Four Weddings and a Funeral",
+  "title": {
+    "ru": "Четыре свадьбы и одни похороны",
+    "en": "Four Weddings and a Funeral"
+  },
   "year": 1994,
   "aliases": []
 }

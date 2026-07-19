@@ -1,7 +1,9 @@
 {
   "id": "movie-pacific-rim",
-  "title": "Тихоокеанский рубеж",
-  "titleOriginal": "Pacific Rim",
+  "title": {
+    "ru": "Тихоокеанский рубеж",
+    "en": "Pacific Rim"
+  },
   "year": 2013,
   "aliases": []
 }

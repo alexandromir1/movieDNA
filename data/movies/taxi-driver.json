@@ -1,7 +1,9 @@
 {
   "id": "movie-taxi-driver",
-  "title": "Таксист",
-  "titleOriginal": "Taxi Driver",
+  "title": {
+    "ru": "Таксист",
+    "en": "Taxi Driver"
+  },
   "year": 1976,
   "aliases": []
 }

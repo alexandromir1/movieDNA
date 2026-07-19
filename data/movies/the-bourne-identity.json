@@ -1,7 +1,9 @@
 {
   "id": "movie-the-bourne-identity",
-  "title": "Идентификация Борна",
-  "titleOriginal": "The Bourne Identity",
+  "title": {
+    "ru": "Идентификация Борна",
+    "en": "The Bourne Identity"
+  },
   "year": 2002,
   "aliases": []
 }

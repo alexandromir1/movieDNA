@@ -1,7 +1,9 @@
 {
   "id": "movie-a-quiet-place",
-  "title": "Тихое место",
-  "titleOriginal": "A Quiet Place",
+  "title": {
+    "ru": "Тихое место",
+    "en": "A Quiet Place"
+  },
   "year": 2018,
   "aliases": []
 }

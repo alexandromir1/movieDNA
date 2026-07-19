@@ -1,7 +1,9 @@
 {
   "id": "movie-justice-league",
-  "title": "Лига справедливости",
-  "titleOriginal": "Justice League",
+  "title": {
+    "ru": "Лига справедливости",
+    "en": "Justice League"
+  },
   "year": 2017,
   "aliases": []
 }

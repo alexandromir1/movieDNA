@@ -1,7 +1,9 @@
 {
   "id": "movie-the-fifth-element",
-  "title": "Пятый элемент",
-  "titleOriginal": "The Fifth Element",
+  "title": {
+    "ru": "Пятый элемент",
+    "en": "The Fifth Element"
+  },
   "year": 1997,
   "aliases": []
 }

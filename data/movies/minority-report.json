@@ -1,7 +1,9 @@
 {
   "id": "movie-minority-report",
-  "title": "Особое мнение",
-  "titleOriginal": "Minority Report",
+  "title": {
+    "ru": "Особое мнение",
+    "en": "Minority Report"
+  },
   "year": 2002,
   "aliases": []
 }

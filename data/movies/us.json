@@ -1,7 +1,9 @@
 {
   "id": "movie-us",
-  "title": "Мы",
-  "titleOriginal": "Us",
+  "title": {
+    "ru": "Мы",
+    "en": "Us"
+  },
   "year": 2019,
   "aliases": []
 }

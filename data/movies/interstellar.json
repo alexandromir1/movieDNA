@@ -1,12 +1,17 @@
 {
   "id": "movie-interstellar",
-  "title": "Интерстеллар",
-  "titleOriginal": "Interstellar",
+  "title": {
+    "ru": "Интерстеллар",
+    "en": "Interstellar"
+  },
   "year": 2014,
   "aliases": [],
   "recommendations": [
     {
-      "title": "🚀 Если хочется ещё космоса",
+      "title": {
+        "ru": "🚀 Если хочется ещё космоса",
+        "en": "🚀 If you want more space"
+      },
       "items": [
         {
           "movieId": "movie-the-martian"
@@ -20,7 +25,10 @@
       ]
     },
     {
-      "title": "🧠 Если нравятся идеи",
+      "title": {
+        "ru": "🧠 Если нравятся идеи",
+        "en": "🧠 If you like big ideas"
+      },
       "items": [
         {
           "movieId": "movie-arrival"
@@ -34,7 +42,10 @@
       ]
     },
     {
-      "title": "🎬 Если нравится Нолан",
+      "title": {
+        "ru": "🎬 Если нравится Нолан",
+        "en": "🎬 If you like Nolan"
+      },
       "items": [
         {
           "movieId": "movie-inception"

@@ -1,7 +1,9 @@
 {
   "id": "movie-avatar",
-  "title": "Аватар",
-  "titleOriginal": "Avatar",
+  "title": {
+    "ru": "Аватар",
+    "en": "Avatar"
+  },
   "year": 2009,
   "aliases": []
 }

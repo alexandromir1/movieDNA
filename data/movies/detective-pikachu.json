@@ -1,7 +1,9 @@
 {
   "id": "movie-detective-pikachu",
-  "title": "Детектив Пикачу",
-  "titleOriginal": "Detective Pikachu",
+  "title": {
+    "ru": "Детектив Пикачу",
+    "en": "Detective Pikachu"
+  },
   "year": 2019,
   "aliases": []
 }

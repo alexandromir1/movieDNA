@@ -1,7 +1,9 @@
 {
   "id": "movie-twelve-monkeys",
-  "title": "12 обезьян",
-  "titleOriginal": "Twelve Monkeys",
+  "title": {
+    "ru": "12 обезьян",
+    "en": "Twelve Monkeys"
+  },
   "year": 1995,
   "aliases": []
 }

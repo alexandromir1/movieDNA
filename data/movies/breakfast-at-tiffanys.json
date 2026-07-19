@@ -1,7 +1,9 @@
 {
   "id": "movie-breakfast-at-tiffanys",
-  "title": "Завтрак у Тиффани",
-  "titleOriginal": "Breakfast at Tiffany's",
+  "title": {
+    "ru": "Завтрак у Тиффани",
+    "en": "Breakfast at Tiffany's"
+  },
   "year": 1961,
   "aliases": []
 }

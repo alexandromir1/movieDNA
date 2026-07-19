@@ -1,7 +1,9 @@
 {
   "id": "movie-soul",
-  "title": "Душа",
-  "titleOriginal": "Soul",
+  "title": {
+    "ru": "Душа",
+    "en": "Soul"
+  },
   "year": 2020,
   "aliases": []
 }

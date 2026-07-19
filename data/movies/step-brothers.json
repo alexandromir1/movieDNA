@@ -1,7 +1,9 @@
 {
   "id": "movie-step-brothers",
-  "title": "Сводные братья",
-  "titleOriginal": "Step Brothers",
+  "title": {
+    "ru": "Сводные братья",
+    "en": "Step Brothers"
+  },
   "year": 2008,
   "aliases": []
 }

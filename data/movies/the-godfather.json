@@ -1,12 +1,17 @@
 {
   "id": "movie-the-godfather",
-  "title": "Крестный отец",
-  "titleOriginal": "The Godfather",
+  "title": {
+    "ru": "Крестный отец",
+    "en": "The Godfather"
+  },
   "year": 1972,
   "aliases": [],
   "recommendations": [
     {
-      "title": "👑 Если нравится мафия",
+      "title": {
+        "ru": "👑 Если нравится мафия",
+        "en": "👑 If you like the mafia"
+      },
       "items": [
         {
           "movieId": "movie-goodfellas"
@@ -20,7 +25,10 @@
       ]
     },
     {
-      "title": "👨‍👦 Если нравится семейная драма",
+      "title": {
+        "ru": "👨‍👦 Если нравится семейная драма",
+        "en": "👨‍👦 If you like family drama"
+      },
       "items": [
         {
           "movieId": "movie-once-upon-a-time-in-america"
@@ -34,7 +42,10 @@
       ]
     },
     {
-      "title": "🎬 Если нравится Коппола",
+      "title": {
+        "ru": "🎬 Если нравится Коппола",
+        "en": "🎬 If you like Coppola"
+      },
       "items": [
         {
           "movieId": "movie-apocalypse-now"

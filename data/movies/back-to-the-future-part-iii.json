@@ -1,7 +1,9 @@
 {
   "id": "movie-back-to-the-future-part-iii",
-  "title": "Назад в будущее 3",
-  "titleOriginal": "Back to the Future Part III",
+  "title": {
+    "ru": "Назад в будущее 3",
+    "en": "Back to the Future Part III"
+  },
   "year": 1990,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-school-of-rock",
-  "title": "Школа рока",
-  "titleOriginal": "School of Rock",
+  "title": {
+    "ru": "Школа рока",
+    "en": "School of Rock"
+  },
   "year": 2003,
   "aliases": []
 }

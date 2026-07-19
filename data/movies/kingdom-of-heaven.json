@@ -1,7 +1,9 @@
 {
   "id": "movie-kingdom-of-heaven",
-  "title": "Царство небесное",
-  "titleOriginal": "Kingdom of Heaven",
+  "title": {
+    "ru": "Царство небесное",
+    "en": "Kingdom of Heaven"
+  },
   "year": 2005,
   "aliases": []
 }

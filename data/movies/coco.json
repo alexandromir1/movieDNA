@@ -1,7 +1,9 @@
 {
   "id": "movie-coco",
-  "title": "Тайна Коко",
-  "titleOriginal": "Coco",
+  "title": {
+    "ru": "Тайна Коко",
+    "en": "Coco"
+  },
   "year": 2017,
   "aliases": []
 }

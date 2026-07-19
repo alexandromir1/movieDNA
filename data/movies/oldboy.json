@@ -1,7 +1,9 @@
 {
   "id": "movie-oldboy",
-  "title": "Олдбой",
-  "titleOriginal": "Oldboy",
+  "title": {
+    "ru": "Олдбой",
+    "en": "Oldboy"
+  },
   "year": 2003,
   "aliases": []
 }

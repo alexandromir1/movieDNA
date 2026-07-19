@@ -1,15 +1,16 @@
-/** View-model для UI подборок — только «что посмотреть», без игры. */
+import type { LocalizedString } from "@/lib/i18n/types";
+
+/** View-model для UI подборок — сырые локализованные поля, UI выбирает язык. */
 
 export interface MovieRecommendationItemView {
   movieId: string;
   slug: string;
-  title: string;
-  titleOriginal: string | null;
+  title: LocalizedString;
   year: number;
-  note: string | null;
+  note: LocalizedString | string | null;
 }
 
 export interface MovieRecommendationCategoryView {
-  title: string;
+  title: LocalizedString | string;
   items: MovieRecommendationItemView[];
 }

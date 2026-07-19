@@ -1,4 +1,6 @@
 import { getMovieSearchCatalog } from "@/lib/content/catalog";
+import { localize } from "@/lib/i18n/localize";
+import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n/types";
 import { searchMoviesLocal } from "@/lib/game/movie-search";
 import { createClient } from "@/lib/supabase/server";
 
@@ -13,11 +15,10 @@ function isSupabaseConfigured(): boolean {
   );
 }
 
-function localCatalog(): MovieSuggestion[] {
+function localCatalog(locale: Locale): MovieSuggestion[] {
   return getMovieSearchCatalog().map((movie) => ({
     id: movie.id,
-    title: movie.title,
-    titleOriginal: movie.titleOriginal,
+    title: localize(movie.title, locale),
     year: movie.year,
   }));
 }
@@ -27,11 +28,15 @@ function mapRow(row: {
   title: string;
   title_original: string | null;
   year: number;
-}): MovieSuggestion {
+}, locale: Locale): MovieSuggestion {
+  // Supabase ещё отдаёт плоские поля — выбираем по локали
+  const title =
+    locale === "en"
+      ? row.title_original?.trim() || row.title
+      : row.title;
   return {
     id: row.id,
-    title: row.title,
-    titleOriginal: row.title_original,
+    title,
     year: row.year,
   };
 }
@@ -39,14 +44,15 @@ function mapRow(row: {
 export async function searchMovies(
   query: string,
   limit = DEFAULT_LIMIT,
+  locale: Locale = DEFAULT_LOCALE,
 ): Promise<MovieSuggestion[]> {
   const trimmed = query.trim();
   if (!trimmed) return [];
 
-  const fallback = localCatalog();
+  const fallback = localCatalog(locale);
 
   if (!isSupabaseConfigured()) {
-    return searchMoviesLocal(trimmed, fallback, limit);
+    return searchMoviesLocal(trimmed, fallback, limit, locale);
   }
 
   const supabase = await createClient();
@@ -57,13 +63,13 @@ export async function searchMovies(
 
   if (error) {
     console.error("[search_movies]", error.message);
-    return searchMoviesLocal(trimmed, fallback, limit);
+    return searchMoviesLocal(trimmed, fallback, limit, locale);
   }
 
   const rows = Array.isArray(data) ? data : data ? [data] : [];
   if (rows.length === 0) {
-    return searchMoviesLocal(trimmed, fallback, limit);
+    return searchMoviesLocal(trimmed, fallback, limit, locale);
   }
 
-  return rows.map(mapRow);
+  return rows.map((row) => mapRow(row, locale));
 }

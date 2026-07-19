@@ -1,7 +1,9 @@
 {
   "id": "movie-pirates-of-the-caribbean-dead-mans-chest",
-  "title": "Пираты Карибского моря: Сундук мертвеца",
-  "titleOriginal": "Pirates of the Caribbean: Dead Man's Chest",
+  "title": {
+    "ru": "Пираты Карибского моря: Сундук мертвеца",
+    "en": "Pirates of the Caribbean: Dead Man's Chest"
+  },
   "year": 2006,
   "aliases": []
 }

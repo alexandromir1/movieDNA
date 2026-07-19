@@ -1,7 +1,9 @@
 {
   "id": "movie-guardians-of-the-galaxy",
-  "title": "Стражи Галактики",
-  "titleOriginal": "Guardians of the Galaxy",
+  "title": {
+    "ru": "Стражи Галактики",
+    "en": "Guardians of the Galaxy"
+  },
   "year": 2014,
   "aliases": []
 }

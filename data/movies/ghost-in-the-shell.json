@@ -1,7 +1,9 @@
 {
   "id": "movie-ghost-in-the-shell",
-  "title": "Призрак в доспехах",
-  "titleOriginal": "Ghost in the Shell",
+  "title": {
+    "ru": "Призрак в доспехах",
+    "en": "Ghost in the Shell"
+  },
   "year": 1995,
   "aliases": []
 }

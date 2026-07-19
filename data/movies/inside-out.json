@@ -1,7 +1,9 @@
 {
   "id": "movie-inside-out",
-  "title": "Головоломка",
-  "titleOriginal": "Inside Out",
+  "title": {
+    "ru": "Головоломка",
+    "en": "Inside Out"
+  },
   "year": 2015,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-eurotrip",
-  "title": "Евротур",
-  "titleOriginal": "EuroTrip",
+  "title": {
+    "ru": "Евротур",
+    "en": "EuroTrip"
+  },
   "year": 2004,
   "aliases": []
 }

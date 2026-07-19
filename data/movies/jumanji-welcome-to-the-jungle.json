@@ -1,7 +1,9 @@
 {
   "id": "movie-jumanji-welcome-to-the-jungle",
-  "title": "Джуманджи: Зов джунглей",
-  "titleOriginal": "Jumanji: Welcome to the Jungle",
+  "title": {
+    "ru": "Джуманджи: Зов джунглей",
+    "en": "Jumanji: Welcome to the Jungle"
+  },
   "year": 2017,
   "aliases": []
 }

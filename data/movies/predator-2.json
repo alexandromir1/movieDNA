@@ -1,7 +1,9 @@
 {
   "id": "movie-predator-2",
-  "title": "Хищник 2",
-  "titleOriginal": "Predator 2",
+  "title": {
+    "ru": "Хищник 2",
+    "en": "Predator 2"
+  },
   "year": 1990,
   "aliases": []
 }

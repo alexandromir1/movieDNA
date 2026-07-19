@@ -1,7 +1,9 @@
 {
   "id": "movie-dune",
-  "title": "Дюна",
-  "titleOriginal": "Dune",
+  "title": {
+    "ru": "Дюна",
+    "en": "Dune"
+  },
   "year": 2021,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-the-texas-chainsaw-massacre",
-  "title": "Техасская резня бензопилой",
-  "titleOriginal": "The Texas Chain Saw Massacre",
+  "title": {
+    "ru": "Техасская резня бензопилой",
+    "en": "The Texas Chain Saw Massacre"
+  },
   "year": 1974,
   "aliases": []
 }

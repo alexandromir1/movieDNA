@@ -1,7 +1,9 @@
 {
   "id": "movie-fury",
-  "title": "Ярость",
-  "titleOriginal": "Fury",
+  "title": {
+    "ru": "Ярость",
+    "en": "Fury"
+  },
   "year": 2014,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-watchmen",
-  "title": "Хранители",
-  "titleOriginal": "Watchmen",
+  "title": {
+    "ru": "Хранители",
+    "en": "Watchmen"
+  },
   "year": 2009,
   "aliases": []
 }

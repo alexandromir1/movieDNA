@@ -13,13 +13,17 @@ import {
   resolveChallengePlayStatus,
   type ChallengePlayStatus,
 } from "@/lib/game/play-status";
+import {
+  useLocale,
+  type MessageKey,
+} from "@/lib/i18n/LocaleProvider";
+import type { LocalizedString } from "@/lib/i18n/types";
 import { cn } from "@/lib/utils/cn";
 
 export interface ArchiveListItem {
   date: string;
   challengeId: string;
-  title: string;
-  titleOriginal: string | null;
+  title: LocalizedString;
   year: number;
   image: string;
 }
@@ -46,6 +50,7 @@ function isOpenable(status: ChallengePlayStatus): boolean {
  * Без фильтров, поиска и спойлеров непройденных.
  */
 export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
+  const { locale, t } = useLocale();
   const today = getUtcDateString();
   // SSR + первый клиентский кадр без localStorage — иначе hydration mismatch.
   // Реальные статусы подтягиваем в useEffect.
@@ -120,11 +125,7 @@ export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
   }).length;
 
   if (items.length === 0) {
-    return (
-      <p className="text-sm text-white/35">
-        Пока нет прошедших Challenge — вернись после первого Daily.
-      </p>
-    );
+    return <p className="text-sm text-white/35">{t("archive.empty")}</p>;
   }
 
   return (
@@ -136,33 +137,32 @@ export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
           className="block rounded-[16px] border border-[var(--accent)]/45 bg-gradient-to-b from-[var(--accent)]/[0.16] to-white/[0.03] px-5 py-5 transition-all duration-200 hover:border-[var(--accent)]/70 hover:brightness-105 active:scale-[0.99]"
         >
           <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--accent)]">
-            Сыграть ещё
+            {t("archive.playMore")}
           </p>
           <p className="mt-2 text-xl font-semibold text-white sm:text-2xl">
             {continueTarget.kind === "yesterday"
-              ? "Вчерашний Challenge"
-              : "Ещё один Challenge"}
+              ? t("archive.yesterdayChallenge")
+              : t("archive.anotherChallenge")}
           </p>
           <p className="mt-1 text-sm text-white/45">
-            {formatSidebarDateLabel(continueTarget.item.date, today)}
+            {formatSidebarDateLabel(continueTarget.item.date, today, locale)}
             {continueTarget.kind === "yesterday"
-              ? " · один клик — и ты снова в игре"
-              : " · наверстай день и держи ритм"}
+              ? t("archive.yesterdayHint")
+              : t("archive.nextHint")}
           </p>
           <span className="mt-4 inline-flex h-11 items-center justify-center rounded-[10px] bg-[var(--accent)] px-5 text-sm font-semibold text-black">
             {statuses[continueTarget.item.challengeId] === "in_progress"
-              ? "Продолжить →"
-              : "Играть →"}
+              ? t("archive.continue")
+              : t("archive.play")}
           </span>
         </Link>
       ) : (
         <div className="rounded-[16px] border border-white/[0.09] bg-white/[0.03] px-5 py-5">
           <p className="text-sm font-medium text-white">
-            Архив пройден
+            {t("archive.archiveDone")}
           </p>
           <p className="mt-1.5 text-sm text-white/40">
-            Завтра появится новый Daily — а сюда можно вернуться за историей
-            очков.
+            {t("archive.archiveDoneBody")}
           </p>
         </div>
       )}
@@ -171,10 +171,13 @@ export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
       <div>
         <div className="mb-3 flex items-baseline justify-between gap-3">
           <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-white/35">
-            Твой путь
+            {t("archive.yourPath")}
           </p>
           <p className="text-xs tabular-nums text-white/35">
-            {completedCount}/{items.length} сыграно
+            {t("archive.playedCount", {
+              done: completedCount,
+              total: items.length,
+            })}
           </p>
         </div>
 
@@ -182,7 +185,7 @@ export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
           {items.map((item) => {
             const status = statuses[item.challengeId] ?? "available";
             const record = records[item.challengeId];
-            const label = formatSidebarDateLabel(item.date, today);
+            const label = formatSidebarDateLabel(item.date, today, locale);
             const playable = isPlayable(status);
             const openable = isOpenable(status);
             const isHighScore =
@@ -194,37 +197,50 @@ export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
             const row = (
               <>
                 <div className="flex min-w-0 flex-1 items-center gap-3">
-                  <StatusMark status={status} isHighScore={Boolean(isHighScore)} />
+                  <StatusMark
+                    status={status}
+                    isHighScore={Boolean(isHighScore)}
+                    t={t}
+                  />
                   <div className="min-w-0">
                     <p className="text-sm font-medium text-white">{label}</p>
                     {status === "won" && record ? (
                       <p className="mt-0.5 text-xs text-white/45">
-                        Счёт{" "}
+                        {t("archive.scoreLabel")}{" "}
                         <span className="font-semibold tabular-nums text-white/80">
                           {record.movieScore}
                         </span>
                         {isHighScore ? (
                           <span className="ml-1.5 text-[var(--accent)]">
-                            🏆 рекорд
+                            🏆 {t("archive.record")}
                           </span>
                         ) : null}
                       </p>
                     ) : status === "lost" ? (
-                      <p className="mt-0.5 text-xs text-white/40">Не угадал</p>
+                      <p className="mt-0.5 text-xs text-white/40">
+                        {t("archive.notGuessed")}
+                      </p>
                     ) : status === "in_progress" ? (
-                      <p className="mt-0.5 text-xs text-white/40">В процессе</p>
+                      <p className="mt-0.5 text-xs text-white/40">
+                        {t("archive.inProgress")}
+                      </p>
                     ) : (
-                      <p className="mt-0.5 text-xs text-white/40">Не пройден</p>
+                      <p className="mt-0.5 text-xs text-white/40">
+                        {t("archive.notCompleted")}
+                      </p>
                     )}
                   </div>
                 </div>
                 {playable ? (
                   <span className="shrink-0 text-xs font-medium text-[var(--accent)]">
-                    {status === "in_progress" ? "Продолжить" : "Играть"} →
+                    {status === "in_progress"
+                      ? t("archive.continueShort")
+                      : t("archive.playShort")}{" "}
+                    →
                   </span>
                 ) : status === "won" || status === "lost" ? (
                   <span className="shrink-0 text-xs font-medium text-white/45">
-                    Смотреть →
+                    {t("archive.watch")}
                   </span>
                 ) : null}
               </>
@@ -261,15 +277,17 @@ export function PlayerArchiveList({ items }: PlayerArchiveListProps) {
 function StatusMark({
   status,
   isHighScore,
+  t,
 }: {
   status: ChallengePlayStatus;
   isHighScore: boolean;
+  t: (key: MessageKey) => string;
 }) {
   if (isHighScore) {
     return (
       <span
         className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--accent)]/15 text-sm"
-        aria-label="рекорд"
+        aria-label={t("archive.ariaRecord")}
       >
         🏆
       </span>
@@ -280,7 +298,7 @@ function StatusMark({
     return (
       <span
         className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-400/15 text-sm font-semibold text-emerald-300"
-        aria-label="пройден"
+        aria-label={t("archive.ariaWon")}
       >
         ✓
       </span>
@@ -291,7 +309,7 @@ function StatusMark({
     return (
       <span
         className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose-400/15 text-sm font-semibold text-rose-300/90"
-        aria-label="не угадал"
+        aria-label={t("archive.ariaLost")}
       >
         ✕
       </span>
@@ -302,7 +320,7 @@ function StatusMark({
     return (
       <span
         className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-sm text-white/60"
-        aria-label="в процессе"
+        aria-label={t("archive.ariaInProgress")}
       >
         ◐
       </span>
@@ -314,7 +332,7 @@ function StatusMark({
       className={cn(
         "flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-sm font-semibold text-white/35",
       )}
-      aria-label="не пройден"
+      aria-label={t("archive.ariaNotPlayed")}
     >
       ✕
     </span>

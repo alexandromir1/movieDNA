@@ -1,7 +1,9 @@
 {
   "id": "movie-toy-story",
-  "title": "История игрушек",
-  "titleOriginal": "Toy Story",
+  "title": {
+    "ru": "История игрушек",
+    "en": "Toy Story"
+  },
   "year": 1995,
   "aliases": []
 }

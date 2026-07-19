@@ -1,7 +1,9 @@
 {
   "id": "movie-the-revenant",
-  "title": "Выживший",
-  "titleOriginal": "The Revenant",
+  "title": {
+    "ru": "Выживший",
+    "en": "The Revenant"
+  },
   "year": 2015,
   "aliases": []
 }

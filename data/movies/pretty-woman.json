@@ -1,7 +1,9 @@
 {
   "id": "movie-pretty-woman",
-  "title": "Красотка",
-  "titleOriginal": "Pretty Woman",
+  "title": {
+    "ru": "Красотка",
+    "en": "Pretty Woman"
+  },
   "year": 1990,
   "aliases": []
 }

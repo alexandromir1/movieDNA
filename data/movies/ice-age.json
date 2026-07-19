@@ -1,7 +1,9 @@
 {
   "id": "movie-ice-age",
-  "title": "Ледниковый период",
-  "titleOriginal": "Ice Age",
+  "title": {
+    "ru": "Ледниковый период",
+    "en": "Ice Age"
+  },
   "year": 2002,
   "aliases": []
 }

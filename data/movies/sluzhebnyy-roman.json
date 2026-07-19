@@ -1,7 +1,9 @@
 {
   "id": "movie-sluzhebnyy-roman",
-  "title": "Служебный роман",
-  "titleOriginal": "Sluzhebnyy roman",
+  "title": {
+    "ru": "Служебный роман",
+    "en": "Sluzhebnyy roman"
+  },
   "year": 1977,
   "aliases": []
 }

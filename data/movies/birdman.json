@@ -1,7 +1,9 @@
 {
   "id": "movie-birdman",
-  "title": "Бёрдмэн",
-  "titleOriginal": "Birdman",
+  "title": {
+    "ru": "Бёрдмэн",
+    "en": "Birdman"
+  },
   "year": 2014,
   "aliases": []
 }

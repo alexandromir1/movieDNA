@@ -1,7 +1,9 @@
 {
   "id": "movie-beethoven",
-  "title": "Бетховен",
-  "titleOriginal": "Beethoven",
+  "title": {
+    "ru": "Бетховен",
+    "en": "Beethoven"
+  },
   "year": 1992,
   "aliases": []
 }

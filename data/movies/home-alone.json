@@ -1,12 +1,17 @@
 {
   "id": "movie-home-alone",
-  "title": "Один дома",
-  "titleOriginal": "Home Alone",
+  "title": {
+    "ru": "Один дома",
+    "en": "Home Alone"
+  },
   "year": 1990,
   "aliases": [],
   "recommendations": [
     {
-      "title": "🎄 Если хочется новогоднего настроения",
+      "title": {
+        "ru": "🎄 Если хочется новогоднего настроения",
+        "en": "🎄 If you want holiday vibes"
+      },
       "items": [
         {
           "movieId": "movie-the-holiday"
@@ -20,7 +25,10 @@
       ]
     },
     {
-      "title": "😂 Если нравится семейная комедия",
+      "title": {
+        "ru": "😂 Если нравится семейная комедия",
+        "en": "😂 If you like family comedy"
+      },
       "items": [
         {
           "movieId": "movie-problem-child"
@@ -34,7 +42,10 @@
       ]
     },
     {
-      "title": "👶 Если нравятся дети против взрослых",
+      "title": {
+        "ru": "👶 Если нравятся дети против взрослых",
+        "en": "👶 If you like kids vs adults"
+      },
       "items": [
         {
           "movieId": "movie-the-little-rascals"

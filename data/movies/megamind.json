@@ -1,7 +1,9 @@
 {
   "id": "movie-megamind",
-  "title": "Мегамозг",
-  "titleOriginal": "Megamind",
+  "title": {
+    "ru": "Мегамозг",
+    "en": "Megamind"
+  },
   "year": 2010,
   "aliases": []
 }

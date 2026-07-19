@@ -1,7 +1,9 @@
 {
   "id": "movie-big-hero-6",
-  "title": "Город героев",
-  "titleOriginal": "Big Hero 6",
+  "title": {
+    "ru": "Город героев",
+    "en": "Big Hero 6"
+  },
   "year": 2014,
   "aliases": []
 }

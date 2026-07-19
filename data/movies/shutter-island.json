@@ -1,7 +1,9 @@
 {
   "id": "movie-shutter-island",
-  "title": "Остров проклятых",
-  "titleOriginal": "Shutter Island",
+  "title": {
+    "ru": "Остров проклятых",
+    "en": "Shutter Island"
+  },
   "year": 2010,
   "aliases": []
 }

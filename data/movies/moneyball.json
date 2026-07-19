@@ -1,7 +1,9 @@
 {
   "id": "movie-moneyball",
-  "title": "Человек, который изменил всё",
-  "titleOriginal": "Moneyball",
+  "title": {
+    "ru": "Человек, который изменил всё",
+    "en": "Moneyball"
+  },
   "year": 2011,
   "aliases": []
 }

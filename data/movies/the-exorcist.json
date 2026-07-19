@@ -1,7 +1,9 @@
 {
   "id": "movie-the-exorcist",
-  "title": "Изгоняющий дьявола",
-  "titleOriginal": "The Exorcist",
+  "title": {
+    "ru": "Изгоняющий дьявола",
+    "en": "The Exorcist"
+  },
   "year": 1973,
   "aliases": []
 }

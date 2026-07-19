@@ -1,7 +1,9 @@
 {
   "id": "movie-notting-hill",
-  "title": "Ноттинг Хилл",
-  "titleOriginal": "Notting Hill",
+  "title": {
+    "ru": "Ноттинг Хилл",
+    "en": "Notting Hill"
+  },
   "year": 1999,
   "aliases": []
 }

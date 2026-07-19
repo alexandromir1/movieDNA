@@ -1,7 +1,9 @@
 {
   "id": "movie-ring",
-  "title": "Ринго",
-  "titleOriginal": "Ring",
+  "title": {
+    "ru": "Ринго",
+    "en": "Ring"
+  },
   "year": 1998,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-the-thing",
-  "title": "Нечто",
-  "titleOriginal": "The Thing",
+  "title": {
+    "ru": "Нечто",
+    "en": "The Thing"
+  },
   "year": 1982,
   "aliases": []
 }

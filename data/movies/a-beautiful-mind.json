@@ -1,7 +1,9 @@
 {
   "id": "movie-a-beautiful-mind",
-  "title": "Игры разума",
-  "titleOriginal": "A Beautiful Mind",
+  "title": {
+    "ru": "Игры разума",
+    "en": "A Beautiful Mind"
+  },
   "year": 2001,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-avengers-infinity-war",
-  "title": "Мстители: Война бесконечности",
-  "titleOriginal": "Avengers: Infinity War",
+  "title": {
+    "ru": "Мстители: Война бесконечности",
+    "en": "Avengers: Infinity War"
+  },
   "year": 2018,
   "aliases": []
 }

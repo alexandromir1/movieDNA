@@ -1,7 +1,9 @@
 {
   "id": "movie-encanto",
-  "title": "Энканто",
-  "titleOriginal": "Encanto",
+  "title": {
+    "ru": "Энканто",
+    "en": "Encanto"
+  },
   "year": 2021,
   "aliases": []
 }

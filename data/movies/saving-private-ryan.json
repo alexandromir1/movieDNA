@@ -1,7 +1,9 @@
 {
   "id": "movie-saving-private-ryan",
-  "title": "Спасти рядового Райана",
-  "titleOriginal": "Saving Private Ryan",
+  "title": {
+    "ru": "Спасти рядового Райана",
+    "en": "Saving Private Ryan"
+  },
   "year": 1998,
   "aliases": []
 }

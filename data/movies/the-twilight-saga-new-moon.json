@@ -1,7 +1,9 @@
 {
   "id": "movie-the-twilight-saga-new-moon",
-  "title": "Сумерки. Сага. Новолуние",
-  "titleOriginal": "The Twilight Saga: New Moon",
+  "title": {
+    "ru": "Сумерки. Сага. Новолуние",
+    "en": "The Twilight Saga: New Moon"
+  },
   "year": 2009,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-the-lion-king",
-  "title": "Король Лев",
-  "titleOriginal": "The Lion King",
+  "title": {
+    "ru": "Король Лев",
+    "en": "The Lion King"
+  },
   "year": 1994,
   "aliases": []
 }

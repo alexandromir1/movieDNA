@@ -1,12 +1,17 @@
 {
   "id": "movie-catch-me-if-you-can",
-  "title": "Поймай меня, если сможешь",
-  "titleOriginal": "Catch Me If You Can",
+  "title": {
+    "ru": "Поймай меня, если сможешь",
+    "en": "Catch Me If You Can"
+  },
   "year": 2002,
   "aliases": [],
   "recommendations": [
     {
-      "title": "🎩 Если нравятся обаятельные мошенники",
+      "title": {
+        "ru": "🎩 Если нравятся обаятельные мошенники",
+        "en": "🎩 If you like charming con artists"
+      },
       "items": [
         {
           "movieId": "movie-oceans-eleven"
@@ -20,7 +25,10 @@
       ]
     },
     {
-      "title": "✈️ Если хочется приключений по всему миру",
+      "title": {
+        "ru": "✈️ Если хочется приключений по всему миру",
+        "en": "✈️ If you want globe-trotting adventure"
+      },
       "items": [
         {
           "movieId": "movie-the-terminal"
@@ -34,7 +42,10 @@
       ]
     },
     {
-      "title": "🎬 Если нравится Стивен Спилберг",
+      "title": {
+        "ru": "🎬 Если нравится Стивен Спилберг",
+        "en": "🎬 If you like Steven Spielberg"
+      },
       "items": [
         {
           "movieId": "movie-raiders-of-the-lost-ark"

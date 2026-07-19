@@ -1,7 +1,9 @@
 {
   "id": "movie-scarface",
-  "title": "Лицо со шрамом",
-  "titleOriginal": "Scarface",
+  "title": {
+    "ru": "Лицо со шрамом",
+    "en": "Scarface"
+  },
   "year": 1983,
   "aliases": []
 }

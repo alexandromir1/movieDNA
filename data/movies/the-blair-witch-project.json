@@ -1,7 +1,9 @@
 {
   "id": "movie-the-blair-witch-project",
-  "title": "Ведьма из Блэр",
-  "titleOriginal": "The Blair Witch Project",
+  "title": {
+    "ru": "Ведьма из Блэр",
+    "en": "The Blair Witch Project"
+  },
   "year": 1999,
   "aliases": []
 }

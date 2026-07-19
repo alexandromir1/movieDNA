@@ -1,7 +1,9 @@
 {
   "id": "movie-poltergeist",
-  "title": "Полтергейст",
-  "titleOriginal": "Poltergeist",
+  "title": {
+    "ru": "Полтергейст",
+    "en": "Poltergeist"
+  },
   "year": 1982,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-thor-ragnarok",
-  "title": "Тор: Рагнарёк",
-  "titleOriginal": "Thor: Ragnarok",
+  "title": {
+    "ru": "Тор: Рагнарёк",
+    "en": "Thor: Ragnarok"
+  },
   "year": 2017,
   "aliases": []
 }

@@ -1,7 +1,9 @@
 {
   "id": "movie-alexander",
-  "title": "Александр",
-  "titleOriginal": "Alexander",
+  "title": {
+    "ru": "Александр",
+    "en": "Alexander"
+  },
   "year": 2004,
   "aliases": []
 }

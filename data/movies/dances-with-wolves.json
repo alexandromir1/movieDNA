@@ -1,7 +1,9 @@
 {
   "id": "movie-dances-with-wolves",
-  "title": "Танцы с волками",
-  "titleOriginal": "Dances with Wolves",
+  "title": {
+    "ru": "Танцы с волками",
+    "en": "Dances with Wolves"
+  },
   "year": 1990,
   "aliases": []
 }

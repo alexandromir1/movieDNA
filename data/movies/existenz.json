@@ -1,7 +1,9 @@
 {
   "id": "movie-existenz",
-  "title": "Экзистенция",
-  "titleOriginal": "eXistenZ",
+  "title": {
+    "ru": "Экзистенция",
+    "en": "eXistenZ"
+  },
   "year": 1999,
   "aliases": []
 }

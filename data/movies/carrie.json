@@ -1,7 +1,9 @@
 {
   "id": "movie-carrie",
-  "title": "Кэрри",
-  "titleOriginal": "Carrie",
+  "title": {
+    "ru": "Кэрри",
+    "en": "Carrie"
+  },
   "year": 1976,
   "aliases": []
 }

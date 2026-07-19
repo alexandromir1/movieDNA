@@ -1,7 +1,9 @@
 {
   "id": "movie-spider-man-into-the-spider-verse",
-  "title": "Человек-паук: Через вселенные",
-  "titleOriginal": "Spider-Man: Into the Spider-Verse",
+  "title": {
+    "ru": "Человек-паук: Через вселенные",
+    "en": "Spider-Man: Into the Spider-Verse"
+  },
   "year": 2018,
   "aliases": []
 }

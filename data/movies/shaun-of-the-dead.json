@@ -1,7 +1,9 @@
 {
   "id": "movie-shaun-of-the-dead",
-  "title": "Зомби по имени Шон",
-  "titleOriginal": "Shaun of the Dead",
+  "title": {
+    "ru": "Зомби по имени Шон",
+    "en": "Shaun of the Dead"
+  },
   "year": 2004,
   "aliases": []
 }

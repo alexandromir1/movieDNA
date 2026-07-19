@@ -1,7 +1,9 @@
 {
   "id": "movie-tropic-thunder",
-  "title": "Гром в тропиках",
-  "titleOriginal": "Tropic Thunder",
+  "title": {
+    "ru": "Гром в тропиках",
+    "en": "Tropic Thunder"
+  },
   "year": 2008,
   "aliases": []
 }
