@@ -1,0 +1,127 @@
+{
+  "id": "level-the-gentlemen",
+  "movieId": "movie-the-gentlemen",
+  "difficulty": "medium",
+  "image": "/images/the-gentlemen.png",
+  "width": 1448,
+  "height": 1086,
+  "acceptedAnswers": [
+    "Джентльмены",
+    "The Gentlemen",
+    "Gentlemen"
+  ],
+  "revealRegions": [
+    {
+      "id": "область-1",
+      "name": "Область 1",
+      "polygon": [
+        [
+          106,
+          510
+        ],
+        [
+          121,
+          880
+        ],
+        [
+          331,
+          884
+        ],
+        [
+          370,
+          529
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "область-2",
+      "name": "Область 2",
+      "polygon": [
+        [
+          1439,
+          30
+        ],
+        [
+          1139,
+          58
+        ],
+        [
+          1122,
+          542
+        ],
+        [
+          1439,
+          590
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "область-3",
+      "name": "Область 3",
+      "polygon": [
+        [
+          357,
+          633
+        ],
+        [
+          795,
+          672
+        ],
+        [
+          774,
+          923
+        ],
+        [
+          326,
+          847
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "область-4",
+      "name": "Область 4",
+      "polygon": [
+        [
+          562,
+          294
+        ],
+        [
+          233,
+          294
+        ],
+        [
+          244,
+          538
+        ],
+        [
+          1100,
+          551
+        ],
+        [
+          1098,
+          305
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

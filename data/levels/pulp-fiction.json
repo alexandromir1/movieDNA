@@ -1,0 +1,122 @@
+{
+  "id": "level-pulp-fiction",
+  "movieId": "movie-pulp-fiction",
+  "difficulty": "medium",
+  "image": "/images/pulp-fiction.png",
+  "width": 1448,
+  "height": 1086,
+  "acceptedAnswers": [
+    "Криминальное чтиво",
+    "Pulp Fiction"
+  ],
+  "revealRegions": [
+    {
+      "id": "область-1",
+      "name": "Область 1",
+      "polygon": [
+        [
+          320,
+          385
+        ],
+        [
+          566,
+          385
+        ],
+        [
+          568,
+          765
+        ],
+        [
+          318,
+          765
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "область-2",
+      "name": "Область 2",
+      "polygon": [
+        [
+          11,
+          663
+        ],
+        [
+          733,
+          661
+        ],
+        [
+          733,
+          970
+        ],
+        [
+          2,
+          992
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "область-3",
+      "name": "Область 3",
+      "polygon": [
+        [
+          836,
+          653
+        ],
+        [
+          1442,
+          653
+        ],
+        [
+          1442,
+          906
+        ],
+        [
+          832,
+          906
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "область-4",
+      "name": "Область 4",
+      "polygon": [
+        [
+          901,
+          303
+        ],
+        [
+          1437,
+          300
+        ],
+        [
+          1437,
+          640
+        ],
+        [
+          906,
+          640
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

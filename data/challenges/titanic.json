@@ -1,7 +1,7 @@
 {
   "id": "challenge-titanic",
   "levelId": "level-titanic",
-  "date": "2026-06-27",
+  "date": "2026-06-20",
   "status": "scheduled",
   "relatedChallenges": [
     "challenge-shining",

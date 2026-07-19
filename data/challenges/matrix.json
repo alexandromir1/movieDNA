@@ -1,7 +1,7 @@
 {
   "id": "challenge-matrix",
   "levelId": "level-matrix",
-  "date": "2026-07-18",
+  "date": "2026-07-11",
   "status": "scheduled",
   "relatedChallenges": [
     "challenge-terminator-2-mvp",

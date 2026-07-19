@@ -1,0 +1,123 @@
+{
+  "id": "level-constantine",
+  "movieId": "movie-constantine",
+  "difficulty": "medium",
+  "image": "/images/constantine.png",
+  "width": 1448,
+  "height": 1086,
+  "acceptedAnswers": [
+    "Константин: Повелитель тьмы",
+    "Constantine",
+    "Константин"
+  ],
+  "revealRegions": [
+    {
+      "id": "область-1",
+      "name": "Область 1",
+      "polygon": [
+        [
+          11,
+          547
+        ],
+        [
+          484,
+          547
+        ],
+        [
+          482,
+          957
+        ],
+        [
+          4,
+          964
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "область-2",
+      "name": "Область 2",
+      "polygon": [
+        [
+          1442,
+          112
+        ],
+        [
+          1433,
+          862
+        ],
+        [
+          1167,
+          862
+        ],
+        [
+          1165,
+          108
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "область-3",
+      "name": "Область 3",
+      "polygon": [
+        [
+          462,
+          547
+        ],
+        [
+          808,
+          547
+        ],
+        [
+          871,
+          1018
+        ],
+        [
+          460,
+          1011
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "область-4",
+      "name": "Область 4",
+      "polygon": [
+        [
+          836,
+          482
+        ],
+        [
+          869,
+          1018
+        ],
+        [
+          1314,
+          1053
+        ],
+        [
+          1046,
+          471
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "id": "level-the-fifth-element",
+  "movieId": "movie-the-fifth-element",
+  "difficulty": "medium",
+  "image": "/images/the-fifth-element.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Пятый элемент",
+    "The Fifth Element"
+  ],
+  "revealRegions": [
+    {
+      "id": "область-1",
+      "name": "Область 1",
+      "polygon": [
+        [
+          342,
+          14
+        ],
+        [
+          339,
+          660
+        ],
+        [
+          2,
+          660
+        ],
+        [
+          2,
+          14
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "область-2",
+      "name": "Область 2",
+      "polygon": [
+        [
+          387,
+          628
+        ],
+        [
+          11,
+          736
+        ],
+        [
+          7,
+          1011
+        ],
+        [
+          791,
+          1013
+        ],
+        [
+          853,
+          885
+        ],
+        [
+          855,
+          851
+        ],
+        [
+          475,
+          610
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "область-3",
+      "name": "Область 3",
+      "polygon": [
+        [
+          1082,
+          504
+        ],
+        [
+          683,
+          504
+        ],
+        [
+          697,
+          1020
+        ],
+        [
+          1252,
+          1011
+        ],
+        [
+          1243,
+          502
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "область-4",
+      "name": "Область 4",
+      "polygon": [
+        [
+          759,
+          39
+        ],
+        [
+          768,
+          431
+        ],
+        [
+          1440,
+          541
+        ],
+        [
+          1529,
+          477
+        ],
+        [
+          1531,
+          2
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

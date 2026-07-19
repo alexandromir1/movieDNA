@@ -1,0 +1,126 @@
+{
+  "id": "level-the-chronicles-of-narnia-the-lion-the-witch-and-the-wardrobe",
+  "movieId": "movie-the-chronicles-of-narnia-the-lion-the-witch-and-the-wardrobe",
+  "difficulty": "medium",
+  "image": "/images/the-chronicles-of-narnia-the-lion-the-witch-and-the-wardrobe.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Хроники Нарнии: Лев, колдунья и волшебный шкаф",
+    "The Chronicles of Narnia: The Lion, the Witch and the Wardrobe"
+  ],
+  "revealRegions": [
+    {
+      "id": "область-1",
+      "name": "Область 1",
+      "polygon": [
+        [
+          287,
+          454
+        ],
+        [
+          2,
+          454
+        ],
+        [
+          0,
+          990
+        ],
+        [
+          401,
+          990
+        ],
+        [
+          401,
+          454
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "область-2",
+      "name": "Область 2",
+      "polygon": [
+        [
+          454,
+          11
+        ],
+        [
+          454,
+          619
+        ],
+        [
+          761,
+          617
+        ],
+        [
+          761,
+          5
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "область-3",
+      "name": "Область 3",
+      "polygon": [
+        [
+          1279,
+          619
+        ],
+        [
+          449,
+          617
+        ],
+        [
+          447,
+          995
+        ],
+        [
+          1282,
+          993
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "область-4",
+      "name": "Область 4",
+      "polygon": [
+        [
+          763,
+          7
+        ],
+        [
+          1414,
+          2
+        ],
+        [
+          1414,
+          970
+        ],
+        [
+          766,
+          970
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

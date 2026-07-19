@@ -1,0 +1,130 @@
+{
+  "id": "level-the-martian",
+  "movieId": "movie-the-martian",
+  "difficulty": "medium",
+  "image": "/images/the-martian.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Марсианин",
+    "The Martian"
+  ],
+  "revealRegions": [
+    {
+      "id": "область-1",
+      "name": "Область 1",
+      "polygon": [
+        [
+          1456,
+          248
+        ],
+        [
+          1213,
+          245
+        ],
+        [
+          1210,
+          945
+        ],
+        [
+          1522,
+          947
+        ],
+        [
+          1531,
+          248
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "область-2",
+      "name": "Область 2",
+      "polygon": [
+        [
+          1066,
+          582
+        ],
+        [
+          779,
+          578
+        ],
+        [
+          777,
+          789
+        ],
+        [
+          1048,
+          862
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "область-3",
+      "name": "Область 3",
+      "polygon": [
+        [
+          174,
+          21
+        ],
+        [
+          172,
+          222
+        ],
+        [
+          580,
+          222
+        ],
+        [
+          580,
+          21
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "область-4",
+      "name": "Область 4",
+      "polygon": [
+        [
+          273,
+          578
+        ],
+        [
+          18,
+          580
+        ],
+        [
+          14,
+          938
+        ],
+        [
+          734,
+          942
+        ],
+        [
+          722,
+          580
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

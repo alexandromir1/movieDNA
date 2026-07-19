@@ -1,0 +1,126 @@
+{
+  "id": "level-the-lion-king",
+  "movieId": "movie-the-lion-king",
+  "difficulty": "medium",
+  "image": "/images/the-lion-king.png",
+  "width": 1536,
+  "height": 1024,
+  "acceptedAnswers": [
+    "Король Лев",
+    "The Lion King"
+  ],
+  "revealRegions": [
+    {
+      "id": "область-1",
+      "name": "Область 1",
+      "polygon": [
+        [
+          11,
+          484
+        ],
+        [
+          624,
+          481
+        ],
+        [
+          624,
+          53
+        ],
+        [
+          2,
+          71
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "область-2",
+      "name": "Область 2",
+      "polygon": [
+        [
+          282,
+          481
+        ],
+        [
+          280,
+          692
+        ],
+        [
+          669,
+          690
+        ],
+        [
+          665,
+          481
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "область-3",
+      "name": "Область 3",
+      "polygon": [
+        [
+          1153,
+          355
+        ],
+        [
+          1151,
+          763
+        ],
+        [
+          1534,
+          761
+        ],
+        [
+          1531,
+          353
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "область-4",
+      "name": "Область 4",
+      "polygon": [
+        [
+          626,
+          351
+        ],
+        [
+          1158,
+          348
+        ],
+        [
+          1158,
+          981
+        ],
+        [
+          390,
+          984
+        ],
+        [
+          387,
+          346
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}
