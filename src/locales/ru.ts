@@ -10,6 +10,8 @@ export const ru = {
     archive: "Архив",
     profile: "Профиль",
     menu: "Основное меню",
+    openMenu: "Открыть меню",
+    closeMenu: "Закрыть меню",
   },
   locale: {
     switchTo: "Язык",

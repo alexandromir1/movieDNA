@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { Logo, LogoMark } from "@/components/branding/Logo";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
@@ -16,12 +16,14 @@ import { useLocale } from "@/lib/i18n/LocaleProvider";
 import { cn } from "@/lib/utils/cn";
 
 /**
- * Mobile: одна строка ~36px для Instagram WebView.
- * Desktop: прежняя полноценная шапка с лого, датой и навигацией.
+ * Mobile: лого + дата + бургер (пункты в выпадающем меню).
+ * Desktop: полноценная шапка с лого, датой и навигацией.
  */
 export function Header() {
   const { locale, t } = useLocale();
   const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const today = getUtcDateString();
   const fullDate = useMemo(
     () => formatHeaderDate(today, locale),
@@ -37,6 +39,31 @@ export function Header() {
     { href: GAME_ROUTES.archive, label: t("nav.archive") },
     { href: GAME_ROUTES.profile, label: t("nav.profile") },
   ] as const;
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setMenuOpen(false);
+    }
+
+    function onPointerDown(event: PointerEvent) {
+      if (!menuRef.current?.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [menuOpen]);
 
   return (
     <header className="sticky top-0 z-30 border-b border-white/[0.06] bg-[#0e0e10]/95 backdrop-blur-md pt-[env(safe-area-inset-top)]">
@@ -58,30 +85,70 @@ export function Header() {
           </span>
         </Link>
 
-        <div className="flex shrink-0 items-center gap-1.5">
-          <LanguageSwitcher />
-          <nav className="flex items-center gap-0.5" aria-label={t("nav.menu")}>
-            {navItems.map((item) => {
-              const isActive =
-                pathname === item.href ||
-                (item.href === GAME_ROUTES.today &&
-                  pathname.startsWith("/game/"));
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "rounded-md px-2 py-1 text-[11px] font-medium transition-colors sm:text-xs",
-                    isActive
-                      ? "bg-white/[0.08] text-white"
-                      : "text-white/55 hover:bg-white/[0.05] hover:text-white/85",
-                  )}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
+        <div ref={menuRef} className="relative flex shrink-0 items-center gap-1.5">
+          {pathname !== "/" && <LanguageSwitcher />}
+          <button
+            type="button"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav-menu"
+            aria-label={menuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
+            onClick={() => setMenuOpen((open) => !open)}
+            className="flex h-8 w-8 items-center justify-center rounded-md text-white/70 transition-colors hover:bg-white/[0.06] hover:text-white"
+          >
+            <span className="sr-only">
+              {menuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
+            </span>
+            <span className="flex w-4 flex-col gap-[3px]" aria-hidden>
+              <span
+                className={cn(
+                  "h-px w-full bg-current transition-transform duration-200",
+                  menuOpen && "translate-y-[4px] rotate-45",
+                )}
+              />
+              <span
+                className={cn(
+                  "h-px w-full bg-current transition-opacity duration-200",
+                  menuOpen && "opacity-0",
+                )}
+              />
+              <span
+                className={cn(
+                  "h-px w-full bg-current transition-transform duration-200",
+                  menuOpen && "-translate-y-[4px] -rotate-45",
+                )}
+              />
+            </span>
+          </button>
+
+          {menuOpen && (
+            <nav
+              id="mobile-nav-menu"
+              aria-label={t("nav.menu")}
+              className="absolute right-0 top-[calc(100%+0.4rem)] z-40 min-w-[10.5rem] overflow-hidden rounded-[12px] border border-white/[0.1] bg-[#141416]/98 py-1.5 shadow-[0_12px_40px_rgba(0,0,0,0.45)] backdrop-blur-md"
+            >
+              {navItems.map((item) => {
+                const isActive =
+                  pathname === item.href ||
+                  (item.href === GAME_ROUTES.today &&
+                    pathname.startsWith("/game/"));
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={cn(
+                      "block px-3.5 py-2.5 text-sm font-medium transition-colors",
+                      isActive
+                        ? "bg-white/[0.08] text-white"
+                        : "text-white/65 hover:bg-white/[0.05] hover:text-white",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
+          )}
         </div>
       </div>
 

@@ -15,6 +15,8 @@ export const en = {
     archive: "Archive",
     profile: "Profile",
     menu: "Main menu",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
   },
   locale: {
     switchTo: "Language",

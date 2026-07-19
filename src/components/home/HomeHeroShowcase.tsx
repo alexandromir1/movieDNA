@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { ProgressiveRevealImage } from "@/components/ProgressiveRevealImage";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { Button } from "@/components/ui/Button";
 import {
   HOME_HERO_MODE,
@@ -236,6 +237,10 @@ export function HomeHeroShowcase({
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#0e0e10]/80 via-[#0e0e10]/25 to-transparent"
       />
+
+      <div className="absolute right-3 top-3 z-20 lg:hidden">
+        <LanguageSwitcher />
+      </div>
 
       <div className="relative z-10 flex flex-1 flex-col justify-end px-5 pb-14 pt-20 sm:px-8 sm:pb-16 lg:px-12">
         <HeroCopy mode={mode} />
