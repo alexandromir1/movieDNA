@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import { ProgressiveRevealImage } from "@/components/ProgressiveRevealImage";
+import { ChallengeImageViewer } from "@/components/game/ChallengeImageViewer";
 import { MovieSearchInput } from "@/components/game/MovieSearchInput";
 import { ChallengeResultCard } from "@/components/game/ChallengeResultCard";
 import { ChallengeStartScreen } from "@/components/game/ChallengeStartScreen";
@@ -275,12 +275,13 @@ export function ChallengeBoard({
         session.state === "LOST" && "result-lose-frame",
       )}
     >
-      <ProgressiveRevealImage
+      <ChallengeImageViewer
         imageSrc={level.image}
         revealLevel={session.state === "NOT_STARTED" ? -1 : revealLevel}
         regions={viewerRegions}
         width={level.width}
         height={level.height}
+        zoomEnabled={session.state !== "NOT_STARTED"}
         className="h-full max-h-full w-full"
       />
     </ChallengeImageFrame>
