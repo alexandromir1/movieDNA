@@ -48,16 +48,20 @@ function scoreTitle(query: string, title: string): number {
   if (title === query) return 3;
 
   const words = title.split(" ");
-  const prefix =
-    title.startsWith(query) || words.some((word) => word.startsWith(query));
+  const startsWithQuery = title === query || title.startsWith(`${query} `);
+  const wordPrefix = words.some((word) => word.startsWith(query));
   const contains = query.length >= 4 && title.includes(query);
 
   // Short queries: prefix only (avoids noise in a large catalog)
   if (query.length < 4) {
-    return prefix ? 1 + query.length / Math.max(title.length, 1) : 0;
+    return startsWithQuery || wordPrefix
+      ? 1 + query.length / Math.max(title.length, 1)
+      : 0;
   }
 
-  if (prefix) return 1.5 + diceSimilarity(query, title) * 0.3;
+  // Shared title prefix («Гарри Поттер…») — equal base, don't punish long titles
+  if (startsWithQuery) return 2.1;
+  if (wordPrefix) return 1.5 + diceSimilarity(query, title) * 0.3;
   if (contains) return 1.1 + diceSimilarity(query, title) * 0.2;
 
   const dice = diceSimilarity(query, title);
@@ -65,10 +69,17 @@ function scoreTitle(query: string, title: string): number {
   return dice >= 0.72 ? dice : 0;
 }
 
+function isPlayableMovieId(id: string): boolean {
+  return !/^movie-tt\d+/i.test(id);
+}
+
 function scoreMovie(query: string, movie: MovieSuggestion): number {
   const ru = normalizeTitle(movie.title);
   const en = movie.titleOriginal ? normalizeTitle(movie.titleOriginal) : "";
-  return Math.max(scoreTitle(query, ru), scoreTitle(query, en), 0);
+  const base = Math.max(scoreTitle(query, ru), scoreTitle(query, en), 0);
+  if (base <= 0) return 0;
+  // Playable / challenge films slightly above raw IMDb catalog clones
+  return base + (isPlayableMovieId(movie.id) ? 0.05 : 0);
 }
 
 /** Локальный fallback-поиск (без Supabase), с базовой нечёткой логикой */
@@ -83,7 +94,15 @@ export function searchMoviesLocal(
   return catalog
     .map((movie) => ({ movie, score: scoreMovie(normalizedQuery, movie) }))
     .filter(({ score }) => score > 0)
-    .sort((a, b) => b.score - a.score)
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      const playableDelta =
+        Number(isPlayableMovieId(b.movie.id)) -
+        Number(isPlayableMovieId(a.movie.id));
+      if (playableDelta !== 0) return playableDelta;
+      // Earlier film first in a series («Гарри Поттер» → философский камень)
+      return a.movie.year - b.movie.year;
+    })
     .slice(0, limit)
     .map(({ movie }) => movie);
 }

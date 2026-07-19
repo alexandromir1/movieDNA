@@ -138,6 +138,7 @@ export function getPublishedChallenges(): Challenge[] {
 
 /**
  * Каталог для автодополнения: ~500 фильмов (RU + EN) + playable movies.
+ * Playable побеждает дубликаты каталога (тот же titleOriginal, год ±2 или IMDb-запись).
  */
 export function getMovieSearchCatalog(): Array<{
   id: string;
@@ -145,36 +146,50 @@ export function getMovieSearchCatalog(): Array<{
   titleOriginal: string | null;
   year: number;
 }> {
-  const byKey = new Map<
-    string,
-    { id: string; title: string; titleOriginal: string | null; year: number }
-  >();
-
-  for (const movie of searchCatalog as Array<{
+  type Entry = {
     id: string;
     title: string;
     titleOriginal: string | null;
     year: number;
-  }>) {
-    const key = `${movie.titleOriginal ?? movie.title}|${movie.year}`.toLowerCase();
-    byKey.set(key, {
+  };
+
+  const byKey = new Map<string, Entry>();
+
+  const filmName = (entry: Entry) =>
+    (entry.titleOriginal ?? entry.title).toLowerCase().trim();
+
+  const exactKey = (entry: Entry) => `${filmName(entry)}|${entry.year}`;
+
+  const isImdbCatalogId = (id: string) => /^movie-tt\d+/i.test(id);
+
+  for (const movie of searchCatalog as Entry[]) {
+    const entry: Entry = {
       id: movie.id,
       title: movie.title,
       titleOriginal: movie.titleOriginal,
       year: movie.year,
-    });
+    };
+    byKey.set(exactKey(entry), entry);
   }
 
   for (const movie of movies()) {
     if (!movie.title.trim() && !movie.titleOriginal?.trim()) continue;
-    const entry = {
+    const entry: Entry = {
       id: movie.id,
       title: movie.title || movie.titleOriginal || movie.id,
       titleOriginal: movie.titleOriginal,
       year: movie.year,
     };
-    const key = `${entry.titleOriginal ?? entry.title}|${entry.year}`.toLowerCase();
-    byKey.set(key, entry);
+
+    for (const [key, existing] of [...byKey.entries()]) {
+      if (filmName(existing) !== filmName(entry)) continue;
+      const yearClose = Math.abs(existing.year - entry.year) <= 2;
+      if (yearClose || isImdbCatalogId(existing.id)) {
+        byKey.delete(key);
+      }
+    }
+
+    byKey.set(exactKey(entry), entry);
   }
 
   return Array.from(byKey.values());
