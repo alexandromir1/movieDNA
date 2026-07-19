@@ -7,7 +7,6 @@ import { MovieSearchInput } from "@/components/game/MovieSearchInput";
 import { ChallengeResultCard } from "@/components/game/ChallengeResultCard";
 import { ChallengeStartScreen } from "@/components/game/ChallengeStartScreen";
 import type { NextChallengeLink } from "@/components/game/WhatsNextBlock";
-import { MovieTitle } from "@/components/i18n/MovieTitle";
 import { Button } from "@/components/ui/Button";
 import { REVEAL_REGION_COUNT } from "@/config/economy";
 import { FEEDBACK_MESSAGE_MS, WRONG_GUESS_FEEDBACK_MS } from "@/config/game";
@@ -114,8 +113,8 @@ export function ChallengeBoard({
   const [imageExpanded, setImageExpanded] = useState(
     () => session.state === "COMPLETED" || session.state === "LOST",
   );
-  /** Win beat: полное изображение → название → экран результата */
-  const [winBeat, setWinBeat] = useState<"image" | "title" | "result">(() =>
+  /** Win beat: короткая пауза на полном кадре → экран результата */
+  const [winBeat, setWinBeat] = useState<"image" | "result">(() =>
     session.state === "COMPLETED" || session.state === "LOST" ? "result" : "image",
   );
   const skipWinIntroRef = useRef(
@@ -143,10 +142,8 @@ export function ChallengeBoard({
     }
 
     setWinBeat("image");
-    const titleTimer = window.setTimeout(() => setWinBeat("title"), 320);
-    const resultTimer = window.setTimeout(() => setWinBeat("result"), 700);
+    const resultTimer = window.setTimeout(() => setWinBeat("result"), 420);
     return () => {
-      window.clearTimeout(titleTimer);
       window.clearTimeout(resultTimer);
     };
   }, [session.state]);
@@ -349,20 +346,6 @@ export function ChallengeBoard({
       </div>
 
       <div className="mb-2 w-full sm:mb-4">{image}</div>
-
-      {session.state === "COMPLETED" && winBeat === "title" && (
-        <div className="win-title-reveal mb-4 w-full max-w-md text-center">
-          <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-[var(--accent)]">
-            Это
-          </p>
-          <MovieTitle
-            title={movie.title}
-            className="mt-1.5 text-3xl font-semibold tracking-tight text-white sm:text-4xl"
-            alternateClassName="mt-1.5 text-sm text-white/50"
-          />
-          <p className="mt-1 text-sm text-white/45">{movie.year}</p>
-        </div>
-      )}
 
       {(session.state === "COMPLETED" && winBeat === "result") ||
       session.state === "LOST" ? (

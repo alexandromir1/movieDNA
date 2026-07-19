@@ -169,6 +169,13 @@ export function ChallengeResultCard({
             {winHeadline(scoreBreakdown.openedRegionCount)}
           </p>
 
+          <MovieTitle
+            title={movie.title}
+            showAlternate={false}
+            className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl"
+          />
+          <p className="mt-0.5 text-xs text-white/35">{movie.year}</p>
+
           <p className="mt-5 text-[10px] font-medium uppercase tracking-[0.35em] text-white/40">
             {t("result.movieScore")}
           </p>
@@ -186,8 +193,8 @@ export function ChallengeResultCard({
           </p>
           <MovieTitle
             title={movie.title}
+            showAlternate={false}
             className="mt-1 text-3xl font-semibold tracking-tight text-white sm:text-4xl"
-            alternateClassName="mt-1.5 text-sm text-white/50"
           />
           <p className="mt-0.5 text-xs text-white/35">{movie.year}</p>
           <p className="mt-3 text-xs text-white/40">

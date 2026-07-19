@@ -58,7 +58,6 @@ export const en = {
     searching: "Searching…",
     searchPlaceholder: "Movie title…",
     wrongGuess: "Wrong — a new region opened",
-    thisIs: "It's",
     copied: "Copied to clipboard",
     shared: "Shared",
     copyManual: "Copy the text manually",

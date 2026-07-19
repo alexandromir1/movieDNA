@@ -53,7 +53,6 @@ export const ru = {
     searching: "Поиск…",
     searchPlaceholder: "Название фильма…",
     wrongGuess: "Не угадал — открыта новая область",
-    thisIs: "Это",
     copied: "Скопировано в буфер",
     shared: "Отправлено",
     copyManual: "Скопируй текст вручную",
