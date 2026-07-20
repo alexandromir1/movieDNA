@@ -48,6 +48,7 @@ export const ru = {
     openAll: "Открыть всё",
     openAllFull: "Открыть всё изображение",
     surrender: "Сдаться",
+    hintsExhausted: "Всё открыто",
     wrongShort: "Неверно",
     openedNext: "Открыта следующая область",
     openedFullLast: "Открыто полное изображение — последняя попытка",

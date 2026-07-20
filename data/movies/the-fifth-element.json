@@ -5,5 +5,58 @@
     "en": "The Fifth Element"
   },
   "year": 1997,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": {
+        "ru": "🚀 Космические приключения",
+        "en": "🚀 Space adventures"
+      },
+      "items": [
+        {
+          "movieId": "movie-guardians-of-the-galaxy"
+        },
+        {
+          "movieId": "movie-valerian-and-the-city-of-a-thousand-planets"
+        },
+        {
+          "movieId": "movie-star-wars-a-new-hope"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "🎨 Необычная фантастика",
+        "en": "🎨 Offbeat sci-fi"
+      },
+      "items": [
+        {
+          "movieId": "movie-the-hitchhikers-guide-to-the-galaxy"
+        },
+        {
+          "movieId": "movie-men-in-black"
+        },
+        {
+          "movieId": "movie-back-to-the-future"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "🎬 Люк Бессон",
+        "en": "🎬 Luc Besson"
+      },
+      "items": [
+        {
+          "movieId": "movie-leon"
+        },
+        {
+          "movieId": "movie-lucy"
+        },
+        {
+          "movieId": "movie-anna"
+        }
+      ]
+    }
+  ]
 }

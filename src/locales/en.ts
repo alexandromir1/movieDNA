@@ -53,6 +53,7 @@ export const en = {
     openAll: "Reveal all",
     openAllFull: "Reveal the full image",
     surrender: "Give up",
+    hintsExhausted: "All open",
     wrongShort: "Wrong",
     openedNext: "Next region opened",
     openedFullLast: "Full image opened — last chance",

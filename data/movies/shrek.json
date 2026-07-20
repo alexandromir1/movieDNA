@@ -9,52 +9,52 @@
   "recommendations": [
     {
       "title": {
-        "ru": "🐉 Если хочется сказочных приключений",
-        "en": "🐉 If you want fairy-tale adventure"
-      },
-      "items": [
-        {
-          "movieId": "movie-how-to-train-your-dragon"
-        },
-        {
-          "movieId": "movie-tangled"
-        },
-        {
-          "movieId": "movie-brave"
-        }
-      ]
-    },
-    {
-      "title": {
-        "ru": "😂 Если нравится юмор для взрослых и детей",
-        "en": "😂 If you like humor for kids and adults"
+        "ru": "😂 Лучшие анимационные комедии",
+        "en": "😂 Best animated comedies"
       },
       "items": [
         {
           "movieId": "movie-kung-fu-panda"
         },
         {
-          "movieId": "movie-megamind"
+          "movieId": "movie-madagascar"
         },
         {
-          "movieId": "movie-the-lego-movie"
+          "movieId": "movie-ice-age"
         }
       ]
     },
     {
       "title": {
-        "ru": "👑 Если хочется современной сказки",
-        "en": "👑 If you want a modern fairy tale"
+        "ru": "🏰 Сказки наоборот",
+        "en": "🏰 Fairy tales flipped"
       },
       "items": [
         {
-          "movieId": "movie-ella-enchanted"
+          "movieId": "movie-puss-in-boots"
         },
         {
-          "movieId": "movie-the-princess-bride"
+          "movieId": "movie-tangled"
         },
         {
-          "movieId": "movie-stardust"
+          "movieId": "movie-encanto"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "💚 DreamWorks",
+        "en": "💚 DreamWorks"
+      },
+      "items": [
+        {
+          "movieId": "movie-how-to-train-your-dragon"
+        },
+        {
+          "movieId": "movie-puss-in-boots-the-last-wish"
+        },
+        {
+          "movieId": "movie-megamind"
         }
       ]
     }

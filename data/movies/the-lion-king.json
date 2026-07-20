@@ -5,5 +5,58 @@
     "en": "The Lion King"
   },
   "year": 1994,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": {
+        "ru": "🦁 Семейная анимация",
+        "en": "🦁 Family animation"
+      },
+      "items": [
+        {
+          "movieId": "movie-how-to-train-your-dragon"
+        },
+        {
+          "movieId": "movie-kung-fu-panda"
+        },
+        {
+          "movieId": "movie-shrek"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "❤️ Истории взросления",
+        "en": "❤️ Coming-of-age stories"
+      },
+      "items": [
+        {
+          "movieId": "movie-coco"
+        },
+        {
+          "movieId": "movie-up"
+        },
+        {
+          "movieId": "movie-wall-e"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "👑 Классика Disney",
+        "en": "👑 Disney classics"
+      },
+      "items": [
+        {
+          "movieId": "movie-beauty-and-the-beast"
+        },
+        {
+          "movieId": "movie-aladdin"
+        },
+        {
+          "movieId": "movie-mulan"
+        }
+      ]
+    }
+  ]
 }

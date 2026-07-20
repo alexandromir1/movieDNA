@@ -17,6 +17,8 @@ interface MovieSearchInputProps {
   isError?: boolean;
   /** Скрыть встроенную кнопку — родитель рисует CTA сам */
   hideSubmitButton?: boolean;
+  /** После выбора из списка (mobile ghost-click guard у родителя) */
+  onSuggestionSelect?: () => void;
 }
 
 export function MovieSearchInput({
@@ -27,6 +29,7 @@ export function MovieSearchInput({
   placeholder,
   isError = false,
   hideSubmitButton = false,
+  onSuggestionSelect,
 }: MovieSearchInputProps) {
   const t = useTranslations();
   const resolvedPlaceholder = placeholder ?? t("game.searchPlaceholder");
@@ -86,23 +89,26 @@ export function MovieSearchInput({
 
   function selectSuggestion(title: string) {
     skipOpenRef.current = true;
+    onSuggestionSelect?.();
     onChange(title);
     setIsOpen(false);
-    // blur снимает клавиатуру на mobile и не даёт onFocus снова открыть список
-    inputRef.current?.blur();
+    // Не blur — иначе на mobile клавиатура/скролл «убегают» вместе со строкой.
+    // Фокус оставляем; список закрыт.
     window.setTimeout(() => {
       skipOpenRef.current = false;
-    }, 300);
+    }, 400);
   }
 
   function handleSubmit() {
     setIsOpen(false);
     skipOpenRef.current = true;
-    inputRef.current?.blur();
+    onSuggestionSelect?.();
     onSubmit(value);
+    // blur только при явной отправке ответа
+    inputRef.current?.blur();
     window.setTimeout(() => {
       skipOpenRef.current = false;
-    }, 300);
+    }, 400);
   }
 
   const showDropdown =
@@ -139,7 +145,7 @@ export function MovieSearchInput({
           disabled={disabled}
           placeholder={resolvedPlaceholder}
           className={cn(
-            "w-full rounded-[10px] border bg-white/[0.03] px-3 py-2.5 text-center text-sm outline-none transition-all duration-300 sm:px-4 sm:py-3 sm:text-base",
+            "w-full rounded-[10px] border bg-white/[0.03] px-3 py-2.5 text-center text-base outline-none transition-[border-color,background-color] duration-300 sm:px-4 sm:py-3",
             "disabled:cursor-not-allowed disabled:opacity-40",
             isError
               ? "border-rose-400/50 text-rose-200/90 placeholder:text-rose-200/35"
@@ -154,7 +160,9 @@ export function MovieSearchInput({
               setIsOpen(false);
             }
           }}
-          onFocus={() => openIfAllowed()}
+          onFocus={() => {
+            openIfAllowed();
+          }}
           onBlur={() => {
             // Даём время pointer/click по option; иначе список исчезнет до выбора
             window.setTimeout(() => {
@@ -162,7 +170,7 @@ export function MovieSearchInput({
               const active = document.activeElement;
               if (active && containerRef.current?.contains(active)) return;
               setIsOpen(false);
-            }, 180);
+            }, 220);
           }}
           onKeyDown={(event) => {
             if (!isOpen || suggestions.length === 0) {
@@ -211,7 +219,7 @@ export function MovieSearchInput({
         <ul
           id={listboxId}
           role="listbox"
-          className="absolute left-0 right-0 top-full z-20 mt-2 max-h-48 overflow-y-auto overscroll-contain rounded-[12px] border border-white/[0.1] bg-[#1a1a1e] shadow-[0_16px_48px_rgb(0_0_0/0.5)]"
+          className="absolute left-0 right-0 top-full z-50 mt-2 max-h-48 overflow-y-auto overscroll-contain rounded-[12px] border border-white/[0.1] bg-[#1a1a1e] shadow-[0_16px_48px_rgb(0_0_0/0.5)]"
         >
           {suggestions.map((movie, index) => (
             <li
@@ -226,7 +234,13 @@ export function MovieSearchInput({
               onPointerDown={(event) => {
                 // Не даём input потерять фокус до выбора — иначе click теряется на iOS
                 event.preventDefault();
+                event.stopPropagation();
                 selectSuggestion(movie.title);
+              }}
+              onClick={(event) => {
+                // Страховка от ghost click / bubbling к кадру под списком
+                event.preventDefault();
+                event.stopPropagation();
               }}
             >
               {formatMovieLabel(movie)}

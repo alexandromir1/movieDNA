@@ -5,5 +5,58 @@
     "en": "The Martian"
   },
   "year": 2015,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": {
+        "ru": "🚀 Космос",
+        "en": "🚀 Space"
+      },
+      "items": [
+        {
+          "movieId": "movie-interstellar"
+        },
+        {
+          "movieId": "movie-gravity"
+        },
+        {
+          "movieId": "movie-apollo-13"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "🎬 Ридли Скотт",
+        "en": "🎬 Ridley Scott"
+      },
+      "items": [
+        {
+          "movieId": "movie-gladiator"
+        },
+        {
+          "movieId": "movie-alien"
+        },
+        {
+          "movieId": "movie-blade-runner"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "🧠 Выживание",
+        "en": "🧠 Survival"
+      },
+      "items": [
+        {
+          "movieId": "movie-cast-away"
+        },
+        {
+          "movieId": "movie-127-hours"
+        },
+        {
+          "movieId": "movie-life-of-pi"
+        }
+      ]
+    }
+  ]
 }

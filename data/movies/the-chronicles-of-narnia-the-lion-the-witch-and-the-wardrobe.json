@@ -5,5 +5,58 @@
     "en": "The Chronicles of Narnia: The Lion, the Witch and the Wardrobe"
   },
   "year": 2005,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": {
+        "ru": "🦁 Волшебные миры",
+        "en": "🦁 Magical worlds"
+      },
+      "items": [
+        {
+          "movieId": "movie-harry-potter-philosophers-stone"
+        },
+        {
+          "movieId": "movie-lord-of-the-rings-fellowship"
+        },
+        {
+          "movieId": "movie-pans-labyrinth"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "✨ Фэнтези",
+        "en": "✨ Fantasy"
+      },
+      "items": [
+        {
+          "movieId": "movie-the-golden-compass"
+        },
+        {
+          "movieId": "movie-stardust"
+        },
+        {
+          "movieId": "movie-bridge-to-terabithia"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "👨‍👩‍👧 Для всей семьи",
+        "en": "👨‍👩‍👧 For the whole family"
+      },
+      "items": [
+        {
+          "movieId": "movie-jumanji"
+        },
+        {
+          "movieId": "movie-the-lion-king"
+        },
+        {
+          "movieId": "movie-shrek"
+        }
+      ]
+    }
+  ]
 }

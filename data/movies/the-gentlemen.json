@@ -7,5 +7,58 @@
   "year": 2019,
   "aliases": [
     "Gentlemen"
+  ],
+  "recommendations": [
+    {
+      "title": {
+        "ru": "💼 Криминальные комедии",
+        "en": "💼 Crime comedies"
+      },
+      "items": [
+        {
+          "movieId": "movie-snatch"
+        },
+        {
+          "movieId": "movie-lock-stock-and-two-smoking-barrels"
+        },
+        {
+          "movieId": "movie-in-bruges"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "🎬 От Гая Ричи",
+        "en": "🎬 From Guy Ritchie"
+      },
+      "items": [
+        {
+          "movieId": "movie-sherlock-holmes"
+        },
+        {
+          "movieId": "movie-the-ministry-of-ungentlemanly-warfare"
+        },
+        {
+          "movieId": "movie-wrath-of-man"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "😎 Харизматичные преступники",
+        "en": "😎 Charismatic criminals"
+      },
+      "items": [
+        {
+          "movieId": "movie-the-departed"
+        },
+        {
+          "movieId": "movie-pulp-fiction"
+        },
+        {
+          "movieId": "movie-leon"
+        }
+      ]
+    }
   ]
 }

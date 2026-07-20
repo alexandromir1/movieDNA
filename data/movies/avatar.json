@@ -5,5 +5,58 @@
     "en": "Avatar"
   },
   "year": 2009,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": {
+        "ru": "🌍 Если понравился мир",
+        "en": "🌍 If you liked the world"
+      },
+      "items": [
+        {
+          "movieId": "movie-avatar-the-way-of-water"
+        },
+        {
+          "movieId": "movie-dune"
+        },
+        {
+          "movieId": "movie-interstellar"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "🎬 От режиссёра Джеймса Кэмерона",
+        "en": "🎬 From James Cameron"
+      },
+      "items": [
+        {
+          "movieId": "movie-terminator-2"
+        },
+        {
+          "movieId": "movie-titanic"
+        },
+        {
+          "movieId": "movie-the-abyss"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "🚀 Научная фантастика",
+        "en": "🚀 Science fiction"
+      },
+      "items": [
+        {
+          "movieId": "movie-the-martian"
+        },
+        {
+          "movieId": "movie-arrival"
+        },
+        {
+          "movieId": "movie-edge-of-tomorrow"
+        }
+      ]
+    }
+  ]
 }

@@ -8,5 +8,58 @@
   "aliases": [
     "Constantine",
     "Константин"
+  ],
+  "recommendations": [
+    {
+      "title": {
+        "ru": "😈 Демоны и мистика",
+        "en": "😈 Demons and mysticism"
+      },
+      "items": [
+        {
+          "movieId": "movie-the-devils-advocate"
+        },
+        {
+          "movieId": "movie-the-ninth-gate"
+        },
+        {
+          "movieId": "movie-end-of-days"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "⚔️ Тёмное фэнтези",
+        "en": "⚔️ Dark fantasy"
+      },
+      "items": [
+        {
+          "movieId": "movie-hellboy"
+        },
+        {
+          "movieId": "movie-blade"
+        },
+        {
+          "movieId": "movie-van-helsing"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "👤 Киану Ривз",
+        "en": "👤 Keanu Reeves"
+      },
+      "items": [
+        {
+          "movieId": "movie-matrix"
+        },
+        {
+          "movieId": "movie-john-wick"
+        },
+        {
+          "movieId": "movie-speed"
+        }
+      ]
+    }
   ]
 }

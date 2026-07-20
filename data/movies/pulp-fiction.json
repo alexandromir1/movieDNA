@@ -5,5 +5,58 @@
     "en": "Pulp Fiction"
   },
   "year": 1994,
-  "aliases": []
+  "aliases": [],
+  "recommendations": [
+    {
+      "title": {
+        "ru": "🔫 Культовые криминальные фильмы",
+        "en": "🔫 Cult crime films"
+      },
+      "items": [
+        {
+          "movieId": "movie-snatch"
+        },
+        {
+          "movieId": "movie-leon"
+        },
+        {
+          "movieId": "movie-the-departed"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "🎬 Квентин Тарантино",
+        "en": "🎬 Quentin Tarantino"
+      },
+      "items": [
+        {
+          "movieId": "movie-inglourious-basterds"
+        },
+        {
+          "movieId": "movie-django-unchained"
+        },
+        {
+          "movieId": "movie-kill-bill-vol-1"
+        }
+      ]
+    },
+    {
+      "title": {
+        "ru": "💬 Незабываемые диалоги",
+        "en": "💬 Unforgettable dialogue"
+      },
+      "items": [
+        {
+          "movieId": "movie-fight-club"
+        },
+        {
+          "movieId": "movie-the-gentlemen"
+        },
+        {
+          "movieId": "movie-seven"
+        }
+      ]
+    }
+  ]
 }

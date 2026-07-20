@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { analytics } from "@/analytics";
-import { ImageViewer } from "@/components/ImageViewer";
 import { ProgressiveRevealImage } from "@/components/ProgressiveRevealImage";
 import { cn } from "@/lib/utils/cn";
 import type { RevealRegion } from "@/types/reveal-image";
@@ -16,12 +15,15 @@ interface ChallengeImageViewerProps {
   height: number;
   /** На стартовом экране (чёрный кадр) просмотр не нужен. */
   zoomEnabled?: boolean;
+  /** Блокировка клика после выбора из поиска (ghost click на mobile). */
+  clickGuardUntil?: number;
+  enlarged?: boolean;
+  onEnlargedChange?: (enlarged: boolean) => void;
   className?: string;
 }
 
 /**
- * Тонкая обёртка Challenge → переиспользуемый ImageViewer.
- * Клик по кадру открывает fullscreen; состояние Challenge не трогается.
+ * Клик по кадру → простое увеличение ×1.5 (без тяжёлого fullscreen zoom).
  */
 export function ChallengeImageViewer({
   imageSrc,
@@ -30,13 +32,31 @@ export function ChallengeImageViewer({
   width,
   height,
   zoomEnabled = true,
+  clickGuardUntil = 0,
+  enlarged = false,
+  onEnlargedChange,
   className,
 }: ChallengeImageViewerProps) {
-  const [open, setOpen] = useState(false);
+  const [localEnlarged, setLocalEnlarged] = useState(false);
+  const isEnlarged = onEnlargedChange ? enlarged : localEnlarged;
+  const lastToggleRef = useRef(0);
 
-  function openViewer() {
-    setOpen(true);
-    analytics.track("image_viewer_opened", {});
+  function setEnlarged(next: boolean) {
+    if (onEnlargedChange) onEnlargedChange(next);
+    else setLocalEnlarged(next);
+  }
+
+  function toggleEnlarge() {
+    if (Date.now() < clickGuardUntil) return;
+    // Игнор повторного срабатывания от ghost click сразу после toggle
+    if (Date.now() - lastToggleRef.current < 350) return;
+    lastToggleRef.current = Date.now();
+
+    const next = !isEnlarged;
+    setEnlarged(next);
+    if (next) {
+      analytics.track("image_viewer_opened", {});
+    }
   }
 
   const frame = (
@@ -50,39 +70,26 @@ export function ChallengeImageViewer({
     />
   );
 
-  return (
-    <>
-      {zoomEnabled ? (
-        <button
-          type="button"
-          aria-label="Открыть изображение для изучения"
-          onClick={openViewer}
-          className="relative block h-full w-full cursor-zoom-in overflow-hidden text-left"
-        >
-          {frame}
-        </button>
-      ) : (
-        frame
-      )}
+  if (!zoomEnabled) {
+    return frame;
+  }
 
-      <ImageViewer
-        open={open}
-        onClose={() => setOpen(false)}
-        width={width}
-        height={height}
-        label="Изучение кадра Challenge"
-      >
-        <ProgressiveRevealImage
-          imageSrc={imageSrc}
-          revealLevel={revealLevel}
-          regions={regions}
-          width={width}
-          height={height}
-          fit="contain"
-          className="h-full w-full"
-          aria-label="Кадр Challenge"
-        />
-      </ImageViewer>
-    </>
+  return (
+    <button
+      type="button"
+      aria-label={
+        isEnlarged
+          ? "Уменьшить изображение"
+          : "Увеличить изображение в полтора раза"
+      }
+      aria-pressed={isEnlarged}
+      onClick={toggleEnlarge}
+      className={cn(
+        "relative block h-full w-full overflow-hidden text-left",
+        isEnlarged ? "cursor-zoom-out" : "cursor-zoom-in",
+      )}
+    >
+      {frame}
+    </button>
   );
 }

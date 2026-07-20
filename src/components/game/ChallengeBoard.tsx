@@ -44,19 +44,21 @@ function triggerWrongGuessVibration() {
 }
 
 /**
- * Кадр Challenge: на мобилке даём больше высоты кадру,
- * потому что chrome (header/архив) уже сжат — кнопки остаются в первом экране.
+ * Кадр Challenge: размер от ширины экрана (крупнее на больших мониторах).
+ * enlarged = ×1.5 для быстрого просмотра без сложного zoom UI.
  */
 function ChallengeImageFrame({
   width,
   height,
   compact = false,
+  enlarged = false,
   className,
   children,
 }: {
   width: number;
   height: number;
   compact?: boolean;
+  enlarged?: boolean;
   className?: string;
   children: React.ReactNode;
 }) {
@@ -66,17 +68,26 @@ function ChallengeImageFrame({
     <div
       className={cn(
         "relative mx-auto overflow-hidden rounded-[10px] border border-white/[0.09] bg-black sm:rounded-[12px]",
-        "shadow-[0_8px_40px_rgb(0_0_0/0.4)] transition-all duration-500",
-        compact
-          ? "[--frame-max-h:min(30dvh,240px)] sm:[--frame-max-h:min(34vh,330px)]"
-          : "[--frame-max-h:min(42dvh,340px)] sm:[--frame-max-h:min(52vh,530px)]",
+        "shadow-[0_8px_40px_rgb(0_0_0/0.4)] transition-[max-height,width,max-width] duration-300 ease-out",
         className,
       )}
-      style={{
-        aspectRatio: String(aspect),
-        maxHeight: "var(--frame-max-h)",
-        width: `min(100%, 48rem, calc(var(--frame-max-h) * ${aspect}))`,
-      }}
+      style={
+        {
+          aspectRatio: String(aspect),
+          // Ширина от viewport; высота ограничена dvh — одинаковый «вес» на всех экранах.
+          width: enlarged
+            ? `min(96vw, calc(min(82dvh, 920px) * ${aspect}))`
+            : compact
+              ? `min(100%, 92vw, calc(min(34dvh, 360px) * ${aspect}))`
+              : `min(100%, 92vw, 72rem, calc(min(68dvh, 820px) * ${aspect}))`,
+          maxWidth: "100%",
+          maxHeight: enlarged
+            ? "min(82dvh, 920px)"
+            : compact
+              ? "min(34dvh, 360px)"
+              : "min(68dvh, 820px)",
+        } as React.CSSProperties
+      }
     >
       {children}
     </div>
@@ -114,6 +125,9 @@ export function ChallengeBoard({
   const [imageExpanded, setImageExpanded] = useState(
     () => session.state === "COMPLETED" || session.state === "LOST",
   );
+  const [imageEnlarged, setImageEnlarged] = useState(false);
+  /** После выбора из dropdown — не открывать enlarge от ghost click */
+  const [imageClickGuardUntil, setImageClickGuardUntil] = useState(0);
   /** Win beat: короткая пауза на полном кадре → экран результата */
   const [winBeat, setWinBeat] = useState<"image" | "result">(() =>
     session.state === "COMPLETED" || session.state === "LOST" ? "result" : "image",
@@ -130,6 +144,12 @@ export function ChallengeBoard({
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (session.state === "COMPLETED" || session.state === "LOST") {
+      setImageEnlarged(false);
+    }
+  }, [session.state]);
 
   useEffect(() => {
     if (session.state !== "COMPLETED") {
@@ -278,6 +298,7 @@ export function ChallengeBoard({
       width={level.width}
       height={level.height}
       compact={imageCompact}
+      enlarged={imageEnlarged && !imageCompact}
       className={cn(
         isWrongGuess && "wrong-guess-flash",
         session.state === "COMPLETED" && "result-win-frame",
@@ -291,6 +312,9 @@ export function ChallengeBoard({
         width={level.width}
         height={level.height}
         zoomEnabled={session.state !== "NOT_STARTED"}
+        clickGuardUntil={imageClickGuardUntil}
+        enlarged={imageEnlarged}
+        onEnlargedChange={setImageEnlarged}
         className="h-full max-h-full w-full"
       />
     </ChallengeImageFrame>
@@ -325,8 +349,8 @@ export function ChallengeBoard({
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col items-center pb-[max(0.25rem,env(safe-area-inset-bottom))]">
-      <div className="mb-1.5 flex w-full items-center gap-2 sm:mb-3 sm:gap-3">
+    <div className="mx-auto flex w-full max-w-5xl flex-col items-center pb-[max(0.25rem,env(safe-area-inset-bottom))]">
+      <div className="mb-1.5 flex w-full max-w-3xl items-center gap-2 sm:mb-3 sm:gap-3">
         {progressSegments}
         <span className="shrink-0 text-[10px] font-medium uppercase tracking-wider text-white/40 sm:text-[11px]">
           {Math.min(session.openedRegionCount, REVEAL_REGION_COUNT)}/
@@ -372,7 +396,7 @@ export function ChallengeBoard({
           shareFallbackText={shareFallbackText}
         />
       ) : (
-        <div className="w-full max-w-md">
+        <div className="relative z-30 w-full max-w-lg">
           <div className={cn(isWrongGuess && "wrong-guess-shake")}>
             <MovieSearchInput
               value={guess}
@@ -380,6 +404,10 @@ export function ChallengeBoard({
               disabled={isWrongGuess}
               isError={isWrongGuess}
               hideSubmitButton
+              onSuggestionSelect={() => {
+                setImageClickGuardUntil(Date.now() + 600);
+                setImageEnlarged(false);
+              }}
               onSubmit={handleGuessSubmit}
             />
           </div>
@@ -401,50 +429,50 @@ export function ChallengeBoard({
               <span className="hidden sm:inline">{t("game.checkAnswer")}</span>
             </Button>
 
-            {canSurrender ? (
-              <Button
-                variant="secondary"
-                size="lg"
-                className="h-10 w-full px-2 text-xs border-rose-300/25 text-rose-100/85 hover:border-rose-300/40 hover:bg-rose-400/[0.08] sm:h-12 sm:px-8 sm:text-sm"
-                disabled={isWrongGuess}
-                onClick={surrender}
-              >
-                {t("game.surrender")}
-              </Button>
-            ) : (
-              <Button
-                variant="secondary"
-                size="lg"
-                className="h-10 w-full px-2 text-xs sm:h-12 sm:px-8 sm:text-sm"
-                disabled={!canOpenMore || isWrongGuess}
-                onClick={() => {
-                  const nextCount = session.openedRegionCount + 1;
-                  openNextReveal();
-                  showTemporaryFeedback(
-                    nextCount >= REVEAL_REGION_COUNT
-                      ? t("game.openedFullLast")
-                      : t("game.openedNext"),
-                  );
-                }}
-              >
-                {session.openedRegionCount === REVEAL_REGION_COUNT - 1 ? (
-                  <>
-                    <span className="sm:hidden">{t("game.openAll")}</span>
-                    <span className="hidden sm:inline">
-                      {t("game.openAllFull")}
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <span className="sm:hidden">{t("game.hint")}</span>
-                    <span className="hidden sm:inline">
-                      {t("game.hintNext")}
-                    </span>
-                  </>
-                )}
-              </Button>
-            )}
+            <Button
+              variant="secondary"
+              size="lg"
+              className="h-10 w-full px-2 text-xs sm:h-12 sm:px-8 sm:text-sm"
+              disabled={!canOpenMore || isWrongGuess || canSurrender}
+              onClick={() => {
+                if (canSurrender || !canOpenMore) return;
+                const nextCount = session.openedRegionCount + 1;
+                openNextReveal();
+                showTemporaryFeedback(
+                  nextCount >= REVEAL_REGION_COUNT
+                    ? t("game.openedFullLast")
+                    : t("game.openedNext"),
+                );
+              }}
+            >
+              {canSurrender ? (
+                <span>{t("game.hintsExhausted")}</span>
+              ) : session.openedRegionCount === REVEAL_REGION_COUNT - 1 ? (
+                <>
+                  <span className="sm:hidden">{t("game.openAll")}</span>
+                  <span className="hidden sm:inline">
+                    {t("game.openAllFull")}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="sm:hidden">{t("game.hint")}</span>
+                  <span className="hidden sm:inline">{t("game.hintNext")}</span>
+                </>
+              )}
+            </Button>
           </div>
+
+          {canSurrender && (
+            <button
+              type="button"
+              disabled={isWrongGuess}
+              onClick={surrender}
+              className="mt-4 w-full py-2 text-center text-xs text-rose-200/55 underline-offset-2 transition-colors hover:text-rose-100/80 hover:underline disabled:opacity-40 sm:text-sm"
+            >
+              {t("game.surrender")}
+            </button>
+          )}
 
           <div className="mt-2 flex flex-col items-center gap-1 sm:mt-3 sm:gap-1.5">
             {feedback && !isWrongGuess && (
