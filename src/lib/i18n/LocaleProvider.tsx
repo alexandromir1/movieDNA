@@ -11,6 +11,7 @@ import {
   type ReactNode,
 } from "react";
 
+import { analytics, setAnalyticsLocale } from "@/analytics";
 import { en } from "@/locales/en";
 import { ru } from "@/locales/ru";
 import {
@@ -91,18 +92,29 @@ export function LocaleProvider({
       if (isLocale(stored) && stored !== initialLocale) {
         setLocaleState(stored);
         persistLocale(stored);
+        setAnalyticsLocale(stored);
         return;
       }
     } catch {
       // ignore
     }
     persistLocale(initialLocale);
+    setAnalyticsLocale(initialLocale);
   }, [initialLocale]);
 
   const setLocale = useCallback((next: Locale) => {
     startTransition(() => {
-      setLocaleState(next);
+      setLocaleState((prev) => {
+        if (prev !== next) {
+          analytics.track("language_changed", {
+            locale: next,
+            previousLocale: prev,
+          });
+        }
+        return next;
+      });
       persistLocale(next);
+      setAnalyticsLocale(next);
     });
   }, []);
 

@@ -17,6 +17,7 @@ import {
   buildShareText,
   shareChallengeResult,
 } from "@/lib/game/share-result";
+import { analytics } from "@/analytics";
 import { localize } from "@/lib/i18n/localize";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
 import { cn } from "@/lib/utils/cn";
@@ -234,6 +235,10 @@ export function ChallengeBoard({
 
   async function handleShare() {
     if (!scoreBreakdown) return;
+    analytics.track("share_click", {
+      challengeId: challenge.id,
+      movieScore: scoreBreakdown.total,
+    });
     const movieTitle = localize(movie.title, locale);
     const result = await shareChallengeResult({
       movieTitle,

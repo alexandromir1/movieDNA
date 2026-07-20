@@ -8,8 +8,6 @@ import { Header } from "@/components/layout/Header";
 import { siteConfig } from "@/config/site";
 import { LocaleProvider } from "@/lib/i18n/LocaleProvider";
 import { getRequestLocale } from "@/lib/i18n/server";
-import { en } from "@/locales/en";
-import { ru } from "@/locales/ru";
 
 import "./globals.css";
 
@@ -43,8 +41,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getRequestLocale();
-  const description =
-    locale === "en" ? en.brand.description : ru.brand.description;
 
   return (
     <html
@@ -57,7 +53,7 @@ export default async function RootLayout({
           <PersistenceGuard>
             <Header />
             <main className="flex-1">{children}</main>
-            <Footer description={description} />
+            <Footer />
           </PersistenceGuard>
         </LocaleProvider>
       </body>

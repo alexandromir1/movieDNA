@@ -2,6 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import {
+  clearAnalyticsChallengeContext,
+  setAnalyticsChallengeContext,
+  analytics,
+} from "@/analytics";
+import {
+  clearChallengeTiming,
+  getSecondsPlayed,
+  hasChallengeTiming,
+  resetChallengeTiming,
+} from "@/analytics/timing";
+import { localize } from "@/lib/i18n/localize";
 import { REVEAL_REGION_COUNT } from "@/config/economy";
 import { ChallengeSession, calculateMovieScore } from "@/engine";
 import { getUtcDateString } from "@/lib/game/daily";
@@ -119,6 +131,95 @@ export function useChallenge(bundle: ChallengeBundle): UseChallengeReturn {
   const [session, setSession] = useState<ChallengeSessionSnapshot>(() =>
     engineRef.current!.getState(),
   );
+
+  useEffect(() => {
+    const genres =
+      movie.genres?.filter(Boolean).join(", ").trim() || null;
+    setAnalyticsChallengeContext({
+      challengeId: challenge.id,
+      regionsOpened: session.openedRegionCount,
+      hintsUsed: session.openedRegionCount,
+      attempts: session.attemptCount,
+      movieId: movie.id,
+      movieTitle: localize(movie.title, "en") || localize(movie.title, "ru"),
+      movieYear: movie.year > 0 ? movie.year : null,
+      genres,
+    });
+    return () => {
+      clearAnalyticsChallengeContext();
+    };
+  }, [
+    challenge.id,
+    movie,
+    session.openedRegionCount,
+    session.attemptCount,
+  ]);
+
+  /**
+   * Challenge Abandoned: начал, но ушёл до COMPLETED/LOST.
+   * pagehide / visibility hidden / SPA unmount (после arm, чтобы не ловить Strict Mode).
+   */
+  useEffect(() => {
+    const firedRef = { current: false };
+    let armed = false;
+    const armTimer = window.setTimeout(() => {
+      armed = true;
+    }, 600);
+
+    function isInProgress(): boolean {
+      const state = engineRef.current?.getState();
+      return Boolean(
+        state &&
+          !state.isFinished &&
+          state.state !== "NOT_STARTED" &&
+          state.startedAt,
+      );
+    }
+
+    function fireAbandoned() {
+      if (!armed || firedRef.current || !isInProgress()) return;
+      firedRef.current = true;
+      const snap = engineRef.current?.getState();
+      analytics.track("challenge_abandoned", {
+        challengeId: challenge.id,
+        openedRegionCount: snap?.openedRegionCount ?? 0,
+        attemptCount: snap?.attemptCount ?? 0,
+        secondsPlayed: hasChallengeTiming()
+          ? getSecondsPlayed()
+          : undefined,
+      });
+    }
+
+    function onVisibility() {
+      if (document.visibilityState === "hidden") fireAbandoned();
+    }
+
+    document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("pagehide", fireAbandoned);
+
+    return () => {
+      window.clearTimeout(armTimer);
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("pagehide", fireAbandoned);
+      if (document.visibilityState === "visible") fireAbandoned();
+    };
+  }, [challenge.id]);
+
+  // Sync abandon "in progress" after start — effect above reads engine on leave.
+  useEffect(() => {
+    if (
+      session.state !== "NOT_STARTED" &&
+      !session.isFinished &&
+      session.startedAt &&
+      !hasChallengeTiming()
+    ) {
+      resetChallengeTiming();
+    }
+    if (session.isFinished) {
+      clearChallengeTiming();
+    }
+  }, [session.state, session.isFinished, session.startedAt]);
+
   // Guess ещё не мигрирован: React временно хранит только историю попыток.
   const [guesses, setGuesses] = useState<GameGuess[]>(
     () => initialGuessesRef.current ?? [],

@@ -38,6 +38,7 @@ export function Header() {
     { href: GAME_ROUTES.today, label: t("nav.play") },
     { href: GAME_ROUTES.archive, label: t("nav.archive") },
     { href: GAME_ROUTES.profile, label: t("nav.profile") },
+    { href: GAME_ROUTES.about, label: t("nav.about") },
   ] as const;
 
   useEffect(() => {

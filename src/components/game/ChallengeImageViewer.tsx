@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { analytics } from "@/analytics";
 import { ImageViewer } from "@/components/ImageViewer";
 import { ProgressiveRevealImage } from "@/components/ProgressiveRevealImage";
 import { cn } from "@/lib/utils/cn";
@@ -33,6 +34,11 @@ export function ChallengeImageViewer({
 }: ChallengeImageViewerProps) {
   const [open, setOpen] = useState(false);
 
+  function openViewer() {
+    setOpen(true);
+    analytics.track("image_viewer_opened", {});
+  }
+
   const frame = (
     <ProgressiveRevealImage
       imageSrc={imageSrc}
@@ -50,7 +56,7 @@ export function ChallengeImageViewer({
         <button
           type="button"
           aria-label="Открыть изображение для изучения"
-          onClick={() => setOpen(true)}
+          onClick={openViewer}
           className="relative block h-full w-full cursor-zoom-in overflow-hidden text-left"
         >
           {frame}
@@ -66,10 +72,6 @@ export function ChallengeImageViewer({
         height={height}
         label="Изучение кадра Challenge"
       >
-        {/*
-          Тот же URL — браузер отдаёт из HTTP/memory cache, без повторной сети.
-          Reveal-состояние совпадает с игрой через те же props.
-        */}
         <ProgressiveRevealImage
           imageSrc={imageSrc}
           revealLevel={revealLevel}

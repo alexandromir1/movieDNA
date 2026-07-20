@@ -14,6 +14,7 @@ export const en = {
     play: "Play",
     archive: "Archive",
     profile: "Profile",
+    about: "About",
     menu: "Main menu",
     openMenu: "Open menu",
     closeMenu: "Close menu",
@@ -97,6 +98,10 @@ export const en = {
     firstTry: "First try",
     guessBonus: "Guess bonus",
     firstPlay: "First play",
+    momentTitle: "On which region did you first recognize the movie?",
+    momentRegion: "Region {n}",
+    momentNever: "Didn't get it until the end",
+    momentThanks: "Thanks — this helps us make better puzzles",
     streakLabel: "Streak",
     streakWithCount: "Streak: {n}",
     tomorrowNewDaily: "Tomorrow — a new Daily Challenge",
@@ -254,5 +259,72 @@ export const en = {
   },
   common: {
     loading: "Loading…",
+  },
+  about: {
+    metaTitle: "About",
+    metaDescription:
+      "MovieDNA is a daily game: guess movies from visual associations — no spoilers, no famous frames.",
+    heroTitle: "What is MovieDNA?",
+    heroBody:
+      "MovieDNA is a daily game where you guess movies from visual associations — not from film stills. No spoilers. No famous scenes. Just atmosphere and details.",
+    playCta: "Play today",
+    howTitle: "How to play",
+    howSteps: {
+      "1": "Look at the first region.",
+      "2": "Try to guess the movie.",
+      "3": "If it's hard — open the next region.",
+      "4": "Use hints only when you need them.",
+      "5": "Fewer regions — higher score.",
+    },
+    dailyTitle: "Daily Challenge",
+    dailyBody:
+      "A new Challenge drops every day. It's the same for every player — so the feeling and the Score are comparable.",
+    archiveTitle: "Archive",
+    archiveBody:
+      "Missed a day? The Archive lets you play past Challenges and keep your rhythm.",
+    collectionsTitle: "Collections",
+    collectionsBody:
+      "Beyond the daily game there are thematic collections and a cine-marathon — films that echo what you just guessed.",
+    philosophyTitle: "Why no frames from the movies?",
+    philosophyBody:
+      "MovieDNA is built on visual associations. Images are made for the game: inspired by the film, never copying its scenes. That keeps the intrigue — and respect for cinema.",
+    faqTitle: "FAQ",
+    faq: {
+      notCountedQ: "Why wasn't my guess accepted?",
+      notCountedA:
+        "Answers are matched against an allowed title list (including language variants). Try another spelling or a fuller title.",
+      replayQ: "Can I replay?",
+      replayA:
+        "Each Challenge can be played once. You can't redo the same day — but the Archive and tomorrow's Daily are always there.",
+      howOftenQ: "How often do new movies appear?",
+      howOftenA:
+        "A new Daily Challenge every day. Archive and collections grow as we ship content.",
+      pvpQ: "Will there be PvP and leaderboards?",
+      pvpA:
+        "For now the focus is the daily solo game and that “aha!” feeling. Competitive modes may come later — only if they don't break that rhythm.",
+      suggestQ: "Can I suggest a movie?",
+      suggestA:
+        "Yes — write via the contact link in the footer. We read ideas for future Challenges.",
+    },
+  },
+  footer: {
+    blurb: "A daily game — guess the movie from its visual DNA",
+    about: "About",
+    privacy: "Privacy",
+    terms: "Terms",
+    github: "GitHub",
+    contact: "Contact",
+    rights: "MovieDNA",
+  },
+  legal: {
+    privacyTitle: "Privacy",
+    privacyMeta: "MovieDNA privacy policy",
+    privacyBody:
+      "MovieDNA stores your play progress locally in your browser. Analytics (when enabled) helps improve the game and does not sell personal data to third parties for ads. Questions — use the contact address in the footer.",
+    termsTitle: "Terms",
+    termsMeta: "MovieDNA terms of use",
+    termsBody:
+      "The game is provided as-is for entertainment. Challenge art is created for MovieDNA and is not official studio material. Do not copy or redistribute game images outside the service without permission.",
+    backToAbout: "Back to About",
   },
 } as const satisfies DeepStringify<RuMessages>;

@@ -2,185 +2,114 @@
 
 Документ описывает фундамент аналитики MovieDNA.
 
-Цель — единая система событий, которую могут потреблять GA4, Microsoft Clarity, Supabase и другие сервисы, без протекания деталей конкретного вендора в UI.
+Цель — единая система событий для PostHog (и опционально GA4) без протекания вендора в UI.
 
 ---
 
 # Принципы
 
-1. UI и игровой код не знают про `gtag`, Clarity или SQL.
-2. Единственная точка входа — `analytics.track(...)`.
-3. Провайдеры подключаются снаружи и могут меняться независимо.
-4. Отсутствие ключей / сбой провайдера не ломает игру.
-5. Геймплей и Engine не зависят от аналитики.
+1. Единственная точка входа — `analytics.track(...)`.
+2. UI / Engine не импортируют `posthog` / `gtag` напрямую.
+3. Отсутствие ключей не ломает игру.
+4. `track` только в браузере (SSR-safe).
 
 ---
 
-# Архитектура
+# Common properties
 
-```
-Challenge Engine
-    │
-    ▼
-Engine Events
-    │
-    ▼
-analytics.track(event, payload)     ← единственный Analytics API
-    │
-    ▼
-Analytics (fan-out)
-    ├── GAProvider          (сейчас)
-    ├── ClarityProvider     (позже)
-    └── SupabaseProvider    (позже)
-```
+Каждое событие автоматически получает:
 
-События игрового процесса постепенно должны рождаться в Engine, а не в React-компонентах. UI может временно отправлять только события, которые не принадлежат Engine (например, открытие архива или share).
+| Поле | Описание |
+|------|----------|
+| `challengeId` | Текущий Challenge или `null` |
+| `locale` | `ru` \| `en` |
+| `regionsOpened` | Открытые Reveal Regions |
+| `hintsUsed` | = `regionsOpened` |
+| `attempts` | Число попыток |
+| `deviceType` | `mobile` \| `tablet` \| `desktop` |
+| `screenWidth` / `screenHeight` | Viewport |
+| `movieId` | ID фильма Challenge |
+| `movieTitle` | Название (EN предпочтительно) |
+| `movieYear` | Год |
+| `genres` | Строка через запятую или `null` (если нет в JSON) |
+| `secondsToFirstGuess` | Сек. до первой непустой попытки или `null` |
 
-Файлы:
-
-| Путь | Назначение |
-|------|------------|
-| `src/analytics/events.ts` | Типы событий и payload |
-| `src/analytics/Analytics.ts` | Singleton + `track` / `register` |
-| `src/analytics/providers/ga.ts` | Google Analytics 4 (gtag) |
-| `src/analytics/providers/types.ts` | Контракт `AnalyticsProvider` |
-| `src/analytics/index.ts` | Публичные экспорты |
-| `src/components/analytics/AnalyticsBootstrap.tsx` | Загрузка gtag + `page_view` |
-| `src/engine/events/*` | Минимальная внутренняя прослойка Engine Events |
-
----
-
-# Почему UI не должен знать о сервисе
-
-Если компоненты вызывают `window.gtag` напрямую:
-
-- невозможно подключить второй сервис без правок по всему коду;
-- тесты и SSR становятся хрупкими;
-- смена GA → Clarity = массовый рефакторинг.
-
-С `analytics.track`:
-
-- presentation layer остаётся чистым;
-- новый Provider = одна регистрация;
-- события типизированы в одном месте (`events.ts`).
-
----
-
-# Providers
-
-Каждый Provider реализует:
-
-```ts
-interface AnalyticsProvider {
-  readonly name: string;
-  track(event: AnalyticsEventName, properties: AnalyticsProperties): void;
-}
-```
-
-Правила:
-
-- `track` не бросает исключения наружу;
-- без Measurement ID / SDK Provider либо не регистрируется, либо no-op;
-- имя (`ga4`, …) уникально — повторная регистрация игнорируется.
-
-## GAProvider (сейчас)
-
-- читает `NEXT_PUBLIC_GA_MEASUREMENT_ID`;
-- использует официальный `gtag.js`;
-- `send_page_view: false` в config — page view идёт только через наш `analytics.track("page_view")`.
-
-## ClarityProvider / SupabaseProvider (позже)
-
-Слот зарезервирован. Реализация — отдельные PR, без изменения публичного API `track`.
+На `region_opened` / `hint_used` дополнительно: `timeBetweenRegions` (сек. с прошлого региона или со старта).
 
 ---
 
 # Список событий
 
-| Событие | Назначение | Payload (основное) |
-|---------|------------|--------------------|
-| `page_view` | Просмотр маршрута | `path`, `title?` |
-| `challenge_started` | Engine перевёл Challenge в начатое состояние | `challengeId`, `date?` |
-| `challenge_completed` | Победа | `challengeId`, `movieScore` |
-| `challenge_failed` | Поражение (неверный ответ на полном reveal) | `challengeId` |
-| `challenge_give_up` | Нажатие «Сдаться» | `challengeId` |
-| `reveal_opened` | Открыта следующая подсказка | `challengeId`, `regionIndex` |
-| `guess_submitted` | Любая отправка ответа | `challengeId` |
-| `guess_correct` | Верный ответ | `challengeId` |
-| `guess_wrong` | Неверный ответ | `challengeId` |
-| `archive_opened` | Открыт раздел Архив | — |
-| `challenge_shared` | Share результата | `challengeId`, `movieScore?` |
+| Display name | Event name | Когда |
+|--------------|------------|--------|
+| Session Started | `session_started` | Первый заход во вкладку |
+| Session Ended | `session_ended` | `visibilitychange` hidden / `pagehide` |
+| Home Open | `home_open` | Маршрут `/` |
+| Archive Opened | `archive_opened` | Маршрут `/archive` |
+| Challenge Started | `challenge_started` | Engine start |
+| Region Opened | `region_opened` | Открыта область (+ `timeBetweenRegions`) |
+| Hint Used | `hint_used` | То же действие, что Region Opened |
+| Guess Submitted | `guess_submitted` | Любая отправка ответа |
+| Correct Guess | `correct_guess` | Верный ответ |
+| Wrong Guess | `wrong_guess` | Неверный ответ |
+| Challenge Completed | `challenge_completed` | Победа |
+| Challenge Failed | `challenge_failed` | Поражение / сдача |
+| Challenge Abandoned | `challenge_abandoned` | Начал, ушёл до конца |
+| Recommendation Click | `recommendation_click` | CTA «Киномарафон» |
+| Recommendation Viewed | `recommendation_viewed` | Открыл страницу подборки |
+| Movie Selected | `movie_selected` | Тап по фильму в подборке |
+| Language Changed | `language_changed` | RU/EN |
+| Image Viewer Opened | `image_viewer_opened` | Fullscreen кадра |
+| Share Click | `share_click` | Share |
+| Moment Of Recognition | `moment_of_recognition` | Самоотчёт после игры |
 
-Типы и обязательность полей — в `src/analytics/events.ts`.
-
----
-
-# Публичный API
-
-```ts
-import { analytics } from "@/analytics";
-
-analytics.track("guess_wrong", {
-  challengeId: "challenge-joker",
-  openedRegionCount: 2,
-});
-
-analytics.track("challenge_completed", {
-  challengeId: "challenge-joker",
-  movieScore: 920,
-});
-
-analytics.track("archive_opened");
-```
-
-TypeScript проверяет имя события и форму payload.
+Дополнительно: `page_view`, `challenge_give_up`.
 
 ---
 
-# Подключение GA4
+# Ключевые продуктовые метрики
 
-1. Создай property в Google Analytics 4 и скопируй Measurement ID (`G-XXXXXXXX`).
-2. Добавь в `.env.local`:
+- **challenge_abandoned** — бросил после старта; смотреть вместе с `movieTitle` / `movieId`.
+- **secondsToFirstGuess** — скорость первой гипотезы.
+- **timeBetweenRegions** — где «застрял» между подсказками.
+- **moment_of_recognition** — на каком регионе узнал фильм (опрос после результата).
+- **image_viewer_opened** — использование зума; коррелировать с победой / фильмом.
+
+---
+
+# Подключение PostHog
+
+Локально — `.env.local` (не в git). На Vercel — Project Settings → Environment Variables (Production + Preview):
 
 ```bash
-NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+NEXT_PUBLIC_POSTHOG_KEY=phc_xxxxxxxx
+NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
 ```
 
-3. Перезапусти Next.js.
+После добавления на Vercel нужен **Redeploy** (`NEXT_PUBLIC_*` вшиваются на build).
 
-Без переменной:
+Цепочка: `AnalyticsBootstrap` регистрирует `PostHogProvider` → `warm()`/`posthog.init` → каждый `analytics.track` → `posthog.capture`.
 
-- скрипты GA не грузятся;
-- `AnalyticsBootstrap` рендерит `null`;
-- вызовы `track` безопасны (нет провайдеров → no-op).
+Опционально GA4: `NEXT_PUBLIC_GA_MEASUREMENT_ID`.
 
-Пример также в `.env.example`.
+Файлы: `src/analytics/*`, `src/components/analytics/AnalyticsBootstrap.tsx`, `docs/06-analytics.md`.
 
 ---
 
-# Текущее состояние интеграции
+# Internal dashboard
 
-**Уже сделано:**
+URL (только local / non-production): [`/analytics/dev`](/analytics/dev)
 
-- модуль Analytics + типы событий;
-- GAProvider;
-- автоматический `page_view` при смене маршрута;
-- минимальная прослойка `src/engine/events`;
-- Engine публикует `challenge_*`, `reveal_opened`, `guess_*`;
-- `AnalyticsBootstrap` подписывает Analytics на Engine Events.
+Читает локальное зеркало событий (`localStorage`), которое пишет каждый `analytics.track`.
 
-**Пока не сделано:**
+Показывает:
 
-- Clarity / Supabase;
-- события UI-уровня `archive_opened` и `challenge_shared`.
+- Completion / avg regions / hints / attempts / time
+- **Region distribution** — на каком регионе закончили
+- **Drop-off** — воронка по открытию регионов
+- **Movies table** — Completion · Avg Regions · Avg Time · Avg Attempts
+- **Heatmap** — 🟢 easy / 🟡 normal / 🔴 too hard
+- **Recognition vs Actual** — поняли vs угадали
+- Most abandoned
 
----
-
-# Следующий шаг (отдельный PR)
-
-Подключить временные UI-события, которые не принадлежат Engine:
-
-- `archive_opened`;
-- `challenge_shared`.
-
-Следующие провайдеры (`ClarityProvider`, `SupabaseProvider`) должны подключаться без изменения Engine Events и публичного API `analytics.track`.
+Это не админка и не BI — ответы на: что переделать, где уходят, какой баланс, что изменилось после апдейта.

@@ -1,14 +1,16 @@
+import { buildCommonProperties } from "./context";
 import type {
   AnalyticsEventName,
   TrackArgs,
 } from "./events";
+import { appendAnalyticsEvent } from "./local-store";
 import { toProperties, type AnalyticsProvider } from "./providers/types";
 
 /**
  * Единая точка входа аналитики MovieDNA.
  *
  * UI / hooks вызывают только `analytics.track(...)`.
- * Провайдеры (GA4, Clarity, Supabase) регистрируются отдельно
+ * Провайдеры (GA4, PostHog, …) регистрируются отдельно
  * и не протекают в presentation layer.
  */
 class Analytics {
@@ -35,18 +37,26 @@ class Analytics {
 
   /**
    * Отправить типизированное событие во все зарегистрированные провайдеры.
-   *
-   * @example
-   * analytics.track("guess_wrong", { challengeId: "challenge-joker" });
-   * analytics.track("challenge_completed", { challengeId, movieScore: 920 });
-   * analytics.track("archive_opened");
+   * К каждому событию автоматически добавляются common properties.
+   * Копия уходит в локальный лог для /analytics/dev.
    */
   track<E extends AnalyticsEventName>(
     event: E,
     ...args: TrackArgs<E>
   ): void {
+    if (typeof window === "undefined") return;
+
     const payload = args[0];
-    const properties = toProperties(payload);
+    const properties = {
+      ...buildCommonProperties(),
+      ...toProperties(payload),
+    };
+
+    try {
+      appendAnalyticsEvent(event, properties);
+    } catch {
+      // Local log must never break the game.
+    }
 
     for (const provider of this.providers) {
       try {

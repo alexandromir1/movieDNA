@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import { ComeBackTomorrow } from "@/components/game/ComeBackTomorrow";
+import { MomentOfRecognition } from "@/components/game/MomentOfRecognition";
 import { MovieTitle } from "@/components/i18n/MovieTitle";
 import { Button } from "@/components/ui/Button";
+import { analytics } from "@/analytics";
 import { REVEAL_REGION_COUNT } from "@/config/economy";
 import type { MovieScoreBreakdown } from "@/engine/score";
 import {
@@ -203,6 +205,8 @@ export function ChallengeResultCard({
         </div>
       )}
 
+      <MomentOfRecognition challengeId={challengeId} />
+
       {/* 2. Primary next action — above the fold */}
       <div className="relative z-[1] mt-6 flex w-full flex-col gap-2.5">
         {!won && !imageExpanded && (
@@ -270,6 +274,12 @@ export function ChallengeResultCard({
       {collectionsHref && (
         <Link
           href={collectionsHref}
+          onClick={() =>
+            analytics.track("recommendation_click", {
+              challengeId,
+              href: collectionsHref,
+            })
+          }
           className="relative z-[1] mt-5 block w-full rounded-[14px] border border-white/[0.1] bg-white/[0.04] px-4 py-4 text-left transition-colors hover:bg-white/[0.07]"
         >
           <p className="text-sm font-semibold text-white">
