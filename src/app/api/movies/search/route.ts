@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { isLocale, type Locale } from "@/lib/i18n/types";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { searchMovies } from "@/lib/movies/search";
+import { getPostHogClient } from "@/lib/posthog-server";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -17,6 +18,18 @@ export async function GET(request: Request) {
   }
 
   const movies = await searchMovies(query, 8, locale);
+
+  const posthog = getPostHogClient();
+  posthog.capture({
+    distinctId: "server_anonymous",
+    event: "movie_searched",
+    properties: {
+      query_length: query.length,
+      result_count: movies.length,
+      locale,
+    },
+  });
+  await posthog.shutdown();
 
   return NextResponse.json(
     { movies },

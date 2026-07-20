@@ -9,6 +9,7 @@ import {
   GAProvider,
   getGaMeasurementId,
 } from "@/analytics";
+import { PostHogProvider } from "@/analytics/providers/posthog";
 import { engineEvents } from "@/engine/events";
 
 /**
@@ -27,8 +28,11 @@ export function AnalyticsBootstrap() {
   const registeredRef = useRef(false);
 
   useEffect(() => {
-    if (!measurementId || registeredRef.current) return;
-    analytics.register(new GAProvider(measurementId));
+    if (registeredRef.current) return;
+    analytics.register(new PostHogProvider());
+    if (measurementId) {
+      analytics.register(new GAProvider(measurementId));
+    }
     registeredRef.current = true;
   }, [measurementId]);
 
