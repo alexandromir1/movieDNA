@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { analytics } from "@/analytics";
 import { Button } from "@/components/ui/Button";
 import { shareGameResult } from "@/lib/game/share";
 
@@ -18,6 +19,8 @@ export function ShareResult({ date, attempts, won }: ShareResultProps) {
 
   async function handleShare() {
     const result = await shareGameResult(date, attempts, won);
+
+    analytics.track("challenge_shared", { challengeId: date });
 
     if (result === "shared") {
       setFeedback("Отправлено");
