@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 
 import {
   analytics,
+  consumeRecommendationAttribution,
   GAProvider,
   getGaMeasurementId,
   getPostHogApiKey,
@@ -124,7 +125,19 @@ export function AnalyticsBootstrap() {
       switch (event.name) {
         case "challenge_started":
           resetChallengeTiming();
-          analytics.track("challenge_started", event.payload);
+          {
+            const attribution = consumeRecommendationAttribution();
+            analytics.track("challenge_started", {
+              ...event.payload,
+              ...(attribution
+                ? {
+                    startedFromRecommendation: true,
+                    recommendedMovieId: attribution.recommendedMovieId,
+                    recommendedMovieTitle: attribution.recommendedMovieTitle,
+                  }
+                : {}),
+            });
+          }
           break;
         case "challenge_completed":
           analytics.track("challenge_completed", {

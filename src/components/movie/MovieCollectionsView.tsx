@@ -3,28 +3,91 @@
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
-import { analytics } from "@/analytics";
+import {
+  analytics,
+  setRecommendationAttribution,
+} from "@/analytics";
 import type { MovieRecommendationItemView } from "@/types/recommendations";
 import { GAME_ROUTES } from "@/lib/game/constants";
 import { localize } from "@/lib/i18n/localize";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
 import type { LocalizedString } from "@/lib/i18n/types";
 
-function MovieCard({ item }: { item: MovieRecommendationItemView }) {
+interface MovieCardProps {
+  item: MovieRecommendationItemView;
+  currentMovieId?: string;
+  currentMovieTitle?: string;
+  recommendationSection: string;
+  position: number;
+}
+
+function MovieCard({
+  item,
+  currentMovieId,
+  currentMovieTitle,
+  recommendationSection,
+  position,
+}: MovieCardProps) {
   const { locale } = useLocale();
   const title = localize(item.title, locale);
   const note = item.note ? localize(item.note, locale) : null;
+  const cardRef = useRef<HTMLLIElement>(null);
+  const viewedRef = useRef(false);
+
+  useEffect(() => {
+    const node = cardRef.current;
+    if (!node || viewedRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        if (viewedRef.current) return;
+        viewedRef.current = true;
+        analytics.track("recommendation_viewed", {
+          currentMovieId,
+          currentMovieTitle,
+          recommendedMovieId: item.movieId,
+          recommendedMovieTitle: title,
+          recommendationSection,
+          position,
+        });
+        observer.disconnect();
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [
+    currentMovieId,
+    currentMovieTitle,
+    item.movieId,
+    position,
+    recommendationSection,
+    title,
+  ]);
 
   function handleSelect() {
-    analytics.track("movie_selected", {
-      movieId: item.movieId,
-      movieTitle: title,
-      movieYear: item.year > 0 ? item.year : undefined,
+    setRecommendationAttribution({
+      recommendedMovieId: item.movieId,
+      recommendedMovieTitle: title,
+      currentMovieId,
+      currentMovieTitle,
+      recommendationSection,
+      position,
+    });
+    analytics.track("recommendation_clicked", {
+      currentMovieId,
+      currentMovieTitle,
+      recommendedMovieId: item.movieId,
+      recommendedMovieTitle: title,
+      recommendationSection,
+      position,
     });
   }
 
   return (
-    <li>
+    <li ref={cardRef}>
       <button
         type="button"
         onClick={handleSelect}
@@ -46,7 +109,7 @@ function MovieCard({ item }: { item: MovieRecommendationItemView }) {
 
 interface MovieCollectionsViewProps {
   movieTitle: LocalizedString;
-  sourceMovieId?: string;
+  currentMovieId?: string;
   categories: Array<{
     title: LocalizedString | string;
     items: MovieRecommendationItemView[];
@@ -58,22 +121,12 @@ interface MovieCollectionsViewProps {
  */
 export function MovieCollectionsView({
   movieTitle,
-  sourceMovieId,
+  currentMovieId,
   categories,
 }: MovieCollectionsViewProps) {
   const { locale, t } = useLocale();
   const router = useRouter();
   const primaryTitle = localize(movieTitle, locale);
-  const viewedRef = useRef(false);
-
-  useEffect(() => {
-    if (viewedRef.current) return;
-    viewedRef.current = true;
-    analytics.track("recommendation_viewed", {
-      sourceMovieId,
-      sourceMovieTitle: primaryTitle,
-    });
-  }, [primaryTitle, sourceMovieId]);
 
   function handleBack() {
     if (typeof window !== "undefined" && window.history.length > 1) {
@@ -82,6 +135,8 @@ export function MovieCollectionsView({
     }
     router.push(GAME_ROUTES.today);
   }
+
+  let position = 0;
 
   return (
     <div className="mx-auto w-full max-w-md pb-10">
@@ -110,12 +165,20 @@ export function MovieCollectionsView({
                 {categoryTitle}
               </h2>
               <ul className="mt-2.5 space-y-2.5">
-                {category.items.map((item) => (
-                  <MovieCard
-                    key={`${categoryTitle}-${item.movieId}`}
-                    item={item}
-                  />
-                ))}
+                {category.items.map((item) => {
+                  position += 1;
+                  const itemPosition = position;
+                  return (
+                    <MovieCard
+                      key={`${categoryTitle}-${item.movieId}`}
+                      item={item}
+                      currentMovieId={currentMovieId}
+                      currentMovieTitle={primaryTitle}
+                      recommendationSection={categoryTitle}
+                      position={itemPosition}
+                    />
+                  );
+                })}
               </ul>
             </section>
           );

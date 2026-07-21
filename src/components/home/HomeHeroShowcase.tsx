@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { ProgressiveRevealImage } from "@/components/ProgressiveRevealImage";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { Button } from "@/components/ui/Button";
+import { analytics } from "@/analytics";
 import {
   HOME_HERO_MODE,
   HOME_REVEAL_FADE_MS,
@@ -124,7 +125,11 @@ function HeroCopy({
       <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/55 sm:text-base">
         {teaser ? t("home.taglineTeaser") : t("home.tagline")}
       </p>
-      <Link href={GAME_ROUTES.today} className="mt-8 block w-full max-w-xs">
+      <Link
+        href={GAME_ROUTES.today}
+        onClick={() => analytics.track("start_button_clicked")}
+        className="mt-8 block w-full max-w-xs"
+      >
         <Button size="lg" className="h-12 w-full text-base font-semibold">
           {t("home.playToday")}
         </Button>

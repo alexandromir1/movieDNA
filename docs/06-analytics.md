@@ -36,34 +36,65 @@
 
 На `region_opened` / `hint_used` дополнительно: `timeBetweenRegions` (сек. с прошлого региона или со старта).
 
+Payload события может дублировать `locale` / `challengeId` / `deviceType` — они всё равно приходят из common layer.
+
 ---
 
 # Список событий
 
-| Display name | Event name | Когда |
-|--------------|------------|--------|
-| Session Started | `session_started` | Первый заход во вкладку |
-| Session Ended | `session_ended` | `visibilitychange` hidden / `pagehide` |
-| Home Open | `home_open` | Маршрут `/` |
-| Archive Opened | `archive_opened` | Маршрут `/archive` |
-| Challenge Started | `challenge_started` | Engine start |
-| Region Opened | `region_opened` | Открыта область (+ `timeBetweenRegions`) |
-| Hint Used | `hint_used` | То же действие, что Region Opened |
-| Guess Submitted | `guess_submitted` | Любая отправка ответа |
-| Correct Guess | `correct_guess` | Верный ответ |
-| Wrong Guess | `wrong_guess` | Неверный ответ |
-| Challenge Completed | `challenge_completed` | Победа |
-| Challenge Failed | `challenge_failed` | Поражение / сдача |
-| Challenge Abandoned | `challenge_abandoned` | Начал, ушёл до конца |
-| Recommendation Click | `recommendation_click` | CTA «Киномарафон» |
-| Recommendation Viewed | `recommendation_viewed` | Открыл страницу подборки |
-| Movie Selected | `movie_selected` | Тап по фильму в подборке |
-| Language Changed | `language_changed` | RU/EN |
-| Image Viewer Opened | `image_viewer_opened` | Fullscreen кадра |
-| Share Click | `share_click` | Share |
-| Moment Of Recognition | `moment_of_recognition` | Самоотчёт после игры |
+| Display name | Event name | Properties | When fired |
+|--------------|------------|------------|------------|
+| Session Started | `session_started` | — | Первый заход во вкладку |
+| Session Ended | `session_ended` | `durationSeconds` | `visibilitychange` hidden / `pagehide` |
+| Page View | `page_view` | `path`, `title?` | Смена маршрута |
+| Home Open | `home_open` | — | Маршрут `/` |
+| Start Button Clicked | `start_button_clicked` | — | Клик «Играть сегодня» на главной |
+| Archive Opened | `archive_opened` | — | Маршрут `/archive` |
+| Challenge Started | `challenge_started` | `challengeId`, `startedFromRecommendation?`, `recommendedMovieId?`, `recommendedMovieTitle?` | Engine start; если до старта был клик по рекомендации — `startedFromRecommendation: true` |
+| Region Opened | `region_opened` | `challengeId`, `regionIndex`, `regionId`, `timeBetweenRegions?` | Открыта область |
+| Hint Used | `hint_used` | то же, что `region_opened` | То же действие, что Region Opened |
+| Guess Submitted | `guess_submitted` | `challengeId`, `guessLength`, `attemptCount` | Любая отправка ответа |
+| Correct Guess | `correct_guess` | `challengeId`, `openedRegionCount`, `attemptCount` | Верный ответ |
+| Wrong Guess | `wrong_guess` | `challengeId`, `openedRegionCount`, `attemptCount` | Неверный ответ |
+| Challenge Completed | `challenge_completed` | `challengeId`, `movieScore`, `openedRegionCount`, `secondsPlayed` | Победа |
+| Challenge Failed | `challenge_failed` | `challengeId`, `openedRegionCount`, `secondsPlayed` | Поражение / сдача |
+| Challenge Give Up | `challenge_give_up` | `challengeId`, `openedRegionCount` | Сдача (дублируется в `challenge_failed`) |
+| Challenge Abandoned | `challenge_abandoned` | `challengeId`, `openedRegionCount`, `attemptCount`, `secondsPlayed` | Начал, ушёл до конца |
+| Search Used | `search_used` | `queryLength`, `resultsCount`, `selectedMovieId`, `selectedMovieTitle`, `selectedMovieYear?` | Выбран фильм из dropdown (не на каждый символ) |
+| Recommendation Viewed | `recommendation_viewed` | `currentMovieId`, `currentMovieTitle`, `recommendedMovieId?`, `recommendedMovieTitle?`, `recommendationSection?`, `position?` | Блок киномарафона на экране результата или карточка фильма в подборке попала в viewport |
+| Recommendation Clicked | `recommendation_clicked` | `currentMovieId`, `currentMovieTitle`, `recommendedMovieId`, `recommendedMovieTitle`, `recommendationSection`, `position` | Клик по конкретному фильму в подборке |
+| Recommendation Click | `recommendation_click` | `challengeId`, `href` | CTA «Открыть подборку» на экране результата |
+| Movie Selected | `movie_selected` | `movieId`, `movieTitle`, `movieYear` | *(legacy, заменён на `recommendation_clicked`)* |
+| Language Changed | `language_changed` | `locale`, `previousLocale` | RU/EN |
+| Image Viewer Opened | `image_viewer_opened` | `challengeId?` | Увеличение кадра Challenge |
+| Share Click | `share_click` | `challengeId`, `movieScore` | Share |
+| Moment Of Recognition | `moment_of_recognition` | `challengeId`, `regionIndex`, `answer` | Самоотчёт после игры |
 
-Дополнительно: `page_view`, `challenge_give_up`.
+---
+
+# Воронки
+
+## Home → Challenge
+
+```
+home_open
+  ↓
+start_button_clicked
+  ↓
+challenge_started
+```
+
+## Recommendations
+
+```
+recommendation_viewed   (блок на результате или карточка в подборке)
+  ↓
+recommendation_clicked  (клик по фильму)
+  ↓
+challenge_started       (startedFromRecommendation: true)
+```
+
+Атрибуция рекомендации хранится в `sessionStorage` до 30 минут и снимается один раз при следующем `challenge_started`.
 
 ---
 
@@ -72,6 +103,8 @@
 - **challenge_abandoned** — бросил после старта; смотреть вместе с `movieTitle` / `movieId`.
 - **secondsToFirstGuess** — скорость первой гипотезы.
 - **timeBetweenRegions** — где «застрял» между подсказками.
+- **search_used** — насколько поиск помогает угадывать (длина запроса vs выбор).
+- **recommendation_viewed → recommendation_clicked → challenge_started** — конверсия киномарафона.
 - **moment_of_recognition** — на каком регионе узнал фильм (опрос после результата).
 - **image_viewer_opened** — использование зума; коррелировать с победой / фильмом.
 

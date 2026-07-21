@@ -44,7 +44,7 @@ export default async function MovieRecommendationsPage({
     <Container className="max-w-lg py-6">
       <MovieCollectionsView
         movieTitle={movie.title}
-        sourceMovieId={movie.id}
+        currentMovieId={movie.id}
         categories={categories}
       />
     </Container>

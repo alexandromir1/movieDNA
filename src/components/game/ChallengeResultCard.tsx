@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { ComeBackTomorrow } from "@/components/game/ComeBackTomorrow";
 import { MomentOfRecognition } from "@/components/game/MomentOfRecognition";
@@ -20,6 +20,7 @@ import { loadPlayerStats } from "@/lib/game/player-stats";
 import { formatHintsShareLine } from "@/lib/game/share-result";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
 import { pluralForm } from "@/lib/i18n/plural";
+import { localize } from "@/lib/i18n/localize";
 import { cn } from "@/lib/utils/cn";
 
 import type { Movie } from "@/types/content";
@@ -140,6 +141,38 @@ export function ChallengeResultCard({
   const collectionsHref = hasCollections
     ? GAME_ROUTES.movieRecommendations(movie.id.replace(/^movie-/, ""))
     : null;
+
+  const marathonBlockRef = useRef<HTMLAnchorElement>(null);
+  const marathonViewedRef = useRef(false);
+  const currentMovieTitle = useMemo(
+    () => localize(movie.title, locale),
+    [locale, movie.title],
+  );
+
+  useEffect(() => {
+    if (!collectionsHref || marathonViewedRef.current) return;
+
+    const node = marathonBlockRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        if (marathonViewedRef.current) return;
+        marathonViewedRef.current = true;
+        analytics.track("recommendation_viewed", {
+          currentMovieId: movie.id,
+          currentMovieTitle,
+          recommendationSection: "post_game_marathon",
+        });
+        observer.disconnect();
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [collectionsHref, currentMovieTitle, movie.id]);
 
   function winHeadline(count: number): string {
     if (count <= 1) return t("result.winFirstLook");
@@ -273,6 +306,7 @@ export function ChallengeResultCard({
       {/* 3. Movie Collections — compact card only */}
       {collectionsHref && (
         <Link
+          ref={marathonBlockRef}
           href={collectionsHref}
           onClick={() =>
             analytics.track("recommendation_click", {

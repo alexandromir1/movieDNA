@@ -6,6 +6,8 @@ import { formatMovieLabel } from "@/lib/game/movie-search";
 import { useTranslations } from "@/lib/i18n/LocaleProvider";
 import { cn } from "@/lib/utils/cn";
 import { useMovieSearch } from "@/hooks/useMovieSearch";
+import { analytics } from "@/analytics";
+import type { MovieSuggestion } from "@/types/game";
 
 interface MovieSearchInputProps {
   value: string;
@@ -87,10 +89,17 @@ export function MovieSearchInput({
     setIsOpen(true);
   }
 
-  function selectSuggestion(title: string) {
+  function selectSuggestion(movie: MovieSuggestion) {
     skipOpenRef.current = true;
+    analytics.track("search_used", {
+      queryLength: value.length,
+      resultsCount: suggestions.length,
+      selectedMovieId: movie.id,
+      selectedMovieTitle: movie.title,
+      selectedMovieYear: movie.year > 0 ? movie.year : undefined,
+    });
     onSuggestionSelect?.();
-    onChange(title);
+    onChange(movie.title);
     setIsOpen(false);
     // Не blur — иначе на mobile клавиатура/скролл «убегают» вместе со строкой.
     // Фокус оставляем; список закрыт.
@@ -192,7 +201,7 @@ export function MovieSearchInput({
             } else if (event.key === "Enter") {
               event.preventDefault();
               if (activeIndex >= 0 && suggestions[activeIndex]) {
-                selectSuggestion(suggestions[activeIndex].title);
+                selectSuggestion(suggestions[activeIndex]);
               } else {
                 handleSubmit();
               }
@@ -235,7 +244,7 @@ export function MovieSearchInput({
                 // Не даём input потерять фокус до выбора — иначе click теряется на iOS
                 event.preventDefault();
                 event.stopPropagation();
-                selectSuggestion(movie.title);
+                selectSuggestion(movie);
               }}
               onClick={(event) => {
                 // Страховка от ghost click / bubbling к кадру под списком

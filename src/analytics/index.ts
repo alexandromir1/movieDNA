@@ -19,6 +19,12 @@ export {
 export type { AnalyticsChallengeContext } from "./context";
 
 export {
+  setRecommendationAttribution,
+  consumeRecommendationAttribution,
+} from "./recommendation-attribution";
+export type { RecommendationAttribution } from "./recommendation-attribution";
+
+export {
   resetChallengeTiming,
   clearChallengeTiming,
   markFirstGuessIfNeeded,

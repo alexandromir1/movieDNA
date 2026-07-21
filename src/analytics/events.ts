@@ -22,8 +22,11 @@ export type AnalyticsEventName =
   | "challenge_failed"
   | "challenge_abandoned"
   | "challenge_give_up"
+  | "search_used"
+  | "start_button_clicked"
   | "recommendation_click"
   | "recommendation_viewed"
+  | "recommendation_clicked"
   | "movie_selected"
   | "language_changed"
   | "image_viewer_opened"
@@ -72,6 +75,9 @@ export interface AnalyticsEventMap {
   challenge_started: {
     challengeId?: string;
     date?: string;
+    startedFromRecommendation?: boolean;
+    recommendedMovieId?: string;
+    recommendedMovieTitle?: string;
   };
 
   region_opened: {
@@ -132,14 +138,41 @@ export interface AnalyticsEventMap {
     openedRegionCount?: number;
   };
 
+  search_used: {
+    queryLength: number;
+    resultsCount: number;
+    selectedMovieId: string;
+    selectedMovieTitle: string;
+    selectedMovieYear?: number;
+  };
+
+  start_button_clicked: Record<string, never>;
+
   recommendation_click: {
     challengeId?: string;
     href?: string;
   };
 
   recommendation_viewed: {
+    currentMovieId?: string;
+    currentMovieTitle?: string;
+    recommendedMovieId?: string;
+    recommendedMovieTitle?: string;
+    recommendationSection?: string;
+    position?: number;
+    /** @deprecated use currentMovieId */
     sourceMovieId?: string;
+    /** @deprecated use currentMovieTitle */
     sourceMovieTitle?: string;
+  };
+
+  recommendation_clicked: {
+    currentMovieId?: string;
+    currentMovieTitle?: string;
+    recommendedMovieId: string;
+    recommendedMovieTitle: string;
+    recommendationSection: string;
+    position: number;
   };
 
   movie_selected: {
