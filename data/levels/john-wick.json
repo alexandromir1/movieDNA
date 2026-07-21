@@ -1,0 +1,124 @@
+{
+  "id": "level-john-wick",
+  "movieId": "movie-john-wick",
+  "difficulty": "medium",
+  "image": "/images/john-wick.png",
+  "width": 1448,
+  "height": 1086,
+  "acceptedAnswers": [
+    "Джон Уик",
+    "John Wick",
+    "John Wick 1",
+    "Джон Уик 1"
+  ],
+  "revealRegions": [
+    {
+      "id": "область-1",
+      "name": "Область 1",
+      "polygon": [
+        [
+          348,
+          579
+        ],
+        [
+          346,
+          862
+        ],
+        [
+          579,
+          864
+        ],
+        [
+          579,
+          588
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "область-2",
+      "name": "Область 2",
+      "polygon": [
+        [
+          635,
+          789
+        ],
+        [
+          927,
+          947
+        ],
+        [
+          966,
+          1068
+        ],
+        [
+          681,
+          1068
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "область-3",
+      "name": "Область 3",
+      "polygon": [
+        [
+          659,
+          11
+        ],
+        [
+          722,
+          601
+        ],
+        [
+          1422,
+          625
+        ],
+        [
+          1377,
+          28
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "область-4",
+      "name": "Область 4",
+      "polygon": [
+        [
+          726,
+          594
+        ],
+        [
+          748,
+          1068
+        ],
+        [
+          1433,
+          1072
+        ],
+        [
+          1426,
+          618
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

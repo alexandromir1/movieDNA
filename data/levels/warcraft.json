@@ -1,0 +1,132 @@
+{
+  "id": "level-warcraft",
+  "movieId": "movie-warcraft",
+  "difficulty": "medium",
+  "image": "/images/warcraft.png",
+  "width": 1448,
+  "height": 1086,
+  "acceptedAnswers": [
+    "Варкрафт",
+    "Warcraft",
+    "Warcraft The Beginning",
+    "Варкрафт Начало"
+  ],
+  "revealRegions": [
+    {
+      "id": "область-1",
+      "name": "Область 1",
+      "polygon": [
+        [
+          37,
+          498
+        ],
+        [
+          445,
+          498
+        ],
+        [
+          475,
+          498
+        ],
+        [
+          475,
+          779
+        ],
+        [
+          37,
+          779
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "область-2",
+      "name": "Область 2",
+      "polygon": [
+        [
+          1143,
+          658
+        ],
+        [
+          707,
+          1019
+        ],
+        [
+          821,
+          1082
+        ],
+        [
+          1442,
+          1049
+        ],
+        [
+          1435,
+          582
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "область-3",
+      "name": "Область 3",
+      "polygon": [
+        [
+          694,
+          286
+        ],
+        [
+          696,
+          879
+        ],
+        [
+          1368,
+          881
+        ],
+        [
+          1368,
+          511
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "область-4",
+      "name": "Область 4",
+      "polygon": [
+        [
+          938,
+          146
+        ],
+        [
+          936,
+          691
+        ],
+        [
+          1442,
+          695
+        ],
+        [
+          1446,
+          146
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}

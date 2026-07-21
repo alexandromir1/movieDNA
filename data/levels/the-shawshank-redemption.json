@@ -1,0 +1,125 @@
+{
+  "id": "level-the-shawshank-redemption",
+  "movieId": "movie-the-shawshank-redemption",
+  "difficulty": "medium",
+  "image": "/images/the-shawshank-redemption.png",
+  "width": 1448,
+  "height": 1086,
+  "acceptedAnswers": [
+    "Побег из Шоушенка",
+    "The Shawshank Redemption",
+    "Shawshank Redemption",
+    "Shawshank",
+    "Шоушенк"
+  ],
+  "revealRegions": [
+    {
+      "id": "область-1",
+      "name": "Область 1",
+      "polygon": [
+        [
+          659,
+          645
+        ],
+        [
+          612,
+          829
+        ],
+        [
+          785,
+          853
+        ],
+        [
+          787,
+          645
+        ]
+      ],
+      "displayOrder": 1,
+      "scorePenalty": 80,
+      "kind": "area"
+    },
+    {
+      "id": "область-2",
+      "name": "Область 2",
+      "polygon": [
+        [
+          398,
+          349
+        ],
+        [
+          22,
+          745
+        ],
+        [
+          311,
+          930
+        ],
+        [
+          735,
+          431
+        ]
+      ],
+      "displayOrder": 2,
+      "scorePenalty": 120,
+      "kind": "area"
+    },
+    {
+      "id": "область-3",
+      "name": "Область 3",
+      "polygon": [
+        [
+          724,
+          135
+        ],
+        [
+          1109,
+          137
+        ],
+        [
+          1109,
+          1062
+        ],
+        [
+          450,
+          1049
+        ]
+      ],
+      "displayOrder": 3,
+      "scorePenalty": 180,
+      "kind": "area"
+    },
+    {
+      "id": "область-4",
+      "name": "Область 4",
+      "polygon": [
+        [
+          52,
+          66
+        ],
+        [
+          67,
+          546
+        ],
+        [
+          424,
+          457
+        ],
+        [
+          339,
+          62
+        ]
+      ],
+      "displayOrder": 4,
+      "scorePenalty": 260,
+      "kind": "area"
+    },
+    {
+      "id": "full",
+      "name": "Полное изображение",
+      "polygon": [],
+      "displayOrder": 5,
+      "scorePenalty": 260,
+      "kind": "full_image"
+    }
+  ]
+}
