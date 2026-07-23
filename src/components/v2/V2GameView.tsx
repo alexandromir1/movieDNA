@@ -134,7 +134,7 @@ export function V2GameView() {
 
   if (boot.status === "loading" && !session) {
     return (
-      <div className="v2-shell relative h-[100dvh] overflow-hidden">
+      <div className="v2-shell relative h-full overflow-hidden">
         <V2Atmosphere intensity="soft" />
         <p className="relative z-10 px-4 py-16 text-center text-sm text-[var(--v2-ink-muted)]">
           …
@@ -145,7 +145,7 @@ export function V2GameView() {
 
   if (boot.status === "error") {
     return (
-      <div className="v2-shell relative h-[100dvh] overflow-hidden">
+      <div className="v2-shell relative h-full overflow-hidden">
         <V2Atmosphere intensity="soft" />
         <p className="relative z-10 px-4 py-16 text-center text-sm text-[var(--v2-ink-muted)]">
           {t("v2.game.loadError")}
@@ -156,7 +156,7 @@ export function V2GameView() {
 
   if (boot.status === "complete" || !session) {
     return (
-      <div className="v2-shell relative h-[100dvh] overflow-hidden">
+      <div className="v2-shell relative h-full overflow-hidden">
         <V2Atmosphere intensity="soft" />
         <div className="v2-screen-enter relative z-10 mx-auto flex h-full max-w-lg flex-col justify-center px-4 text-center">
           <h1 className="text-2xl font-semibold text-[var(--v2-ink)]">
@@ -238,7 +238,7 @@ export function V2GameView() {
     allHintsOpen && session.status === "active" && !controlsDisabled;
 
   return (
-    <div className="v2-shell relative flex h-[100dvh] max-h-[100dvh] w-full flex-col overflow-hidden v2-screen-enter">
+    <div className="v2-shell relative flex h-full max-h-full w-full flex-col overflow-hidden v2-screen-enter">
       <V2Atmosphere intensity="soft" />
       <V2LabDecor />
 
