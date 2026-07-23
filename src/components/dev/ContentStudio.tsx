@@ -537,6 +537,7 @@ export function ContentStudio({
 
   useEffect(() => {
     const url = new URL(window.location.href);
+    url.searchParams.set("mode", "daily");
     url.searchParams.set("section", section);
     if (section === "levels" && activeSlug) {
       url.searchParams.set("level", activeSlug);
@@ -601,7 +602,7 @@ export function ContentStudio({
       <div className="mb-5 flex flex-col gap-3 border border-white/10 bg-black/40 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-[10px] uppercase tracking-[0.2em] text-white/35">
-            Today (UTC) · {data.today}
+            Daily · v1 · Today (UTC) · {data.today}
           </p>
           <p className="mt-1 text-sm text-white/75">
             {data.todayChallenge ? (

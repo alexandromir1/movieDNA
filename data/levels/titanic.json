@@ -1,7 +1,7 @@
 {
   "id": "level-titanic",
   "movieId": "movie-titanic",
-  "difficulty": "medium",
+  "difficulty": "easy",
   "image": "/images/titanic.png",
   "width": 1536,
   "height": 1024,

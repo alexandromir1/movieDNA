@@ -1,7 +1,7 @@
 {
   "id": "level-back-to-the-future",
   "movieId": "movie-back-to-the-future",
-  "difficulty": "medium",
+  "difficulty": "easy",
   "image": "/images/back-to-the-future.png",
   "width": 1536,
   "height": 1024,

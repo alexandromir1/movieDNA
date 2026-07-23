@@ -21,6 +21,8 @@ interface MovieSearchInputProps {
   hideSubmitButton?: boolean;
   /** После выбора из списка (mobile ghost-click guard у родителя) */
   onSuggestionSelect?: () => void;
+  /** Доп. классы для input (презентация v2 и т.п.) */
+  inputClassName?: string;
 }
 
 export function MovieSearchInput({
@@ -32,6 +34,7 @@ export function MovieSearchInput({
   isError = false,
   hideSubmitButton = false,
   onSuggestionSelect,
+  inputClassName,
 }: MovieSearchInputProps) {
   const t = useTranslations();
   const resolvedPlaceholder = placeholder ?? t("game.searchPlaceholder");
@@ -159,6 +162,7 @@ export function MovieSearchInput({
             isError
               ? "border-rose-400/50 text-rose-200/90 placeholder:text-rose-200/35"
               : "border-white/[0.12] text-white placeholder:text-white/30 focus:border-white/35 focus:bg-white/[0.05]",
+            inputClassName,
           )}
           onChange={(event) => {
             skipOpenRef.current = false;

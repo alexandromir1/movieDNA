@@ -41,6 +41,8 @@ export function Header() {
     { href: GAME_ROUTES.about, label: t("nav.about") },
   ] as const;
 
+  const isV2 = pathname === "/v2" || pathname.startsWith("/v2/");
+
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
@@ -65,6 +67,11 @@ export function Header() {
       document.removeEventListener("pointerdown", onPointerDown);
     };
   }, [menuOpen]);
+
+  /** v2: без даты, архива и v1-навигации (docs/v2-first-run.md). */
+  if (isV2) {
+    return null;
+  }
 
   return (
     <header className="sticky top-0 z-30 border-b border-white/[0.06] bg-[#0e0e10]/95 backdrop-blur-md pt-[env(safe-area-inset-top)]">

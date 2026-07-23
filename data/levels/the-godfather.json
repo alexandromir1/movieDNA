@@ -1,7 +1,7 @@
 {
   "id": "level-the-godfather",
   "movieId": "movie-the-godfather",
-  "difficulty": "medium",
+  "difficulty": "hard",
   "image": "/images/the-godfather.png",
   "width": 1536,
   "height": 1024,
