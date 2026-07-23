@@ -281,12 +281,22 @@ export function V2GameView() {
         </header>
 
         {/*
-          Mobile: кадр растягивается на весь слот (без полей сверху/снизу).
-          Desktop (sm+): прежний contain по aspect-ratio.
+          Mobile: игровой layout — карточка по контенту, max-height от viewport,
+          ввод сразу под кадром (без пустоты внутри карточки).
+          Desktop (sm+): витрина с flex-1 + contain.
         */}
-        <div className="v2-image-slot relative mt-0.5 flex min-h-0 flex-1 items-stretch justify-center sm:mt-2 sm:items-center">
+        <div
+          className={cn(
+            "v2-image-slot relative w-full",
+            "mt-1 shrink-0",
+            "sm:mt-2 sm:flex sm:min-h-0 sm:flex-1 sm:shrink sm:items-center sm:justify-center",
+          )}
+        >
           <div
-            className="v2-image-frame relative h-full w-full sm:h-auto sm:max-h-full"
+            className={cn(
+              "v2-image-frame relative mx-auto",
+              "w-full sm:max-h-full",
+            )}
             style={
               {
                 aspectRatio: `${level.width} / ${level.height}`,
@@ -320,7 +330,6 @@ export function V2GameView() {
           </p>
         ) : null}
 
-        {/* 12px до панели на mobile — панель как продолжение расследования */}
         <div className="v2-desk-panel relative z-20 mt-3 shrink-0 px-2 py-1.5 sm:mt-2.5 sm:px-3 sm:py-2.5">
           <div className="v2-desk-field flex items-stretch gap-2 px-1.5 py-1 sm:px-2.5 sm:py-2">
             <div className="min-w-0 flex-1">
