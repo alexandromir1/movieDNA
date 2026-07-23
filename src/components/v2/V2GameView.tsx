@@ -249,7 +249,13 @@ export function V2GameView() {
       <V2Atmosphere intensity="soft" />
       <V2LabDecor />
 
-      <div className="relative z-10 mx-auto flex h-full w-full max-w-3xl flex-col px-2.5 pb-[max(0.35rem,env(safe-area-inset-bottom))] pt-[max(0.25rem,env(safe-area-inset-top))] sm:max-w-4xl sm:px-5 sm:pb-3 sm:pt-3 lg:max-w-5xl">
+      <div
+        className={cn(
+          "v2-game-column relative z-10 mx-auto flex h-full w-full max-w-3xl flex-col",
+          "px-2.5 pt-[max(0.35rem,env(safe-area-inset-top))] pb-[max(0.75rem,env(safe-area-inset-bottom))]",
+          "sm:max-w-4xl sm:px-5 sm:pb-3 sm:pt-3 lg:max-w-5xl",
+        )}
+      >
         <header className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <div className="flex min-w-0 flex-1 items-center">
             <V2BrandLink markSize={{ mobile: 22, desktop: 26 }} />
@@ -281,22 +287,12 @@ export function V2GameView() {
         </header>
 
         {/*
-          Mobile: игровой layout — карточка по контенту, max-height от viewport,
-          ввод сразу под кадром (без пустоты внутри карточки).
-          Desktop (sm+): витрина с flex-1 + contain.
+          Mobile: Header/Desk почти фиксированы; flex-1 отдаёт свободную
+          высоту кадру (max-contain). Зазоры — clamp/vh. Desktop — витрина.
         */}
-        <div
-          className={cn(
-            "v2-image-slot relative w-full",
-            "mt-1 shrink-0",
-            "sm:mt-2 sm:flex sm:min-h-0 sm:flex-1 sm:shrink sm:items-center sm:justify-center",
-          )}
-        >
+        <div className="v2-image-slot relative flex w-full min-h-0 flex-1 items-center justify-center">
           <div
-            className={cn(
-              "v2-image-frame relative mx-auto",
-              "w-full sm:max-h-full",
-            )}
+            className="v2-image-frame relative"
             style={
               {
                 aspectRatio: `${level.width} / ${level.height}`,
@@ -322,7 +318,7 @@ export function V2GameView() {
 
         {session.lastGuessWrong ? (
           <p
-            className="mt-2 shrink-0 text-center text-xs text-[rgb(210_160_160/0.9)] sm:mt-1.5 sm:text-sm"
+            className="v2-game-gap-y shrink-0 text-center text-xs text-[rgb(210_160_160/0.9)] sm:text-sm"
             role="status"
             aria-live="polite"
           >
@@ -330,7 +326,7 @@ export function V2GameView() {
           </p>
         ) : null}
 
-        <div className="v2-desk-panel relative z-20 mt-3 shrink-0 px-2 py-1.5 sm:mt-2.5 sm:px-3 sm:py-2.5">
+        <div className="v2-desk-panel v2-game-gap-y relative z-20 shrink-0 px-2 py-1.5 sm:px-3 sm:py-2.5">
           <div className="v2-desk-field flex items-stretch gap-2 px-1.5 py-1 sm:px-2.5 sm:py-2">
             <div className="min-w-0 flex-1">
               <MovieSearchInput
