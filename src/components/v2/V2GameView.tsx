@@ -262,14 +262,14 @@ export function V2GameView() {
           </div>
 
           <div className="flex min-w-0 flex-[1.4] flex-col items-center gap-0.5 text-center">
-            <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[var(--v2-ink)] sm:text-[10px]">
+            <p className="v2-meta-strong text-[9px] font-semibold uppercase sm:text-[10px]">
               {t("v2.game.caseProgress", {
                 current: displayLevel,
                 total: sequenceTotal,
               })}
             </p>
             <div className="flex items-center gap-2">
-              <p className="text-[8px] uppercase tracking-[0.14em] text-[var(--v2-ink-muted)] sm:text-[9px]">
+              <p className="v2-meta text-[8px] uppercase sm:text-[9px]">
                 {displayOpened >= totalSteps
                   ? t("v2.game.allFragmentsOpen")
                   : t("v2.game.fragmentsProgress", {
@@ -352,7 +352,7 @@ export function V2GameView() {
               type="button"
               variant="primary"
               size="lg"
-              className="h-auto min-h-[2.5rem] shrink-0 self-center px-4 text-[13px] tracking-[0.1em] sm:min-h-[3rem] sm:min-w-[8.5rem] sm:px-7 sm:text-[14px]"
+              className="h-auto min-h-[2.5rem] shrink-0 self-center px-3 text-[11px] normal-case tracking-[0.06em] sm:min-h-[3rem] sm:min-w-[9.5rem] sm:px-5 sm:text-[13px]"
               disabled={controlsDisabled}
               onClick={() => handleGuessSubmit(guess)}
             >
@@ -367,7 +367,7 @@ export function V2GameView() {
                 variant="secondary"
                 size="md"
                 className={cn(
-                  "w-full normal-case tracking-[0.08em]",
+                  "w-full normal-case tracking-[0.06em]",
                   canReveal && "v2-fragment-cta-glow",
                 )}
                 disabled={!canReveal}
@@ -376,7 +376,7 @@ export function V2GameView() {
                 {t("v2.game.nextFragmentCta")}
               </V2Button>
             ) : (
-              <p className="text-center text-[10px] uppercase tracking-[0.14em] text-[var(--v2-ink-faint)] sm:text-[11px]">
+              <p className="v2-meta text-center text-[10px] uppercase sm:text-[11px]">
                 {t("v2.game.allFragmentsOpen")}
               </p>
             )}

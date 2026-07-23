@@ -241,11 +241,37 @@ body {
   );
 }
 
+/* Лампа над столом: тёплый центр, тёмные края */
+.v2-lamp-vignette {
+  background: radial-gradient(
+    ellipse 75% 65% at 50% 38%,
+    rgb(200 150 80 / 0.06) 0%,
+    transparent 42%,
+    rgb(12 8 5 / 0.45) 78%,
+    rgb(6 4 2 / 0.72) 100%
+  );
+}
+
+/* Почти невидимая архивная бумага/дерево */
+.v2-archive-paper {
+  opacity: 0.045;
+  mix-blend-mode: soft-light;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E"),
+    linear-gradient(
+      165deg,
+      rgb(190 150 90 / 0.35) 0%,
+      transparent 45%,
+      rgb(60 40 20 / 0.25) 100%
+    );
+  background-size: 180px 180px, 100% 100%;
+}
+
 .v2-film-grain {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
   background-size: 160px 160px;
   mix-blend-mode: soft-light;
-  opacity: 0.2;
+  opacity: 0.14;
 }
 
 .v2-lab-grid {
@@ -292,16 +318,94 @@ body {
 }
 
 .v2-image-frame {
-  border-radius: var(--v2-radius-lg);
-  border: 1px solid var(--v2-border);
-  background: #17120d;
+  border-radius: 2px;
+  border: 1px solid rgb(201 169 110 / 0.32);
+  background: #14100c;
   box-shadow:
+    0 1px 0 rgb(232 210 160 / 0.08) inset,
     0 0 0 1px rgb(0 0 0 / 0.35),
-    0 1px 0 rgb(201 169 110 / 0.08) inset,
-    0 10px 28px rgb(0 0 0 / 0.35);
+    0 10px 28px rgb(0 0 0 / 0.4),
+    0 2px 6px rgb(0 0 0 / 0.25);
   overflow: hidden;
   max-width: 100%;
   max-height: 100%;
+  animation: v2-evidence-settle 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Лёгкая бумажная «пыль» / потёртость поверх улики */
+.v2-image-frame::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.055;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+  box-shadow:
+    inset 0 0 40px rgb(0 0 0 / 0.18),
+    inset 0 0 1px rgb(201 169 110 / 0.15);
+}
+
+@keyframes v2-evidence-settle {
+  from {
+    opacity: 0.72;
+    transform: translateY(5px) scale(0.988);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Физическая бирка */
+.v2-case-badge {
+  animation: v2-badge-in 640ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+}
+
+.v2-case-badge-plate {
+  transform: rotate(-0.6deg);
+  border-radius: 1px;
+  border: 1px solid rgb(201 169 110 / 0.42);
+  background: linear-gradient(
+    165deg,
+    rgb(48 38 28 / 0.92) 0%,
+    rgb(22 16 12 / 0.94) 100%
+  );
+  box-shadow:
+    0 1px 0 rgb(232 210 160 / 0.12) inset,
+    0 4px 12px rgb(0 0 0 / 0.45),
+    0 1px 2px rgb(0 0 0 / 0.35);
+}
+
+@keyframes v2-badge-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) rotate(-2deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+/* Архивные подписи в шапке */
+.v2-shell .v2-meta {
+  letter-spacing: 0.16em;
+  color: rgb(210 190 160 / 0.42);
+}
+
+.v2-shell .v2-meta-strong {
+  letter-spacing: 0.14em;
+  color: rgb(235 220 190 / 0.78);
+}
+
+/* Аналоговый отклик кнопок стенда */
+.v2-shell button:active:not(:disabled) {
+  transform: translateY(1px);
+  filter: brightness(0.97);
+  transition-duration: 80ms;
 }
 
 /*
@@ -552,7 +656,9 @@ body {
   .v2-result-modal-backdrop,
   .v2-result-modal-panel,
   .v2-result-spark,
-  .confetti-piece {
+  .confetti-piece,
+  .v2-image-frame,
+  .v2-case-badge {
     animation: none;
   }
 }
