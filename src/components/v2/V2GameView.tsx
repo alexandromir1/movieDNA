@@ -86,6 +86,8 @@ export function V2GameView() {
 
   const loadCase = useCallback(async () => {
     const gen = ++bootGenRef.current;
+    // Сразу убираем прошлую сессию — иначе ~1с висит старый кадр.
+    setSession(null);
     setBoot({ status: "loading" });
     setResultModal(null);
     setContinuing(false);
@@ -97,7 +99,6 @@ export function V2GameView() {
     const { target } = beginOrResumePlay();
     if (target.kind === "complete") {
       if (bootGenRef.current === gen) {
-        setSession(null);
         setBoot({ status: "complete" });
       }
       return;
@@ -244,12 +245,12 @@ export function V2GameView() {
     allHintsOpen && session.status === "active" && !controlsDisabled;
 
   return (
-    <div className="v2-shell relative flex h-full max-h-full w-full flex-col overflow-hidden v2-screen-enter">
+    <div className="v2-shell relative flex h-full max-h-full w-full flex-col overflow-hidden">
       <V2Atmosphere intensity="soft" />
       <V2LabDecor />
 
-      <div className="relative z-10 mx-auto flex h-full w-full max-w-3xl flex-col px-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-[max(0.5rem,env(safe-area-inset-top))] sm:max-w-4xl sm:px-5 sm:pb-3 sm:pt-3 lg:max-w-5xl">
-        <header className="flex shrink-0 items-center gap-2">
+      <div className="relative z-10 mx-auto flex h-full w-full max-w-3xl flex-col px-2.5 pb-[max(0.35rem,env(safe-area-inset-bottom))] pt-[max(0.35rem,env(safe-area-inset-top))] sm:max-w-4xl sm:px-5 sm:pb-3 sm:pt-3 lg:max-w-5xl">
+        <header className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <div className="flex min-w-0 flex-1 items-center">
             <V2BrandLink markSize={{ mobile: 22, desktop: 26 }} />
           </div>
@@ -279,7 +280,8 @@ export function V2GameView() {
           </div>
         </header>
 
-        <div className="v2-image-slot relative mt-2 flex min-h-0 flex-1 items-center justify-center sm:mt-2.5">
+        {/* Слот без лишних margin — картинка занимает почти всю свободную высоту */}
+        <div className="v2-image-slot relative mt-1 flex min-h-0 flex-1 items-center justify-center sm:mt-2">
           <div
             className="v2-image-frame relative"
             style={
@@ -291,6 +293,7 @@ export function V2GameView() {
           >
             <V2CaseBadge caseNumber={displayLevel} />
             <FragmentsRevealImage
+              key={level.id}
               className="absolute inset-0 h-full w-full"
               imageSrc={level.image}
               width={level.width}
@@ -306,7 +309,7 @@ export function V2GameView() {
 
         {session.lastGuessWrong ? (
           <p
-            className="mt-1.5 shrink-0 text-center text-xs text-[rgb(210_160_160/0.9)] sm:text-sm"
+            className="mt-1 shrink-0 text-center text-xs text-[rgb(210_160_160/0.9)] sm:mt-1.5 sm:text-sm"
             role="status"
             aria-live="polite"
           >
@@ -314,8 +317,8 @@ export function V2GameView() {
           </p>
         ) : null}
 
-        <div className="v2-desk-panel relative z-20 mt-2 shrink-0 px-2.5 py-2 sm:mt-2.5 sm:px-3 sm:py-2.5">
-          <div className="v2-desk-field flex items-stretch gap-2 px-2 py-1.5 sm:px-2.5 sm:py-2">
+        <div className="v2-desk-panel relative z-20 mt-1 shrink-0 px-2 py-1.5 sm:mt-2.5 sm:px-3 sm:py-2.5">
+          <div className="v2-desk-field flex items-stretch gap-2 px-1.5 py-1 sm:px-2.5 sm:py-2">
             <div className="min-w-0 flex-1">
               <MovieSearchInput
                 value={guess}
@@ -332,7 +335,7 @@ export function V2GameView() {
                 hideSubmitButton
                 disabled={controlsDisabled}
                 isError={session.lastGuessWrong}
-                inputClassName="v2-search-input !py-2 sm:!py-2.5"
+                inputClassName="v2-search-input !py-1.5 sm:!py-2.5"
                 placeholder={t("v2.game.searchPlaceholder")}
               />
             </div>
@@ -340,7 +343,7 @@ export function V2GameView() {
               type="button"
               variant="primary"
               size="lg"
-              className="h-auto min-h-[2.75rem] shrink-0 self-center px-5 text-[13px] tracking-[0.1em] sm:min-h-[3rem] sm:min-w-[8.5rem] sm:px-7 sm:text-[14px]"
+              className="h-auto min-h-[2.5rem] shrink-0 self-center px-4 text-[13px] tracking-[0.1em] sm:min-h-[3rem] sm:min-w-[8.5rem] sm:px-7 sm:text-[14px]"
               disabled={controlsDisabled}
               onClick={() => handleGuessSubmit(guess)}
             >
@@ -348,7 +351,7 @@ export function V2GameView() {
             </V2Button>
           </div>
 
-          <div className="mt-2 flex flex-col gap-2 border-t border-[var(--v2-border-muted)] pt-2">
+          <div className="mt-1.5 flex flex-col gap-1.5 border-t border-[var(--v2-border-muted)] pt-1.5 sm:mt-2 sm:gap-2 sm:pt-2">
             {!allHintsOpen ? (
               <V2Button
                 type="button"
@@ -376,12 +379,12 @@ export function V2GameView() {
                 onClick={handleSurrender}
                 className={cn(
                   "w-full rounded-[var(--v2-radius)] border border-[var(--v2-border)] bg-[rgb(20_16_12/0.65)]",
-                  "px-3 py-2.5 text-[12px] font-medium tracking-[0.06em] text-[var(--v2-ink-muted)]",
+                  "px-3 py-2 text-[12px] font-medium tracking-[0.06em] text-[var(--v2-ink-muted)]",
                   "transition-[border-color,color,background] duration-200",
                   "hover:border-[var(--v2-border-strong)] hover:bg-[rgb(28_22_17/0.85)] hover:text-[var(--v2-ink)]",
                   "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--v2-focus)]",
                   "disabled:pointer-events-none disabled:opacity-40",
-                  "sm:text-[13px]",
+                  "sm:py-2.5 sm:text-[13px]",
                 )}
               >
                 {t("v2.game.surrenderCta")}
