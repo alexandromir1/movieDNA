@@ -249,7 +249,7 @@ export function V2GameView() {
       <V2Atmosphere intensity="soft" />
       <V2LabDecor />
 
-      <div className="relative z-10 mx-auto flex h-full w-full max-w-3xl flex-col px-2.5 pb-[max(0.35rem,env(safe-area-inset-bottom))] pt-[max(0.35rem,env(safe-area-inset-top))] sm:max-w-4xl sm:px-5 sm:pb-3 sm:pt-3 lg:max-w-5xl">
+      <div className="relative z-10 mx-auto flex h-full w-full max-w-3xl flex-col px-2.5 pb-[max(0.35rem,env(safe-area-inset-bottom))] pt-[max(0.25rem,env(safe-area-inset-top))] sm:max-w-4xl sm:px-5 sm:pb-3 sm:pt-3 lg:max-w-5xl">
         <header className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <div className="flex min-w-0 flex-1 items-center">
             <V2BrandLink markSize={{ mobile: 22, desktop: 26 }} />
@@ -280,10 +280,13 @@ export function V2GameView() {
           </div>
         </header>
 
-        {/* Слот без лишних margin — картинка занимает почти всю свободную высоту */}
-        <div className="v2-image-slot relative mt-1 flex min-h-0 flex-1 items-center justify-center sm:mt-2">
+        {/*
+          Mobile: кадр растягивается на весь слот (без полей сверху/снизу).
+          Desktop (sm+): прежний contain по aspect-ratio.
+        */}
+        <div className="v2-image-slot relative mt-0.5 flex min-h-0 flex-1 items-stretch justify-center sm:mt-2 sm:items-center">
           <div
-            className="v2-image-frame relative"
+            className="v2-image-frame relative h-full w-full sm:h-auto sm:max-h-full"
             style={
               {
                 aspectRatio: `${level.width} / ${level.height}`,
@@ -309,7 +312,7 @@ export function V2GameView() {
 
         {session.lastGuessWrong ? (
           <p
-            className="mt-1 shrink-0 text-center text-xs text-[rgb(210_160_160/0.9)] sm:mt-1.5 sm:text-sm"
+            className="mt-2 shrink-0 text-center text-xs text-[rgb(210_160_160/0.9)] sm:mt-1.5 sm:text-sm"
             role="status"
             aria-live="polite"
           >
@@ -317,7 +320,8 @@ export function V2GameView() {
           </p>
         ) : null}
 
-        <div className="v2-desk-panel relative z-20 mt-1 shrink-0 px-2 py-1.5 sm:mt-2.5 sm:px-3 sm:py-2.5">
+        {/* 12px до панели на mobile — панель как продолжение расследования */}
+        <div className="v2-desk-panel relative z-20 mt-3 shrink-0 px-2 py-1.5 sm:mt-2.5 sm:px-3 sm:py-2.5">
           <div className="v2-desk-field flex items-stretch gap-2 px-1.5 py-1 sm:px-2.5 sm:py-2">
             <div className="min-w-0 flex-1">
               <MovieSearchInput
