@@ -1,7 +1,7 @@
 {
   "id": "level-hangover",
   "movieId": "movie-hangover",
-  "difficulty": "medium",
+  "difficulty": "easy",
   "image": "/images/hangover.png",
   "width": 1536,
   "height": 1024,

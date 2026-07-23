@@ -1,7 +1,7 @@
 {
   "id": "level-home-alone",
   "movieId": "movie-home-alone",
-  "difficulty": "medium",
+  "difficulty": "easy",
   "image": "/images/home-alone.png",
   "width": 1448,
   "height": 1086,

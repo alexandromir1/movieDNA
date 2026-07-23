@@ -1,7 +1,7 @@
 {
   "id": "level-matrix",
   "movieId": "movie-matrix",
-  "difficulty": "medium",
+  "difficulty": "easy",
   "image": "/images/matrix.png",
   "width": 1536,
   "height": 1024,

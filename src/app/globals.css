@@ -189,4 +189,328 @@ body {
   animation: fade-up 0.4s ease-out both;
 }
 
+/* ---------- MovieDNA v2 — forensic lab art direction (UI only) ---------- */
+
+.v2-shell {
+  --v2-bg: #0f0b08;
+  --v2-bg-elevated: #17120d;
+  --v2-surface: rgb(36 28 22 / 0.82);
+  --v2-surface-strong: #1b1510;
+  --v2-border: rgb(201 169 110 / 0.22);
+  --v2-border-muted: rgb(232 220 200 / 0.1);
+  --v2-border-strong: rgb(201 169 110 / 0.4);
+  --v2-accent: #c9a96e;
+  --v2-accent-dim: #8f7750;
+  --v2-accent-glow: rgb(201 169 110 / 0.28);
+  --v2-metal: #2a2420;
+  --v2-metal-hi: #3a322c;
+  --v2-ink: #ebe4d8;
+  --v2-ink-muted: rgb(235 228 216 / 0.48);
+  --v2-ink-faint: rgb(235 228 216 / 0.24);
+  --v2-glow-a: rgb(180 130 70 / 0.1);
+  --v2-glow-b: rgb(80 50 30 / 0.22);
+  --v2-focus: rgb(201 169 110 / 0.55);
+  --v2-radius: 10px;
+  --v2-radius-lg: 14px;
+  --v2-input-bg: rgb(20 16 12 / 0.92);
+  color: var(--v2-ink);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(90 60 30 / 0.18), transparent 55%),
+    var(--v2-bg);
+}
+
+.v2-glass {
+  background: linear-gradient(
+    165deg,
+    rgb(48 38 30 / 0.78) 0%,
+    rgb(22 17 13 / 0.92) 100%
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 1px 0 rgb(201 169 110 / 0.08) inset,
+    0 12px 40px rgb(0 0 0 / 0.45);
+}
+
+.v2-vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 38%,
+    rgb(15 11 8 / 0.55) 78%,
+    rgb(8 5 3 / 0.78) 100%
+  );
+}
+
+.v2-image-slot {
+  container-type: size;
+  width: 100%;
+}
+
+.v2-film-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  mix-blend-mode: soft-light;
+  opacity: 0.2;
+}
+
+.v2-lab-grid {
+  background-image:
+    linear-gradient(rgb(201 169 110 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(201 169 110 / 0.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(ellipse at center, black 15%, transparent 72%);
+}
+
+.v2-shell .v2-search-input {
+  width: 100% !important;
+  border-radius: var(--v2-radius) !important;
+  border: 1px solid var(--v2-border-muted) !important;
+  background: var(--v2-input-bg) !important;
+  padding: 0.9rem 1.1rem !important;
+  text-align: left;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  color: var(--v2-ink) !important;
+  outline: none;
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.03) inset;
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.v2-shell .v2-search-input::placeholder {
+  color: var(--v2-ink-faint) !important;
+}
+
+.v2-shell .v2-search-input:focus {
+  border-color: var(--v2-border-strong) !important;
+  box-shadow: 0 0 0 1px rgb(201 169 110 / 0.16) !important;
+}
+
+.v2-shell .v2-search-input[aria-invalid="true"] {
+  border-color: rgb(180 120 120 / 0.5) !important;
+}
+
+.v2-image-frame {
+  border-radius: var(--v2-radius-lg);
+  border: 1px solid var(--v2-border);
+  background: #17120d;
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.45),
+    0 1px 0 rgb(201 169 110 / 0.1) inset,
+    0 0 48px rgb(180 120 50 / 0.08),
+    0 28px 70px rgb(0 0 0 / 0.55);
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+@supports (width: 1cqw) {
+  .v2-image-slot > .v2-image-frame {
+    width: min(100cqw, calc(100cqh * var(--v2-image-ar, 1)));
+  }
+}
+
+.v2-desk-panel {
+  border-radius: var(--v2-radius-lg);
+  border: 1px solid var(--v2-border-muted);
+  background: linear-gradient(
+    180deg,
+    rgb(36 28 22 / 0.92) 0%,
+    rgb(22 17 13 / 0.96) 100%
+  );
+  box-shadow:
+    0 1px 0 rgb(201 169 110 / 0.06) inset,
+    0 -12px 40px rgb(0 0 0 / 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.v2-desk-panel .v2-search-input {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding-left: 0.35rem !important;
+  padding-right: 0.35rem !important;
+}
+
+.v2-desk-panel .v2-search-input:focus {
+  box-shadow: none !important;
+}
+
+.v2-desk-field {
+  border-radius: calc(var(--v2-radius) + 2px);
+  border: 1px solid var(--v2-border);
+  background: var(--v2-input-bg);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.04) inset,
+    0 0 0 1px rgb(0 0 0 / 0.25);
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.v2-desk-field:focus-within {
+  border-color: var(--v2-border-strong);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.04) inset,
+    0 0 0 1px rgb(201 169 110 / 0.18);
+}
+
+.v2-desk-field:has(.v2-search-input[aria-invalid="true"]) {
+  border-color: rgb(180 120 120 / 0.55);
+}
+
+@keyframes v2-first-run-cta-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(201 169 110 / 0);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgb(201 169 110 / 0.26),
+      0 8px 24px rgb(201 169 110 / 0.1);
+  }
+}
+
+.v2-first-run-cta-pulse {
+  animation: v2-first-run-cta-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes v2-screen-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes v2-screen-leave {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.v2-screen-enter {
+  animation: v2-screen-enter 380ms cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+
+.v2-screen-leave {
+  animation: v2-screen-leave 200ms ease both;
+  pointer-events: none;
+}
+
+@keyframes v2-fragment-cta-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(201 169 110 / 0);
+  }
+  50% {
+    box-shadow: 0 0 0 1px rgb(201 169 110 / 0.18);
+  }
+}
+
+.v2-fragment-cta-glow {
+  animation: v2-fragment-cta-glow 3s ease-in-out infinite;
+}
+
+.v2-full-reveal {
+  animation: v2-full-reveal-in 560ms cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+
+@keyframes v2-full-reveal-in {
+  from {
+    opacity: 0.55;
+    filter: brightness(0.85);
+  }
+  to {
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+/* ---------- Result modal ---------- */
+
+.v2-result-modal-backdrop {
+  background: rgb(8 5 3 / 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: v2-result-backdrop-in 380ms ease both;
+}
+
+.v2-result-modal-panel {
+  animation: v2-result-panel-in 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes v2-result-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes v2-result-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.v2-result-spark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  box-shadow: 0 0 10px currentColor;
+  animation: v2-result-spark-out 700ms cubic-bezier(0.22, 1, 0.36, 1)
+    var(--spark-delay, 0s) both;
+}
+
+@keyframes v2-result-spark-out {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--spark-angle, 0deg))
+      translateY(0) scale(0.4);
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--spark-angle, 0deg))
+      translateY(calc(var(--spark-distance, 48px) * -1)) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-first-run-cta-pulse,
+  .v2-screen-enter,
+  .v2-screen-leave,
+  .v2-fragment-cta-glow,
+  .v2-full-reveal,
+  .v2-result-modal-backdrop,
+  .v2-result-modal-panel,
+  .v2-result-spark,
+  .confetti-piece {
+    animation: none;
+  }
+}
+
 /* ---------- result frame accents live on .result-win-frame / .result-lose-frame ---------- */

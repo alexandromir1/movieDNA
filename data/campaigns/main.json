@@ -1,0 +1,50 @@
+{
+  "id": "campaign-main",
+  "name": {
+    "ru": "Main Campaign",
+    "en": "Main Campaign"
+  },
+  "description": {
+    "ru": "Основная линейная кампания MovieDNA: обучение → уверенность → вызов.",
+    "en": "MovieDNA main linear campaign: learn → confidence → challenge."
+  },
+  "sequence": {
+    "levelIds": [
+      "level-home-alone",
+      "level-shrek",
+      "level-the-lion-king",
+      "level-the-dark-knight",
+      "level-harry-potter-philosophers-stone",
+      "level-inception",
+      "level-back-to-the-future",
+      "level-hangover",
+      "level-joker",
+      "level-matrix",
+      "level-interstellar",
+      "level-forest-gump",
+      "level-gladiator",
+      "level-titanic",
+      "level-fight-club",
+      "level-pirates-of-the-caribbean-the-curse-of-the-black-pearl",
+      "level-john-wick",
+      "level-terminator-2",
+      "level-truman-show",
+      "level-the-chronicles-of-narnia-the-lion-the-witch-and-the-wardrobe",
+      "level-seven",
+      "level-avatar",
+      "level-catch-me-if-you-can",
+      "level-mad-max-fury-road",
+      "level-shining",
+      "level-lord-of-the-rings-fellowship",
+      "level-green-mile",
+      "level-pulp-fiction",
+      "level-the-godfather",
+      "level-the-fifth-element",
+      "level-constantine",
+      "level-the-gentlemen",
+      "level-the-martian",
+      "level-warcraft",
+      "level-the-shawshank-redemption"
+    ]
+  }
+}

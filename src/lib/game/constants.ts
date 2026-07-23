@@ -10,3 +10,13 @@ export const GAME_ROUTES = {
   movieRecommendations: (slug: string) =>
     `/movie/${slug}/recommendations` as const,
 } as const;
+
+/**
+ * Маршруты MovieDNA v2 (новый игровой цикл).
+ * Параллельны v1; production `/` и `/game` не зависят от этих путей.
+ */
+export const V2_ROUTES = {
+  home: "/v2",
+  game: "/v2/game",
+  result: "/v2/result",
+} as const;

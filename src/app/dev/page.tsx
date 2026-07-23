@@ -1,21 +1,31 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { ContentStudio } from "@/components/dev/ContentStudio";
+import {
+  MovieDnaStudio,
+  parseCampaignSection,
+  parseDailySection,
+  parseStudioMode,
+} from "@/components/dev/MovieDnaStudio";
+import { loadCampaignSequenceStudioView } from "@/lib/dev/campaign-sequence-view";
 import { loadContentStudioData } from "@/lib/dev/content-library";
 
 export const metadata: Metadata = {
-  title: "Content Studio · MovieDNA",
+  title: "MovieDNA Studio",
 };
 
 interface DevPageProps {
-  searchParams: Promise<{ level?: string; section?: string }>;
+  searchParams: Promise<{
+    mode?: string;
+    level?: string;
+    section?: string;
+  }>;
 }
 
 /**
- * Content Studio только для локальной разработки.
- * API /api/dev/* уже отдают 403 в production; страница тоже скрыта (404),
- * чтобы не светить названия/расписание/checklist на публичном домене.
+ * MovieDNA Studio (эволюция /dev).
+ * Только local: production → 404. API /api/dev/* тоже закрыты.
+ * Без отдельных маршрутов /studio /admin /dev-v2.
  */
 export default async function DevPage({ searchParams }: DevPageProps) {
   if (process.env.NODE_ENV === "production") {
@@ -24,33 +34,17 @@ export default async function DevPage({ searchParams }: DevPageProps) {
 
   const params = await searchParams;
   const data = loadContentStudioData();
-
-  const sectionParam = params.section;
-  const initialSection =
-    sectionParam === "movies" ||
-    sectionParam === "levels" ||
-    sectionParam === "challenges" ||
-    sectionParam === "queue" ||
-    sectionParam === "archive"
-      ? sectionParam
-      : "queue";
+  const campaignSequenceView = loadCampaignSequenceStudioView();
+  const mode = parseStudioMode(params.mode);
 
   return (
-    <div className="min-h-[calc(100vh-7rem)]">
-      <div className="border-b border-white/10 px-4 py-4 text-center sm:px-6">
-        <p className="text-xs uppercase tracking-[0.25em] text-white/35">
-          Local Content Studio
-        </p>
-        <p className="mt-2 text-sm text-white/45">
-          Content Queue · Import Image · Levels — правки пишутся в data/*.json
-        </p>
-      </div>
-
-      <ContentStudio
-        data={data}
-        initialLevelSlug={params.level?.toLowerCase()}
-        initialSection={initialSection}
-      />
-    </div>
+    <MovieDnaStudio
+      data={data}
+      campaignSequenceView={campaignSequenceView}
+      initialMode={mode}
+      initialLevelSlug={params.level?.toLowerCase()}
+      initialDailySection={parseDailySection(params.section)}
+      initialCampaignSection={parseCampaignSection(params.section)}
+    />
   );
 }

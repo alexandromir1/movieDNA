@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { siteConfig } from "@/config/site";
 import { GAME_ROUTES } from "@/lib/game/constants";
@@ -12,8 +13,13 @@ import { useLocale } from "@/lib/i18n/LocaleProvider";
  */
 export function Footer() {
   const { t } = useLocale();
+  const pathname = usePathname();
   const githubUrl = siteConfig.githubUrl.trim();
   const contactEmail = siteConfig.contactEmail.trim();
+
+  if (pathname === "/v2" || pathname.startsWith("/v2/")) {
+    return null;
+  }
 
   return (
     <footer className="mt-auto hidden border-t border-white/[0.06] bg-[#0e0e10] py-6 sm:block">

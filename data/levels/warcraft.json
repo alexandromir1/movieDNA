@@ -1,7 +1,7 @@
 {
   "id": "level-warcraft",
   "movieId": "movie-warcraft",
-  "difficulty": "medium",
+  "difficulty": "hard",
   "image": "/images/warcraft.png",
   "width": 1448,
   "height": 1086,

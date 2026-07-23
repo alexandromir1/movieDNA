@@ -1,7 +1,7 @@
 {
   "id": "level-shrek",
   "movieId": "movie-shrek",
-  "difficulty": "medium",
+  "difficulty": "easy",
   "image": "/images/shrek.png",
   "width": 1536,
   "height": 1024,
