@@ -103,17 +103,23 @@ export function V2GameView() {
       return;
     }
 
-    const bundle = await fetchV2LevelBundle(target.levelId);
-    if (bootGenRef.current !== gen) return;
+    try {
+      const bundle = await fetchV2LevelBundle(target.levelId);
+      if (bootGenRef.current !== gen) return;
 
-    if (!bundle) {
-      setBoot({ status: "error" });
-      return;
+      if (!bundle) {
+        setBoot({ status: "error" });
+        return;
+      }
+
+      setSession(createV2LevelSession(bundle.level, bundle.movie));
+      setDisplayLevel(target.displayLevel);
+      setBoot({ status: "ready" });
+    } catch {
+      if (bootGenRef.current === gen) {
+        setBoot({ status: "error" });
+      }
     }
-
-    setSession(createV2LevelSession(bundle.level, bundle.movie));
-    setDisplayLevel(target.displayLevel);
-    setBoot({ status: "ready" });
   }, []);
 
   useEffect(() => {
