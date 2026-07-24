@@ -23,6 +23,12 @@ interface MovieSearchInputProps {
   onSuggestionSelect?: () => void;
   /** Доп. классы для input (презентация v2 и т.п.) */
   inputClassName?: string;
+  /**
+   * Presentation only.
+   * `overlay` — абсолютный список (default, desktop/v1).
+   * `flow` — на mobile список в потоке под полем; desktop остаётся overlay.
+   */
+  suggestionsPlacement?: "overlay" | "flow";
 }
 
 export function MovieSearchInput({
@@ -35,6 +41,7 @@ export function MovieSearchInput({
   hideSubmitButton = false,
   onSuggestionSelect,
   inputClassName,
+  suggestionsPlacement = "overlay",
 }: MovieSearchInputProps) {
   const t = useTranslations();
   const resolvedPlaceholder = placeholder ?? t("game.searchPlaceholder");
@@ -43,6 +50,7 @@ export function MovieSearchInput({
   const inputRef = useRef<HTMLInputElement>(null);
   /** Не открывать список сразу после выбора пункта (focus/blur гонки на mobile) */
   const skipOpenRef = useRef(false);
+  const flowPlacement = suggestionsPlacement === "flow";
 
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -131,7 +139,10 @@ export function MovieSearchInput({
     (suggestions.length > 0 || isLoading);
 
   return (
-    <div ref={containerRef} className="relative w-full">
+    <div
+      ref={containerRef}
+      className={cn("relative w-full", flowPlacement && "v2-search-flow")}
+    >
       <form
         className="flex flex-col gap-3"
         onSubmit={(event) => {
@@ -228,11 +239,15 @@ export function MovieSearchInput({
         )}
       </form>
 
-      {showDropdown && suggestions.length > 0 && (
+      {showDropdown && suggestions.length > 0 ? (
         <ul
           id={listboxId}
           role="listbox"
-          className="absolute left-0 right-0 top-full z-50 mt-2 max-h-48 overflow-y-auto overscroll-contain rounded-[12px] border border-white/[0.1] bg-[#1a1a1e] shadow-[0_16px_48px_rgb(0_0_0/0.5)]"
+          className={cn(
+            flowPlacement
+              ? "v2-suggest-list"
+              : "absolute left-0 right-0 top-full z-50 mt-2 max-h-48 overflow-y-auto overscroll-contain rounded-[12px] border border-white/[0.1] bg-[#1a1a1e] shadow-[0_16px_48px_rgb(0_0_0/0.5)]",
+          )}
         >
           {suggestions.map((movie, index) => (
             <li
@@ -241,7 +256,11 @@ export function MovieSearchInput({
               aria-selected={index === activeIndex}
               className={cn(
                 "cursor-pointer px-4 py-3 text-sm text-white/80 transition-colors active:bg-white/15",
+                flowPlacement && "v2-suggest-item",
                 index === activeIndex && "bg-white/10 text-white",
+                flowPlacement &&
+                  index === activeIndex &&
+                  "v2-suggest-item--active",
               )}
               onMouseEnter={() => setActiveIndex(index)}
               onPointerDown={(event) => {
@@ -260,13 +279,13 @@ export function MovieSearchInput({
             </li>
           ))}
         </ul>
-      )}
+      ) : null}
 
-      {showDropdown && isLoading && suggestions.length === 0 && (
+      {!flowPlacement && showDropdown && isLoading && suggestions.length === 0 ? (
         <p className="absolute left-0 right-0 top-full mt-2 text-center text-xs text-white/25">
           Поиск...
         </p>
-      )}
+      ) : null}
     </div>
   );
 }

@@ -507,6 +507,7 @@ export function V2GameView() {
                 isError={session.lastGuessWrong}
                 inputClassName="v2-search-input !py-1.5 sm:!py-2.5"
                 placeholder={t("v2.game.searchPlaceholder")}
+                suggestionsPlacement="flow"
               />
             </div>
             <V2Button

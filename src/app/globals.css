@@ -1368,31 +1368,94 @@ body {
   }
 
   /*
-    Подсказки открываются вверх — над полем, не поверх вердикта/улик
-    и не упираются в клавиатуру Safari iOS.
+    Совпадения в потоке: поле → список → вердикт.
+    Без absolute — не уходит под header и не перекрывает кнопки.
   */
-  .v2-protocol-input > .relative {
-    isolation: isolate;
+  .v2-search-flow {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    width: 100%;
   }
 
-  .v2-protocol-panel [role="listbox"] {
-    top: auto;
-    bottom: calc(100% + 0.35rem);
-    margin-top: 0;
-    max-height: min(32vh, 11.5rem);
+  .v2-search-flow .v2-suggest-list {
+    position: static;
+    z-index: auto;
+    width: 100%;
+    max-width: 100%;
+    margin: 0.45rem 0 0;
+    max-height: min(28dvh, 11.5rem);
+    overflow-x: hidden;
+    overflow-y: auto;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
-    border-color: rgb(201 169 110 / 0.28);
-    background: rgb(28 22 16 / 0.97);
+    border-radius: 2px;
+    border: 1px solid rgb(201 169 110 / 0.3);
+    background:
+      linear-gradient(
+        165deg,
+        rgb(52 42 32 / 0.97) 0%,
+        rgb(26 20 14 / 0.98) 100%
+      );
     box-shadow:
-      0 -8px 28px rgb(0 0 0 / 0.45),
-      0 0 0 1px rgb(0 0 0 / 0.25);
+      0 1px 0 rgb(232 210 160 / 0.08) inset,
+      0 6px 18px rgb(0 0 0 / 0.35);
   }
 
-  .v2-protocol-input .relative > p.absolute {
-    top: auto;
-    bottom: calc(100% + 0.35rem);
-    margin-top: 0;
+  .v2-search-flow .v2-suggest-item {
+    padding: 0.7rem 0.85rem;
+    border-bottom: 1px solid rgb(201 169 110 / 0.1);
+    color: rgb(232 210 160 / 0.78);
+  }
+
+  .v2-search-flow .v2-suggest-item:last-child {
+    border-bottom: none;
+  }
+
+  .v2-search-flow .v2-suggest-item--active,
+  .v2-search-flow .v2-suggest-item:active {
+    background: rgb(201 169 110 / 0.12);
+    color: rgb(245 228 190 / 0.95);
+  }
+
+  .v2-protocol-panel:focus-within .v2-search-flow .v2-suggest-list {
+    max-height: min(22dvh, 9.5rem);
+  }
+}
+
+/* Desktop: flow-placement снова overlay рядом с полем */
+@media (min-width: 769px) {
+  .v2-search-flow .v2-suggest-list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 50;
+    margin-top: 0.5rem;
+    max-height: 12rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-radius: 2px;
+    border: 1px solid rgb(201 169 110 / 0.28);
+    background:
+      linear-gradient(
+        165deg,
+        rgb(52 42 32 / 0.97) 0%,
+        rgb(26 20 14 / 0.98) 100%
+      );
+    box-shadow:
+      0 1px 0 rgb(232 210 160 / 0.08) inset,
+      0 16px 40px rgb(0 0 0 / 0.5);
+  }
+
+  .v2-search-flow .v2-suggest-item {
+    padding: 0.75rem 1rem;
+    color: rgb(232 210 160 / 0.8);
+  }
+
+  .v2-search-flow .v2-suggest-item--active {
+    background: rgb(201 169 110 / 0.12);
+    color: rgb(245 228 190 / 0.95);
   }
 }
 
