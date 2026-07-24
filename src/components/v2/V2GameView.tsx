@@ -488,8 +488,8 @@ export function V2GameView() {
           <p className="v2-protocol-label mb-1 px-1 text-[8px] font-semibold uppercase tracking-[0.2em] text-[rgb(210_190_160/0.4)] sm:text-[9px]">
             {t("v2.game.protocolLabel")}
           </p>
-          <div className="v2-desk-field flex items-stretch gap-2 px-1.5 py-1 sm:px-2.5 sm:py-2">
-            <div className="min-w-0 flex-1">
+          <div className="v2-desk-field v2-protocol-compose flex items-stretch gap-2 px-1.5 py-1 sm:px-2.5 sm:py-2">
+            <div className="v2-protocol-input min-w-0 flex-1">
               <MovieSearchInput
                 value={guess}
                 onChange={(next) => {
@@ -513,7 +513,7 @@ export function V2GameView() {
               type="button"
               variant="primary"
               size="lg"
-              className="h-auto min-h-[2.5rem] shrink-0 self-center px-3 text-[11px] normal-case tracking-[0.06em] sm:min-h-[3rem] sm:min-w-[9.5rem] sm:px-5 sm:text-[13px]"
+              className="v2-protocol-verdict h-auto min-h-[2.5rem] shrink-0 self-center px-3 text-[11px] normal-case tracking-[0.06em] sm:min-h-[3rem] sm:min-w-[9.5rem] sm:px-5 sm:text-[13px]"
               disabled={controlsDisabled}
               onClick={() => handleGuessSubmit(guess)}
             >
@@ -521,7 +521,7 @@ export function V2GameView() {
             </V2Button>
           </div>
 
-          <div className="mt-1.5 flex flex-col gap-1.5 border-t border-[var(--v2-border-muted)] pt-1.5 sm:mt-2 sm:gap-2 sm:pt-2">
+          <div className="v2-protocol-actions mt-1.5 flex flex-col gap-1.5 border-t border-[var(--v2-border-muted)] pt-1.5 sm:mt-2 sm:gap-2 sm:pt-2">
             {!allHintsOpen ? (
               <V2Button
                 type="button"
