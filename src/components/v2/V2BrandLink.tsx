@@ -11,14 +11,20 @@ interface V2BrandLinkProps {
   /** Показать слово MovieDNA рядом со знаком. */
   showWordmark?: boolean;
   wordmarkClassName?: string;
+  /**
+   * false = только марка кабинета, без перехода (не уводит в V1 / другой экран).
+   * @default false на полке V2
+   */
+  interactive?: boolean;
 }
 
-/** Логотип → главная `/v2`. */
+/** Логотип MovieDNA на полке кабинета. */
 export function V2BrandLink({
   markSize = 26,
   className,
   showWordmark = true,
   wordmarkClassName,
+  interactive = false,
 }: V2BrandLinkProps) {
   const mobile =
     typeof markSize === "number" ? markSize : markSize.mobile;
@@ -26,16 +32,8 @@ export function V2BrandLink({
     typeof markSize === "number" ? markSize : markSize.desktop;
   const responsive = typeof markSize !== "number";
 
-  return (
-    <Link
-      href={V2_ROUTES.home}
-      className={cn(
-        "inline-flex min-w-0 items-center gap-1.5 rounded-sm outline-none transition-opacity hover:opacity-90",
-        "focus-visible:ring-1 focus-visible:ring-[var(--v2-focus)]",
-        className,
-      )}
-      aria-label="MovieDNA — на главную"
-    >
+  const mark = (
+    <>
       {responsive ? (
         <>
           <LogoMark size={mobile} className="sm:hidden" />
@@ -55,6 +53,34 @@ export function V2BrandLink({
           <span className="text-[var(--v2-accent)]">DNA</span>
         </span>
       ) : null}
+    </>
+  );
+
+  if (!interactive) {
+    return (
+      <span
+        className={cn(
+          "inline-flex min-w-0 items-center gap-1.5",
+          className,
+        )}
+        aria-label="MovieDNA"
+      >
+        {mark}
+      </span>
+    );
+  }
+
+  return (
+    <Link
+      href={V2_ROUTES.home}
+      className={cn(
+        "inline-flex min-w-0 items-center gap-1.5 rounded-sm outline-none transition-opacity hover:opacity-90",
+        "focus-visible:ring-1 focus-visible:ring-[var(--v2-focus)]",
+        className,
+      )}
+      aria-label="MovieDNA — на главную"
+    >
+      {mark}
     </Link>
   );
 }

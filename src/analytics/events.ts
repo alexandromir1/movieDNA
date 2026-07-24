@@ -3,7 +3,38 @@
  *
  * UI и Engine вызывают только `analytics.track(name, payload)`.
  * Конкретные сервисы (GA4, PostHog, …) подключаются через Providers.
+ *
+ * V1 Challenge events и V2 Case Analytics живут рядом:
+ * V1 не меняем; V2 шлёт `case_*` / archive_* / related_* / campaign_*.
+ * См. docs/analytics-v2.md.
  */
+
+/** Режим игры (V2 Case Analytics; зарезервированы future modes). */
+export type AnalyticsGameMode =
+  | "campaign"
+  | "archive"
+  | "deferred"
+  | "daily"
+  | "pvp";
+
+/** Откуда игрок пришёл в расследование / связанный экран. */
+export type AnalyticsEnteredFrom =
+  | "home"
+  | "archive"
+  | "campaign_complete"
+  | "recommendations"
+  | "deeplink"
+  | "continue";
+
+/** Общие поля Case Analytics (Investigation + связанные экраны). */
+export interface CaseAnalyticsProperties {
+  challengeId?: string;
+  movieId?: string;
+  /** Порядковый номер дела в кампании (1, 15, 327) — не id. */
+  caseNumber?: number;
+  gameMode?: AnalyticsGameMode;
+  enteredFrom?: AnalyticsEnteredFrom;
+}
 
 /** События, которые поддерживает система аналитики. */
 export type AnalyticsEventName =
@@ -31,7 +62,22 @@ export type AnalyticsEventName =
   | "language_changed"
   | "image_viewer_opened"
   | "share_click"
-  | "moment_of_recognition";
+  | "moment_of_recognition"
+  // —— V2 Case Analytics ——
+  | "case_started"
+  | "case_fragment_opened"
+  | "case_guess_submitted"
+  | "case_guess_correct"
+  | "case_guess_wrong"
+  | "case_deferred"
+  | "case_give_up"
+  | "case_completed"
+  | "archive_case_opened"
+  | "archive_case_resumed"
+  | "related_cases_opened"
+  | "related_cases_clicked"
+  | "campaign_completed"
+  | "campaign_resume_deferred";
 
 /**
  * Общие поля — добавляются к каждому событию автоматически.
@@ -201,6 +247,66 @@ export interface AnalyticsEventMap {
     regionIndex?: number | null;
     /** never = не понял до конца / пропустил */
     answer?: "region" | "never" | "skipped";
+  };
+
+  // —— V2 Case Analytics ——
+
+  case_started: CaseAnalyticsProperties;
+
+  case_fragment_opened: CaseAnalyticsProperties & {
+    regionIndex?: number;
+    timeBetweenRegions?: number;
+  };
+
+  case_guess_submitted: CaseAnalyticsProperties & {
+    guessLength?: number;
+    attemptCount?: number;
+  };
+
+  case_guess_correct: CaseAnalyticsProperties & {
+    openedRegionCount?: number;
+    attemptCount?: number;
+  };
+
+  case_guess_wrong: CaseAnalyticsProperties & {
+    openedRegionCount?: number;
+    attemptCount?: number;
+  };
+
+  case_deferred: CaseAnalyticsProperties & {
+    openedRegionCount?: number;
+    attemptCount?: number;
+  };
+
+  case_give_up: CaseAnalyticsProperties & {
+    openedRegionCount?: number;
+    secondsPlayed?: number;
+  };
+
+  case_completed: CaseAnalyticsProperties & {
+    openedRegionCount?: number;
+    secondsPlayed?: number;
+  };
+
+  archive_case_opened: CaseAnalyticsProperties;
+
+  archive_case_resumed: CaseAnalyticsProperties;
+
+  related_cases_opened: CaseAnalyticsProperties & {
+    source?: "result" | "archive";
+  };
+
+  related_cases_clicked: CaseAnalyticsProperties & {
+    href?: string;
+    source?: "result" | "archive";
+  };
+
+  campaign_completed: CaseAnalyticsProperties & {
+    deferredRemaining?: number;
+  };
+
+  campaign_resume_deferred: CaseAnalyticsProperties & {
+    deferredRemaining?: number;
   };
 }
 

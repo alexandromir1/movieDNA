@@ -6,9 +6,11 @@ import { useEffect, useState } from "react";
 import { V2Atmosphere } from "@/components/v2/V2Atmosphere";
 import { V2CaseFolder } from "@/components/v2/V2CaseFolder";
 import { V2DeskShelf } from "@/components/v2/V2DeskShelf";
+import { analytics } from "@/analytics";
 import { V2_ROUTES } from "@/lib/game/constants";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
 import { getHomeEntry, type HomeEntry } from "@/lib/v2/app";
+import { setCaseEntry } from "@/lib/v2/case-analytics";
 import { cn } from "@/lib/utils/cn";
 
 const IDLE_HINT_MS = 10_000;
@@ -60,6 +62,8 @@ export function V2FirstRunView() {
 
   function startInvestigation() {
     if (opening) return;
+    setCaseEntry({ enteredFrom: "home", gameMode: "campaign" });
+    analytics.track("start_button_clicked");
     if (prefersReducedMotion()) {
       router.push(V2_ROUTES.game);
       return;

@@ -8,10 +8,11 @@ import {
   setRecommendationAttribution,
 } from "@/analytics";
 import type { MovieRecommendationItemView } from "@/types/recommendations";
-import { GAME_ROUTES } from "@/lib/game/constants";
+import { GAME_ROUTES, V2_ROUTES } from "@/lib/game/constants";
 import { localize } from "@/lib/i18n/localize";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
 import type { LocalizedString } from "@/lib/i18n/types";
+import { readV2Return } from "@/lib/v2/case-analytics";
 
 interface MovieCardProps {
   item: MovieRecommendationItemView;
@@ -129,6 +130,15 @@ export function MovieCollectionsView({
   const primaryTitle = localize(movieTitle, locale);
 
   function handleBack() {
+    const v2Return = readV2Return();
+    if (v2Return?.kind === "archive") {
+      router.push(V2_ROUTES.archive);
+      return;
+    }
+    if (v2Return?.kind === "result") {
+      router.push(V2_ROUTES.game);
+      return;
+    }
     if (typeof window !== "undefined" && window.history.length > 1) {
       router.back();
       return;

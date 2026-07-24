@@ -13,6 +13,7 @@ import {
 import { getUtcDateString } from "@/lib/game/daily";
 import { GAME_ROUTES } from "@/lib/game/constants";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
+import { readV2Return } from "@/lib/v2/case-analytics";
 import { cn } from "@/lib/utils/cn";
 
 /**
@@ -23,6 +24,7 @@ export function Header() {
   const { locale, t } = useLocale();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [v2ReturnActive, setV2ReturnActive] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const today = getUtcDateString();
   const fullDate = useMemo(
@@ -45,6 +47,7 @@ export function Header() {
 
   useEffect(() => {
     setMenuOpen(false);
+    setV2ReturnActive(readV2Return() != null);
   }, [pathname]);
 
   useEffect(() => {
@@ -73,28 +76,41 @@ export function Header() {
     return null;
   }
 
+  const brandMark = (
+    <>
+      <LogoMark size={20} className="sm:hidden" />
+      <LogoMark size={24} className="hidden sm:block" />
+      <span className="truncate text-[13px] font-bold tracking-[0.1em] text-white sm:text-sm">
+        {t("brand.name")}
+      </span>
+      <span className="text-white/25" aria-hidden>
+        ·
+      </span>
+      <span className="truncate text-[11px] capitalize text-white/45 sm:text-xs">
+        {shortDate}
+      </span>
+    </>
+  );
+
   return (
     <header className="sticky top-0 z-30 border-b border-white/[0.06] bg-[#0e0e10]/95 backdrop-blur-md pt-[env(safe-area-inset-top)]">
       <div className="mx-auto flex h-9 max-w-6xl items-center justify-between gap-2 px-3 sm:h-11 sm:px-4 lg:hidden">
-        <Link
-          href="/"
-          className="flex min-w-0 items-center gap-1.5 rounded-md transition-opacity hover:opacity-85"
-        >
-          <LogoMark size={20} className="sm:hidden" />
-          <LogoMark size={24} className="hidden sm:block" />
-          <span className="truncate text-[13px] font-bold tracking-[0.1em] text-white sm:text-sm">
-            {t("brand.name")}
+        {v2ReturnActive ? (
+          <span className="flex min-w-0 items-center gap-1.5" aria-label="MovieDNA">
+            {brandMark}
           </span>
-          <span className="text-white/25" aria-hidden>
-            ·
-          </span>
-          <span className="truncate text-[11px] capitalize text-white/45 sm:text-xs">
-            {shortDate}
-          </span>
-        </Link>
+        ) : (
+          <Link
+            href="/"
+            className="flex min-w-0 items-center gap-1.5 rounded-md transition-opacity hover:opacity-85"
+          >
+            {brandMark}
+          </Link>
+        )}
 
         <div ref={menuRef} className="relative flex shrink-0 items-center gap-1.5">
           {pathname !== "/" && <LanguageSwitcher />}
+          {!v2ReturnActive ? (
           <button
             type="button"
             aria-expanded={menuOpen}
@@ -127,8 +143,9 @@ export function Header() {
               />
             </span>
           </button>
+          ) : null}
 
-          {menuOpen && (
+          {menuOpen && !v2ReturnActive && (
             <nav
               id="mobile-nav-menu"
               aria-label={t("nav.menu")}
@@ -161,15 +178,22 @@ export function Header() {
       </div>
 
       <div className="mx-auto hidden h-[72px] max-w-6xl items-center justify-between px-6 lg:flex">
-        <Link
-          href="/"
-          className="rounded-[10px] transition-opacity hover:opacity-85"
-        >
-          <Logo dateLabel={fullDate} />
-        </Link>
+        {v2ReturnActive ? (
+          <span className="rounded-[10px]" aria-label="MovieDNA">
+            <Logo dateLabel={fullDate} />
+          </span>
+        ) : (
+          <Link
+            href="/"
+            className="rounded-[10px] transition-opacity hover:opacity-85"
+          >
+            <Logo dateLabel={fullDate} />
+          </Link>
+        )}
 
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
+          {!v2ReturnActive ? (
           <nav className="flex items-center gap-1 text-sm" aria-label={t("nav.menu")}>
             {navItems.map((item) => {
               const isActive =
@@ -193,6 +217,7 @@ export function Header() {
               );
             })}
           </nav>
+          ) : null}
         </div>
       </div>
     </header>

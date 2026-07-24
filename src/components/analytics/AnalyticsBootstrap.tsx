@@ -115,7 +115,13 @@ export function AnalyticsBootstrap() {
     if (pathname === "/") {
       analytics.track("home_open");
     }
+    if (pathname === "/v2" || pathname === "/v2/") {
+      analytics.track("home_open");
+    }
     if (pathname === "/archive" || pathname.startsWith("/archive/")) {
+      analytics.track("archive_opened");
+    }
+    if (pathname === "/v2/archive" || pathname.startsWith("/v2/archive/")) {
       analytics.track("archive_opened");
     }
   }, [pathname]);

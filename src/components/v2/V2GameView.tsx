@@ -3,6 +3,18 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 
 import { fetchV2LevelBundle } from "@/actions/v2-game";
+import {
+  analytics,
+  clearAnalyticsChallengeContext,
+  setAnalyticsChallengeContext,
+} from "@/analytics";
+import {
+  clearChallengeTiming,
+  getSecondsPlayed,
+  markFirstGuessIfNeeded,
+  markRegionOpened,
+  resetChallengeTiming,
+} from "@/analytics/timing";
 import { MovieSearchInput } from "@/components/game/MovieSearchInput";
 import { V2Atmosphere } from "@/components/v2/V2Atmosphere";
 import { V2Button } from "@/components/v2/V2Button";
@@ -22,6 +34,15 @@ import { clearActivePlay } from "@/lib/v2/active-play";
 import { closedCaseCount } from "@/lib/v2/progress";
 import { readProgress } from "@/lib/v2/progress-store";
 import { getSequenceLength } from "@/lib/v2/level-sequence";
+import {
+  caseAnalyticsProps,
+  clearV2ResultHandoff,
+  clearV2Return,
+  readV2Return,
+  setActiveCase,
+  setCaseEntry,
+} from "@/lib/v2/case-analytics";
+import { readV2Result } from "@/lib/v2/result-handoff";
 import {
   movieHasRecommendations,
   movieRecommendationsHref,
@@ -164,6 +185,24 @@ export function V2GameView() {
       setPlayKind(target.playKind);
       setBoot({ status: "ready" });
 
+      const gameMode =
+        target.playKind === "deferred" ? "deferred" : "campaign";
+      setActiveCase({
+        caseNumber: target.displayLevel,
+        gameMode,
+      });
+      if (fromContinue) {
+        setCaseEntry({ enteredFrom: "continue", gameMode });
+      }
+      resetChallengeTiming();
+      analytics.track("case_started", {
+        ...caseAnalyticsProps(),
+        challengeId: bundle.level.id,
+        movieId: bundle.movie.id,
+        caseNumber: target.displayLevel,
+        gameMode,
+      });
+
       if (fromContinue && !prefersReducedMotion()) {
         window.setTimeout(() => {
           if (bootGenRef.current === gen) {
@@ -182,6 +221,13 @@ export function V2GameView() {
   }, []);
 
   useEffect(() => {
+    const pending = readV2Result();
+    const ret = readV2Return();
+    if (pending && ret?.kind === "result") {
+      setResultModal(pending);
+      submitGuardRef.current = true;
+    }
+
     void loadCase();
     return () => {
       bootGenRef.current += 1;
@@ -191,8 +237,29 @@ export function V2GameView() {
       if (stampTimerRef.current != null) {
         window.clearTimeout(stampTimerRef.current);
       }
+      clearAnalyticsChallengeContext();
+      clearChallengeTiming();
     };
   }, [loadCase]);
+
+  useEffect(() => {
+    if (!session) {
+      clearAnalyticsChallengeContext();
+      return;
+    }
+    const movie = session.movie;
+    const genres = movie.genres?.filter(Boolean).join(", ").trim() || null;
+    setAnalyticsChallengeContext({
+      challengeId: session.level.id,
+      regionsOpened: session.revealRuntime.openedSteps,
+      hintsUsed: session.revealRuntime.openedSteps,
+      attempts: session.attemptCount,
+      movieId: movie.id,
+      movieTitle: movie.title.en || movie.title.ru || null,
+      movieYear: movie.year > 0 ? movie.year : null,
+      genres,
+    });
+  }, [session]);
 
   async function handleContinue() {
     if (continuing) return;
@@ -201,6 +268,9 @@ export function V2GameView() {
     setShowVerdictStamp(false);
     setCaseFiling(false);
     clearActivePlay();
+    clearV2Return();
+    clearV2ResultHandoff();
+    submitGuardRef.current = false;
 
     if (!prefersReducedMotion()) {
       setCasePhase("closing");
@@ -269,10 +339,49 @@ export function V2GameView() {
     const outcome = sessionSubmitGuess(session, value);
     if (outcome.kind === "ignored") return;
 
+    const guessLength = value.trim().length;
+    if (guessLength > 0) {
+      markFirstGuessIfNeeded();
+    }
+
+    analytics.track("case_guess_submitted", {
+      ...caseAnalyticsProps(),
+      challengeId: session.level.id,
+      movieId: session.movie.id,
+      guessLength,
+      attemptCount:
+        outcome.kind === "wrong" || outcome.kind === "correct"
+          ? outcome.session.attemptCount
+          : session.attemptCount,
+    });
+
     if (outcome.kind === "wrong") {
+      analytics.track("case_guess_wrong", {
+        ...caseAnalyticsProps(),
+        challengeId: session.level.id,
+        movieId: session.movie.id,
+        openedRegionCount: outcome.session.revealRuntime.openedSteps,
+        attemptCount: outcome.session.attemptCount,
+      });
       setSession(outcome.session);
       return;
     }
+
+    analytics.track("case_guess_correct", {
+      ...caseAnalyticsProps(),
+      challengeId: session.level.id,
+      movieId: session.movie.id,
+      openedRegionCount: outcome.session.revealRuntime.openedSteps,
+      attemptCount: outcome.session.attemptCount,
+    });
+    analytics.track("case_completed", {
+      ...caseAnalyticsProps(),
+      challengeId: session.level.id,
+      movieId: session.movie.id,
+      openedRegionCount: outcome.result.openedSteps,
+      secondsPlayed: getSecondsPlayed(),
+    });
+    clearChallengeTiming();
 
     submitGuardRef.current = true;
     setUiLocked(true);
@@ -306,9 +415,18 @@ export function V2GameView() {
 
     const nextOpened = session.revealRuntime.openedSteps + 1;
     const isLast = nextOpened >= session.revealRuntime.totalSteps;
+    const timeBetweenRegions = markRegionOpened() ?? undefined;
     setUiLocked(true);
     setAnimatingPieceIndex(nextOpened - 1);
     setSession(sessionRevealNext(session));
+
+    analytics.track("case_fragment_opened", {
+      ...caseAnalyticsProps(),
+      challengeId: session.level.id,
+      movieId: session.movie.id,
+      regionIndex: nextOpened - 1,
+      timeBetweenRegions,
+    });
 
     if (lockTimerRef.current != null) {
       window.clearTimeout(lockTimerRef.current);
@@ -333,6 +451,15 @@ export function V2GameView() {
     setSession(outcome.session);
 
     window.setTimeout(() => {
+      analytics.track("case_give_up", {
+        ...caseAnalyticsProps(),
+        challengeId: session.level.id,
+        movieId: session.movie.id,
+        openedRegionCount: outcome.result.openedSteps,
+        secondsPlayed: getSecondsPlayed(),
+      });
+      clearChallengeTiming();
+
       commitLevelSurrender(outcome.result, playKind);
       const progress = readProgress();
       if (progress) setClosedCount(closedCaseCount(progress));
@@ -341,9 +468,18 @@ export function V2GameView() {
   }
 
   async function handleDefer() {
-    if (!canDefer || submitGuardRef.current) return;
+    if (!session || !canDefer || submitGuardRef.current) return;
     submitGuardRef.current = true;
     setUiLocked(true);
+
+    analytics.track("case_deferred", {
+      ...caseAnalyticsProps(),
+      challengeId: session.level.id,
+      movieId: session.movie.id,
+      openedRegionCount: session.revealRuntime.openedSteps,
+      attemptCount: session.attemptCount,
+    });
+    clearChallengeTiming();
 
     const next = deferCurrentCase();
     if (!next) {

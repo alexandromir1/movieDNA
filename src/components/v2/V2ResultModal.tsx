@@ -5,8 +5,14 @@ import { useEffect, useId, useRef, useState } from "react";
 
 import { V2Button } from "@/components/v2/V2Button";
 import { V2GlassCard } from "@/components/v2/V2GlassCard";
+import { analytics } from "@/analytics";
 import { V2_ROUTES } from "@/lib/game/constants";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
+import {
+  caseAnalyticsProps,
+  storeV2Return,
+} from "@/lib/v2/case-analytics";
+import { storeV2Result } from "@/lib/v2/result-handoff";
 import { cn } from "@/lib/utils/cn";
 import type { V2LevelResult } from "@/types/v2-content";
 
@@ -54,6 +60,15 @@ export function V2ResultModal({
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    if (relatedHref) {
+      analytics.track("related_cases_opened", {
+        ...caseAnalyticsProps(),
+        challengeId: result.levelId,
+        movieId: result.movieId,
+        source: "result",
+      });
+    }
+
     if (reduced) {
       setStage(3);
       continueRef.current?.focus();
@@ -78,7 +93,7 @@ export function V2ResultModal({
       window.clearTimeout(t2);
       window.clearTimeout(t3);
     };
-  }, []);
+  }, [relatedHref, result.levelId, result.movieId]);
 
   return (
     <div
@@ -176,6 +191,17 @@ export function V2ResultModal({
                   "v2-related-cases-link text-sm tracking-[0.06em] text-[var(--v2-accent)] underline-offset-2 hover:underline",
                   (continuing || stage < 3) && "pointer-events-none opacity-40",
                 )}
+                onClick={() => {
+                  storeV2Result(result);
+                  storeV2Return({ kind: "result" });
+                  analytics.track("related_cases_clicked", {
+                    ...caseAnalyticsProps(),
+                    challengeId: result.levelId,
+                    movieId: result.movieId,
+                    href: relatedHref,
+                    source: "result",
+                  });
+                }}
               >
                 {t("v2.result.relatedCases")}
               </Link>

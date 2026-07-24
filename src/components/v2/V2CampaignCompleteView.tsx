@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { V2Atmosphere } from "@/components/v2/V2Atmosphere";
 import { V2Button } from "@/components/v2/V2Button";
 import { V2DeskShelf } from "@/components/v2/V2DeskShelf";
+import { analytics } from "@/analytics";
 import { V2_ROUTES } from "@/lib/game/constants";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
 import {
@@ -14,6 +15,10 @@ import {
   campaignHasDeferred,
   getDeferredCount,
 } from "@/lib/v2/app";
+import {
+  caseAnalyticsProps,
+  setCaseEntry,
+} from "@/lib/v2/case-analytics";
 
 /**
  * Атмосферное завершение основной кампании.
@@ -26,13 +31,26 @@ export function V2CampaignCompleteView() {
   const [opening, setOpening] = useState(false);
 
   useEffect(() => {
+    const deferred = getDeferredCount();
     setHasDeferred(campaignHasDeferred());
-    setDeferredCount(getDeferredCount());
+    setDeferredCount(deferred);
+    analytics.track("campaign_completed", {
+      ...caseAnalyticsProps(),
+      deferredRemaining: deferred,
+    });
   }, []);
 
   function openDeferred() {
     if (opening) return;
     setOpening(true);
+    setCaseEntry({
+      enteredFrom: "campaign_complete",
+      gameMode: "deferred",
+    });
+    analytics.track("campaign_resume_deferred", {
+      ...caseAnalyticsProps(),
+      deferredRemaining: deferredCount,
+    });
     if (!beginFirstDeferredPlay()) {
       setOpening(false);
       router.push(V2_ROUTES.archive);

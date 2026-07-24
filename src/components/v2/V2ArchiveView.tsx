@@ -11,9 +11,16 @@ import {
 import { V2Atmosphere } from "@/components/v2/V2Atmosphere";
 import { V2Button } from "@/components/v2/V2Button";
 import { V2DeskShelf } from "@/components/v2/V2DeskShelf";
+import { analytics } from "@/analytics";
 import { V2_ROUTES } from "@/lib/game/constants";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
 import { beginDeferredPlay } from "@/lib/v2/app";
+import {
+  caseAnalyticsProps,
+  setActiveCase,
+  setCaseEntry,
+  storeV2Return,
+} from "@/lib/v2/case-analytics";
 import { movieRecommendationsHref } from "@/lib/v2/related-cases";
 import { readProgress } from "@/lib/v2/progress-store";
 import { cn } from "@/lib/utils/cn";
@@ -77,6 +84,21 @@ export function V2ArchiveView() {
 
   function openDeferred(levelId: string) {
     if (openingId) return;
+    const entry = snapshot?.deferred.find((item) => item.levelId === levelId);
+    setCaseEntry({ enteredFrom: "archive", gameMode: "deferred" });
+    if (entry) {
+      setActiveCase({
+        caseNumber: entry.caseNumber,
+        gameMode: "deferred",
+      });
+    }
+    analytics.track("archive_case_resumed", {
+      ...caseAnalyticsProps(),
+      challengeId: levelId,
+      caseNumber: entry?.caseNumber,
+      gameMode: "deferred",
+      enteredFrom: "archive",
+    });
     setOpeningId(levelId);
     if (!beginDeferredPlay(levelId)) {
       setOpeningId(null);
@@ -204,6 +226,31 @@ export function V2ArchiveView() {
                               <Link
                                 href={movieRecommendationsHref(entry.movieId)}
                                 className="mt-1.5 inline-block text-[11px] tracking-[0.04em] text-[var(--v2-accent)] underline-offset-2 hover:underline"
+                                onClick={() => {
+                                  storeV2Return({ kind: "archive" });
+                                  setActiveCase({
+                                    caseNumber: entry.caseNumber,
+                                    gameMode: "archive",
+                                  });
+                                  analytics.track("archive_case_opened", {
+                                    ...caseAnalyticsProps(),
+                                    challengeId: entry.levelId,
+                                    movieId: entry.movieId,
+                                    caseNumber: entry.caseNumber,
+                                    gameMode: "archive",
+                                    enteredFrom: "archive",
+                                  });
+                                  analytics.track("related_cases_clicked", {
+                                    ...caseAnalyticsProps(),
+                                    challengeId: entry.levelId,
+                                    movieId: entry.movieId,
+                                    caseNumber: entry.caseNumber,
+                                    href: movieRecommendationsHref(entry.movieId),
+                                    source: "archive",
+                                    gameMode: "archive",
+                                    enteredFrom: "archive",
+                                  });
+                                }}
                               >
                                 {t("v2.archive.relatedCases")}
                               </Link>
