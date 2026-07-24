@@ -3,7 +3,7 @@
 import { useLocale } from "@/lib/i18n/LocaleProvider";
 
 /**
- * Физическая бирка поверх улики — аксессуар, не UI-chrome.
+ * Физическая бирка папки дела — ярлык архива, не «уровень».
  */
 export function V2CaseBadge({ caseNumber }: { caseNumber: number }) {
   const { t } = useLocale();
@@ -15,7 +15,10 @@ export function V2CaseBadge({ caseNumber }: { caseNumber: number }) {
       aria-hidden
     >
       <div className="v2-case-badge-plate px-1.5 py-1 sm:px-2 sm:py-1.5">
-        <p className="text-[7px] font-semibold uppercase tracking-[0.22em] text-[rgb(212_180_120)] sm:text-[8px]">
+        <p className="text-[6px] font-semibold uppercase tracking-[0.26em] text-[rgb(180_155_110/0.85)] sm:text-[7px]">
+          {t("v2.game.archiveBadge")}
+        </p>
+        <p className="mt-0.5 text-[8px] font-semibold uppercase tracking-[0.18em] text-[rgb(212_180_120)] sm:text-[9px]">
           {t("v2.game.caseBadge", { n: caseLabel })}
         </p>
       </div>

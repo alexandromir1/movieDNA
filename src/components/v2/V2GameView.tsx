@@ -4,19 +4,28 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties } from "re
 
 import { fetchV2LevelBundle } from "@/actions/v2-game";
 import { MovieSearchInput } from "@/components/game/MovieSearchInput";
-import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { V2Atmosphere } from "@/components/v2/V2Atmosphere";
-import { V2BrandLink } from "@/components/v2/V2BrandLink";
 import { V2Button } from "@/components/v2/V2Button";
+import { V2CampaignCompleteView } from "@/components/v2/V2CampaignCompleteView";
 import { V2CaseBadge, V2LabDecor } from "@/components/v2/V2LabDecor";
+import { V2DeskShelf } from "@/components/v2/V2DeskShelf";
 import { V2ResultModal } from "@/components/v2/V2ResultModal";
+import { V2VerdictStamp } from "@/components/v2/V2VerdictStamp";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
 import {
   beginOrResumePlay,
   commitLevelSurrender,
   commitLevelVictory,
+  deferCurrentCase,
 } from "@/lib/v2/app";
+import { clearActivePlay } from "@/lib/v2/active-play";
+import { closedCaseCount } from "@/lib/v2/progress";
+import { readProgress } from "@/lib/v2/progress-store";
 import { getSequenceLength } from "@/lib/v2/level-sequence";
+import {
+  movieHasRecommendations,
+  movieRecommendationsHref,
+} from "@/lib/v2/related-cases";
 import {
   createV2LevelSession,
   sessionCanRevealNext,
@@ -30,6 +39,7 @@ import type { V2LevelResult } from "@/types/v2-content";
 
 import {
   FragmentsRevealImage,
+  V2_FINAL_ASSEMBLE_MS,
   V2_FRAGMENT_REVEAL_MS,
 } from "./FragmentsRevealImage";
 
@@ -38,6 +48,19 @@ type BootState =
   | { status: "ready" }
   | { status: "complete" }
   | { status: "error" };
+
+type CasePhase = "idle" | "closing" | "between" | "opening";
+
+const VERDICT_STAMP_MS = 560;
+const CASE_FILING_MS = 300;
+const CASE_CLOSE_MS = 320;
+const CASE_BETWEEN_MS = 180;
+const CASE_OPEN_MS = 720;
+
+function prefersReducedMotion(): boolean {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
 
 function FragmentMeters({
   opened,
@@ -79,26 +102,44 @@ export function V2GameView() {
   );
   const [uiLocked, setUiLocked] = useState(false);
   const [resultModal, setResultModal] = useState<V2LevelResult | null>(null);
+  const [showVerdictStamp, setShowVerdictStamp] = useState(false);
+  const [caseFiling, setCaseFiling] = useState(false);
   const [continuing, setContinuing] = useState(false);
+  const [casePhase, setCasePhase] = useState<CasePhase>("idle");
+  const [playKind, setPlayKind] = useState<"campaign" | "deferred">("campaign");
+  const [closedCount, setClosedCount] = useState(0);
   const lockTimerRef = useRef<number | null>(null);
+  const stampTimerRef = useRef<number | null>(null);
   const submitGuardRef = useRef(false);
   const bootGenRef = useRef(0);
 
-  const loadCase = useCallback(async () => {
+  const loadCase = useCallback(async (opts?: { fromContinue?: boolean }) => {
     const gen = ++bootGenRef.current;
-    // Сразу убираем прошлую сессию — иначе ~1с висит старый кадр.
-    setSession(null);
-    setBoot({ status: "loading" });
+    const fromContinue = opts?.fromContinue === true;
+
+    if (!fromContinue) {
+      setSession(null);
+      setBoot({ status: "loading" });
+      setCasePhase("idle");
+    }
+
     setResultModal(null);
+    setShowVerdictStamp(false);
+    setCaseFiling(false);
     setContinuing(false);
     setUiLocked(false);
     setGuess("");
     setAnimatingPieceIndex(null);
     submitGuardRef.current = false;
 
-    const { target } = beginOrResumePlay();
+    const { progress, target } = beginOrResumePlay();
+    if (bootGenRef.current === gen) {
+      setClosedCount(closedCaseCount(progress));
+    }
     if (target.kind === "complete") {
       if (bootGenRef.current === gen) {
+        setSession(null);
+        setCasePhase("idle");
         setBoot({ status: "complete" });
       }
       return;
@@ -110,15 +151,32 @@ export function V2GameView() {
 
       if (!bundle) {
         setBoot({ status: "error" });
+        setCasePhase("idle");
         return;
+      }
+
+      if (fromContinue) {
+        setCasePhase("opening");
       }
 
       setSession(createV2LevelSession(bundle.level, bundle.movie));
       setDisplayLevel(target.displayLevel);
+      setPlayKind(target.playKind);
       setBoot({ status: "ready" });
+
+      if (fromContinue && !prefersReducedMotion()) {
+        window.setTimeout(() => {
+          if (bootGenRef.current === gen) {
+            setCasePhase("idle");
+          }
+        }, CASE_OPEN_MS);
+      } else {
+        setCasePhase("idle");
+      }
     } catch {
       if (bootGenRef.current === gen) {
         setBoot({ status: "error" });
+        setCasePhase("idle");
       }
     }
   }, []);
@@ -130,13 +188,32 @@ export function V2GameView() {
       if (lockTimerRef.current != null) {
         window.clearTimeout(lockTimerRef.current);
       }
+      if (stampTimerRef.current != null) {
+        window.clearTimeout(stampTimerRef.current);
+      }
     };
   }, [loadCase]);
 
   async function handleContinue() {
     if (continuing) return;
     setContinuing(true);
-    await loadCase();
+    setResultModal(null);
+    setShowVerdictStamp(false);
+    setCaseFiling(false);
+    clearActivePlay();
+
+    if (!prefersReducedMotion()) {
+      setCasePhase("closing");
+      await new Promise<void>((resolve) => {
+        window.setTimeout(resolve, CASE_CLOSE_MS);
+      });
+      setCasePhase("between");
+      await new Promise<void>((resolve) => {
+        window.setTimeout(resolve, CASE_BETWEEN_MS);
+      });
+    }
+
+    await loadCase({ fromContinue: true });
   }
 
   if (boot.status === "loading" && !session) {
@@ -162,19 +239,7 @@ export function V2GameView() {
   }
 
   if (boot.status === "complete" || !session) {
-    return (
-      <div className="v2-shell relative h-full min-h-0 w-full flex-1 overflow-hidden">
-        <V2Atmosphere intensity="soft" />
-        <div className="v2-screen-enter relative z-10 mx-auto flex h-full max-w-lg flex-col justify-center px-4 text-center">
-          <h1 className="text-2xl font-semibold text-[var(--v2-ink)]">
-            {t("v2.game.sequenceCompleteTitle")}
-          </h1>
-          <p className="mt-3 text-sm text-[var(--v2-ink-muted)]">
-            {t("v2.game.sequenceCompleteBody")}
-          </p>
-        </div>
-      </div>
-    );
+    return <V2CampaignCompleteView />;
   }
 
   const { level, revealRuntime } = session;
@@ -183,8 +248,20 @@ export function V2GameView() {
   const totalSteps = revealRuntime.totalSteps;
   const modalOpen = resultModal != null;
   const canReveal =
-    sessionCanRevealNext(session) && !uiLocked && !modalOpen;
-  const controlsDisabled = uiLocked || modalOpen;
+    sessionCanRevealNext(session) &&
+    !uiLocked &&
+    !modalOpen &&
+    !showVerdictStamp &&
+    !caseFiling;
+  const controlsDisabled =
+    uiLocked ||
+    modalOpen ||
+    showVerdictStamp ||
+    caseFiling ||
+    casePhase === "closing" ||
+    casePhase === "between";
+  const caseNumLabel = String(displayLevel).padStart(3, "0");
+  const canDefer = playKind === "campaign" && !controlsDisabled;
 
   function handleGuessSubmit(value: string) {
     if (!session || controlsDisabled || submitGuardRef.current) return;
@@ -199,15 +276,36 @@ export function V2GameView() {
 
     submitGuardRef.current = true;
     setUiLocked(true);
-    commitLevelVictory(outcome.result);
+    commitLevelVictory(outcome.result, playKind);
     setSession(outcome.session);
-    setResultModal({ ...outcome.result, outcome: "won" });
+    const progress = readProgress();
+    if (progress) setClosedCount(closedCaseCount(progress));
+
+    if (prefersReducedMotion()) {
+      setResultModal({ ...outcome.result, outcome: "won" });
+      return;
+    }
+
+    setShowVerdictStamp(true);
+    if (stampTimerRef.current != null) {
+      window.clearTimeout(stampTimerRef.current);
+    }
+    stampTimerRef.current = window.setTimeout(() => {
+      setCaseFiling(true);
+      stampTimerRef.current = window.setTimeout(() => {
+        setShowVerdictStamp(false);
+        setCaseFiling(false);
+        setResultModal({ ...outcome.result, outcome: "won" });
+        stampTimerRef.current = null;
+      }, CASE_FILING_MS);
+    }, VERDICT_STAMP_MS);
   }
 
   function handleNextFragment() {
     if (!session || controlsDisabled || !sessionCanRevealNext(session)) return;
 
     const nextOpened = session.revealRuntime.openedSteps + 1;
+    const isLast = nextOpened >= session.revealRuntime.totalSteps;
     setUiLocked(true);
     setAnimatingPieceIndex(nextOpened - 1);
     setSession(sessionRevealNext(session));
@@ -215,11 +313,14 @@ export function V2GameView() {
     if (lockTimerRef.current != null) {
       window.clearTimeout(lockTimerRef.current);
     }
-    lockTimerRef.current = window.setTimeout(() => {
-      setUiLocked(false);
-      setAnimatingPieceIndex(null);
-      lockTimerRef.current = null;
-    }, V2_FRAGMENT_REVEAL_MS);
+    lockTimerRef.current = window.setTimeout(
+      () => {
+        setUiLocked(false);
+        setAnimatingPieceIndex(null);
+        lockTimerRef.current = null;
+      },
+      isLast ? V2_FINAL_ASSEMBLE_MS + 80 : V2_FRAGMENT_REVEAL_MS,
+    );
   }
 
   function handleSurrender() {
@@ -232,9 +333,39 @@ export function V2GameView() {
     setSession(outcome.session);
 
     window.setTimeout(() => {
-      commitLevelSurrender(outcome.result);
+      commitLevelSurrender(outcome.result, playKind);
+      const progress = readProgress();
+      if (progress) setClosedCount(closedCaseCount(progress));
       setResultModal(outcome.result);
     }, 700);
+  }
+
+  async function handleDefer() {
+    if (!canDefer || submitGuardRef.current) return;
+    submitGuardRef.current = true;
+    setUiLocked(true);
+
+    const next = deferCurrentCase();
+    if (!next) {
+      submitGuardRef.current = false;
+      setUiLocked(false);
+      return;
+    }
+
+    setClosedCount(closedCaseCount(next));
+
+    if (!prefersReducedMotion()) {
+      setCasePhase("closing");
+      await new Promise<void>((resolve) => {
+        window.setTimeout(resolve, CASE_CLOSE_MS);
+      });
+      setCasePhase("between");
+      await new Promise<void>((resolve) => {
+        window.setTimeout(resolve, CASE_BETWEEN_MS);
+      });
+    }
+
+    await loadCase({ fromContinue: true });
   }
 
   const displayOpened =
@@ -245,31 +376,27 @@ export function V2GameView() {
     allHintsOpen && session.status === "active" && !controlsDisabled;
 
   return (
-    <div className="v2-shell relative flex h-full min-h-0 w-full flex-1 flex-col overflow-hidden">
-      <V2Atmosphere intensity="soft" />
+    <div className="v2-shell v2-desk-cabinet relative flex h-full min-h-0 w-full flex-1 flex-col overflow-hidden">
+      <V2Atmosphere intensity="rich" className="v2-desk-atmosphere" />
+      <div className="v2-desk-living-light" aria-hidden />
       <V2LabDecor />
 
-      <div
-        className={cn(
-          "v2-game-column relative z-10 mx-auto flex h-full w-full max-w-3xl flex-col",
-          "px-2.5 pt-[max(0.35rem,env(safe-area-inset-top))] pb-[max(0.75rem,env(safe-area-inset-bottom))]",
-          "sm:max-w-4xl sm:px-5 sm:pb-3 sm:pt-3 lg:max-w-5xl",
-        )}
-      >
-        <header className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-          <div className="flex min-w-0 flex-1 items-center">
-            <V2BrandLink markSize={{ mobile: 22, desktop: 26 }} />
-          </div>
-
-          <div className="flex min-w-0 flex-[1.4] flex-col items-center gap-0.5 text-center">
-            <p className="v2-meta-strong text-[9px] font-semibold uppercase sm:text-[10px]">
-              {t("v2.game.caseProgress", {
-                current: displayLevel,
-                total: sequenceTotal,
-              })}
+      <V2DeskShelf
+        className="pt-[max(0.15rem,env(safe-area-inset-top))]"
+        center={
+          <>
+            <p className="v2-meta-strong text-[8px] font-semibold uppercase sm:text-[9px]">
+              {t("v2.game.caseProgress", { n: caseNumLabel })}
             </p>
-            <div className="flex items-center gap-2">
-              <p className="v2-meta text-[8px] uppercase sm:text-[9px]">
+            <p className="mt-0.5 text-[8px] font-medium uppercase tracking-[0.14em] text-[rgb(232_210_160/0.68)] sm:text-[9px]">
+              {t("v2.game.closedCount", { n: closedCount })}
+              <span className="opacity-50">
+                {" "}
+                · {t("v2.game.caseProgressSecondary", { total: sequenceTotal })}
+              </span>
+            </p>
+            <div className="mt-0.5 flex items-center gap-1.5">
+              <p className="v2-meta text-[7px] uppercase sm:text-[8px]">
                 {displayOpened >= totalSteps
                   ? t("v2.game.allFragmentsOpen")
                   : t("v2.game.fragmentsProgress", {
@@ -279,40 +406,64 @@ export function V2GameView() {
               </p>
               <FragmentMeters opened={displayOpened} total={totalSteps} />
             </div>
-          </div>
+          </>
+        }
+      />
 
-          <div className="flex flex-1 justify-end">
-            <LanguageSwitcher className="scale-90 border-[var(--v2-border-muted)] bg-black/30 sm:scale-100" />
-          </div>
-        </header>
-
-        {/*
-          Mobile: Header/Desk почти фиксированы; flex-1 отдаёт свободную
-          высоту кадру (max-contain). Зазоры — clamp/vh. Desktop — витрина.
-        */}
-        <div className="v2-image-slot relative flex w-full min-h-0 flex-1 items-center justify-center">
+      <div
+        className={cn(
+          "v2-game-column relative z-10 mx-auto flex min-h-0 w-full max-w-3xl flex-1 flex-col",
+          "px-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-1.5",
+          "sm:max-w-4xl sm:px-5 sm:pb-3 sm:pt-2 lg:max-w-5xl",
+        )}
+      >
+        <div
+          className={cn(
+            "v2-image-slot relative flex w-full min-h-0 flex-1 items-center justify-center",
+            casePhase === "between" && "v2-case-between-slot",
+          )}
+        >
           <div
-            className="v2-image-frame relative"
+            className={cn(
+              "v2-open-folder relative",
+              casePhase === "closing" && "v2-case-closing",
+              casePhase === "between" && "v2-case-between",
+              casePhase === "opening" && "v2-case-opening",
+              caseFiling && "v2-case-filing",
+            )}
             style={
               {
-                aspectRatio: `${level.width} / ${level.height}`,
                 "--v2-image-ar": String(level.width / level.height),
               } as CSSProperties
             }
           >
-            <V2CaseBadge caseNumber={displayLevel} />
-            <FragmentsRevealImage
-              key={level.id}
-              className="absolute inset-0 h-full w-full"
-              imageSrc={level.image}
-              width={level.width}
-              height={level.height}
-              pieces={definition.data.pieces}
-              openedSteps={displayOpened}
-              animatingPieceIndex={animatingPieceIndex}
-              forceComplete={forceComplete}
-              aria-label={t("v2.game.imageAlt")}
-            />
+            <div className="v2-open-folder-flap" aria-hidden />
+            <div
+              className="v2-image-frame v2-open-folder-photo relative"
+              style={{
+                aspectRatio: `${level.width} / ${level.height}`,
+              }}
+            >
+              <V2CaseBadge key={displayLevel} caseNumber={displayLevel} />
+              <FragmentsRevealImage
+                key={level.id}
+                className={cn(
+                  "absolute inset-0 h-full w-full",
+                  casePhase === "opening" && "v2-case-photo-enter",
+                )}
+                imageSrc={level.image}
+                width={level.width}
+                height={level.height}
+                pieces={definition.data.pieces}
+                openedSteps={displayOpened}
+                animatingPieceIndex={animatingPieceIndex}
+                forceComplete={forceComplete}
+                aria-label={t("v2.game.imageAlt")}
+              />
+              {showVerdictStamp ? (
+                <V2VerdictStamp caseNumber={displayLevel} />
+              ) : null}
+            </div>
           </div>
         </div>
 
@@ -326,7 +477,17 @@ export function V2GameView() {
           </p>
         ) : null}
 
-        <div className="v2-desk-panel v2-game-gap-y relative z-20 shrink-0 px-2 py-1.5 sm:px-3 sm:py-2.5">
+        <div
+          className={cn(
+            "v2-desk-panel v2-protocol-panel v2-game-gap-y relative z-20 shrink-0 px-2 py-1.5 sm:px-3 sm:py-2.5",
+            casePhase === "opening" && "v2-desk-case-enter",
+            (casePhase === "closing" || casePhase === "between") &&
+              "v2-desk-case-exit",
+          )}
+        >
+          <p className="v2-protocol-label mb-1 px-1 text-[8px] font-semibold uppercase tracking-[0.2em] text-[rgb(210_190_160/0.4)] sm:text-[9px]">
+            {t("v2.game.protocolLabel")}
+          </p>
           <div className="v2-desk-field flex items-stretch gap-2 px-1.5 py-1 sm:px-2.5 sm:py-2">
             <div className="min-w-0 flex-1">
               <MovieSearchInput
@@ -399,6 +560,25 @@ export function V2GameView() {
                 {t("v2.game.surrenderCta")}
               </button>
             ) : null}
+
+            {playKind === "campaign" ? (
+              <button
+                type="button"
+                disabled={!canDefer}
+                onClick={() => {
+                  void handleDefer();
+                }}
+                className={cn(
+                  "w-full py-1.5 text-[10px] font-medium uppercase tracking-[0.14em]",
+                  "text-[var(--v2-ink-faint)] transition-colors",
+                  "hover:text-[var(--v2-ink-muted)]",
+                  "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--v2-focus)]",
+                  "disabled:pointer-events-none disabled:opacity-40",
+                )}
+              >
+                {t("v2.game.deferCta")}
+              </button>
+            ) : null}
           </div>
         </div>
       </div>
@@ -406,6 +586,14 @@ export function V2GameView() {
       {resultModal ? (
         <V2ResultModal
           result={resultModal}
+          evidenceSrc={level.image}
+          evidenceWidth={level.width}
+          evidenceHeight={level.height}
+          relatedHref={
+            movieHasRecommendations(session.movie)
+              ? movieRecommendationsHref(session.movie.id)
+              : null
+          }
           continuing={continuing}
           onContinue={() => {
             void handleContinue();

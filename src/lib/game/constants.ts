@@ -19,4 +19,5 @@ export const V2_ROUTES = {
   home: "/v2",
   game: "/v2/game",
   result: "/v2/result",
+  archive: "/v2/archive",
 } as const;

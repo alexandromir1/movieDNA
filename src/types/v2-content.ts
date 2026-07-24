@@ -81,9 +81,11 @@ export interface Campaign {
 
 /**
  * Минимальный Player.Progress (docs/v2-domain-model.md §6.1).
- * `currentSequenceIndex` = текущий уровень в очереди (0-based).
- * Продуктово: «currentLevel» / куда ведёт «Продолжить».
+ * `currentSequenceIndex` = следующий Level основной очереди (0-based).
+ * `deferredLevelIds` = отложенные дела (вне основной очереди).
  */
 export interface V2PlayerProgress {
   currentSequenceIndex: number;
+  /** Level id, отложенные «на потом»; порядок = порядок отложения. */
+  deferredLevelIds?: string[];
 }

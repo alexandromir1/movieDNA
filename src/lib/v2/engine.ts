@@ -6,7 +6,11 @@ import type {
 
 import {
   advanceProgressAfterLevel,
+  caseNumberForLevelId,
+  completeDeferredLevel,
   currentLevelId,
+  deferCurrentLevel,
+  deferredIds,
   displayLevelNumber,
   isSequenceComplete,
 } from "./progress";
@@ -19,12 +23,19 @@ import {
  * Result → Progress только через эти функции (Result сам Progress не трогает).
  */
 
+export type PlayTarget =
+  | {
+      kind: "level";
+      levelId: string;
+      displayLevel: number;
+      playKind: "campaign" | "deferred";
+    }
+  | { kind: "complete" };
+
 export function resolvePlayTarget(
   progress: V2PlayerProgress,
   sequence: LevelSequence,
-):
-  | { kind: "level"; levelId: string; displayLevel: number }
-  | { kind: "complete" } {
+): PlayTarget {
   if (isSequenceComplete(progress, sequence)) {
     return { kind: "complete" };
   }
@@ -38,6 +49,24 @@ export function resolvePlayTarget(
     kind: "level",
     levelId,
     displayLevel: displayLevelNumber(progress),
+    playKind: "campaign",
+  };
+}
+
+export function resolveDeferredPlayTarget(
+  progress: V2PlayerProgress,
+  sequence: LevelSequence,
+  levelId: string,
+): PlayTarget | null {
+  if (!deferredIds(progress).includes(levelId)) return null;
+  if (!sequence.levelIds.includes(levelId)) return null;
+  const displayLevel = caseNumberForLevelId(levelId, sequence);
+  if (displayLevel == null) return null;
+  return {
+    kind: "level",
+    levelId,
+    displayLevel,
+    playKind: "deferred",
   };
 }
 
@@ -49,6 +78,17 @@ export function applyResultToProgress(
   progress: V2PlayerProgress,
   result: V2LevelResult,
   sequence: LevelSequence,
+  playKind: "campaign" | "deferred" = "campaign",
 ): V2PlayerProgress {
+  if (playKind === "deferred") {
+    return completeDeferredLevel(progress, result.levelId);
+  }
   return advanceProgressAfterLevel(progress, result.levelId, sequence);
+}
+
+export function applyDeferToProgress(
+  progress: V2PlayerProgress,
+  sequence: LevelSequence,
+): V2PlayerProgress | null {
+  return deferCurrentLevel(progress, sequence);
 }

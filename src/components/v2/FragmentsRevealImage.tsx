@@ -3,9 +3,12 @@
 import { useEffect, useId, useRef, useState } from "react";
 
 import type { FragmentPiece, ImagePoint } from "@/types/v2-content";
+import { cn } from "@/lib/utils/cn";
 
 const REVEAL_MS = 360;
 const CAMERA_MS = 620;
+/** Финальная сборка последней улики — спокойнее обычного reveal. */
+const FINAL_ASSEMBLE_MS = 520;
 
 type ViewRect = { x: number; y: number; w: number; h: number };
 
@@ -185,15 +188,17 @@ function useAnimatedViewBox(
 function AnimatedFragmentPiece({
   children,
   animate,
+  isFinal,
 }: {
   children: React.ReactNode;
   animate: boolean;
+  isFinal?: boolean;
 }) {
   if (!animate || prefersReducedMotion()) {
     return <g>{children}</g>;
   }
 
-  const dur = `${REVEAL_MS}ms`;
+  const dur = `${isFinal ? FINAL_ASSEMBLE_MS : REVEAL_MS}ms`;
 
   return (
     <g
@@ -212,7 +217,7 @@ function AnimatedFragmentPiece({
       <animateTransform
         attributeName="transform"
         type="scale"
-        values="0.9;1.03;1"
+        values={isFinal ? "0.96;1.01;1" : "0.9;1.03;1"}
         keyTimes="0;0.7;1"
         dur={dur}
         calcMode="spline"
@@ -259,22 +264,39 @@ export function FragmentsRevealImage({
     ? total
     : Math.max(0, Math.min(openedSteps, total));
   const reachedEnd = total > 0 && effectiveOpened >= total;
-  const [unveiled, setUnveiled] = useState(reachedEnd);
+  const isFinalAssemble =
+    !forceComplete &&
+    reachedEnd &&
+    (animatingPieceIndex === total - 1 || animatingPieceIndex == null);
+  const [unveiled, setUnveiled] = useState(reachedEnd && forceComplete);
+  const [assembleCalm, setAssembleCalm] = useState(false);
   const visible = pieces.slice(0, effectiveOpened);
+  const cameraMs =
+    isFinalAssemble || (reachedEnd && !forceComplete)
+      ? FINAL_ASSEMBLE_MS
+      : CAMERA_MS;
+  const unveilDelay = isFinalAssemble ? FINAL_ASSEMBLE_MS : REVEAL_MS;
 
   useEffect(() => {
     if (!reachedEnd) {
       setUnveiled(false);
+      setAssembleCalm(false);
       return;
     }
     if (prefersReducedMotion()) {
       setUnveiled(true);
+      setAssembleCalm(true);
       return;
     }
     // Полный кадр после короткого fade — и при естественном финале, и при сдаче.
-    const timer = window.setTimeout(() => setUnveiled(true), REVEAL_MS);
+    const timer = window.setTimeout(() => {
+      setUnveiled(true);
+      if (!forceComplete) {
+        setAssembleCalm(true);
+      }
+    }, unveilDelay);
     return () => window.clearTimeout(timer);
-  }, [reachedEnd, effectiveOpened]);
+  }, [reachedEnd, effectiveOpened, unveilDelay, forceComplete]);
 
   const showFullFrame = unveiled;
   const targetCamera = computeCameraRect(
@@ -283,11 +305,18 @@ export function FragmentsRevealImage({
     width,
     height,
   );
-  const camera = useAnimatedViewBox(targetCamera, CAMERA_MS);
+  const camera = useAnimatedViewBox(targetCamera, cameraMs);
   const viewBox = `${camera.x} ${camera.y} ${camera.w} ${camera.h}`;
 
   return (
-    <div className={className} role="img" aria-label={ariaLabel}>
+    <div
+      className={cn(
+        className,
+        assembleCalm && !forceComplete && "v2-final-assemble",
+      )}
+      role="img"
+      aria-label={ariaLabel}
+    >
       <svg
         className="h-full w-full"
         viewBox={viewBox}
@@ -310,6 +339,7 @@ export function FragmentsRevealImage({
                 <AnimatedFragmentPiece
                   key={piece.id}
                   animate={animatingPieceIndex === index}
+                  isFinal={index === total - 1 && animatingPieceIndex === index}
                 >
                   <polygon points={toPoints(piece.polygon)} fill="white" />
                 </AnimatedFragmentPiece>
@@ -323,7 +353,13 @@ export function FragmentsRevealImage({
           height={height}
           preserveAspectRatio="xMidYMid meet"
           mask={showFullFrame ? undefined : `url(#${maskId})`}
-          className={showFullFrame ? "v2-full-reveal" : undefined}
+          className={
+            showFullFrame
+              ? forceComplete
+                ? "v2-full-reveal"
+                : "v2-full-reveal v2-full-reveal--finale"
+              : undefined
+          }
         />
       </svg>
     </div>
@@ -331,3 +367,4 @@ export function FragmentsRevealImage({
 }
 
 export const V2_FRAGMENT_REVEAL_MS = Math.max(REVEAL_MS, CAMERA_MS);
+export const V2_FINAL_ASSEMBLE_MS = FINAL_ASSEMBLE_MS;
